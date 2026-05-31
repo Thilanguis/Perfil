@@ -6,13 +6,14 @@
     <title>Perfil Findom</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="data:," />
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#f8d26a">
+    
   </head>
   <body>
     <!-- Flash Screen Oculta -->
-    <div id="punishment-flash">
-      <h1 style="color: #fff; font-size: 3rem; margin: 0">⚠️ MULTA APLICADA</h1>
-      <h2 id="flash-penalty-value" style="color: #fff; font-size: 2rem">CAD +0,00</h2>
-    </div>
+    <div id="vignette-flash"></div>
+    <div id="floating-money-container"></div>
 
     <!-- Tela 1: Seleção de Perfil (Lobby) -->
     <div id="view-selection" class="view active">
@@ -86,9 +87,12 @@
           <div id="clues-board"></div>
 
           <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px">
-            <h3 style="margin-top: 0; color: var(--gold); text-align: center">FAÇA SUA APOSTA</h3>
-            <input type="text" id="player-guess-input" placeholder="Ex: Canadá..." style="margin-bottom: 12px; text-align: center; font-size: 1.2rem; font-weight: bold" />
-            <button id="btn-submit-guess" class="btn-primary" style="width: 100%">🔥 Enviar Palpite</button>
+            <h3 style="margin-top: 0; color: var(--gold); text-align: center; letter-spacing: 2px">FAÇA SUA APOSTA</h3>
+            <p style="color: #666; font-size: 0.8rem; text-align: center; margin: -5px 0 12px 0">Sua digitação está sendo monitorada ao vivo...</p>
+
+            <input type="text" id="player-guess-input" placeholder="Digite sua resposta..." style="margin-bottom: 16px; text-align: center; font-size: 1.2rem; font-weight: bold" />
+
+            <button id="btn-submit-guess" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black)">🔒 CRAVAR PALPITE (MULTA SE ERRAR)</button>
           </div>
         </div>
 
@@ -108,6 +112,11 @@
               <p style="color: #555; text-align: center">Vazio...</p>
             </div>
           </div>
+
+          <div class="card" style="margin-top: 20px; border-color: var(--red)">
+            <h4 style="margin: 0 0 15px 0; color: var(--red); text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem">Histórico de Submissão</h4>
+            <div id="player-history-list" style="max-height: 250px; overflow-y: auto"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -122,29 +131,91 @@
       </div>
 
       <div class="desktop-grid">
-        <div class="card card-gold">
-          <h3 style="margin-top: 0; color: var(--gold)">Controle do Baralho</h3>
-          <select id="admin-card-select" style="margin-bottom: 15px"></select>
+        
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <div class="card card-gold">
+            <h3 style="margin-top: 0; color: var(--gold)">Controle das Charadas</h3>
+            <select id="admin-card-select" style="margin-bottom: 15px"></select>
 
-          <!-- Edição de Valores Antes da Rodada -->
-          <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
-            <div style="flex: 1">
-              <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (CAD)</label>
-              <input type="number" id="admin-edit-clue" value="2" style="padding: 8px" />
+            <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
+              <div style="flex: 1">
+                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (CAD)</label>
+                <input type="number" id="admin-edit-clue" value="2" style="padding: 8px" />
+              </div>
+              <div style="flex: 1">
+                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (CAD)</label>
+                <input type="number" id="admin-edit-penalty" value="10" style="padding: 8px" />
+              </div>
             </div>
-            <div style="flex: 1">
-              <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (CAD)</label>
-              <input type="number" id="admin-edit-penalty" value="10" style="padding: 8px" />
+
+            <button id="btn-start-round" class="btn-primary" style="width: 100%">Lançar Charada</button>
+
+            <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px;">
+                <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Histórico de Danos da Sessão</h4>
+                <div id="admin-history-list" style="max-height: 250px; overflow-y: auto;"></div>
+            </div>
+
+            <div id="controller-status-container" style="margin-top: 20px; text-align: center; padding: 20px; background: var(--black); border-radius: 8px">
+              <p style="color: #888; margin: 0">
+                Status:
+                <strong id="controller-status" style="color: var(--red)">Fechado</strong>
+              </p>
             </div>
           </div>
+        </div>
 
-          <button id="btn-start-round" class="btn-primary" style="width: 100%">Colocar na Mesa</button>
+        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0;">
+          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
+            <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
+            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
+            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
+          </div>
 
-          <div id="controller-status-container" style="margin-top: 20px; text-align: center; padding: 20px; background: var(--black); border-radius: 8px">
-            <p style="color: #888; margin: 0">
-              Status:
-              <strong id="controller-status" style="color: var(--red)">Fechado</strong>
-            </p>
+          <div style="padding: 20px">
+            <p style="margin: 0 0 5px 0; color: #888">Resposta Secreta:</p>
+            <h2 id="admin-secret-answer" style="margin: 0 0 20px 0; color: var(--gold)">...</h2>
+
+            <p style="margin: 0 0 5px 0; color: #888">Chute:</p>
+            <div id="admin-guess-container" style="background: var(--black); padding: 15px; border: 1px dashed var(--gold-dark); text-align: center; margin-bottom: 20px; border-radius: 6px; transition: all 0.3s">
+              <h3 id="controller-latest-guess" style="margin: 0; color: #888">Aguardando palpite...</h3>
+            </div>
+
+            <p style="margin: 0 0 10px 0; color: #888">Mesa do Dominado (Grid):</p>
+            <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px"></div>
+            
+            <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold;">🔓 Liberar Mesa (Armadilhas Prontas)</button>
+
+            <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
+            <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
+              <p style="color: #555; text-align: center; font-size: 0.9rem">Nenhuma dica comprada ainda.</p>
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+              <button id="btn-mark-correct" class="btn-primary" style="flex: 1">Acertou</button>
+              <button id="btn-mark-wrong" class="btn-danger" style="flex: 1">Errou (Taxar)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+        <!-- Coluna da Direita: Finanças e o Histórico de Pressão -->
+        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0">
+          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
+            <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
+            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
+            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
+          </div>
+
+          <!-- Histórico inserido perfeitamente na barra lateral como no dominado -->
+          <div id="admin-history-box" style="padding: 20px; border-top: 1px dashed var(--border)">
+            <h4 style="margin: 0 0 15px 0; color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px">Histórico de Danos da Sessão</h4>
+            <div id="admin-history-list" style="max-height: 250px; overflow-y: auto"></div>
+          </div>
+
+          <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px">
+            <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico de Danos da Sessão</h4>
+            <div id="admin-history-list" style="max-height: 200px; overflow-y: auto"></div>
           </div>
         </div>
 
@@ -159,13 +230,20 @@
             <p style="margin: 0 0 5px 0; color: #888">Resposta Secreta:</p>
             <h2 id="admin-secret-answer" style="margin: 0 0 20px 0; color: var(--gold)">...</h2>
 
-            <!-- Espelho da Tela do Jogador -->
-            <p style="margin: 0 0 10px 0; color: #888">Visão da Mesa (Espelho):</p>
+            <!-- Chute com Alerta Visual -->
+            <p style="margin: 0 0 5px 0; color: #888">Chute:</p>
+            <div id="admin-guess-container" style="background: var(--black); padding: 15px; border: 1px dashed var(--gold-dark); text-align: center; margin-bottom: 20px; border-radius: 6px; transition: all 0.3s">
+              <h3 id="controller-latest-guess" style="margin: 0; color: var(--text)">Aguardando palpite...</h3>
+            </div>
+
+            <!-- Espelho da Tela do Jogador em Grade -->
+            <p style="margin: 0 0 10px 0; color: #888">Mesa do Dominado (Grid):</p>
             <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px"></div>
 
-            <p style="margin: 0 0 5px 0; color: #888">Chute:</p>
-            <div style="background: var(--black); padding: 15px; border: 1px dashed var(--gold-dark); text-align: center; margin-bottom: 15px">
-              <h3 id="controller-latest-guess" style="margin: 0; color: var(--text)">Nenhum</h3>
+            <!-- Textos das Dicas Liberadas -->
+            <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
+            <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
+              <p style="color: #555; text-align: center; font-size: 0.9rem">Nenhuma dica comprada ainda.</p>
             </div>
 
             <div style="display: flex; gap: 10px">
@@ -174,6 +252,21 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Modal de Atualização do Sistema -->
+    <div id="update-modal" style="position: fixed; inset: 0; background: rgba(9, 9, 9, 0.95); backdrop-filter: blur(10px); z-index: 10000; display: none; align-items: center; justify-content: center; flex-direction: column">
+      <div class="card card-gold" style="width: 90%; max-width: 400px; text-align: center; padding: 30px">
+        <h2 style="color: var(--gold); margin: 0 0 10px 0; letter-spacing: 2px">NOVA ATUALIZAÇÃO</h2>
+        <p id="update-status-text" style="color: #888; font-size: 0.9rem; margin-bottom: 20px">Uma nova versão do Tribute Profile foi encontrada.</p>
+
+        <!-- Barra de Progresso da Instalação -->
+        <div style="height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 25px; width: 100%">
+          <div id="update-progress-bar" style="height: 100%; width: 0%; background: var(--gold); transition: width 0.1s linear"></div>
+        </div>
+
+        <button id="btn-apply-update" class="btn-primary" style="width: 100%; display: none">Instalar e Reiniciar</button>
       </div>
     </div>
 
