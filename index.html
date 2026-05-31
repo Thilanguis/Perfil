@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil Findom</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="data:," />
+  </head>
+  <body>
+    <!-- Flash Screen Oculta -->
+    <div id="punishment-flash">
+      <h1 style="color: #fff; font-size: 3rem; margin: 0">⚠️ MULTA APLICADA</h1>
+      <h2 id="flash-penalty-value" style="color: #fff; font-size: 2rem">CAD +0,00</h2>
+    </div>
+
+    <!-- Tela 1: Seleção de Perfil (Lobby) -->
+    <div id="view-selection" class="view active">
+      <h1 class="header-title">Golden Tribute</h1>
+
+      <div class="lobby-grid">
+        <div class="card card-gold">
+          <h3 style="color: var(--gold); margin-top: 0">👑 Dominador</h3>
+          <p style="color: #888; font-size: 0.9rem">Configure sua sessão e assuma o controle.</p>
+          <input type="text" id="setup-admin-name" placeholder="Nome do Dominador / Mistress" value="Mistress Luana" style="margin-bottom: 12px" />
+
+          <div style="display: flex; gap: 12px; margin-bottom: 20px">
+            <div style="flex: 1">
+              <label style="font-size: 0.8rem; color: #888">Custo da Dica (CAD)</label>
+              <input type="number" id="setup-clue-cost" value="2" />
+            </div>
+            <div style="flex: 1">
+              <label style="font-size: 0.8rem; color: #888">Multa do Erro (CAD)</label>
+              <input type="number" id="setup-penalty" value="10" />
+            </div>
+          </div>
+          <button id="btn-enter-controller" class="btn-danger" style="width: 100%">Abrir Mesa VIP</button>
+        </div>
+
+        <div class="card">
+          <h3 style="color: var(--text); margin-top: 0">🐷 Dominado</h3>
+          <p style="color: #888; font-size: 0.9rem">Identifique-se para entrar na mesa de tributos.</p>
+          <input type="text" id="setup-player-name" placeholder="Seu Nome / Sub" value="Biel" style="margin-bottom: 12px" />
+          <button id="btn-enter-player" class="btn-primary" style="width: 100%">Entrar na Mesa</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tela 2: Visão do Jogador -->
+    <div id="view-player" class="view">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px">
+        <h2 style="margin: 0; color: var(--gold)">
+          🐷
+          <span id="ui-player-name">Biel</span>
+        </h2>
+        <button class="btn-danger btn-back" style="padding: 8px 16px; font-size: 0.9rem">Sair</button>
+      </div>
+
+      <!-- Valores Gigantes -->
+      <div style="text-align: center; border: 1px dashed var(--gold-dark); padding: 15px; border-radius: 8px; margin-bottom: 20px">
+        <h3 style="margin: 0; color: var(--gold)">
+          💰 CAD
+          <span id="ui-clue-cost">0,00</span>
+          por dica
+        </h3>
+        <h3 style="margin: 5px 0 0 0; color: var(--red)">
+          🔥 CAD
+          <span id="ui-mistake-penalty">0,00</span>
+          por erro
+        </h3>
+      </div>
+
+      <div class="desktop-grid">
+        <!-- Coluna Esquerda: Cartas e Palpite -->
+        <div class="card card-gold" style="position: relative; overflow: hidden">
+          <div id="player-blocker">
+            <div style="font-size: 4rem; margin-bottom: 10px">🔒</div>
+            <h2 style="color: var(--gold); margin: 0; text-transform: uppercase">Mesa Trancada</h2>
+            <p style="color: #888">Aguardando a liberação da Mistress.</p>
+          </div>
+
+          <h3 style="margin-top: 0; color: var(--text)">
+            Categoria:
+            <span id="player-category" style="color: var(--gold)">...</span>
+          </h3>
+          <div id="clues-board"></div>
+
+          <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px">
+            <h3 style="margin-top: 0; color: var(--gold); text-align: center">FAÇA SUA APOSTA</h3>
+            <input type="text" id="player-guess-input" placeholder="Ex: Canadá..." style="margin-bottom: 12px; text-align: center; font-size: 1.2rem; font-weight: bold" />
+            <button id="btn-submit-guess" class="btn-primary" style="width: 100%">🔥 Enviar Palpite</button>
+          </div>
+        </div>
+
+        <!-- Coluna Direita: Dívida e Histórico -->
+        <div>
+          <div class="debt-bar-container">
+            <h4 style="margin: 0 0 10px 0; color: #888; text-transform: uppercase; letter-spacing: 2px">Dívida Acumulada</h4>
+            <h1 id="player-debt" style="margin: 0; color: var(--gold); font-size: 2.5rem">CAD 0,00</h1>
+            <div class="debt-bar">
+              <div id="debt-progress" class="debt-fill"></div>
+            </div>
+          </div>
+
+          <div class="card" style="margin-top: 20px">
+            <h4 style="margin: 0 0 15px 0; color: var(--gold)">Dicas Reveladas</h4>
+            <div id="revealed-clues" style="min-height: 150px">
+              <p style="color: #555; text-align: center">Vazio...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tela 3: Visão do Controlador (Admin) -->
+    <div id="view-controller" class="view">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px">
+        <h2 style="margin: 0; color: var(--gold)">👑 Mistress Dashboard</h2>
+        <div>
+          <button id="btn-close-session" class="btn-danger" style="padding: 8px 16px; font-size: 0.9rem">Encerrar Sessão e Sair</button>
+        </div>
+      </div>
+
+      <div class="desktop-grid">
+        <div class="card card-gold">
+          <h3 style="margin-top: 0; color: var(--gold)">Controle do Baralho</h3>
+          <select id="admin-card-select" style="margin-bottom: 15px"></select>
+
+          <!-- Edição de Valores Antes da Rodada -->
+          <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
+            <div style="flex: 1">
+              <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (CAD)</label>
+              <input type="number" id="admin-edit-clue" value="2" style="padding: 8px" />
+            </div>
+            <div style="flex: 1">
+              <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (CAD)</label>
+              <input type="number" id="admin-edit-penalty" value="10" style="padding: 8px" />
+            </div>
+          </div>
+
+          <button id="btn-start-round" class="btn-primary" style="width: 100%">Colocar na Mesa</button>
+
+          <div id="controller-status-container" style="margin-top: 20px; text-align: center; padding: 20px; background: var(--black); border-radius: 8px">
+            <p style="color: #888; margin: 0">
+              Status:
+              <strong id="controller-status" style="color: var(--red)">Fechado</strong>
+            </p>
+          </div>
+        </div>
+
+        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0">
+          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
+            <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
+            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
+            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
+          </div>
+
+          <div style="padding: 20px">
+            <p style="margin: 0 0 5px 0; color: #888">Resposta Secreta:</p>
+            <h2 id="admin-secret-answer" style="margin: 0 0 20px 0; color: var(--gold)">...</h2>
+
+            <!-- Espelho da Tela do Jogador -->
+            <p style="margin: 0 0 10px 0; color: #888">Visão da Mesa (Espelho):</p>
+            <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px"></div>
+
+            <p style="margin: 0 0 5px 0; color: #888">Chute:</p>
+            <div style="background: var(--black); padding: 15px; border: 1px dashed var(--gold-dark); text-align: center; margin-bottom: 15px">
+              <h3 id="controller-latest-guess" style="margin: 0; color: var(--text)">Nenhum</h3>
+            </div>
+
+            <div style="display: flex; gap: 10px">
+              <button id="btn-mark-correct" class="btn-primary" style="flex: 1">Acertou</button>
+              <button id="btn-mark-wrong" class="btn-danger" style="flex: 1">Errou (Taxar)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts do Firebase (Mantendo as versões do seu sistema principal) -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
+
+    <!-- Scripts Locais Modulares -->
+    <script src="cards.js"></script>
+    <script src="firebase-setup.js"></script>
+    <script src="player.js"></script>
+    <script src="admin.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
