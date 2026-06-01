@@ -1,5 +1,5 @@
-const CACHE_NAME = 'tribute-profile-v3'; // Incrementado para forçar atualização
-const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './cards.js', './firebase-setup.js', './player.js', './admin.js', './app.js'];
+const CACHE_NAME = 'tribute-profile-v4';
+const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -7,7 +7,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(ASSETS_TO_CACHE);
     }),
   );
-  self.skipWaiting(); // Ativação silenciosa e imediata da nova versão no background
+  self.skipWaiting();
 });
 
 self.addEventListener('activate', (event) => {
