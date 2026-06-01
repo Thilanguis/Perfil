@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tribute-profile-v2'; // Incrementado para forçar atualização
+const CACHE_NAME = 'tribute-profile-v3'; // Incrementado para forçar atualização
 const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './cards.js', './firebase-setup.js', './player.js', './admin.js', './app.js'];
 
 self.addEventListener('install', (event) => {
