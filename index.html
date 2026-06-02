@@ -11,6 +11,12 @@
     
   </head>
   <body>
+
+    <!-- Splash Screen Cinematográfica -->
+    <div id="splash-screen">
+      <!-- muted e playsinline são obrigatórios para o navegador permitir o autoplay -->
+      <video id="splash-video" src="video.mp4" autoplay muted playsinline></video>
+    </div>
     <!-- Flash Screen Oculta -->
     <div id="vignette-flash"></div>
     <div id="floating-money-container"></div>
@@ -151,7 +157,7 @@
             <button id="btn-start-round" class="btn-primary" style="width: 100%">Lançar Charada</button>
 
             <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px;">
-                <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Histórico de Danos da Sessão</h4>
+                <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Histórico da Sessão</h4>
                 <div id="admin-history-list" style="max-height: 250px; overflow-y: auto;"></div>
             </div>
 
@@ -183,7 +189,7 @@
             <p style="margin: 0 0 10px 0; color: #888">Mesa do Dominado (Grid):</p>
             <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px"></div>
             
-            <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold;">🔓 Liberar Mesa (Armadilhas Prontas)</button>
+            <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold;">🔓 Liberar Mesa</button>
 
             <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
             <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
@@ -209,12 +215,12 @@
 
           <!-- Histórico inserido perfeitamente na barra lateral como no dominado -->
           <div id="admin-history-box" style="padding: 20px; border-top: 1px dashed var(--border)">
-            <h4 style="margin: 0 0 15px 0; color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px">Histórico de Danos da Sessão</h4>
+            <h4 style="margin: 0 0 15px 0; color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px">Histórico da Sessão</h4>
             <div id="admin-history-list" style="max-height: 250px; overflow-y: auto"></div>
           </div>
 
           <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px">
-            <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico de Danos da Sessão</h4>
+            <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico da Sessão</h4>
             <div id="admin-history-list" style="max-height: 200px; overflow-y: auto"></div>
           </div>
         </div>

@@ -66,6 +66,30 @@ function showToast(message, type = 'gold') {
   }, 3500);
 }
 
+// --- TRANSIÇÃO FLUIDA DO VÍDEO DE ABERTURA ---
+document.addEventListener('DOMContentLoaded', () => {
+  const splashScreen = document.getElementById('splash-screen');
+  const splashVideo = document.getElementById('splash-video');
+
+  if (splashScreen && splashVideo) {
+    // Define a velocidade do vídeo (1.0 é o normal, 0.7 é 70% da velocidade, 0.5 é metade)
+    splashVideo.playbackRate = 0.7;
+
+    splashVideo.play().catch((e) => console.log('Autoplay bloqueado:', e));
+
+    splashVideo.addEventListener('timeupdate', () => {
+      // O tempo de 3.8s continua valendo para o frame do vídeo, mesmo em câmera lenta
+      if (splashVideo.currentTime >= 3.8 && !splashScreen.classList.contains('fade-out')) {
+        splashScreen.classList.add('fade-out');
+
+        setTimeout(() => {
+          splashScreen.remove();
+        }, 1000);
+      }
+    });
+  }
+});
+
 // --- SISTEMA DE ATUALIZAÇÃO AUTOMÁTICA E SILENCIOSA VIA SERVICE WORKER ---
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -390,14 +414,14 @@ gameRef.onSnapshot((doc) => {
               btnUnlock.style.color = '#666';
               btnUnlock.style.cursor = 'not-allowed';
               btnUnlock.style.boxShadow = 'none';
-              btnUnlock.textContent = `🔒 SELECIONE MAIS ${3 - trapsCount} ARMADILHAS ABAIXO`;
+              btnUnlock.textContent = `🔒 SELECIONE ${3 - trapsCount} ARMADILHAS`;
             } else {
               // Libera o botão com o visual premium dourado original
               btnUnlock.disabled = false;
               btnUnlock.style.background = 'linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%)';
               btnUnlock.style.color = 'var(--black)';
               btnUnlock.style.cursor = 'pointer';
-              btnUnlock.textContent = '🔓 LIBERAR MESA (ARMADILHAS PRONTAS)';
+              btnUnlock.textContent = '🔓 LIBERAR MESA';
             }
           } else {
             btnUnlock.style.display = 'none';
@@ -466,19 +490,25 @@ gameRef.onSnapshot((doc) => {
           }
         }
 
-        // --- SISTEMA DE PRÉVIA OCULTA DAS DICAS ABAIXO DO HISTÓRICO ---
+        // --- SISTEMA DE PRÉVIA OCULTA DAS DICAS ACIMA DO HISTÓRICO ---
         const historyBox = document.getElementById('admin-history-box');
         if (historyBox) {
           let previewContainer = document.getElementById('admin-preview-clues-box');
 
-          // Se o contêiner não existir na tela esquerda, cria ele dinamicamente embaixo do histórico
+          // Altera a inserção para injetar o bloco ANTES do histórico de danos com as correções de layout
           if (!previewContainer) {
             previewContainer = document.createElement('div');
             previewContainer.id = 'admin-preview-clues-box';
-            previewContainer.style.marginTop = '20px';
-            previewContainer.style.borderTop = '1px dashed var(--border)';
-            previewContainer.style.paddingTop = '15px';
-            historyBox.parentNode.insertBefore(previewContainer, historyBox.nextSibling);
+            previewContainer.style.marginTop = '25px'; // Afasta o título da prévia do botão "Lançar Charada"
+            previewContainer.style.marginBottom = '25px'; // Espaço controlado entre a prévia e o histórico
+            previewContainer.style.borderBottom = '1px dashed var(--border)'; // Mantém apenas a linha divisória inferior
+            previewContainer.style.paddingBottom = '15px';
+
+            // Força o bloco de histórico original a remover a borda superior dele para não duplicar as linhas
+            historyBox.style.borderTop = 'none';
+            historyBox.style.paddingTop = '0';
+
+            historyBox.parentNode.insertBefore(previewContainer, historyBox);
           }
 
           // CORREÇÃO DE CACHE: Esconde os textos imediatamente se a mesa foi liberada,
@@ -729,11 +759,31 @@ gameRef.onSnapshot((doc) => {
 
         // Customiza o feedback visual baseado na validação do Dominador
         if (data.status === 'playing' && !data.trapsReady) {
-          // Fase 1: Jogo iniciou, mas a Mistress está armando as pegadinhas
+          // Injeta a animação de rotação contínua caso ela ainda não exista no head do documento
+          if (!document.getElementById('hourglass-animation-style')) {
+            const style = document.createElement('style');
+            style.id = 'hourglass-animation-style';
+            style.innerHTML = `
+              @keyframes premiumHourglassSpin {
+                0% { transform: rotate(0deg); }
+                40% { transform: rotate(0deg); }
+                50% { transform: rotate(180deg); }
+                90% { transform: rotate(180deg); }
+                100% { transform: rotate(360deg); }
+              }
+              .hourglass-spin-effect {
+                display: inline-block;
+                animation: premiumHourglassSpin 3s infinite cubic-bezier(0.77, 0, 0.175, 1);
+              }
+            `;
+            document.head.appendChild(style);
+          }
+
+          // Fase 1: Jogo iniciou, mas a Mistress está armando as pegadinhas (Com ampulheta animada)
           playerBlocker.innerHTML = `
-            <div style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
-            <h2 style="color: var(--gold); margin: 0; text-transform: uppercase;">Preparando Mesa</h2>
-            <p style="color: #888;">A Mistress está posicionando as armadilhas...</p>
+            <div class="hourglass-spin-effect" style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
+            <h2 style="color: var(--gold); margin: 0; text-transform: uppercase; letter-spacing: 2px;">Preparando Mesa</h2>
+            <p style="color: #888; margin-top: 8px;">A Mistress está posicionando as armadilhas...</p>
           `;
           playerBlocker.style.background = 'rgba(9, 9, 9, 0.9)';
           playerBlocker.style.borderColor = 'var(--gold-dark)';

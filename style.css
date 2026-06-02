@@ -459,3 +459,29 @@ select:focus {
     0 0 15px rgba(61, 220, 132, 0.15),
     0 10px 30px rgba(0, 0, 0, 0.7);
 }
+
+/* --- SPLASH SCREEN DE ABERTURA (VÍDEO) --- */
+#splash-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  z-index: 99999;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+}
+
+#splash-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#splash-video {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  /* O zoom de 1.2 (20%) corta as bordas pretas nativas do vídeo e esconde a logo do KlingAI */
+  transform: scale(1.2);
+}
