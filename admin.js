@@ -36,36 +36,27 @@ function criarConfirmacaoInline(botaoOriginal, mensagem, acaoConfirmada) {
   btnNao.addEventListener('click', restaurarBotao);
 }
 
-// Função com agrupamento por categoria
+// Função para listar apenas as categorias disponíveis (Mantém o total segredo das respostas)
 function updateAdminDeckList() {
   const select = document.getElementById('admin-card-select');
   if (!select) return;
   select.innerHTML = '';
 
+  // Opção global totalmente aleatória
   const randomOpt = document.createElement('option');
   randomOpt.value = 'random';
-  randomOpt.textContent = '🎲 Sortear Charada Aleatória';
+  randomOpt.textContent = '🎲 Sortear Qualquer Charada Aleatória';
   select.appendChild(randomOpt);
 
-  const groups = {};
-  PRELOADED_CARDS.forEach((card) => {
-    if (!groups[card.category]) groups[card.category] = [];
-    groups[card.category].push(card);
-  });
+  // Extrai uma lista única e limpa de todas as categorias do banco de dados
+  const categories = [...new Set(PRELOADED_CARDS.map((card) => card.category))].sort();
 
-  Object.keys(groups)
-    .sort()
-    .forEach((category) => {
-      const optGroup = document.createElement('optgroup');
-      optGroup.label = category;
-      groups[category].forEach((card) => {
-        const opt = document.createElement('option');
-        opt.value = card.id;
-        opt.textContent = card.answer;
-        optGroup.appendChild(opt);
-      });
-      select.appendChild(optGroup);
-    });
+  categories.forEach((category) => {
+    const opt = document.createElement('option');
+    opt.value = `category_${category}`;
+    opt.textContent = `Tipo: ${category}`;
+    select.appendChild(opt);
+  });
 }
 
 // Listeners de Sincronização Instantânea
@@ -158,15 +149,20 @@ document.getElementById('btn-reset-debt').addEventListener('click', (e) => {
 });
 
 document.getElementById('btn-start-round').addEventListener('click', async () => {
-  let selectedCardId = document.getElementById('admin-card-select').value;
-  if (!selectedCardId) return;
+  let selectedValue = document.getElementById('admin-card-select').value;
+  if (!selectedValue) return;
 
   let cardData;
-  if (selectedCardId === 'random') {
+  if (selectedValue === 'random') {
+    // Sorteia absolutamente qualquer carta do banco completo
     const randomIndex = Math.floor(Math.random() * PRELOADED_CARDS.length);
     cardData = PRELOADED_CARDS[randomIndex];
-  } else {
-    cardData = PRELOADED_CARDS.find((c) => c.id === selectedCardId);
+  } else if (selectedValue.startsWith('category_')) {
+    // Filtra as cartas daquela categoria escolhida e sorteia uma em segredo total
+    const targetCategory = selectedValue.replace('category_', '');
+    const filteredCards = PRELOADED_CARDS.filter((c) => c.category === targetCategory);
+    const randomIndex = Math.floor(Math.random() * filteredCards.length);
+    cardData = filteredCards[randomIndex];
   }
 
   // CORREÇÃO: Verifica se os inputs existem antes de tentar ler o .value

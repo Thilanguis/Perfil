@@ -90,18 +90,79 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-// --- SISTEMA DE ATUALIZAÇÃO AUTOMÁTICA E SILENCIOSA VIA SERVICE WORKER ---
+// --- SISTEMA DE ATUALIZAÇÃO VIA SERVICE WORKER COM MODAL INTERATIVO ---
 if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./service-worker.js');
+  window.addEventListener('load', async () => {
+    try {
+      const registration = await navigator.serviceWorker.register('./service-worker.js');
 
+      // 1. Detecta se já tem uma atualização aguardando para ser aplicada
+      if (registration.waiting) {
+        showUpdateModal(registration.waiting);
+      }
+
+      // 2. Detecta quando uma nova atualização é encontrada e começa a instalar em background
+      registration.addEventListener('updatefound', () => {
+        const newWorker = registration.installing;
+        if (newWorker) {
+          newWorker.addEventListener('statechange', () => {
+            // Quando terminar de baixar, mostra o modal
+            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+              showUpdateModal(newWorker);
+            }
+          });
+        }
+      });
+    } catch (error) {
+      console.error('Erro ao registrar Service Worker:', error);
+    }
+
+    // 3. Garante que a tela recarregue automaticamente apenas 1x quando o novo SW assumir o controle
     let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
         refreshing = true;
-        window.location.reload(); // Atualização imediata e transparente no background
+        window.location.reload();
       }
     });
+  });
+}
+
+// Função auxiliar para exibir o modal e controlar a barra de progresso visual
+function showUpdateModal(worker) {
+  const modal = document.getElementById('update-modal');
+  const progressBar = document.getElementById('update-progress-bar');
+  const btnApply = document.getElementById('btn-apply-update');
+  const statusText = document.getElementById('update-status-text');
+
+  if (!modal || !progressBar || !btnApply) return;
+
+  // Trava a tela exibindo o modal
+  modal.style.display = 'flex';
+
+  // Animação de carregamento (feedback visual premium)
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.floor(Math.random() * 15) + 5;
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      progressBar.style.width = '100%';
+      statusText.textContent = 'Atualização baixada! Clique para reiniciar.';
+      statusText.style.color = 'var(--green)';
+      btnApply.style.display = 'block'; // Mostra o botão apenas quando chega em 100%
+    } else {
+      progressBar.style.width = `${progress}%`;
+      statusText.textContent = `Baixando nova versão... ${progress}%`;
+    }
+  }, 250);
+
+  // Ação do botão: manda o comando pro Service Worker se ativar e reiniciar tudo
+  btnApply.addEventListener('click', () => {
+    btnApply.textContent = 'Reiniciando...';
+    btnApply.disabled = true;
+    btnApply.style.opacity = '0.5';
+    worker.postMessage('skipWaiting');
   });
 }
 
