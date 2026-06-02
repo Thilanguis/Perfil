@@ -406,12 +406,12 @@ gameRef.onSnapshot((doc) => {
     const adminDashboardCard = document.getElementById('admin-dashboard-card');
 
     if (adminStatusContainer && adminDashboardCard) {
-      // Deixa o painel aberto APENAS enquanto o jogo está rolando
-      if (data.status === 'playing') {
+      // CORREÇÃO: O painel financeiro da direita fica VISÍVEL se a mesa estiver aberta,
+      // independente se a rodada atual está rolando, aguardando ou finalizada.
+      if (data.status && data.status !== 'closed') {
         adminStatusContainer.style.display = 'none';
-        adminDashboardCard.style.display = 'block';
+        adminDashboardCard.style.display = 'block'; // PROTEGE A DÍVIDA NA TELA
 
-        // Adicionamos esta chamada para garantir que o menu esteja cheio
         if (typeof updateAdminDeckList === 'function') {
           updateAdminDeckList();
         }
@@ -572,9 +572,10 @@ gameRef.onSnapshot((doc) => {
             historyBox.parentNode.insertBefore(previewContainer, historyBox);
           }
 
-          // CORREÇÃO DE CACHE: Esconde os textos imediatamente se a mesa foi liberada,
-          // se a sessão fechou, se resetou ou se NÃO estiver com o status explícito de tocando a rodada.
+          // CORREÇÃO: Quando a rodada reseta ou termina, limpamos APENAS a prévia das dicas textuais,
+          // protegendo a estrutura do histórico e mantendo a Dívida Acumulada intacta na tela.
           if (data.trapsReady || data.status !== 'playing' || !data.clues || data.clues.length === 0) {
+            // Limpa apenas o HTML interno gerado pelas dicas da rodada anterior
             previewContainer.innerHTML = '';
           } else {
             const traps = data.trapIndices || [];

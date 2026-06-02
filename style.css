@@ -1,22 +1,26 @@
 :root {
   --gold: #f8d26a;
   --gold-dark: #b68c2a;
-  --black: #090909;
-  --card: #141414;
-  --red: #d72638;
-  --green: #3ddc84;
-  --border: #2a2a2a;
-  --text: #e0e0e0;
+  --black: #040406;
+  --card: #0c0c10;
+  --red: #e62236;
+  --green: #2ecc71;
+  --border: #1a1a22;
+  --text: #f0f0f5;
+  --glow-gold: rgba(248, 210, 106, 0.2);
+  --glow-red: rgba(230, 34, 54, 0.3);
 }
 
 * {
   box-sizing: border-box;
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   -webkit-tap-highlight-color: transparent;
+  letter-spacing: 0.7px;
 }
 
 body {
-  background: radial-gradient(circle at top, #2b1f07 0%, #111 40%, #080808 100%);
+  /* Fundo degradê estilo lounge de luxo escuro */
+  background: radial-gradient(circle at top, #1a1103 0%, #060609 50%, #020203 100%);
   background-attachment: fixed;
   color: var(--text);
   margin: 0;
@@ -76,51 +80,76 @@ body {
 }
 
 .card {
-  background: var(--card);
+  background: linear-gradient(145deg, #0f0f15 0%, #060609 100%);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+  border-radius: 16px;
+  padding: 26px;
+  margin-bottom: 24px;
+  /* Sombra pesada com efeito chanfrado de luz interna */
+  box-shadow:
+    0 25px 50px rgba(0, 0, 0, 0.95),
+    inset 0 1px 2px rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(12px);
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .card-gold {
-  border-color: var(--gold-dark);
-  box-shadow: 0 0 15px rgba(182, 140, 42, 0.1);
+  border: 1px solid rgba(182, 140, 42, 0.5);
+  box-shadow:
+    0 0 30px var(--glow-gold),
+    0 25px 50px rgba(0, 0, 0, 0.95);
+}
+
+.card-gold:hover {
+  border-color: var(--gold);
+  box-shadow:
+    0 0 40px rgba(248, 210, 106, 0.25),
+    0 25px 50px rgba(0, 0, 0, 0.95);
 }
 
 button {
   border: none;
-  border-radius: 6px;
-  font-weight: bold;
+  border-radius: 8px;
+  font-weight: 800;
   cursor: pointer;
   padding: 16px;
-  font-size: 1.1rem;
-  transition: all 0.2s ease;
+  font-size: 1.05rem;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 button:active {
-  transform: scale(0.98);
+  transform: scale(0.95);
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  color: var(--black);
+  background: linear-gradient(135deg, #ffeaa7 0%, var(--gold) 50%, #8a6d1c 100%);
+  color: #000;
+  font-weight: 900;
 }
 
 .btn-primary:hover {
-  box-shadow: 0 0 15px rgba(248, 210, 106, 0.4);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 25px rgba(248, 210, 106, 0.55),
+    0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 .btn-danger {
-  background: linear-gradient(135deg, var(--red) 0%, #8a0000 100%);
+  background: linear-gradient(135deg, var(--red) 0%, #b3101e 50%, #4a0005 100%);
   color: #fff;
+  border: 1px solid rgba(255, 0, 0, 0.15);
 }
 
 .btn-danger:hover {
-  box-shadow: 0 0 15px rgba(215, 38, 56, 0.5);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 25px rgba(230, 34, 54, 0.65),
+    0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* Cartas de Dica Premium */
@@ -132,29 +161,36 @@ button:active {
 }
 
 .btn-clue {
-  background: var(--black);
+  background: linear-gradient(135deg, #121217 0%, #050508 100%);
   color: var(--gold);
-  padding: 10px 0;
+  padding: 14px 0;
   font-size: 1.1rem;
-  font-weight: 800;
-  border-radius: 6px;
-  border: 1px solid var(--gold-dark);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+  font-weight: 900;
+  border-radius: 10px;
+  border: 1px solid rgba(182, 140, 42, 0.35);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.65),
+    inset 0 1px 1px rgba(255, 255, 255, 0.02);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
 }
 
 .btn-clue:not(:disabled):hover {
-  background: var(--card);
-  transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(248, 210, 106, 0.2);
+  background: linear-gradient(135deg, #1a1a24 0%, #0a0a0f 100%);
+  border-color: var(--gold);
+  color: #fff;
+  transform: translateY(-4px) scale(1.03);
+  box-shadow:
+    0 0 20px rgba(248, 210, 106, 0.35),
+    0 12px 24px rgba(0, 0, 0, 0.6);
 }
 
 .btn-clue:disabled {
-  background: var(--border);
-  color: #555;
-  border-color: var(--card);
+  background: #08080b;
+  color: #2c2c35;
+  border-color: #121216;
   cursor: not-allowed;
   transform: none;
-  box-shadow: none;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.8);
 }
 
 /* Dívida Animada */
