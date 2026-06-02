@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tribute-profile-v4';
+const CACHE_NAME = 'tribute-profile-v5';
 const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', (event) => {

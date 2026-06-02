@@ -1,5 +1,41 @@
 // --- AÇÕES DO CONTROLADOR (ADMIN) ---
 
+// Função auxiliar reutilizável para criar a confirmação inline "Sim/Não"
+function criarConfirmacaoInline(botaoOriginal, mensagem, acaoConfirmada) {
+  const wrapper = document.createElement('div');
+  wrapper.style.display = 'flex';
+  wrapper.style.gap = '10px';
+  wrapper.style.alignItems = 'center';
+  wrapper.style.justifyContent = 'center';
+  wrapper.style.width = '100%';
+  wrapper.style.marginTop = window.getComputedStyle(botaoOriginal).marginTop;
+
+  wrapper.innerHTML = `
+    <span style="color: var(--text); font-size: 0.85rem; font-weight: bold; white-space: nowrap;">${mensagem}</span>
+    <button class="btn-danger" style="padding: 8px 16px; font-size: 0.8rem; flex: 1; margin: 0;">Sim</button>
+    <button class="btn-primary" style="padding: 8px 16px; font-size: 0.8rem; flex: 1; margin: 0; background: var(--border); color: #fff; border: 1px solid #444;">Não</button>
+  `;
+
+  botaoOriginal.style.display = 'none';
+  botaoOriginal.parentNode.insertBefore(wrapper, botaoOriginal);
+
+  const botoes = wrapper.querySelectorAll('button');
+  const btnSim = botoes[0];
+  const btnNao = botoes[1];
+
+  const restaurarBotao = () => {
+    wrapper.remove();
+    botaoOriginal.style.display = '';
+  };
+
+  btnSim.addEventListener('click', async () => {
+    restaurarBotao();
+    await acaoConfirmada();
+  });
+
+  btnNao.addEventListener('click', restaurarBotao);
+}
+
 // Função com agrupamento por categoria
 function updateAdminDeckList() {
   const select = document.getElementById('admin-card-select');
@@ -108,10 +144,17 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
   }
 });
 
-document.getElementById('btn-reset-debt').addEventListener('click', async () => {
-  if (confirm('Tem certeza que deseja zerar a dívida acumulada dessa sessão?')) {
-    await gameRef.update({ debt: 0 });
-  }
+// Botão de Reset de Dívida com confirmação explícita inline (Substituído com segurança)
+document.getElementById('btn-reset-debt').addEventListener('click', (e) => {
+  criarConfirmacaoInline(e.currentTarget, 'Zerar tudo?', async () => {
+    try {
+      await gameRef.update({ debt: 0 });
+      showToast('Dívida acumulada zerada com sucesso.', 'gold');
+    } catch (error) {
+      console.error('Erro ao zerar dívida:', error);
+      showToast('Erro ao zerar a dívida.', 'danger');
+    }
+  });
 });
 
 document.getElementById('btn-start-round').addEventListener('click', async () => {
@@ -158,23 +201,26 @@ document.getElementById('btn-unlock-board').addEventListener('click', async () =
   showToast('Mesa liberada! O dominado agora pode interagir.', 'success');
 });
 
-// Botão para derrubar o jogador e resetar a mesa
-
-// Botão para derrubar o jogador e resetar a mesa
-document.getElementById('btn-close-session').addEventListener('click', async () => {
-  if (confirm('Deseja encerrar a sessão, zerar a dívida e expulsar o dominado?')) {
+// Botão para derrubar o jogador e resetar a mesa com confirmação explícita inline (Substituído com segurança)
+document.getElementById('btn-close-session').addEventListener('click', (e) => {
+  criarConfirmacaoInline(e.currentTarget, 'Encerrar sessão?', async () => {
     sessionStorage.removeItem('gameRole'); // LIMPA O PAPEL DESTA ABA NO LOGOUT
-    await gameRef.update({
-      status: 'closed',
-      debt: 0,
-      revealedIndexes: [],
-      latestGuess: '',
-      guessLocked: false,
-      history: [], // Reseta o histórico ao fechar a mesa completamente
-    });
-    document.getElementById('view-controller').classList.remove('active');
-    document.getElementById('view-selection').classList.add('active');
-  }
+    try {
+      await gameRef.update({
+        status: 'closed',
+        debt: 0,
+        revealedIndexes: [],
+        latestGuess: '',
+        guessLocked: false,
+        history: [], // Reseta o histórico ao fechar a mesa completamente
+      });
+      showToast('Sessão encerrada e submisso desconectado.', 'danger');
+      document.getElementById('view-controller').classList.remove('active');
+      document.getElementById('view-selection').classList.add('active');
+    } catch (error) {
+      console.error('Erro ao fechar sessão:', error);
+    }
+  });
 });
 
 // Listener de Acerto reseta a flag de trava e computa histórico
@@ -209,7 +255,7 @@ document.getElementById('btn-mark-correct').addEventListener('click', async () =
   }
 });
 
-// Listener de Erro reseta a flag de trava, aplica a multa e computa histórico (Duplicidade Removida)
+// Listener de Erro reseta a flag de trava, aplica a multa e computa histórico
 document.getElementById('btn-mark-wrong').addEventListener('click', async () => {
   try {
     const doc = await gameRef.get();
@@ -246,18 +292,6 @@ document.getElementById('btn-mark-wrong').addEventListener('click', async () => 
   }
 });
 
-// Garante o funcionamento correto do Reset de Dívida
-document.getElementById('btn-reset-debt').addEventListener('click', async () => {
-  if (confirm('Tem certeza que deseja zerar a dívida acumulada dessa sessão?')) {
-    try {
-      await gameRef.update({ debt: 0 });
-      showToast('Dívida zerada com sucesso.', 'gold');
-    } catch (error) {
-      console.error('Erro ao zerar dívida:', error);
-    }
-  }
-});
-
 // --- SINCRONIZAÇÃO INSTANTÂNEA (SEM ESPERA) ---
 document.getElementById('admin-edit-clue').addEventListener('input', async (e) => {
   const val = parseFloat(e.target.value);
@@ -284,5 +318,5 @@ document.getElementById('admin-edit-penalty').addEventListener('input', async (e
 // --- GARANTIR QUE A LISTA SEJA POPULADA AO CARREGAR ---
 document.addEventListener('DOMContentLoaded', updateAdminDeckList);
 
-// Adicione também este log para vermos se os dados estão chegando
+// Log para monitoramento
 console.log('Cartas carregadas:', typeof PRELOADED_CARDS !== 'undefined' ? PRELOADED_CARDS.length : 'ERRO: PRELOADED_CARDS NÃO ENCONTRADO');

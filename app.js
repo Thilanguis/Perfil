@@ -1,3 +1,46 @@
+// --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER (CORRIGIDA PARA TRAPS) ---
+window.typewriterDivs = window.typewriterDivs || new Map();
+
+function typeWriterEffect(element, text, speed = 75) {
+  if (!element) return;
+
+  if (element.dataset.fullText === text) return;
+  element.dataset.fullText = text;
+
+  if (window.typewriterDivs.has(element)) {
+    clearInterval(window.typewriterDivs.get(element));
+  }
+
+  element.innerHTML = '';
+
+  // Se for uma armadilha com HTML, extrai apenas o texto puro para fazer a animação de escrita
+  let textToAnimate = text;
+  let isHtml = text.includes('<span');
+
+  if (isHtml) {
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = text;
+    textToAnimate = tempDiv.textContent || tempDiv.innerText;
+  }
+
+  let i = 0;
+  const timer = setInterval(() => {
+    if (i < textToAnimate.length) {
+      element.textContent += textToAnimate.charAt(i);
+      i++;
+    } else {
+      clearInterval(timer);
+      window.typewriterDivs.delete(element);
+      // Quando termina de digitar a armadilha, aplica o HTML com a cor vermelha estilizada
+      if (isHtml) {
+        element.innerHTML = text;
+      }
+    }
+  }, speed);
+
+  window.typewriterDivs.set(element, timer);
+}
+
 // --- FUNÇÃO GLOBAL DE TOAST NOTIFICATION ---
 function showToast(message, type = 'gold') {
   let container = document.getElementById('toast-container');
@@ -334,8 +377,31 @@ gameRef.onSnapshot((doc) => {
         // --- CONTROLE DO BOTÃO DE LIBERAR MESA ---
         const btnUnlock = document.getElementById('btn-unlock-board');
         if (btnUnlock) {
-          // Exibe o botão apenas se o jogo está rolando e as armadilhas AINDA NÃO foram liberadas
-          btnUnlock.style.display = !data.trapsReady && data.status === 'playing' ? 'block' : 'none';
+          const trapsCount = (data.trapIndices || []).length;
+
+          // Exibe o botão apenas se o jogo está rolando e as armadilhas ainda não foram liberadas
+          if (!data.trapsReady && data.status === 'playing') {
+            btnUnlock.style.display = 'block';
+
+            if (trapsCount < 3) {
+              // Bloqueia e avisa quantas faltam
+              btnUnlock.disabled = true;
+              btnUnlock.style.background = 'var(--border)';
+              btnUnlock.style.color = '#666';
+              btnUnlock.style.cursor = 'not-allowed';
+              btnUnlock.style.boxShadow = 'none';
+              btnUnlock.textContent = `🔒 SELECIONE MAIS ${3 - trapsCount} ARMADILHAS ABAIXO`;
+            } else {
+              // Libera o botão com o visual premium dourado original
+              btnUnlock.disabled = false;
+              btnUnlock.style.background = 'linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%)';
+              btnUnlock.style.color = 'var(--black)';
+              btnUnlock.style.cursor = 'pointer';
+              btnUnlock.textContent = '🔓 LIBERAR MESA (ARMADILHAS PRONTAS)';
+            }
+          } else {
+            btnUnlock.style.display = 'none';
+          }
         }
 
         const mirrorBoard = document.getElementById('admin-mirror-board');
@@ -344,7 +410,14 @@ gameRef.onSnapshot((doc) => {
 
         if (mirrorBoard) {
           mirrorBoard.innerHTML = '';
-          const traps = data.trapIndices || []; // Array de traps do Firebase
+          // Restaura o grid original de 5 colunas idêntico ao do jogador
+          mirrorBoard.style.display = 'grid';
+          mirrorBoard.style.gridTemplateColumns = 'repeat(5, 1fr)';
+          mirrorBoard.style.gap = '6px';
+          mirrorBoard.style.maxHeight = 'none';
+          mirrorBoard.style.overflowY = 'visible';
+
+          const traps = data.trapIndices || [];
 
           for (let i = 1; i <= 20; i++) {
             const block = document.createElement('div');
@@ -356,29 +429,36 @@ gameRef.onSnapshot((doc) => {
             block.style.borderRadius = '4px';
             block.style.fontSize = '0.8rem';
             block.style.fontWeight = 'bold';
-            block.style.cursor = 'pointer'; // Deixa clicável para a Mistress
             block.style.transition = 'all 0.2s';
 
-            // Visual: Ouro se revelada, Vermelho se trap, Cinza padrão
+            // Se já bateu as 3 traps OU a mesa já foi liberada, tranca a edição bloqueando o ponteiro
+            const isLocked = traps.length >= 3 || data.trapsReady;
+            block.style.cursor = isRevealed || (isLocked && !isTrap) ? 'not-allowed' : 'pointer';
+
             block.style.background = isRevealed ? 'var(--gold-dark)' : isTrap ? 'var(--red)' : 'var(--border)';
             block.style.color = isRevealed ? 'var(--black)' : '#fff';
             block.style.border = isTrap ? '2px solid white' : '1px solid transparent';
             block.textContent = isRevealed ? `💎 ${String(i).padStart(2, '0')}` : String(i).padStart(2, '0');
 
-            // Clique do Admin para marcar/desmarcar a trap
             block.addEventListener('click', async () => {
-              if (isRevealed) return; // Não pode por trap onde a dica já foi comprada
-
-              block.style.pointerEvents = 'none'; // Trava duplo clique rápido
-              block.style.opacity = '0.5';
+              if (isRevealed) return;
+              if (data.trapsReady) {
+                showToast('A mesa já foi liberada! Não pode alterar as armadilhas.', 'danger');
+                return;
+              }
 
               let newTraps = [...traps];
               if (isTrap) {
-                newTraps = newTraps.filter((t) => t !== i - 1); // Desmarca a trap
-              } else if (newTraps.length < 3) {
-                newTraps.push(i - 1); // Marca nova trap (máx 3)
+                newTraps = newTraps.filter((t) => t !== i - 1);
+              } else {
+                if (newTraps.length >= 3) {
+                  showToast('Limite máximo de 3 armadilhas atingido! Libere a mesa ou desmarque uma.', 'gold');
+                  return;
+                }
+                newTraps.push(i - 1);
               }
 
+              block.style.pointerEvents = 'none';
               await gameRef.update({ trapIndices: newTraps });
             });
 
@@ -386,24 +466,102 @@ gameRef.onSnapshot((doc) => {
           }
         }
 
+        // --- SISTEMA DE PRÉVIA OCULTA DAS DICAS ABAIXO DO HISTÓRICO ---
+        const historyBox = document.getElementById('admin-history-box');
+        if (historyBox) {
+          let previewContainer = document.getElementById('admin-preview-clues-box');
+
+          // Se o contêiner não existir na tela esquerda, cria ele dinamicamente embaixo do histórico
+          if (!previewContainer) {
+            previewContainer = document.createElement('div');
+            previewContainer.id = 'admin-preview-clues-box';
+            previewContainer.style.marginTop = '20px';
+            previewContainer.style.borderTop = '1px dashed var(--border)';
+            previewContainer.style.paddingTop = '15px';
+            historyBox.parentNode.insertBefore(previewContainer, historyBox.nextSibling);
+          }
+
+          // CORREÇÃO DE CACHE: Esconde os textos imediatamente se a mesa foi liberada,
+          // se a sessão fechou, se resetou ou se NÃO estiver com o status explícito de tocando a rodada.
+          if (data.trapsReady || data.status !== 'playing' || !data.clues || data.clues.length === 0) {
+            previewContainer.innerHTML = '';
+          } else {
+            const traps = data.trapIndices || [];
+            const cluesList = data.clues || [];
+
+            const trapsCount = (data.trapIndices || []).length;
+            const instrucaoStyle = trapsCount < 3 ? 'color: var(--gold); font-weight: bold;' : 'color: var(--green);';
+            const instrucaoTexto = trapsCount < 3 ? `⚠️ CLIQUE EM 3 DICAS NA GRADE DA DIREITA PARA TRANSFORMAR EM ARMADILHA (${trapsCount}/3)` : '✅ 3 ARMADILHAS CONFIGURADAS! LIBERE A MESA NO BOTÃO ACIMA.';
+
+            let previewHTML = `
+              <h4 style="margin: 0 0 5px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
+                🕵️ Prévias das Dicas (Fase de Preparação)
+              </h4>
+              <p style="margin: 0 0 15px 0; font-size: 0.75rem; text-transform: uppercase; ${instrucaoStyle}">
+                ${instrucaoTexto}
+              </p>
+              <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
+            `;
+
+            cluesList.forEach((clueText, index) => {
+              const isTrap = traps.includes(index);
+              const borderColor = isTrap ? 'var(--red)' : 'var(--border)';
+              const bg = isTrap ? 'rgba(215, 38, 56, 0.05)' : 'var(--black)';
+              const badgeBg = isTrap ? 'var(--red)' : '#333';
+
+              previewHTML += `
+                <div style="background: ${bg}; border: 1px solid ${borderColor}; padding: 10px; border-radius: 6px; margin-bottom: 6px; font-size: 0.85rem; display: flex; align-items: center;">
+                  <span style="background: ${badgeBg}; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-right: 10px;">
+                    ${String(index + 1).padStart(2, '0')}
+                  </span>
+                  <span style="color: #fff; flex: 1;">${clueText}</span>
+                  ${isTrap ? '<span style="color: var(--red); font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">ARMADILHA</span>' : ''}
+                </div>
+              `;
+            });
+
+            previewHTML += `</div>`;
+            previewContainer.innerHTML = previewHTML;
+          }
+        }
+
         const adminTextContainer = document.getElementById('admin-text-clues-container');
         if (adminTextContainer) {
-          adminTextContainer.innerHTML = '';
           if (revealedIndexes.length > 0) {
+            const emptyMsg = adminTextContainer.querySelector('p');
+            if (emptyMsg) emptyMsg.remove();
+
             const sortedRevealed = [...revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
-            const trapList = data.trapIndices || []; // Lista de traps
+            const trapList = data.trapIndices || [];
+
+            // Limpeza se trocar de rodada
+            const activeAdminIds = sortedRevealed.map((item) => `admin-clue-box-${item.index}`);
+            Array.from(adminTextContainer.children).forEach((child) => {
+              if (child.id && !activeAdminIds.includes(child.id)) child.remove();
+            });
 
             sortedRevealed.forEach((item) => {
-              const isTrap = trapList.includes(item.index);
-              const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
+              const divId = `admin-clue-box-${item.index}`;
+              let div = document.getElementById(divId);
 
-              const div = document.createElement('div');
-              div.className = 'admin-clue-box';
-              div.innerHTML = `
-                <span style="color: var(--gold); font-weight: bold;">DICA #${String(item.index + 1).padStart(2, '0')}:</span> 
-                <span style="color: #a6a6c0;">${clueText}</span>
-              `;
-              adminTextContainer.appendChild(div);
+              // SÓ CRIA E DEIXA ESCREVER SE AINDA NÃO EXISTIR NO PAINEL
+              if (!div) {
+                const isTrap = trapList.includes(item.index);
+                const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
+
+                div = document.createElement('div');
+                div.id = divId;
+                div.className = 'admin-clue-box';
+
+                div.innerHTML = `
+                  <span style="color: var(--gold); font-weight: bold;">DICA #${String(item.index + 1).padStart(2, '0')}:</span> 
+                  <span class="admin-typewriter-target" style="color: #a6a6c0;"></span>
+                `;
+                adminTextContainer.appendChild(div);
+
+                const adminTextTarget = div.querySelector('.admin-typewriter-target');
+                typeWriterEffect(adminTextTarget, clueText, 75);
+              }
             });
           } else {
             adminTextContainer.innerHTML = '<p style="color: #555; text-align: center; font-size: 0.9rem;">Nenhuma dica comprada ainda.</p>';
@@ -510,29 +668,50 @@ gameRef.onSnapshot((doc) => {
     // 5. Dicas Reveladas (Premium)
     const cluesContainer = document.getElementById('revealed-clues');
     if (cluesContainer) {
-      cluesContainer.innerHTML = '';
-
       if (data.revealedIndexes && data.revealedIndexes.length > 0) {
+        // Remove a mensagem de "Vazio" se ela ainda estiver lá
+        const emptyMsg = cluesContainer.querySelector('p');
+        if (emptyMsg) emptyMsg.remove();
+
         const sortedRevealed = [...data.revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
-        const trapList = data.trapIndices || []; // Lista de traps
+        const trapList = data.trapIndices || [];
+
+        // Remove do DOM as dicas que não estão mais nos dados do Firebase (caso mude de rodada)
+        const activeIds = sortedRevealed.map((item) => `player-clue-box-${item.index}`);
+        Array.from(cluesContainer.children).forEach((child) => {
+          if (child.id && !activeIds.includes(child.id)) child.remove();
+        });
 
         sortedRevealed.forEach((item) => {
-          const isTrap = trapList.includes(item.index);
-          const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
-          const borderColor = isTrap ? 'var(--red)' : 'var(--gold-dark)';
+          const divId = `player-clue-box-${item.index}`;
+          let div = document.getElementById(divId);
 
-          const div = document.createElement('div');
-          div.style.background = 'var(--black)';
-          div.style.border = `1px solid ${borderColor}`;
-          div.style.padding = '12px';
-          div.style.borderRadius = '6px';
-          div.style.marginBottom = '10px';
+          // SÓ CRIA E ANIMA SE O QUADRO NÃO EXISTIR NA TELA
+          if (!div) {
+            const isTrap = trapList.includes(item.index);
+            // Mantemos a string com a tag, o novo motor do typewriter cuida do resto
+            const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
+            const borderColor = isTrap ? 'var(--red)' : 'var(--gold-dark)';
 
-          div.innerHTML = `
-            <div style="color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px;">DICA #${String(item.index + 1).padStart(2, '0')}</div>
-            <div style="color: var(--text);">${clueText}</div>
-          `;
-          cluesContainer.appendChild(div);
+            div = document.createElement('div');
+            div.id = divId;
+            div.style.background = 'var(--black)';
+            div.style.border = `1px solid ${borderColor}`;
+            div.style.padding = '12px';
+            div.style.borderRadius = '6px';
+            div.style.marginBottom = '10px';
+
+            div.innerHTML = `
+              <div style="color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px;">DICA #${String(item.index + 1).padStart(2, '0')}</div>
+              <div class="typewriter-text" style="color: var(--text); min-height: 20px;"></div>
+            `;
+
+            // Adiciona no topo ou na ordem correta
+            cluesContainer.appendChild(div);
+
+            const textTarget = div.querySelector('.typewriter-text');
+            typeWriterEffect(textTarget, clueText, 75);
+          }
         });
       } else {
         cluesContainer.innerHTML = '<p style="color: #555; text-align: center;">Nenhuma dica comprada.</p>';
