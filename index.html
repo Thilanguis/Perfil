@@ -6,12 +6,10 @@
     <title>Perfil Findom</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="data:," />
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#f8d26a">
-    
+    <link rel="manifest" href="manifest.json" />
+    <meta name="theme-color" content="#f8d26a" />
   </head>
   <body>
-
     <!-- Splash Screen Cinematográfica -->
     <div id="splash-screen">
       <!-- muted e playsinline são obrigatórios para o navegador permitir o autoplay -->
@@ -137,7 +135,7 @@
       </div>
 
       <div class="desktop-grid">
-        <div style="display: flex; flex-direction: column; gap: 20px;">
+        <div style="display: flex; flex-direction: column; gap: 20px">
           <div class="card card-gold">
             <h3 style="margin-top: 0; color: var(--gold)">Controle das Charadas</h3>
             <select id="admin-card-select" style="margin-bottom: 15px"></select>
@@ -155,9 +153,9 @@
 
             <button id="btn-start-round" class="btn-primary" style="width: 100%">Lançar Charada</button>
 
-            <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px;">
-                <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">Histórico da Sessão</h4>
-                <div id="admin-history-list" style="max-height: 250px; overflow-y: auto;"></div>
+            <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px">
+              <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico da Sessão</h4>
+              <div id="admin-history-list" style="max-height: 250px; overflow-y: auto"></div>
             </div>
 
             <div id="controller-status-container" style="margin-top: 20px; text-align: center; padding: 20px; background: var(--black); border-radius: 8px">
@@ -169,14 +167,16 @@
           </div>
         </div>
 
-        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0;">
-          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
-            <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
-            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
-            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
+        <div style="display: flex; flex-direction: column; gap: 20px">
+          <div class="card" id="admin-finances-card" style="padding: 0; overflow: hidden; display: none">
+            <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
+              <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
+              <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
+              <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
+            </div>
           </div>
 
-          <div style="padding: 20px">
+          <div class="card" id="admin-dashboard-card" style="display: none">
             <p style="margin: 0 0 5px 0; color: #888">Resposta Secreta:</p>
             <h2 id="admin-secret-answer" style="margin: 0 0 20px 0; color: var(--gold)">...</h2>
 
@@ -187,66 +187,9 @@
 
             <p style="margin: 0 0 10px 0; color: #888">Mesa do Dominado (Grid):</p>
             <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px"></div>
-            
-            <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold;">🔓 Liberar Mesa</button>
 
-            <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
-            <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
-              <p style="color: #555; text-align: center; font-size: 0.9rem">Nenhuma dica comprada ainda.</p>
-            </div>
+            <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold">🔓 Liberar Mesa</button>
 
-            <div style="display: flex; gap: 10px;">
-              <button id="btn-mark-correct" class="btn-primary" style="flex: 1">Acertou</button>
-              <button id="btn-mark-wrong" class="btn-danger" style="flex: 1">Errou (Taxar)</button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-        <!-- Coluna da Direita: Finanças e o Histórico de Pressão -->
-        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0">
-          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
-            <p style="margin: 0; color: #888; text-transform: uppercase">Dívida Acumulada</p>
-            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
-            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
-          </div>
-
-          <!-- Histórico inserido perfeitamente na barra lateral como no dominado -->
-          <div id="admin-history-box" style="padding: 20px; border-top: 1px dashed var(--border)">
-            <h4 style="margin: 0 0 15px 0; color: var(--gold); text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px">Histórico da Sessão</h4>
-            <div id="admin-history-list" style="max-height: 250px; overflow-y: auto"></div>
-          </div>
-
-          <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px">
-            <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico da Sessão</h4>
-            <div id="admin-history-list" style="max-height: 200px; overflow-y: auto"></div>
-          </div>
-        </div>
-
-        <div class="card" id="admin-dashboard-card" style="display: none; padding: 0">
-          <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
-            <p style="margin: 0; color: #888; text-transform: uppercase">Dívida Acumulada</p>
-            <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
-            <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
-          </div>
-
-          <div style="padding: 20px">
-            <p style="margin: 0 0 5px 0; color: #888">Resposta Secreta:</p>
-            <h2 id="admin-secret-answer" style="margin: 0 0 20px 0; color: var(--gold)">...</h2>
-
-            <!-- Chute com Alerta Visual -->
-            <p style="margin: 0 0 5px 0; color: #888">Chute:</p>
-            <div id="admin-guess-container" style="background: var(--black); padding: 15px; border: 1px dashed var(--gold-dark); text-align: center; margin-bottom: 20px; border-radius: 6px; transition: all 0.3s">
-              <h3 id="controller-latest-guess" style="margin: 0; color: var(--text)">Aguardando palpite...</h3>
-            </div>
-
-            <!-- Espelho da Tela do Jogador em Grade -->
-            <p style="margin: 0 0 10px 0; color: #888">Mesa do Dominado (Grid):</p>
-            <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 20px"></div>
-
-            <!-- Textos das Dicas Liberadas -->
             <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
             <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
               <p style="color: #555; text-align: center; font-size: 0.9rem">Nenhuma dica comprada ainda.</p>

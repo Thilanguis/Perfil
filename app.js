@@ -1,4 +1,10 @@
-// --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER (CORRIGIDA PARA TRAPS) ---
+// --- PRE-LOADER DE VOZES PARA A MISTRESS ---
+if ('speechSynthesis' in window) {
+  // Garante que o navegador carregue as vozes em background antes do primeiro clique
+  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
+}
+
+// --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ SINCRONIZADA ---
 window.typewriterDivs = window.typewriterDivs || new Map();
 
 function typeWriterEffect(element, text, speed = 75) {
@@ -13,7 +19,7 @@ function typeWriterEffect(element, text, speed = 75) {
 
   element.innerHTML = '';
 
-  // Se for uma armadilha com HTML, extrai apenas o texto puro para fazer a animação de escrita
+  // Extrai apenas o texto puro para fazer a animação de escrita e a leitura falada
   let textToAnimate = text;
   let isHtml = text.includes('<span');
 
@@ -21,6 +27,55 @@ function typeWriterEffect(element, text, speed = 75) {
     const tempDiv = document.createElement('div');
     tempDiv.innerHTML = text;
     textToAnimate = tempDiv.textContent || tempDiv.innerText;
+  }
+
+  // --- MÓDULO DE VOZ DA MISTRESS (VIA ELEVENLABS) ---
+  const elevenLabsApiKey = 'sk_9584806c8eca838cd13aad80252b3a7e37983c8fc9a8e86c'; // Insira a nova API Key aqui
+  const voiceId = 'lHoZvhuZ5DC74wMvIxAI';
+
+  console.log('Validando disparo de voz. Texto extraído:', textToAnimate);
+
+  if (elevenLabsApiKey.trim() !== '') {
+    console.log('Chave detectada. Iniciando fetch para ElevenLabs...');
+
+    fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
+      method: 'POST',
+      headers: {
+        'xi-api-key': elevenLabsApiKey,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: textToAnimate,
+        model_id: 'eleven_multilingual_v2',
+        voice_settings: {
+          stability: 0.35,
+          similarity_boost: 0.85,
+        },
+      }),
+    })
+      .then((response) => {
+        console.log('Resposta da ElevenLabs recebida. Status:', response.status);
+        if (!response.ok) {
+          throw new Error(`Erro HTTP ${response.status}: Falha na requisição.`);
+        }
+        return response.blob();
+      })
+      .then((blob) => {
+        console.log('Blob gerado com sucesso, instanciando áudio...');
+        const audioUrl = URL.createObjectURL(blob);
+        const audioMistress = new Audio(audioUrl);
+
+        audioMistress.play().catch((e) => {
+          console.error('Erro de Autoplay do navegador (O usuário precisa interagir com a tela antes):', e);
+        });
+      })
+      .catch((error) => {
+        console.error('Falha no bloco catch da API:', error);
+      });
+
+    speed = 65;
+  } else {
+    console.warn('Processo cancelado: A chave da API está vazia.');
   }
 
   let i = 0;
@@ -31,7 +86,7 @@ function typeWriterEffect(element, text, speed = 75) {
     } else {
       clearInterval(timer);
       window.typewriterDivs.delete(element);
-      // Quando termina de digitar a armadilha, aplica o HTML com a cor vermelha estilizada
+      // Quando termina, aplica o HTML com a cor estilizada (útil para armadilhas vermelhas)
       if (isHtml) {
         element.innerHTML = text;
       }
@@ -401,20 +456,24 @@ gameRef.onSnapshot((doc) => {
       startRoundBtn.style.opacity = isPlaying ? '0.5' : '1';
     }
 
-    // 2. Atualiza Admin Dashboard
+    // 2. Atualiza Admin Dashboard (Lógica Separada Conforme Solicitado)
     const adminStatusContainer = document.getElementById('controller-status-container');
+    const adminFinancesCard = document.getElementById('admin-finances-card');
     const adminDashboardCard = document.getElementById('admin-dashboard-card');
 
-    if (adminStatusContainer && adminDashboardCard) {
-      // CORREÇÃO: O painel financeiro da direita fica VISÍVEL se a mesa estiver aberta,
-      // independente se a rodada atual está rolando, aguardando ou finalizada.
-      if (data.status && data.status !== 'closed') {
-        adminStatusContainer.style.display = 'none';
-        adminDashboardCard.style.display = 'block'; // PROTEGE A DÍVIDA NA TELA
+    if (data.status && data.status !== 'closed') {
+      // Se o dominador abriu a sala, esconde o blocker de entrada e fixa as finanças na tela
+      if (adminStatusContainer) adminStatusContainer.style.display = 'none';
+      if (adminFinancesCard) adminFinancesCard.style.display = 'block';
 
-        if (typeof updateAdminDeckList === 'function') {
-          updateAdminDeckList();
-        }
+      if (typeof updateAdminDeckList === 'function') {
+        updateAdminDeckList();
+      }
+
+      // O bloco de jogo abaixo (com o grid, resposta secreta e botões de ação)
+      // SÓ GANHA TELA se uma rodada estiver ativamente rolando!
+      if (data.status === 'playing') {
+        if (adminDashboardCard) adminDashboardCard.style.display = 'block';
 
         const secretAns = document.getElementById('admin-secret-answer');
         if (secretAns) secretAns.textContent = data.answer;
@@ -618,7 +677,10 @@ gameRef.onSnapshot((doc) => {
         }
 
         const adminTextContainer = document.getElementById('admin-text-clues-container');
-        if (adminTextContainer) {
+        const isActiveAdmin = document.getElementById('view-controller') && document.getElementById('view-controller').classList.contains('active');
+
+        // Só atualiza (e gasta a API) se a Mistress estiver com o painel aberto
+        if (adminTextContainer && isActiveAdmin) {
           if (revealedIndexes.length > 0) {
             const emptyMsg = adminTextContainer.querySelector('p');
             if (emptyMsg) emptyMsg.remove();
@@ -668,21 +730,18 @@ gameRef.onSnapshot((doc) => {
           }
         }
       } else {
-        adminDashboardCard.style.display = 'none';
-        adminStatusContainer.style.display = 'block';
-        const ctrlStatus = document.getElementById('controller-status');
-        if (ctrlStatus) {
-          if (data.status === 'closed') {
-            ctrlStatus.innerHTML = '<span style="color: var(--red);">Sessão Fechada / Dominado Expulso</span>';
-          } else {
-            // Status é 'waiting' (Mesa criada, aguardando o sub entrar ou iniciar)
-            if (data.playerName) {
-              ctrlStatus.innerHTML = `<span style="color: var(--green); font-weight: 900; letter-spacing: 1px;">🟢 CONECTADO: ${data.playerName.toUpperCase()} ESTÁ NA SALA!</span>`;
-            } else {
-              ctrlStatus.innerHTML = '<span style="color: var(--gold);">Mesa VIP Ativa. Aguardando a entrada do sub...</span>';
-            }
-          }
-        }
+        // Se a rodada acabou ou está em espera, apaga o painel do jogo, mas mantém o de finanças no topo
+        if (adminDashboardCard) adminDashboardCard.style.display = 'none';
+      }
+    } else {
+      // Cai aqui apenas se a mesa inteira for destruída/fechada de fato
+      if (adminDashboardCard) adminDashboardCard.style.display = 'none';
+      if (adminFinancesCard) adminFinancesCard.style.display = 'none';
+      if (adminStatusContainer) adminStatusContainer.style.display = 'block';
+
+      const ctrlStatus = document.getElementById('controller-status');
+      if (ctrlStatus) {
+        ctrlStatus.innerHTML = '<span style="color: var(--red);">Sessão Fechada / Dominado Expulso</span>';
       }
     }
 
@@ -759,7 +818,10 @@ gameRef.onSnapshot((doc) => {
 
     // 5. Dicas Reveladas (Premium)
     const cluesContainer = document.getElementById('revealed-clues');
-    if (cluesContainer) {
+    const isActivePlayer = document.getElementById('view-player') && document.getElementById('view-player').classList.contains('active');
+
+    // Só atualiza (e gasta a API) se a visão do Jogador estiver ativamente na tela
+    if (cluesContainer && isActivePlayer) {
       if (data.revealedIndexes && data.revealedIndexes.length > 0) {
         // Remove a mensagem de "Vazio" se ela ainda estiver lá
         const emptyMsg = cluesContainer.querySelector('p');
