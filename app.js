@@ -127,6 +127,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const splashVideo = document.getElementById('splash-video');
 
   if (splashScreen && splashVideo) {
+    // Verifica se está rodando no ambiente de desenvolvimento local
+    const isLocalhost = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
+
+    if (isLocalhost) {
+      // Mata o vídeo e a tela preta instantaneamente no modo dev
+      splashScreen.remove();
+      return;
+    }
+
     // Define a velocidade do vídeo (1.0 é o normal, 0.7 é 70% da velocidade, 0.5 é metade)
     splashVideo.playbackRate = 0.7;
 
@@ -151,6 +160,9 @@ if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('./service-worker.js');
 
+      // Força o navegador a checar se há atualizações no script toda vez que carregar
+      registration.update();
+
       // 1. Detecta se já tem uma atualização aguardando para ser aplicada
       if (registration.waiting) {
         showUpdateModal(registration.waiting);
@@ -161,9 +173,11 @@ if ('serviceWorker' in navigator) {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
-            // Quando terminar de baixar, mostra o modal
-            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-              showUpdateModal(newWorker);
+            // Quando terminar de baixar e mudar para 'installed', mostra o modal
+            if (newWorker.state === 'installed') {
+              if (navigator.serviceWorker.controller) {
+                showUpdateModal(newWorker);
+              }
             }
           });
         }
@@ -217,7 +231,14 @@ function showUpdateModal(worker) {
     btnApply.textContent = 'Reiniciando...';
     btnApply.disabled = true;
     btnApply.style.opacity = '0.5';
+
+    // Manda o comando de ativação para o Service Worker
     worker.postMessage('skipWaiting');
+
+    // Fallback de segurança: Força o reload da página caso o navegador trave o evento
+    setTimeout(() => {
+      window.location.reload();
+    }, 800);
   });
 }
 
