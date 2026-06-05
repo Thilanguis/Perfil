@@ -7,9 +7,8 @@ if ('speechSynthesis' in window) {
 // --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ SINCRONIZADA ---
 window.typewriterDivs = window.typewriterDivs || new Map();
 
-function typeWriterEffect(element, text, speed = 75) {
+function typeWriterEffect(element, text, speed = 65) {
   if (!element) return;
-
   if (element.dataset.fullText === text) return;
   element.dataset.fullText = text;
 
@@ -18,66 +17,50 @@ function typeWriterEffect(element, text, speed = 75) {
   }
 
   element.innerHTML = '';
+  let textToAnimate = text.includes('<span') ? new DOMParser().parseFromString(text, 'text/html').body.textContent : text;
 
-  // Extrai apenas o texto puro para fazer a animação de escrita e a leitura falada
-  let textToAnimate = text;
-  let isHtml = text.includes('<span');
+  // --- ENGINE DE VOZ NATIVA NAVEGADOR (TUNADA) ---
+  const speech = new SpeechSynthesisUtterance(textToAnimate);
+  speech.lang = 'pt-BR';
+  speech.rate = 0.88; // Mais lenta e imponente para a Mistress
+  speech.pitch = 0.85; // Tom mais grave e sério
 
-  if (isHtml) {
-    const tempDiv = document.createElement('div');
-    tempDiv.innerHTML = text;
-    textToAnimate = tempDiv.textContent || tempDiv.innerText;
-  }
+  const setFemaleVoice = () => {
+    const voices = window.speechSynthesis.getVoices();
 
-  // --- MÓDULO DE VOZ DA MISTRESS (VIA ELEVENLABS) ---
-  const elevenLabsApiKey = 'sk_9584806c8eca838cd13aad80252b3a7e37983c8fc9a8e86c'; // Insira a nova API Key aqui
-  const voiceId = 'lHoZvhuZ5DC74wMvIxAI';
+    // Filtra apenas vozes em português (pt-BR ou pt_BR)
+    const ptVoices = voices.filter((v) => v.lang === 'pt-BR' || v.lang === 'pt_BR');
 
-  console.log('Validando disparo de voz. Texto extraído:', textToAnimate);
+    // Força a busca primeiro pelas vozes premium do Google Chrome
+    let selectedVoice = ptVoices.find((v) => v.name.toLowerCase().includes('google'));
 
-  if (elevenLabsApiKey.trim() !== '') {
-    console.log('Chave detectada. Iniciando fetch para ElevenLabs...');
-
-    fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`, {
-      method: 'POST',
-      headers: {
-        'xi-api-key': elevenLabsApiKey,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: textToAnimate,
-        model_id: 'eleven_multilingual_v2',
-        voice_settings: {
-          stability: 0.35,
-          similarity_boost: 0.85,
-        },
-      }),
-    })
-      .then((response) => {
-        console.log('Resposta da ElevenLabs recebida. Status:', response.status);
-        if (!response.ok) {
-          throw new Error(`Erro HTTP ${response.status}: Falha na requisição.`);
-        }
-        return response.blob();
-      })
-      .then((blob) => {
-        console.log('Blob gerado com sucesso, instanciando áudio...');
-        const audioUrl = URL.createObjectURL(blob);
-        const audioMistress = new Audio(audioUrl);
-
-        audioMistress.play().catch((e) => {
-          console.error('Erro de Autoplay do navegador (O usuário precisa interagir com a tela antes):', e);
-        });
-      })
-      .catch((error) => {
-        console.error('Falha no bloco catch da API:', error);
+    // Se não achar a do Google, busca por outras opções femininas conhecidas
+    if (!selectedVoice) {
+      selectedVoice = ptVoices.find((v) => {
+        const name = v.name.toLowerCase();
+        return name.includes('female') || name.includes('mulher') || name.includes('rachel') || name.includes('luciana') || name.includes('francisca');
       });
+    }
 
-    speed = 65;
+    // Aplica a voz selecionada
+    if (selectedVoice) {
+      speech.voice = selectedVoice;
+      console.log('🗣️ Voz Selecionada Atual:', selectedVoice.name, '[' + selectedVoice.lang + ']');
+    } else if (ptVoices.length > 0) {
+      speech.voice = ptVoices[0];
+      console.log('⚠️ Usando voz padrão disponível:', ptVoices[0].name);
+    }
+  };
+
+  if (window.speechSynthesis.getVoices().length === 0) {
+    window.speechSynthesis.onvoiceschanged = setFemaleVoice;
   } else {
-    console.warn('Processo cancelado: A chave da API está vazia.');
+    setFemaleVoice();
   }
 
+  window.speechSynthesis.speak(speech);
+
+  // --- EFEITO DE MÁQUINA DE ESCREVER ---
   let i = 0;
   const timer = setInterval(() => {
     if (i < textToAnimate.length) {
@@ -86,10 +69,7 @@ function typeWriterEffect(element, text, speed = 75) {
     } else {
       clearInterval(timer);
       window.typewriterDivs.delete(element);
-      // Quando termina, aplica o HTML com a cor estilizada (útil para armadilhas vermelhas)
-      if (isHtml) {
-        element.innerHTML = text;
-      }
+      if (text.includes('<span')) element.innerHTML = text;
     }
   }, speed);
 
@@ -434,19 +414,45 @@ gameRef.onSnapshot((doc) => {
 
     // --- TRAVAS DE SEGURANÇA E LOBBY ---
 
-    // 1. Controle do Lobby: Bloqueia o botão de entrar se não houver mesa VIP aberta
+    // 1. Controle do Lobby: Bloqueia o botão de entrar se não houver mesa aberta
     const enterPlayerBtn = document.getElementById('btn-enter-player');
+    const globalStatus = document.getElementById('lobby-global-status');
+
     if (enterPlayerBtn) {
       if (data.status === 'closed' || !data.status) {
+        // Estado: Fechado
         enterPlayerBtn.disabled = true;
-        enterPlayerBtn.textContent = 'Mesa Fechada';
+        enterPlayerBtn.innerHTML = '🔒 MESA FECHADA';
         enterPlayerBtn.style.opacity = '0.5';
         enterPlayerBtn.style.cursor = 'not-allowed';
+        enterPlayerBtn.style.background = 'var(--border)';
+        enterPlayerBtn.style.color = '#888';
+        enterPlayerBtn.style.boxShadow = 'none';
+
+        if (globalStatus) {
+          globalStatus.innerHTML = '● MESA FECHADA';
+          globalStatus.style.background = 'rgba(230, 34, 54, 0.05)';
+          globalStatus.style.color = 'var(--red)';
+          globalStatus.style.borderColor = 'rgba(230, 34, 54, 0.3)';
+          globalStatus.style.boxShadow = 'none';
+        }
       } else {
+        // Estado: Aberto
         enterPlayerBtn.disabled = false;
-        enterPlayerBtn.textContent = 'Entrar na Mesa';
+        enterPlayerBtn.innerHTML = '🔓 ENTRAR NA MESA';
         enterPlayerBtn.style.opacity = '1';
         enterPlayerBtn.style.cursor = 'pointer';
+        enterPlayerBtn.style.background = 'linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%)';
+        enterPlayerBtn.style.color = 'var(--black)';
+        enterPlayerBtn.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
+
+        if (globalStatus) {
+          globalStatus.innerHTML = '● MESA LIBERADA';
+          globalStatus.style.background = 'rgba(46, 204, 113, 0.05)';
+          globalStatus.style.color = 'var(--green)';
+          globalStatus.style.borderColor = 'rgba(46, 204, 113, 0.4)';
+          globalStatus.style.boxShadow = '0 0 15px rgba(46, 204, 113, 0.15)';
+        }
       }
     }
 
@@ -543,19 +549,25 @@ gameRef.onSnapshot((doc) => {
         const btnUnlock = document.getElementById('btn-unlock-board');
         if (btnUnlock) {
           const trapsCount = (data.trapIndices || []).length;
+          const hasRoulette = data.rouletteIndex !== undefined && data.rouletteIndex !== -1;
 
           // Exibe o botão apenas se o jogo está rolando e as armadilhas ainda não foram liberadas
           if (!data.trapsReady && data.status === 'playing') {
             btnUnlock.style.display = 'block';
 
-            if (trapsCount < 3) {
-              // Bloqueia e avisa quantas faltam
+            if (trapsCount < 3 || !hasRoulette) {
+              // Bloqueia e avisa o que falta
               btnUnlock.disabled = true;
               btnUnlock.style.background = 'var(--border)';
               btnUnlock.style.color = '#666';
               btnUnlock.style.cursor = 'not-allowed';
               btnUnlock.style.boxShadow = 'none';
-              btnUnlock.textContent = `🔒 SELECIONE ${3 - trapsCount} ARMADILHAS`;
+
+              if (trapsCount < 3) {
+                btnUnlock.textContent = `🔒 SELECIONE ${3 - trapsCount} ARMADILHAS`;
+              } else {
+                btnUnlock.textContent = `🎰 ADICIONE 1 ROLETA FINDOM`;
+              }
             } else {
               // Libera o botão com o visual premium dourado original
               btnUnlock.disabled = false;
@@ -596,13 +608,31 @@ gameRef.onSnapshot((doc) => {
             block.style.fontWeight = 'bold';
             block.style.transition = 'all 0.2s';
 
-            // Se já bateu as 3 traps OU a mesa já foi liberada, tranca a edição bloqueando o ponteiro
-            const isLocked = traps.length >= 3 || data.trapsReady;
-            block.style.cursor = isRevealed || (isLocked && !isTrap) ? 'not-allowed' : 'pointer';
+            const isRoulette = data.rouletteIndex === i - 1;
+            const maxTrapsReached = traps.length >= 3;
+            const rouletteReached = data.rouletteIndex !== -1 && data.rouletteIndex !== undefined;
+            const isLocked = data.trapsReady || (maxTrapsReached && rouletteReached && !isTrap && !isRoulette);
 
-            block.style.background = isRevealed ? 'var(--gold-dark)' : isTrap ? 'var(--red)' : 'var(--border)';
-            block.style.color = isRevealed ? 'var(--black)' : '#fff';
-            block.style.border = isTrap ? '2px solid white' : '1px solid transparent';
+            block.style.cursor = isRevealed || isLocked ? 'not-allowed' : 'pointer';
+
+            if (isRevealed) {
+              block.style.background = 'var(--gold-dark)';
+              block.style.color = 'var(--black)';
+              block.style.border = '1px solid transparent';
+            } else if (isRoulette) {
+              block.style.background = 'rgba(181, 56, 255, 0.2)';
+              block.style.color = '#fff';
+              block.style.border = '2px solid #b538ff';
+            } else if (isTrap) {
+              block.style.background = 'var(--red)';
+              block.style.color = '#fff';
+              block.style.border = '2px solid white';
+            } else {
+              block.style.background = 'var(--border)';
+              block.style.color = '#fff';
+              block.style.border = '1px solid transparent';
+            }
+
             block.textContent = isRevealed ? `💎 ${String(i).padStart(2, '0')}` : String(i).padStart(2, '0');
 
             block.addEventListener('click', async () => {
@@ -613,18 +643,32 @@ gameRef.onSnapshot((doc) => {
               }
 
               let newTraps = [...traps];
+              let newRoulette = data.rouletteIndex !== undefined ? data.rouletteIndex : -1;
+
               if (isTrap) {
+                // Era trap normal, vira Roleta se estiver livre, senão vira Vazio
                 newTraps = newTraps.filter((t) => t !== i - 1);
+                if (newRoulette === -1) {
+                  newRoulette = i - 1;
+                }
+              } else if (isRoulette) {
+                // Era roleta, vira vazio
+                newRoulette = -1;
               } else {
-                if (newTraps.length >= 3) {
-                  showToast('Limite máximo de 3 armadilhas atingido! Libere a mesa ou desmarque uma.', 'gold');
+                // Era vazio, vira trap normal se tiver vaga
+                if (newTraps.length < 3) {
+                  newTraps.push(i - 1);
+                } else if (newRoulette === -1) {
+                  // Pula pra roleta se as traps tiverem cheias
+                  newRoulette = i - 1;
+                } else {
+                  showToast('Limites atingidos: 3 armadilhas e 1 roleta.', 'gold');
                   return;
                 }
-                newTraps.push(i - 1);
               }
 
               block.style.pointerEvents = 'none';
-              await gameRef.update({ trapIndices: newTraps });
+              await gameRef.update({ trapIndices: newTraps, rouletteIndex: newRoulette });
             });
 
             mirrorBoard.appendChild(block);
@@ -659,11 +703,23 @@ gameRef.onSnapshot((doc) => {
             previewContainer.innerHTML = '';
           } else {
             const traps = data.trapIndices || [];
+            const hasRoulette = data.rouletteIndex !== undefined && data.rouletteIndex !== -1;
             const cluesList = data.clues || [];
 
-            const trapsCount = (data.trapIndices || []).length;
-            const instrucaoStyle = trapsCount < 3 ? 'color: var(--gold); font-weight: bold;' : 'color: var(--green);';
-            const instrucaoTexto = trapsCount < 3 ? `⚠️ CLIQUE EM 3 DICAS NA GRADE DA DIREITA PARA TRANSFORMAR EM ARMADILHA (${trapsCount}/3)` : '✅ 3 ARMADILHAS CONFIGURADAS! LIBERE A MESA NO BOTÃO ACIMA.';
+            const trapsCount = traps.length;
+
+            let instrucaoStyle = 'color: var(--gold); font-weight: bold;';
+            let instrucaoTexto = '';
+
+            if (trapsCount < 3) {
+              instrucaoTexto = `⚠️ CLIQUE NA GRADE PARA CRIAR 3 ARMADILHAS (${trapsCount}/3) E 1 ROLETA`;
+            } else if (!hasRoulette) {
+              instrucaoTexto = `🎰 FALTA 1 ROLETA! CLIQUE NUMA DICA VAZIA PARA ADICIONAR.`;
+              instrucaoStyle = 'color: #b538ff; font-weight: bold; text-shadow: 0 0 5px rgba(181, 56, 255, 0.4);';
+            } else {
+              instrucaoTexto = '✅ MESA MONTADA! LIBERE O JOGO NO BOTÃO ACIMA.';
+              instrucaoStyle = 'color: var(--green);';
+            }
 
             let previewHTML = `
               <h4 style="margin: 0 0 5px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
@@ -677,9 +733,24 @@ gameRef.onSnapshot((doc) => {
 
             cluesList.forEach((clueText, index) => {
               const isTrap = traps.includes(index);
-              const borderColor = isTrap ? 'var(--red)' : 'var(--border)';
-              const bg = isTrap ? 'rgba(215, 38, 56, 0.05)' : 'var(--black)';
-              const badgeBg = isTrap ? 'var(--red)' : '#333';
+              const isRouletteClue = data.rouletteIndex === index;
+
+              let borderColor = 'var(--border)';
+              let bg = 'var(--black)';
+              let badgeBg = '#333';
+              let extraTag = '';
+
+              if (isTrap) {
+                borderColor = 'var(--red)';
+                bg = 'rgba(215, 38, 56, 0.05)';
+                badgeBg = 'var(--red)';
+                extraTag = '<span style="color: var(--red); font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">ARMADILHA</span>';
+              } else if (isRouletteClue) {
+                borderColor = '#b538ff';
+                bg = 'rgba(181, 56, 255, 0.1)';
+                badgeBg = '#b538ff';
+                extraTag = '<span style="color: #b538ff; font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">🎰 ROLETA</span>';
+              }
 
               previewHTML += `
                 <div style="background: ${bg}; border: 1px solid ${borderColor}; padding: 10px; border-radius: 6px; margin-bottom: 6px; font-size: 0.85rem; display: flex; align-items: center;">
@@ -687,7 +758,7 @@ gameRef.onSnapshot((doc) => {
                     ${String(index + 1).padStart(2, '0')}
                   </span>
                   <span style="color: #fff; flex: 1;">${clueText}</span>
-                  ${isTrap ? '<span style="color: var(--red); font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">ARMADILHA</span>' : ''}
+                  ${extraTag}
                 </div>
               `;
             });
@@ -722,7 +793,14 @@ gameRef.onSnapshot((doc) => {
               // SÓ CRIA E DEIXA ESCREVER SE AINDA NÃO EXISTIR NO PAINEL
               if (!div) {
                 const isTrap = trapList.includes(item.index);
-                const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
+                const isRoulette = data.rouletteIndex === item.index;
+
+                let clueText = data.clues[item.index];
+                if (isTrap) {
+                  clueText = '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>';
+                } else if (isRoulette) {
+                  clueText = '<span style="color: #b538ff; font-weight: bold;">🎰 ROLETA FINDOM ACIONADA</span>';
+                }
 
                 div = document.createElement('div');
                 div.id = divId;
@@ -775,7 +853,16 @@ gameRef.onSnapshot((doc) => {
     if (pCategory) pCategory.textContent = data.category || 'Aguardando...';
 
     const uiClueCost = document.getElementById('ui-clue-cost');
-    if (uiClueCost) uiClueCost.textContent = (data.clueCost || 0).toFixed(2);
+    if (uiClueCost) {
+      const baseCost = data.clueCost || 0;
+      const actualCost = data.inflationActive ? baseCost * 2 : baseCost;
+
+      if (data.inflationActive) {
+        uiClueCost.innerHTML = `<span style="color: #ff8c00;">${actualCost.toFixed(2)} (INFLAÇÃO 2X)</span>`;
+      } else {
+        uiClueCost.textContent = actualCost.toFixed(2);
+      }
+    }
 
     const uiMistakePenalty = document.getElementById('ui-mistake-penalty');
     if (uiMistakePenalty) uiMistakePenalty.textContent = (data.mistakePenalty || 0).toFixed(2);
@@ -794,12 +881,25 @@ gameRef.onSnapshot((doc) => {
           pSubmitBtn.style.opacity = '0.5';
           pSubmitBtn.textContent = '🔒 PALPITE ENVIADO (AGUARDANDO VALIDAÇÃO)';
         } else {
-          // Libera para digitação normal e monitoramento ao vivo enquanto joga
-          pGuessInput.disabled = false;
-          pSubmitBtn.disabled = false;
-          pGuessInput.style.opacity = '1';
-          pSubmitBtn.style.opacity = '1';
-          pSubmitBtn.textContent = '🔒 CRAVAR PALPITE (MULTA SE ERRAR)';
+          // Verifica se está sob o castigo do Silêncio Absoluto
+          const currentRevealed = data.revealedIndexes ? data.revealedIndexes.length : 0;
+          const target = data.silenceTarget || 0;
+
+          if (target > currentRevealed) {
+            const faltam = target - currentRevealed;
+            pGuessInput.disabled = true;
+            pSubmitBtn.disabled = true;
+            pGuessInput.style.opacity = '0.5';
+            pSubmitBtn.style.opacity = '0.5';
+            pSubmitBtn.textContent = `🤫 SILÊNCIO: COMPRE +${faltam} DICA(S)`;
+          } else {
+            // Libera para digitação normal
+            pGuessInput.disabled = false;
+            pSubmitBtn.disabled = false;
+            pGuessInput.style.opacity = '1';
+            pSubmitBtn.style.opacity = '1';
+            pSubmitBtn.textContent = '🔒 CRAVAR PALPITE (MULTA SE ERRAR)';
+          }
         }
       } else {
         // Se o status for 'finished', 'waiting' ou qualquer outro (fim de rodada),
@@ -808,7 +908,7 @@ gameRef.onSnapshot((doc) => {
         pSubmitBtn.disabled = false;
         pGuessInput.style.opacity = '1';
         pSubmitBtn.style.opacity = '1';
-        pSubmitBtn.textContent = '🔒 CRAVAR PALPITE (MULTA SE ERRAR)';
+        pSubmitBtn.textContent = '🔒 CRAVAR PALPITE';
 
         // Limpa o valor físico do input na tela do jogador para não herdar o lixo do chute anterior
         if (data.status === 'finished' && pGuessInput.value !== '') {
@@ -864,9 +964,18 @@ gameRef.onSnapshot((doc) => {
           // SÓ CRIA E ANIMA SE O QUADRO NÃO EXISTIR NA TELA
           if (!div) {
             const isTrap = trapList.includes(item.index);
-            // Mantemos a string com a tag, o novo motor do typewriter cuida do resto
-            const clueText = isTrap ? '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>' : data.clues[item.index];
-            const borderColor = isTrap ? 'var(--red)' : 'var(--gold-dark)';
+            const isRoulette = data.rouletteIndex === item.index;
+
+            let clueText = data.clues[item.index];
+            let borderColor = 'var(--gold-dark)';
+
+            if (isTrap) {
+              clueText = '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>';
+              borderColor = 'var(--red)';
+            } else if (isRoulette) {
+              clueText = '<span style="color: #b538ff; font-weight: bold;">🎰 ROLETA FINDOM ACIONADA</span>';
+              borderColor = '#b538ff';
+            }
 
             div = document.createElement('div');
             div.id = divId;

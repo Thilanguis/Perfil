@@ -100,7 +100,7 @@ document.getElementById('admin-edit-penalty').addEventListener('input', async (e
   }
 });
 
-// Inicialização da Mesa VIP pelo Dominador
+// Inicialização da Mesa pelo Dominador
 document.getElementById('btn-enter-controller').addEventListener('click', async () => {
   const adminNameEl = document.getElementById('setup-admin-name');
   const clueCostEl = document.getElementById('setup-clue-cost');
@@ -180,6 +180,9 @@ document.getElementById('btn-start-round').addEventListener('click', async () =>
     clueCost: newClueCost,
     mistakePenalty: newPenalty,
     trapIndices: [],
+    rouletteIndex: -1, // NOVO: Gatilho da roleta
+    inflationActive: false, // NOVO: Castigo de Inflação
+    silenceTarget: 0, // NOVO: Castigo de Silêncio
     trapsReady: false, // TRAVA A MESA DO JOGADOR
     revealedIndexes: [],
     latestGuess: '',

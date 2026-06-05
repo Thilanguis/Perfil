@@ -521,3 +521,32 @@ select:focus {
   /* O zoom de 1.2 (20%) corta as bordas pretas nativas do vídeo e esconde a logo do KlingAI */
   transform: scale(1.2);
 }
+
+/* --- ANIMAÇÃO DE STATUS DO LOBBY --- */
+.status-online {
+  background: rgba(46, 204, 113, 0.1) !important;
+  color: var(--green) !important;
+  border-color: var(--green) !important;
+  animation: pulseOnline 2s infinite;
+}
+
+@keyframes pulseOnline {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(46, 204, 113, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 204, 113, 0);
+  }
+}
+
+/* --- ESTILO DA ARMADILHA ROLETA --- */
+.trap-roulette {
+  border: 2px solid #b538ff !important;
+  background: rgba(181, 56, 255, 0.1) !important;
+  color: #b538ff !important;
+  box-shadow: 0 0 10px rgba(181, 56, 255, 0.4);
+  text-shadow: 0 0 5px rgba(181, 56, 255, 0.8);
+}

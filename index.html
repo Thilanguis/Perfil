@@ -23,6 +23,26 @@
     <div id="view-selection" class="view active">
       <h1 class="header-title">Perfil Tribute</h1>
 
+      <!-- Barra de Status Global da Mesa -->
+      <div
+        id="lobby-global-status"
+        style="
+          text-align: center;
+          font-weight: 700;
+          font-size: 0.75rem;
+          letter-spacing: 1.5px;
+          padding: 6px 16px;
+          border-radius: 20px;
+          margin: 0 auto 30px auto;
+          width: max-content;
+          border: 1px solid rgba(230, 34, 54, 0.3);
+          background: rgba(230, 34, 54, 0.05);
+          color: var(--red);
+          transition: all 0.4s ease;
+        ">
+        ● MESA FECHADA
+      </div>
+
       <div class="lobby-grid">
         <div class="card card-gold">
           <h3 style="color: var(--gold); margin-top: 0">👑 Dominador</h3>
@@ -39,14 +59,16 @@
               <input type="number" id="setup-penalty" value="10" />
             </div>
           </div>
-          <button id="btn-enter-controller" class="btn-danger" style="width: 100%">Abrir Mesa VIP</button>
+          <button id="btn-enter-controller" class="btn-danger" style="width: 100%">Abrir Mesa</button>
         </div>
 
-        <div class="card">
+        <div class="card" style="position: relative">
           <h3 style="color: var(--text); margin-top: 0">🐷 Dominado</h3>
           <p style="color: #888; font-size: 0.9rem">Identifique-se para entrar na mesa de tributos.</p>
           <input type="text" id="setup-player-name" placeholder="Seu Nome / Sub" value="Biel" style="margin-bottom: 12px" />
-          <button id="btn-enter-player" class="btn-primary" style="width: 100%">Entrar na Mesa</button>
+
+          <!-- Botão começa trancado visualmente -->
+          <button id="btn-enter-player" class="btn-primary" style="width: 100%; background: var(--border); color: #888; box-shadow: none" disabled>🔒 MESA FECHADA</button>
         </div>
       </div>
     </div>
@@ -96,7 +118,7 @@
 
             <input type="text" id="player-guess-input" placeholder="Digite sua resposta..." style="margin-bottom: 16px; text-align: center; font-size: 1.2rem; font-weight: bold" />
 
-            <button id="btn-submit-guess" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black)">🔒 CRAVAR PALPITE (MULTA SE ERRAR)</button>
+            <button id="btn-submit-guess" class="btn-primary" style="width: 100%; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black)">🔒 CRAVAR PALPITE</button>
           </div>
         </div>
 
@@ -170,7 +192,7 @@
         <div style="display: flex; flex-direction: column; gap: 20px">
           <div class="card" id="admin-finances-card" style="padding: 0; overflow: hidden; display: none">
             <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
-              <p style="margin: 0; color: #888; text-transform: uppercase">Lucro / Dívida Acumulada</p>
+              <p style="margin: 0; color: #888; text-transform: uppercase">Dívida Acumulada</p>
               <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
               <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
             </div>
@@ -216,6 +238,54 @@
         </div>
 
         <button id="btn-apply-update" class="btn-primary" style="width: 100%; display: none">Instalar e Reiniciar</button>
+      </div>
+    </div>
+
+    <!-- Modal da Roleta Findom (Estilo Roda Física) -->
+    <div id="roulette-modal" style="position: fixed; inset: 0; background: rgba(9, 9, 9, 0.95); backdrop-filter: blur(10px); z-index: 10000; display: none; align-items: center; justify-content: center; flex-direction: column">
+      <div
+        class="card"
+        style="
+          width: 90%;
+          max-width: 460px;
+          text-align: center;
+          padding: 30px;
+          border-color: #b538ff;
+          box-shadow:
+            0 0 30px rgba(181, 56, 255, 0.2),
+            0 25px 50px rgba(0, 0, 0, 0.95);
+        ">
+        <h2 style="color: #b538ff; margin: 0 0 10px 0; text-transform: uppercase; letter-spacing: 2px">🎰 Roleta Findom</h2>
+        <p style="color: #888; font-size: 0.9rem; margin-bottom: 25px">A sorte foi lançada. Aceite o seu destino.</p>
+
+        <!-- Container da Roleta Física -->
+        <div style="position: relative; width: 340px; height: 340px; margin: 0 auto 30px auto">
+          <!-- Ponteiro Dourado -->
+          <div
+            style="
+              position: absolute;
+              top: -15px;
+              left: 50%;
+              transform: translateX(-50%);
+              width: 0;
+              height: 0;
+              border-left: 15px solid transparent;
+              border-right: 15px solid transparent;
+              border-top: 30px solid var(--gold);
+              z-index: 10;
+              filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.5));
+            "></div>
+
+          <!-- Roda do Canvas -->
+          <canvas id="roulette-wheel" width="340" height="340" style="border-radius: 50%; box-shadow: 0 0 25px rgba(181, 56, 255, 0.3); border: 4px solid var(--black)"></canvas>
+        </div>
+
+        <div id="roulette-result-box" style="min-height: 60px; margin-bottom: 15px; display: flex; flex-direction: column; justify-content: center">
+          <h3 id="roulette-result-title" style="margin: 0; font-size: 1.4rem; text-transform: uppercase">Girando...</h3>
+          <p id="roulette-result-desc" style="margin: 5px 0 0 0; font-size: 0.9rem; color: #aaa"></p>
+        </div>
+
+        <button id="btn-close-roulette" class="btn-primary" style="width: 100%; display: none; background: linear-gradient(135deg, #b538ff 0%, #4a0082 100%); color: #fff; box-shadow: 0 6px 16px rgba(181, 56, 255, 0.4)">ACEITAR PUNIÇÃO</button>
       </div>
     </div>
 
