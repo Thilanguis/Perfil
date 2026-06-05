@@ -824,14 +824,30 @@ gameRef.onSnapshot((doc) => {
     const uiPlayerName = document.getElementById('ui-player-name');
     if (uiPlayerName) uiPlayerName.textContent = playerName;
 
-    const pCategory = document.getElementById('player-category');
-    if (pCategory) pCategory.textContent = data.category || 'Aguardando...';
+    // --- RENDERIZAÇÃO DOS BADGES (INFLAÇÃO / SILÊNCIO) NAS DUAS TELAS ---
+    const currentRevealed = data.revealedIndexes ? data.revealedIndexes.length : 0;
+    const silenceTarget = data.silenceTarget || 0;
+    const faltam = silenceTarget - currentRevealed;
+    const isSilence = faltam > 0;
+    const inflationMult = data.inflationMultiplier || 1;
+    const isInflation = inflationMult > 1;
 
-    // CORREÇÃO: Espelha o Custo da Dica em tempo real (e dobra se a inflação estiver ativa)
+    let badgesHTML = '';
+    if (isInflation)
+      badgesHTML += `<span style="background: var(--red); color: #fff; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; margin-left: 15px; vertical-align: middle; box-shadow: 0 0 10px rgba(230,34,54,0.4); text-shadow: none; font-weight: 900;">🔥 INFLAÇÃO ${inflationMult}X</span>`;
+    if (isSilence)
+      badgesHTML += `<span style="background: #2ecc71; color: #111; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; margin-left: 10px; vertical-align: middle; box-shadow: 0 0 10px rgba(46,204,113,0.4); text-shadow: none; font-weight: 900;">🤫 SILÊNCIO (${faltam})</span>`;
+
+    const pCategory = document.getElementById('player-category');
+    if (pCategory) pCategory.innerHTML = (data.category || 'Aguardando...') + badgesHTML;
+
+    const aSecretAns = document.getElementById('admin-secret-answer');
+    if (aSecretAns) aSecretAns.innerHTML = (data.answer || '...') + badgesHTML;
+
     const uiClueCost = document.getElementById('ui-clue-cost');
     if (uiClueCost) {
       const baseCost = data.clueCost || 0;
-      const actualCost = data.inflationActive ? baseCost * 2 : baseCost;
+      const actualCost = baseCost * inflationMult;
       uiClueCost.textContent = actualCost.toFixed(2);
     }
 
@@ -993,7 +1009,8 @@ gameRef.onSnapshot((doc) => {
           `;
           playerBlocker.style.background = 'rgba(9, 9, 9, 0.9)';
           playerBlocker.style.borderColor = 'var(--gold-dark)';
-        } else if (data.roundResult === 'correct') {
+          // CORREÇÃO AQUI: Só mostra acerto ou erro se o status do banco for 'finished'
+        } else if (data.status === 'finished' && data.roundResult === 'correct') {
           playerBlocker.innerHTML = `
             <div style="font-size: 5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--green));">👑</div>
             <h2 style="color: var(--green); margin: 0; text-transform: uppercase; font-size: 2rem; letter-spacing: 2px;">Você Acertou!</h2>
@@ -1001,7 +1018,7 @@ gameRef.onSnapshot((doc) => {
           `;
           playerBlocker.style.background = 'rgba(9, 35, 15, 0.95)';
           playerBlocker.style.borderColor = 'var(--green)';
-        } else if (data.roundResult === 'wrong') {
+        } else if (data.status === 'finished' && data.roundResult === 'wrong') {
           playerBlocker.innerHTML = `
             <div style="font-size: 5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--red));">💸</div>
             <h2 style="color: var(--red); margin: 0; text-transform: uppercase; font-size: 2rem; letter-spacing: 2px;">Palpite Errado!</h2>
@@ -1011,6 +1028,7 @@ gameRef.onSnapshot((doc) => {
           playerBlocker.style.background = 'rgba(35, 9, 9, 0.95)';
           playerBlocker.style.borderColor = 'var(--red)';
         } else {
+          // Se for "waiting" ou recém-criada, cai aqui e exibe Mesa Trancada
           playerBlocker.innerHTML = `
             <div style="font-size: 4rem; margin-bottom: 10px;">🔒</div>
             <h2 style="color: var(--gold); margin: 0; text-transform: uppercase;">Mesa Trancada</h2>
@@ -1042,6 +1060,16 @@ gameRef.onSnapshot((doc) => {
         const badgeColor = isCorrect ? 'var(--green)' : 'var(--red)';
         const badgeText = isCorrect ? '✅ ACERTOU' : '❌ ERROU (TAXADO)';
 
+        // Renderiza sub-lista de punições se houver registros no log do item
+        let subPenaltiesHTML = '';
+        if (item.penalties && item.penalties.length > 0) {
+          subPenaltiesHTML = `<div style="margin-top: 8px; padding-top: 6px; border-top: 1px dotted #222; display: flex; flex-direction: column; gap: 3px;">`;
+          item.penalties.forEach((penalty) => {
+            subPenaltiesHTML += `<span style="font-size: 0.78rem; color: #8a8a9e; display: block; padding-left: 2px;">• ${penalty}</span>`;
+          });
+          subPenaltiesHTML += `</div>`;
+        }
+
         historyHTML += `
           <div style="background: var(--black); border: 1px solid ${borderColor}; padding: 12px; border-radius: 6px; margin-bottom: 8px; font-size: 0.85rem;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
@@ -1053,6 +1081,7 @@ gameRef.onSnapshot((doc) => {
               <span>Dicas Compradas: <strong style="color: var(--text);">${item.cluesUsed}</strong></span>
               <span>Dano: <strong style="color: ${isCorrect ? 'var(--text)' : 'var(--red)'};">CAD ${item.cost.toFixed(2)}</strong></span>
             </div>
+            ${subPenaltiesHTML}
           </div>
         `;
       });
@@ -1064,6 +1093,250 @@ gameRef.onSnapshot((doc) => {
     if (playerHistList && document.getElementById('view-player').classList.contains('active')) {
       playerHistList.innerHTML = historyHTML;
     }
+
+    // --- GATILHO DA VOZ DE JULGAMENTO (ACERTO / ERRO) ---
+    if (data.status === 'finished' && data.roundResult && !isFirstLoad) {
+      const currentHistoryLen = historyData.length;
+      // Garante que a voz só toque uma vez por rodada finalizada
+      if (window.lastVoicedRound !== currentHistoryLen) {
+        window.lastVoicedRound = currentHistoryLen;
+
+        let fraseJulgamento = '';
+        if (data.roundResult === 'correct') {
+          const frasesAcerto = [
+            'Até que enfim usou esse cérebro minúsculo para alguma coisa! Acertou... mas não fez mais do que a sua obrigação, seu lixo.',
+            'Acertou! Parabéns por fazer o mínimo, seu verme. Mas não ache que isso te salva da próxima humilhação.',
+            'Olha só... o capacho sabe pensar! Acertou. Agora cala a boca e aguarde a próxima rodada.',
+          ];
+          fraseJulgamento = frasesAcerto[Math.floor(Math.random() * frasesAcerto.length)];
+        } else if (data.roundResult === 'wrong') {
+          const frasesErro = [
+            'Palpite errado! Como você é burro! Sinta o peso dessa multa afundando a sua conta... seu verme patético.',
+            'Errou! Que mente fraca e inútil... Vai pagar muito caro por essa burrice, seu lixo.',
+            'Errou miseravelmente! É maravilhoso ver você perdendo dinheiro... pela sua própria incompetência.',
+          ];
+          fraseJulgamento = frasesErro[Math.floor(Math.random() * frasesErro.length)];
+        }
+
+        const dummyVoice = document.createElement('div');
+        typeWriterEffect(dummyVoice, fraseJulgamento, 0);
+      }
+    } else if (data.status === 'playing') {
+      // Prepara o sistema para o próximo gatilho
+      window.lastVoicedRound = historyData.length;
+    }
+
+    // --- SINCRONIZAÇÃO DA ROLETA ENTRE ADMIN E PLAYER ---
+    const modal = document.getElementById('roulette-modal');
+    const canvas = document.getElementById('roulette-wheel');
+    const resultTitle = document.getElementById('roulette-result-title');
+    const resultDesc = document.getElementById('roulette-result-desc');
+    const btnClose = document.getElementById('btn-close-roulette');
+    const isPlayerView = document.getElementById('view-player') && document.getElementById('view-player').classList.contains('active');
+
+    if (data.rouletteData && data.rouletteData.active) {
+      if (modal) modal.style.display = 'flex';
+
+      const options = [
+        { id: 'spin_2', label: '2.00 + SPIN', desc: '+ CAD 2.00 e gira de novo!', color: '#e62236' },
+        { id: 'silencio_3', label: 'SILÊNCIO +3', desc: 'Compre +3 dicas antes de chutar.', color: '#2ecc71' },
+        { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
+        { id: 'spin_3', label: '3.00 + SPIN', desc: '+ CAD 3.00 e gira de novo!', color: '#8a6d1c' },
+        { id: 'multa_5', label: '5.00', desc: '+ CAD 5.00 na dívida.', color: '#8a6d1c' },
+        { id: 'spin_4', label: '4.00 + SPIN', desc: '+ CAD 4.00 e gira de novo!', color: '#e62236' },
+        { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
+        { id: 'silencio_2', label: 'SILÊNCIO +2', desc: 'Compre +2 dicas antes de chutar.', color: '#2ecc71' },
+        { id: 'spin_5', label: '5.00 + SPIN', desc: '+ CAD 5.00 e gira de novo!', color: '#b538ff' },
+        { id: 'silencio_4', label: 'SILÊNCIO +4', desc: 'Compre +4 dicas antes de chutar.', color: '#2ecc71' },
+        { id: 'multa_10', label: '10.00', desc: '+ CAD 10.00 na dívida.', color: '#1a1a22' },
+        { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
+      ];
+
+      if (data.rouletteData.step === 'waiting_click') {
+        if (resultTitle) {
+          resultTitle.textContent = isPlayerView ? 'CLIQUE NA RODA PARA GIRAR' : 'AGUARDANDO O VERME GIRAR...';
+          resultTitle.style.color = '#fff';
+        }
+        if (resultDesc) resultDesc.textContent = isPlayerView ? 'A Mistress está observando sua hesitação...' : 'A tensão está no ar...';
+        if (btnClose) btnClose.style.display = 'none';
+
+        if (canvas) {
+          canvas.style.transition = 'none';
+          canvas.style.transform = 'rotate(0deg)';
+
+          if (isPlayerView) {
+            canvas.style.cursor = 'pointer';
+            canvas.onclick = function () {
+              canvas.onclick = null;
+              canvas.style.cursor = 'default';
+
+              // 1. Escolhe exatamente quem ganhou primeiro
+              const winningIndex = Math.floor(Math.random() * options.length);
+
+              // 2. Calcula o centro exato da fatia na matemática do canvas
+              const sliceCenter = winningIndex * 30 + 15;
+
+              // 3. Descobre quantos graus girar para bater exatamente em 270 (Topo)
+              let targetRotation = 270 - sliceCenter;
+              if (targetRotation < 0) targetRotation += 360;
+
+              // 4. Adiciona o suspense das 6 voltas completas
+              const totalDegrees = 360 * 6 + targetRotation;
+
+              gameRef.update({
+                'rouletteData.step': 'spinning',
+                'rouletteData.degrees': totalDegrees,
+                'rouletteData.selectedOption': options[winningIndex],
+                latestGuess: '🎰 Girando a Roleta...',
+              });
+            };
+          } else {
+            canvas.style.cursor = 'default';
+            canvas.onclick = null;
+          }
+        }
+      } else if (data.rouletteData.step === 'spinning') {
+        if (resultTitle) {
+          resultTitle.textContent = 'GIRANDO...';
+          resultTitle.style.color = '#fff';
+        }
+        if (resultDesc) resultDesc.textContent = '';
+        if (btnClose) btnClose.style.display = 'none';
+
+        if (canvas && !window.isSpinningAnimActive) {
+          window.isSpinningAnimActive = true;
+          canvas.style.transition = 'none';
+          canvas.style.transform = 'rotate(0deg)';
+          void canvas.offsetWidth;
+          canvas.style.transition = 'transform 4.5s cubic-bezier(0.25, 1, 0.25, 1)';
+          canvas.style.transform = `rotate(${data.rouletteData.degrees}deg)`;
+
+          if (isPlayerView) {
+            setTimeout(() => {
+              window.isSpinningAnimActive = false;
+              gameRef.update({
+                'rouletteData.step': 'finished',
+                latestGuess: `🎰 Caiu em: ${data.rouletteData.selectedOption.label} (Aguardando aceite)`,
+              });
+            }, 4600);
+          } else {
+            setTimeout(() => {
+              window.isSpinningAnimActive = false;
+            }, 4600);
+          }
+        }
+      } else if (data.rouletteData.step === 'finished') {
+        const opt = data.rouletteData.selectedOption;
+        if (canvas) {
+          canvas.style.transition = 'none';
+          canvas.style.transform = `rotate(${data.rouletteData.degrees}deg)`;
+        }
+        if (resultTitle) {
+          resultTitle.textContent = opt.label;
+          resultTitle.style.color = opt.id === 'multa_10' ? '#f8d26a' : opt.color;
+        }
+        if (resultDesc) resultDesc.textContent = opt.desc;
+
+        if (btnClose) {
+          btnClose.style.display = 'block';
+          if (isPlayerView) {
+            btnClose.textContent = 'ACEITAR PUNIÇÃO';
+            btnClose.disabled = false;
+            btnClose.style.opacity = '1';
+            btnClose.onclick = async () => {
+              btnClose.textContent = 'PROCESSANDO...';
+              btnClose.disabled = true;
+
+              const currentPending = data.rouletteData.pendingPenalties || [];
+              currentPending.push(opt.id);
+
+              if (opt.id.startsWith('spin_') || opt.id === 'inflacao') {
+                await gameRef.update({
+                  'rouletteData.step': 'waiting_click',
+                  'rouletteData.pendingPenalties': currentPending,
+                  latestGuess: '🎰 Dominado na Roleta (Aguardando giro...)',
+                });
+              } else {
+                // É O GIRO FINAL: Fecha o modal e começa o "Efeito Tortura"
+                if (modal) modal.style.display = 'none';
+
+                await gameRef.update({
+                  'rouletteData.step': 'applying',
+                  'rouletteData.pendingPenalties': currentPending,
+                  latestGuess: '🎭 Aplicando os castigos em sequência...',
+                });
+
+                // LOOP DRAMÁTICO COM NARRAÇÃO DA MISTRESS (2.5 segundos de intervalo por suspense)
+                for (const penaltyId of currentPending) {
+                  let updates = {};
+                  const freshDoc = await gameRef.get();
+                  const freshData = freshDoc.data();
+                  let fraseCastigo = '';
+
+                  if (penaltyId.startsWith('silencio_')) {
+                    const currentRevealed = freshData.revealedIndexes ? freshData.revealedIndexes.length : 0;
+                    const currentSilence = freshData.silenceTarget || 0;
+                    const base = Math.max(currentRevealed, currentSilence);
+                    const qteDicas = parseInt(penaltyId.split('_')[1]);
+
+                    updates.silenceTarget = base + qteDicas;
+                    fraseCastigo = `Mais ${qteDicas} dicas de silêncio! Cala a boca e gaste mais otário!`;
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🤫 Punição: Silêncio +${qteDicas}`);
+                  } else if (penaltyId === 'inflacao') {
+                    const currentMult = freshData.inflationMultiplier || 1;
+                    updates.inflationMultiplier = currentMult * 2;
+                    fraseCastigo = `A inflação acabou de dobrar! Tudo o que você comprar agora vai custar uma fortuna!`;
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔥 Punição: Inflação Multiplicada para ${currentMult * 2}X`);
+                  } else if (penaltyId === 'multa_5') {
+                    updates.debt = firebase.firestore.FieldValue.increment(5);
+                    fraseCastigo = 'Mais cinco dólares confiscados da sua carteira! Pague agora!';
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de CAD 5.00`);
+                  } else if (penaltyId === 'multa_10') {
+                    updates.debt = firebase.firestore.FieldValue.increment(10);
+                    fraseCastigo = 'Mais dez dólares direto para a minha conta! Que porquinho patético!';
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de CAD 10.00`);
+                  } else if (penaltyId.startsWith('spin_')) {
+                    const valorGiro = parseInt(penaltyId.split('_')[1]);
+                    updates.debt = firebase.firestore.FieldValue.increment(valorGiro);
+                    fraseCastigo = `Mais ${valorGiro} dólares de prejuízo... e a roleta rodou de novo!`;
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔄 Punição: Giro Extra + Taxa de CAD ${valorGiro.toFixed(2)}`);
+                  }
+
+                  // Atualiza a tela da Mistress para ela ler o espetáculo
+                  updates.latestGuess = `🎭 ${fraseCastigo}`;
+
+                  // Dispara a chamada da Azure de forma assíncrona usando o elemento invisível do sistema
+                  const dummyVoiceElement = document.createElement('div');
+                  typeWriterEffect(dummyVoiceElement, fraseCastigo, 0);
+
+                  // Atualiza o Firestore para rodar o floating money e o ticker na tela
+                  await gameRef.update(updates);
+
+                  // Aguarda 2.5 segundos para a frase terminar e criar o clima de desespero
+                  await new Promise((resolve) => setTimeout(resolve, 2500));
+                }
+
+                await gameRef.update({
+                  rouletteData: firebase.firestore.FieldValue.delete(),
+                  latestGuess: '',
+                });
+              }
+            };
+          } else {
+            btnClose.textContent = 'AGUARDANDO O VERME ACEITAR...';
+            btnClose.disabled = true;
+            btnClose.style.opacity = '0.5';
+            btnClose.onclick = null;
+          }
+        }
+      } else if (data.rouletteData.step === 'applying') {
+        if (modal) modal.style.display = 'none';
+        window.isSpinningAnimActive = false;
+      }
+    } else {
+      if (modal) modal.style.display = 'none';
+      window.isSpinningAnimActive = false;
+    }
   }
 });
 
@@ -1072,10 +1345,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const previewBtns = document.querySelectorAll('.btn-voice-preview');
   const voiceSelects = document.querySelectorAll('.mistress-voice-select');
 
-  // Recupera a voz salva ou define o padrão
   const savedVoice = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
 
-  // Sincroniza os selects da interface com a voz salva e adiciona o listener de mudança
   voiceSelects.forEach((select) => {
     select.value = savedVoice;
 
@@ -1083,28 +1354,24 @@ document.addEventListener('DOMContentLoaded', () => {
       const newVoice = e.target.value;
       localStorage.setItem('selectedMistressVoice', newVoice);
 
-      // Mantém todos os selects da tela (Admin e Player) sincronizados
       voiceSelects.forEach((s) => (s.value = newVoice));
 
       showToast('Voz da Mistress alterada com sucesso.', 'success');
     });
   });
 
-  // Array com frases pesadas para testar o tom de voz da Mistress
   const insultosFindom = [
     'Olha bem para mim, seu verme asqueroso! Você é só um lixo insignificante debaixo do meu salto. Sinta a sola do meu pé... na sua cara. E quando o cheiro dele entrar no seu nariz você sente dar um pio! Vou cuspir na sua cara imunda... Você não passa de um porco escravo feito para pagar os meus luxos e das minhas amigas. Não fala porra nenhuma... e só pague até quando eu decidir! Seu... merda do caralho',
   ];
 
   previewBtns.forEach((btn) => {
     btn.addEventListener('click', () => {
-      // Se o áudio já estiver rolando, o clique atual funciona como STOP
       if (window.currentAudio && !window.currentAudio.paused) {
         window.currentAudio.pause();
         window.currentAudio = null;
         return;
       }
 
-      // Altera visualmente todos os botões de preview para o modo Stop
       previewBtns.forEach((b) => (b.innerHTML = '⏹️'));
 
       const randomInsult = insultosFindom[Math.floor(Math.random() * insultosFindom.length)];
@@ -1112,7 +1379,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       showToast('🔊 Executando humilhação neural...', 'gold');
 
-      // Executa a chamada passando velocidade 0 para focar apenas no áudio
       typeWriterEffect(dummyElement, randomInsult, 0);
     });
   });

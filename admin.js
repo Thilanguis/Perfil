@@ -42,13 +42,11 @@ function updateAdminDeckList() {
   if (!select) return;
   select.innerHTML = '';
 
-  // Opção global totalmente aleatória
   const randomOpt = document.createElement('option');
   randomOpt.value = 'random';
   randomOpt.textContent = '🎲 Sortear Qualquer Charada Aleatória';
   select.appendChild(randomOpt);
 
-  // Extrai uma lista única e limpa de todas as categorias do banco de dados
   const categories = [...new Set(PRELOADED_CARDS.map((card) => card.category))].sort();
 
   categories.forEach((category) => {
@@ -59,25 +57,7 @@ function updateAdminDeckList() {
   });
 }
 
-// Listeners de Sincronização Instantânea
-const editClue = document.getElementById('admin-edit-clue');
-const editPenalty = document.getElementById('admin-edit-penalty');
-
-if (editClue) {
-  editClue.addEventListener('input', async (e) => {
-    const val = parseFloat(e.target.value);
-    if (!isNaN(val)) await gameRef.update({ clueCost: val }).catch(console.error);
-  });
-}
-
-if (editPenalty) {
-  editPenalty.addEventListener('input', async (e) => {
-    const val = parseFloat(e.target.value);
-    if (!isNaN(val)) await gameRef.update({ mistakePenalty: val }).catch(console.error);
-  });
-}
-
-// Listener de Sincronização Instantânea (sem debounce)
+// --- SINCRONIZAÇÃO INSTANTÂNEA LIMPA E SEM DUPLICATAS ---
 document.getElementById('admin-edit-clue').addEventListener('input', async (e) => {
   const val = parseFloat(e.target.value);
   if (!isNaN(val)) {
@@ -120,13 +100,13 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
         latestGuess: '',
         revealedIndexes: [],
         guessLocked: false,
-        playerName: '', // Limpa o fantasma da sessão anterior
-        playerJoinedAt: 0, // Reseta o cronômetro de entrada
+        playerName: '',
+        playerJoinedAt: 0,
       },
       { merge: true },
     );
 
-    sessionStorage.setItem('gameRole', 'admin'); // MEMORIZA PAPEL DO ADMIN ISOLADO NESTA ABA
+    sessionStorage.setItem('gameRole', 'admin');
     document.getElementById('view-selection').classList.remove('active');
     document.getElementById('view-controller').classList.add('active');
     updateAdminDeckList();
@@ -135,7 +115,7 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
   }
 });
 
-// Botão de Reset de Dívida com confirmação explícita inline (Substituído com segurança)
+// Botão de Reset de Dívida
 document.getElementById('btn-reset-debt').addEventListener('click', (e) => {
   criarConfirmacaoInline(e.currentTarget, 'Zerar tudo?', async () => {
     try {
@@ -148,24 +128,22 @@ document.getElementById('btn-reset-debt').addEventListener('click', (e) => {
   });
 });
 
+// Lança a Charada para o Jogo
 document.getElementById('btn-start-round').addEventListener('click', async () => {
   let selectedValue = document.getElementById('admin-card-select').value;
   if (!selectedValue) return;
 
   let cardData;
   if (selectedValue === 'random') {
-    // Sorteia absolutamente qualquer carta do banco completo
     const randomIndex = Math.floor(Math.random() * PRELOADED_CARDS.length);
     cardData = PRELOADED_CARDS[randomIndex];
   } else if (selectedValue.startsWith('category_')) {
-    // Filtra as cartas daquela categoria escolhida e sorteia uma em segredo total
     const targetCategory = selectedValue.replace('category_', '');
     const filteredCards = PRELOADED_CARDS.filter((c) => c.category === targetCategory);
     const randomIndex = Math.floor(Math.random() * filteredCards.length);
     cardData = filteredCards[randomIndex];
   }
 
-  // CORREÇÃO: Verifica se os inputs existem antes de tentar ler o .value
   const clueInput = document.getElementById('admin-edit-clue');
   const penaltyInput = document.getElementById('admin-edit-penalty');
 
@@ -180,11 +158,12 @@ document.getElementById('btn-start-round').addEventListener('click', async () =>
     clueCost: newClueCost,
     mistakePenalty: newPenalty,
     trapIndices: [],
-    rouletteIndex: -1, // NOVO: Gatilho da roleta
-    inflationActive: false, // NOVO: Castigo de Inflação
-    silenceTarget: 0, // NOVO: Castigo de Silêncio
-    trapsReady: false, // TRAVA A MESA DO JOGADOR
+    rouletteIndex: -1,
+    inflationMultiplier: 1,
+    silenceTarget: 0,
+    trapsReady: false,
     revealedIndexes: [],
+    roundPenalties: [],
     latestGuess: '',
     status: 'playing',
     guessLocked: false,
@@ -200,10 +179,10 @@ document.getElementById('btn-unlock-board').addEventListener('click', async () =
   showToast('Mesa liberada! O dominado agora pode interagir.', 'success');
 });
 
-// Botão para derrubar o jogador e resetar a mesa com confirmação explícita inline (Substituído com segurança)
+// Botão para derrubar o jogador
 document.getElementById('btn-close-session').addEventListener('click', (e) => {
   criarConfirmacaoInline(e.currentTarget, 'Encerrar sessão?', async () => {
-    sessionStorage.removeItem('gameRole'); // LIMPA O PAPEL DESTA ABA NO LOGOUT
+    sessionStorage.removeItem('gameRole');
     try {
       await gameRef.update({
         status: 'closed',
@@ -211,7 +190,7 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
         revealedIndexes: [],
         latestGuess: '',
         guessLocked: false,
-        history: [], // Reseta o histórico ao fechar a mesa completamente
+        history: [],
       });
       showToast('Sessão encerrada e submisso desconectado.', 'danger');
       document.getElementById('view-controller').classList.remove('active');
@@ -222,21 +201,26 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
   });
 });
 
-// Listener de Acerto reseta a flag de trava e computa histórico
+// --- CÁLCULO EXATO DO HISTÓRICO (O GRANDE BUG MATEMÁTICO RESOLVIDO) ---
+
+// Listener de Acerto
 document.getElementById('btn-mark-correct').addEventListener('click', async () => {
   try {
     const doc = await gameRef.get();
     if (doc.exists) {
       const data = doc.data();
       const cluesCount = data.revealedIndexes ? data.revealedIndexes.length : 0;
-      const cluesCostTotal = cluesCount * (data.clueCost || 0);
+
+      // MÁGICA AQUI: Salva no histórico a dívida REAL que o banco calculou (com inflações e roletas aplicadas)
+      const finalCost = data.debt || 0;
 
       const logEntry = {
         answer: data.answer || 'Desconhecida',
         category: data.category || 'Geral',
         cluesUsed: cluesCount,
-        cost: cluesCostTotal,
+        cost: finalCost,
         result: 'correct',
+        penalties: data.roundPenalties || [],
         timestamp: Date.now(),
       };
 
@@ -254,7 +238,7 @@ document.getElementById('btn-mark-correct').addEventListener('click', async () =
   }
 });
 
-// Listener de Erro reseta a flag de trava, aplica a multa e computa histórico
+// Listener de Erro
 document.getElementById('btn-mark-wrong').addEventListener('click', async () => {
   try {
     const doc = await gameRef.get();
@@ -262,8 +246,10 @@ document.getElementById('btn-mark-wrong').addEventListener('click', async () => 
       const sessionData = doc.data();
       const penaltyValue = sessionData && sessionData.mistakePenalty ? parseFloat(sessionData.mistakePenalty) : 10.0;
       const cluesCount = sessionData.revealedIndexes ? sessionData.revealedIndexes.length : 0;
-      const cluesCostTotal = cluesCount * (sessionData.clueCost || 0);
-      const totalLoss = cluesCostTotal + penaltyValue;
+
+      // MÁGICA AQUI: Pega a dívida real turbinada pela roleta e apenas soma a taxa final de erro
+      const currentDebt = sessionData.debt || 0;
+      const totalLoss = currentDebt + penaltyValue;
 
       const logEntry = {
         answer: sessionData.answer || 'Desconhecida',
@@ -271,6 +257,7 @@ document.getElementById('btn-mark-wrong').addEventListener('click', async () => 
         cluesUsed: cluesCount,
         cost: totalLoss,
         result: 'wrong',
+        penalties: sessionData.roundPenalties || [],
         timestamp: Date.now(),
       };
 
@@ -283,39 +270,11 @@ document.getElementById('btn-mark-wrong').addEventListener('click', async () => 
         history: firebase.firestore.FieldValue.arrayUnion(logEntry),
       });
       showToast('Penalidade aplicada! O dominado errou.', 'danger');
-    } else {
-      console.error('Sessão não encontrada no Firestore para aplicar a multa.');
     }
   } catch (error) {
     console.error('Erro crítico no processo de taxação:', error);
   }
 });
 
-// --- SINCRONIZAÇÃO INSTANTÂNEA (SEM ESPERA) ---
-document.getElementById('admin-edit-clue').addEventListener('input', async (e) => {
-  const val = parseFloat(e.target.value);
-  if (!isNaN(val)) {
-    try {
-      await gameRef.update({ clueCost: val });
-    } catch (error) {
-      console.error('Erro ao atualizar Custo Dica:', error);
-    }
-  }
-});
-
-document.getElementById('admin-edit-penalty').addEventListener('input', async (e) => {
-  const val = parseFloat(e.target.value);
-  if (!isNaN(val)) {
-    try {
-      await gameRef.update({ mistakePenalty: val });
-    } catch (error) {
-      console.error('Erro ao atualizar Multa Erro:', error);
-    }
-  }
-});
-
 // --- GARANTIR QUE A LISTA SEJA POPULADA AO CARREGAR ---
 document.addEventListener('DOMContentLoaded', updateAdminDeckList);
-
-// Log para monitoramento
-console.log('Cartas carregadas:', typeof PRELOADED_CARDS !== 'undefined' ? PRELOADED_CARDS.length : 'ERRO: PRELOADED_CARDS NÃO ENCONTRADO');
