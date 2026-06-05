@@ -1,10 +1,4 @@
-// --- PRE-LOADER DE VOZES PARA A MISTRESS ---
-if ('speechSynthesis' in window) {
-  // Garante que o navegador carregue as vozes em background antes do primeiro clique
-  window.speechSynthesis.onvoiceschanged = () => window.speechSynthesis.getVoices();
-}
-
-// --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ SINCRONIZADA ---
+// --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ NEURAL DA AZURE ---
 window.typewriterDivs = window.typewriterDivs || new Map();
 
 function typeWriterEffect(element, text, speed = 65) {
@@ -17,50 +11,71 @@ function typeWriterEffect(element, text, speed = 65) {
   }
 
   element.innerHTML = '';
+
+  // Limpa tags HTML para a voz não ler elementos do DOM em voz alta
   let textToAnimate = text.includes('<span') ? new DOMParser().parseFromString(text, 'text/html').body.textContent : text;
 
-  // --- ENGINE DE VOZ NATIVA NAVEGADOR (TUNADA) ---
-  const speech = new SpeechSynthesisUtterance(textToAnimate);
-  speech.lang = 'pt-BR';
-  speech.rate = 0.88; // Mais lenta e imponente para a Mistress
-  speech.pitch = 0.85; // Tom mais grave e sério
+  // --- CONFIGURAÇÃO DA MICROSOFT AZURE SPEECH API ---
+  const azureApiKey = '9oRvYr2ZRtQzGEJw2PDPkoti17tPtwaelJHaIizK5Z1Jh1mBhIjzJQQJ99CFACYeBjFXJ3w3AAAYACOGz2QH'; // <- Recoloque a sua chave real aqui
+  const azureRegion = 'eastus';
 
-  const setFemaleVoice = () => {
-    const voices = window.speechSynthesis.getVoices();
+  // Puxa a voz escolhida pelo usuário no menu ou usa a Francisca como padrão do sistema
+  const voiceName = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
 
-    // Filtra apenas vozes em português (pt-BR ou pt_BR)
-    const ptVoices = voices.filter((v) => v.lang === 'pt-BR' || v.lang === 'pt_BR');
+  if (azureApiKey && azureRegion && azureApiKey !== 'SUA_CHAVE_AQUI') {
+    // SSML: Tunado para dar um tom mais frio, pausado e irônico
+    const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='pt-BR'>
+                <voice name='${voiceName}'>
+                  <prosody rate='0.93' pitch='-2%'>
+                    ${textToAnimate}
+                  </prosody>
+                </voice>
+              </speak>`;
 
-    // Força a busca primeiro pelas vozes premium do Google Chrome
-    let selectedVoice = ptVoices.find((v) => v.name.toLowerCase().includes('google'));
+    fetch(`https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+      method: 'POST',
+      headers: {
+        'Ocp-Apim-Subscription-Key': azureApiKey,
+        'Content-Type': 'application/ssml+xml',
+        'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
+        'User-Agent': 'TributeProfileSystem',
+      },
+      body: ssml,
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error(`Azure HTTP Error: ${response.status}`);
+        return response.blob();
+      })
+      .then((blob) => {
+        const audioUrl = URL.createObjectURL(blob);
+        const audio = new Audio(audioUrl);
 
-    // Se não achar a do Google, busca por outras opções femininas conhecidas
-    if (!selectedVoice) {
-      selectedVoice = ptVoices.find((v) => {
-        const name = v.name.toLowerCase();
-        return name.includes('female') || name.includes('mulher') || name.includes('rachel') || name.includes('luciana') || name.includes('francisca');
+        // Se já houver um áudio rodando, interrompe imediatamente
+        if (window.currentAudio) {
+          window.currentAudio.pause();
+        }
+
+        window.currentAudio = audio;
+
+        // Monitora o fim do áudio para resetar os botões de preview da tela
+        audio.addEventListener('ended', () => {
+          document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
+          window.currentAudio = null;
+        });
+
+        // Monitora pausas manuais para resetar o ícone visual
+        audio.addEventListener('pause', () => {
+          document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
+        });
+
+        audio.play().catch((e) => console.log('Bloqueio de autoplay do navegador:', e));
+      })
+      .catch((error) => {
+        console.error('Falha na API da Azure. Rodando apenas escrita visual:', error);
       });
-    }
-
-    // Aplica a voz selecionada
-    if (selectedVoice) {
-      speech.voice = selectedVoice;
-      console.log('🗣️ Voz Selecionada Atual:', selectedVoice.name, '[' + selectedVoice.lang + ']');
-    } else if (ptVoices.length > 0) {
-      speech.voice = ptVoices[0];
-      console.log('⚠️ Usando voz padrão disponível:', ptVoices[0].name);
-    }
-  };
-
-  if (window.speechSynthesis.getVoices().length === 0) {
-    window.speechSynthesis.onvoiceschanged = setFemaleVoice;
-  } else {
-    setFemaleVoice();
   }
 
-  window.speechSynthesis.speak(speech);
-
-  // --- EFEITO DE MÁQUINA DE ESCREVER ---
+  // --- EFEITO DE MÁQUINA DE ESCREVER (VISUAL) ---
   let i = 0;
   const timer = setInterval(() => {
     if (i < textToAnimate.length) {
@@ -107,25 +122,19 @@ document.addEventListener('DOMContentLoaded', () => {
   const splashVideo = document.getElementById('splash-video');
 
   if (splashScreen && splashVideo) {
-    // Verifica se está rodando no ambiente de desenvolvimento local
     const isLocalhost = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
 
     if (isLocalhost) {
-      // Mata o vídeo e a tela preta instantaneamente no modo dev
       splashScreen.remove();
       return;
     }
 
-    // Define a velocidade do vídeo (1.0 é o normal, 0.7 é 70% da velocidade, 0.5 é metade)
     splashVideo.playbackRate = 0.7;
-
     splashVideo.play().catch((e) => console.log('Autoplay bloqueado:', e));
 
     splashVideo.addEventListener('timeupdate', () => {
-      // O tempo de 3.8s continua valendo para o frame do vídeo, mesmo em câmera lenta
       if (splashVideo.currentTime >= 3.8 && !splashScreen.classList.contains('fade-out')) {
         splashScreen.classList.add('fade-out');
-
         setTimeout(() => {
           splashScreen.remove();
         }, 1000);
@@ -139,21 +148,16 @@ if ('serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
       const registration = await navigator.serviceWorker.register('./service-worker.js');
-
-      // Força o navegador a checar se há atualizações no script toda vez que carregar
       registration.update();
 
-      // 1. Detecta se já tem uma atualização aguardando para ser aplicada
       if (registration.waiting) {
         showUpdateModal(registration.waiting);
       }
 
-      // 2. Detecta quando uma nova atualização é encontrada e começa a instalar em background
       registration.addEventListener('updatefound', () => {
         const newWorker = registration.installing;
         if (newWorker) {
           newWorker.addEventListener('statechange', () => {
-            // Quando terminar de baixar e mudar para 'installed', mostra o modal
             if (newWorker.state === 'installed') {
               if (navigator.serviceWorker.controller) {
                 showUpdateModal(newWorker);
@@ -166,7 +170,6 @@ if ('serviceWorker' in navigator) {
       console.error('Erro ao registrar Service Worker:', error);
     }
 
-    // 3. Garante que a tela recarregue automaticamente apenas 1x quando o novo SW assumir o controle
     let refreshing = false;
     navigator.serviceWorker.addEventListener('controllerchange', () => {
       if (!refreshing) {
@@ -177,7 +180,6 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Função auxiliar para exibir o modal e controlar a barra de progresso visual
 function showUpdateModal(worker) {
   const modal = document.getElementById('update-modal');
   const progressBar = document.getElementById('update-progress-bar');
@@ -186,10 +188,8 @@ function showUpdateModal(worker) {
 
   if (!modal || !progressBar || !btnApply) return;
 
-  // Trava a tela exibindo o modal
   modal.style.display = 'flex';
 
-  // Animação de carregamento (feedback visual premium)
   let progress = 0;
   const interval = setInterval(() => {
     progress += Math.floor(Math.random() * 15) + 5;
@@ -199,23 +199,20 @@ function showUpdateModal(worker) {
       progressBar.style.width = '100%';
       statusText.textContent = 'Atualização baixada! Clique para reiniciar.';
       statusText.style.color = 'var(--green)';
-      btnApply.style.display = 'block'; // Mostra o botão apenas quando chega em 100%
+      btnApply.style.display = 'block';
     } else {
       progressBar.style.width = `${progress}%`;
       statusText.textContent = `Baixando nova versão... ${progress}%`;
     }
   }, 250);
 
-  // Ação do botão: manda o comando pro Service Worker se ativar e reiniciar tudo
   btnApply.addEventListener('click', () => {
     btnApply.textContent = 'Reiniciando...';
     btnApply.disabled = true;
     btnApply.style.opacity = '0.5';
 
-    // Manda o comando de ativação para o Service Worker
     worker.postMessage('skipWaiting');
 
-    // Fallback de segurança: Força o reload da página caso o navegador trave o evento
     setTimeout(() => {
       window.location.reload();
     }, 800);
@@ -226,13 +223,12 @@ function showUpdateModal(worker) {
 document.getElementById('btn-enter-player').addEventListener('click', async () => {
   const pName = document.getElementById('setup-player-name').value.trim() || 'Jogador';
 
-  // Atualiza o nome do dominado no Firebase e registra a hora da entrada
   await gameRef.update({
     playerName: pName,
     playerJoinedAt: Date.now(),
   });
 
-  sessionStorage.setItem('gameRole', 'player'); // SALVA O PAPEL DE JOGADOR ISOLADO NESTA ABA
+  sessionStorage.setItem('gameRole', 'player');
   document.getElementById('view-selection').classList.remove('active');
   document.getElementById('view-player').classList.add('active');
   generateClueButtons([], 5.0);
@@ -243,7 +239,6 @@ document.querySelectorAll('.btn-back').forEach((btn) => {
     const savedRole = sessionStorage.getItem('gameRole');
     if (savedRole === 'player') {
       try {
-        // Remove os dados de presença do submisso no Firebase ao sair da mesa
         await gameRef.update({
           playerName: '',
           playerJoinedAt: 0,
@@ -252,7 +247,7 @@ document.querySelectorAll('.btn-back').forEach((btn) => {
         console.error('Erro ao registrar saída do jogador:', error);
       }
     }
-    sessionStorage.removeItem('gameRole'); // LIMPA O PAPEL DESTA ABA SE RETROCEDER MANUALMENTE
+    sessionStorage.removeItem('gameRole');
     autoRouted = false;
     document.getElementById('view-player').classList.remove('active');
     document.getElementById('view-controller').classList.remove('active');
@@ -280,18 +275,17 @@ function animateValue(element, start, end, duration) {
 
 // --- LISTENER EM TEMPO REAL (O CORAÇÃO DO JOGO) ---
 let localPlayerDebt = 0;
-let autoRouted = false; // Flag para controlar o roteamento automático do F5
-let isFirstLoad = true; // Evita o falso alarme de subida de valor e bloqueio de vibração no F5
-let localPlayerJoinedAt = 0; // Controla a notificação de entrada do jogador
+let autoRouted = false;
+let isFirstLoad = true;
+let localPlayerJoinedAt = 0;
 
 gameRef.onSnapshot((doc) => {
   if (doc.exists) {
     const data = doc.data();
     const currentDebt = data.debt || 0;
 
-    // --- ROTEAMENTO DINÂMICO AUTOMÁTICO NO REFRESH (F5) ---
     if (!autoRouted && data.status && data.status !== 'closed') {
-      const savedRole = sessionStorage.getItem('gameRole'); // LÊ O PAPEL ESPECÍFICO DESTA ABA
+      const savedRole = sessionStorage.getItem('gameRole');
       if (savedRole === 'player') {
         document.getElementById('view-selection').classList.remove('active');
         document.getElementById('view-player').classList.add('active');
@@ -303,19 +297,16 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // --- NOTIFICAÇÃO DE ENTRADA DO DOMINADO ---
     if (data.playerJoinedAt && data.playerJoinedAt > localPlayerJoinedAt) {
       const savedRole = sessionStorage.getItem('gameRole');
-      // Avisa apenas a Mistress e garante que não seja apenas um F5 de página
       if (!isFirstLoad && savedRole === 'admin') {
-        showToast(`O dominado ${data.playerName || 'Jogador'} acaba de entrar na mesa!`, 'gold');
+        showToast(`O dominado ${data.playerName || 'Jogador'} acaba de entrou na mesa!`, 'gold');
       }
       localPlayerJoinedAt = data.playerJoinedAt;
     } else if (!data.playerJoinedAt) {
-      localPlayerJoinedAt = 0; // Reseta o controle local caso o sub tenha deslogado
+      localPlayerJoinedAt = 0;
     }
 
-    // Só processa efeitos visuais e sonoros se NÃO for a carga inicial da página
     if (currentDebt > localPlayerDebt && !isFirstLoad) {
       const diff = currentDebt - localPlayerDebt;
       const previousDebt = localPlayerDebt;
@@ -332,7 +323,6 @@ gameRef.onSnapshot((doc) => {
 
       const floatContainer = document.getElementById('floating-money-container');
 
-      // SOLUÇÃO: Qualquer subida de valor na mesa agora recebe o voo magnético e os centavos correndo
       if (floatContainer && targetEl) {
         const targetRect = targetEl.getBoundingClientRect();
         let targetX = targetRect.left + targetRect.width / 2;
@@ -362,7 +352,6 @@ gameRef.onSnapshot((doc) => {
             const pDebt = document.getElementById('player-debt');
             const aDebt = document.getElementById('admin-current-debt');
 
-            // Ambas as ações disparam a contagem cadenciada de 1.2s e pulsam em verde
             if (pDebt && viewPlayer && viewPlayer.classList.contains('active')) {
               animateValue(pDebt, previousDebt, currentDebt, 1200);
               pDebt.classList.remove('debt-pop');
@@ -379,7 +368,6 @@ gameRef.onSnapshot((doc) => {
           }, 800);
         }, 600);
       } else {
-        // Fallback de segurança caso os elementos sumam da tela por perda de sincronia
         const pDebt = document.getElementById('player-debt');
         const aDebt = document.getElementById('admin-current-debt');
         if (pDebt) pDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
@@ -390,7 +378,6 @@ gameRef.onSnapshot((doc) => {
         if (navigator.vibrate) navigator.vibrate([100, 50, 100]);
       } catch (e) {}
     } else {
-      // Se a dívida não subiu (ex: início de jogo ou reset completo), limpa o contador instantaneamente
       const pDebt = document.getElementById('player-debt');
       const aDebt = document.getElementById('admin-current-debt');
       if (pDebt) pDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
@@ -398,12 +385,11 @@ gameRef.onSnapshot((doc) => {
     }
 
     localPlayerDebt = currentDebt;
-    isFirstLoad = false; // CORREÇÃO: Desativa o primeiro load para liberar os Toasts e vibrações nas ações seguintes
+    isFirstLoad = false;
 
-    // Expulsa o jogador e limpa as rotas locais se a sessão fechar ou sumir do banco
     const viewPlayerEl = document.getElementById('view-player');
     if (data.status === 'closed' || !data.status) {
-      sessionStorage.removeItem('gameRole'); // LIMPA A MEMÓRIA DESTA ABA
+      sessionStorage.removeItem('gameRole');
       autoRouted = false;
       if (viewPlayerEl && viewPlayerEl.classList.contains('active')) {
         viewPlayerEl.classList.remove('active');
@@ -412,15 +398,13 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // --- TRAVAS DE SEGURANÇA E LOBBY ---
-
-    // 1. Controle do Lobby: Bloqueia o botão de entrar se não houver mesa aberta
     const enterPlayerBtn = document.getElementById('btn-enter-player');
+    const enterAdminBtn = document.getElementById('btn-enter-controller');
     const globalStatus = document.getElementById('lobby-global-status');
 
-    if (enterPlayerBtn) {
-      if (data.status === 'closed' || !data.status) {
-        // Estado: Fechado
+    if (data.status === 'closed' || !data.status) {
+      // Configuração quando a mesa está fechada
+      if (enterPlayerBtn) {
         enterPlayerBtn.disabled = true;
         enterPlayerBtn.innerHTML = '🔒 MESA FECHADA';
         enterPlayerBtn.style.opacity = '0.5';
@@ -428,16 +412,26 @@ gameRef.onSnapshot((doc) => {
         enterPlayerBtn.style.background = 'var(--border)';
         enterPlayerBtn.style.color = '#888';
         enterPlayerBtn.style.boxShadow = 'none';
+      }
 
-        if (globalStatus) {
-          globalStatus.innerHTML = '● MESA FECHADA';
-          globalStatus.style.background = 'rgba(230, 34, 54, 0.05)';
-          globalStatus.style.color = 'var(--red)';
-          globalStatus.style.borderColor = 'rgba(230, 34, 54, 0.3)';
-          globalStatus.style.boxShadow = 'none';
-        }
-      } else {
-        // Estado: Aberto
+      if (enterAdminBtn) {
+        enterAdminBtn.disabled = false;
+        enterAdminBtn.innerHTML = '👑 Abrir Mesa';
+        enterAdminBtn.style.opacity = '1';
+        enterAdminBtn.style.cursor = 'pointer';
+        enterAdminBtn.style.background = 'linear-gradient(135deg, var(--red) 0%, #b3101e 50%, #4a0005 100%)';
+      }
+
+      if (globalStatus) {
+        globalStatus.innerHTML = '● MESA FECHADA';
+        globalStatus.style.background = 'rgba(230, 34, 54, 0.05)';
+        globalStatus.style.color = 'var(--red)';
+        globalStatus.style.borderColor = 'rgba(230, 34, 54, 0.3)';
+        globalStatus.style.boxShadow = 'none';
+      }
+    } else {
+      // Configuração quando a mesa já está aberta/ativa
+      if (enterPlayerBtn) {
         enterPlayerBtn.disabled = false;
         enterPlayerBtn.innerHTML = '🔓 ENTRAR NA MESA';
         enterPlayerBtn.style.opacity = '1';
@@ -445,18 +439,27 @@ gameRef.onSnapshot((doc) => {
         enterPlayerBtn.style.background = 'linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%)';
         enterPlayerBtn.style.color = 'var(--black)';
         enterPlayerBtn.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
+      }
 
-        if (globalStatus) {
-          globalStatus.innerHTML = '● MESA LIBERADA';
-          globalStatus.style.background = 'rgba(46, 204, 113, 0.05)';
-          globalStatus.style.color = 'var(--green)';
-          globalStatus.style.borderColor = 'rgba(46, 204, 113, 0.4)';
-          globalStatus.style.boxShadow = '0 0 15px rgba(46, 204, 113, 0.15)';
-        }
+      if (enterAdminBtn) {
+        enterAdminBtn.disabled = true;
+        enterAdminBtn.innerHTML = '🔒 MESA EM USO';
+        enterAdminBtn.style.opacity = '0.4';
+        enterAdminBtn.style.cursor = 'not-allowed';
+        enterAdminBtn.style.background = 'var(--border)';
+        enterAdminBtn.style.color = '#666';
+        enterAdminBtn.style.boxShadow = 'none';
+      }
+
+      if (globalStatus) {
+        globalStatus.innerHTML = '● MESA LIBERADA';
+        globalStatus.style.background = 'rgba(46, 204, 113, 0.05)';
+        globalStatus.style.color = 'var(--green)';
+        globalStatus.style.borderColor = 'rgba(46, 204, 113, 0.4)';
+        globalStatus.style.boxShadow = '0 0 15px rgba(46, 204, 113, 0.15)';
       }
     }
 
-    // 2. Controle da Mistress: Trava a edição de taxas e envio da charada se a rodada estiver em andamento
     const editClue = document.getElementById('admin-edit-clue');
     const editPenalty = document.getElementById('admin-edit-penalty');
     const cardSelect = document.getElementById('admin-card-select');
@@ -464,11 +467,9 @@ gameRef.onSnapshot((doc) => {
 
     const isPlaying = data.status === 'playing';
 
-    // Bloqueia apenas o seletor de cartas e o botão de iniciar
     if (cardSelect) cardSelect.disabled = isPlaying;
     if (startRoundBtn) startRoundBtn.disabled = isPlaying;
 
-    // Garante que os inputs de taxa fiquem SEMPRE liberados (sem travas)
     if (editClue) {
       editClue.disabled = false;
       editClue.style.opacity = '1';
@@ -478,18 +479,15 @@ gameRef.onSnapshot((doc) => {
       editPenalty.style.opacity = '1';
     }
 
-    // Feedback visual para o botão que ainda trava
     if (startRoundBtn) {
       startRoundBtn.style.opacity = isPlaying ? '0.5' : '1';
     }
 
-    // 2. Atualiza Admin Dashboard (Lógica Separada Conforme Solicitado)
     const adminStatusContainer = document.getElementById('controller-status-container');
     const adminFinancesCard = document.getElementById('admin-finances-card');
     const adminDashboardCard = document.getElementById('admin-dashboard-card');
 
     if (data.status && data.status !== 'closed') {
-      // Se o dominador abriu a sala, esconde o blocker de entrada e fixa as finanças na tela
       if (adminStatusContainer) adminStatusContainer.style.display = 'none';
       if (adminFinancesCard) adminFinancesCard.style.display = 'block';
 
@@ -497,8 +495,6 @@ gameRef.onSnapshot((doc) => {
         updateAdminDeckList();
       }
 
-      // O bloco de jogo abaixo (com o grid, resposta secreta e botões de ação)
-      // SÓ GANHA TELA se uma rodada estiver ativamente rolando!
       if (data.status === 'playing') {
         if (adminDashboardCard) adminDashboardCard.style.display = 'block';
 
@@ -545,18 +541,15 @@ gameRef.onSnapshot((doc) => {
           }
         }
 
-        // --- CONTROLE DO BOTÃO DE LIBERAR MESA ---
         const btnUnlock = document.getElementById('btn-unlock-board');
         if (btnUnlock) {
           const trapsCount = (data.trapIndices || []).length;
           const hasRoulette = data.rouletteIndex !== undefined && data.rouletteIndex !== -1;
 
-          // Exibe o botão apenas se o jogo está rolando e as armadilhas ainda não foram liberadas
           if (!data.trapsReady && data.status === 'playing') {
             btnUnlock.style.display = 'block';
 
             if (trapsCount < 3 || !hasRoulette) {
-              // Bloqueia e avisa o que falta
               btnUnlock.disabled = true;
               btnUnlock.style.background = 'var(--border)';
               btnUnlock.style.color = '#666';
@@ -569,7 +562,6 @@ gameRef.onSnapshot((doc) => {
                 btnUnlock.textContent = `🎰 ADICIONE 1 ROLETA FINDOM`;
               }
             } else {
-              // Libera o botão com o visual premium dourado original
               btnUnlock.disabled = false;
               btnUnlock.style.background = 'linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%)';
               btnUnlock.style.color = 'var(--black)';
@@ -587,7 +579,6 @@ gameRef.onSnapshot((doc) => {
 
         if (mirrorBoard) {
           mirrorBoard.innerHTML = '';
-          // Restaura o grid original de 5 colunas idêntico ao do jogador
           mirrorBoard.style.display = 'grid';
           mirrorBoard.style.gridTemplateColumns = 'repeat(5, 1fr)';
           mirrorBoard.style.gap = '6px';
@@ -646,20 +637,16 @@ gameRef.onSnapshot((doc) => {
               let newRoulette = data.rouletteIndex !== undefined ? data.rouletteIndex : -1;
 
               if (isTrap) {
-                // Era trap normal, vira Roleta se estiver livre, senão vira Vazio
                 newTraps = newTraps.filter((t) => t !== i - 1);
                 if (newRoulette === -1) {
                   newRoulette = i - 1;
                 }
               } else if (isRoulette) {
-                // Era roleta, vira vazio
                 newRoulette = -1;
               } else {
-                // Era vazio, vira trap normal se tiver vaga
                 if (newTraps.length < 3) {
                   newTraps.push(i - 1);
                 } else if (newRoulette === -1) {
-                  // Pula pra roleta se as traps tiverem cheias
                   newRoulette = i - 1;
                 } else {
                   showToast('Limites atingidos: 3 armadilhas e 1 roleta.', 'gold');
@@ -675,31 +662,25 @@ gameRef.onSnapshot((doc) => {
           }
         }
 
-        // --- SISTEMA DE PRÉVIA OCULTA DAS DICAS ACIMA DO HISTÓRICO ---
         const historyBox = document.getElementById('admin-history-box');
         if (historyBox) {
           let previewContainer = document.getElementById('admin-preview-clues-box');
 
-          // Altera a inserção para injetar o bloco ANTES do histórico de danos com as correções de layout
           if (!previewContainer) {
             previewContainer = document.createElement('div');
             previewContainer.id = 'admin-preview-clues-box';
-            previewContainer.style.marginTop = '25px'; // Afasta o título da prévia do botão "Lançar Charada"
-            previewContainer.style.marginBottom = '25px'; // Espaço controlado entre a prévia e o histórico
-            previewContainer.style.borderBottom = '1px dashed var(--border)'; // Mantém apenas a linha divisória inferior
+            previewContainer.style.marginTop = '25px';
+            previewContainer.style.marginBottom = '25px';
+            previewContainer.style.borderBottom = '1px dashed var(--border)';
             previewContainer.style.paddingBottom = '15px';
 
-            // Força o bloco de histórico original a remover a borda superior dele para não duplicar as linhas
             historyBox.style.borderTop = 'none';
             historyBox.style.paddingTop = '0';
 
             historyBox.parentNode.insertBefore(previewContainer, historyBox);
           }
 
-          // CORREÇÃO: Quando a rodada reseta ou termina, limpamos APENAS a prévia das dicas textuais,
-          // protegendo a estrutura do histórico e mantendo a Dívida Acumulada intacta na tela.
           if (data.trapsReady || data.status !== 'playing' || !data.clues || data.clues.length === 0) {
-            // Limpa apenas o HTML interno gerado pelas dicas da rodada anterior
             previewContainer.innerHTML = '';
           } else {
             const traps = data.trapIndices || [];
@@ -771,7 +752,6 @@ gameRef.onSnapshot((doc) => {
         const adminTextContainer = document.getElementById('admin-text-clues-container');
         const isActiveAdmin = document.getElementById('view-controller') && document.getElementById('view-controller').classList.contains('active');
 
-        // Só atualiza (e gasta a API) se a Mistress estiver com o painel aberto
         if (adminTextContainer && isActiveAdmin) {
           if (revealedIndexes.length > 0) {
             const emptyMsg = adminTextContainer.querySelector('p');
@@ -780,7 +760,6 @@ gameRef.onSnapshot((doc) => {
             const sortedRevealed = [...revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
             const trapList = data.trapIndices || [];
 
-            // Limpeza se trocar de rodada
             const activeAdminIds = sortedRevealed.map((item) => `admin-clue-box-${item.index}`);
             Array.from(adminTextContainer.children).forEach((child) => {
               if (child.id && !activeAdminIds.includes(child.id)) child.remove();
@@ -790,16 +769,15 @@ gameRef.onSnapshot((doc) => {
               const divId = `admin-clue-box-${item.index}`;
               let div = document.getElementById(divId);
 
-              // SÓ CRIA E DEIXA ESCREVER SE AINDA NÃO EXISTIR NO PAINEL
               if (!div) {
                 const isTrap = trapList.includes(item.index);
                 const isRoulette = data.rouletteIndex === item.index;
 
                 let clueText = data.clues[item.index];
                 if (isTrap) {
-                  clueText = '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>';
+                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Pague caladinho.</span>';
                 } else if (isRoulette) {
-                  clueText = '<span style="color: #b538ff; font-weight: bold;">🎰 ROLETA FINDOM ACIONADA</span>';
+                  clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
                 }
 
                 div = document.createElement('div');
@@ -829,11 +807,9 @@ gameRef.onSnapshot((doc) => {
           }
         }
       } else {
-        // Se a rodada acabou ou está em espera, apaga o painel do jogo, mas mantém o de finanças no topo
         if (adminDashboardCard) adminDashboardCard.style.display = 'none';
       }
     } else {
-      // Cai aqui apenas se a mesa inteira for destruída/fechada de fato
       if (adminDashboardCard) adminDashboardCard.style.display = 'none';
       if (adminFinancesCard) adminFinancesCard.style.display = 'none';
       if (adminStatusContainer) adminStatusContainer.style.display = 'block';
@@ -844,7 +820,6 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // 3. Atualiza Tela do Jogador
     const playerName = data.playerName || 'Jogador';
     const uiPlayerName = document.getElementById('ui-player-name');
     if (uiPlayerName) uiPlayerName.textContent = playerName;
@@ -852,36 +827,29 @@ gameRef.onSnapshot((doc) => {
     const pCategory = document.getElementById('player-category');
     if (pCategory) pCategory.textContent = data.category || 'Aguardando...';
 
+    // CORREÇÃO: Espelha o Custo da Dica em tempo real (e dobra se a inflação estiver ativa)
     const uiClueCost = document.getElementById('ui-clue-cost');
     if (uiClueCost) {
       const baseCost = data.clueCost || 0;
       const actualCost = data.inflationActive ? baseCost * 2 : baseCost;
-
-      if (data.inflationActive) {
-        uiClueCost.innerHTML = `<span style="color: #ff8c00;">${actualCost.toFixed(2)} (INFLAÇÃO 2X)</span>`;
-      } else {
-        uiClueCost.textContent = actualCost.toFixed(2);
-      }
+      uiClueCost.textContent = actualCost.toFixed(2);
     }
 
     const uiMistakePenalty = document.getElementById('ui-mistake-penalty');
     if (uiMistakePenalty) uiMistakePenalty.textContent = (data.mistakePenalty || 0).toFixed(2);
 
-    // --- TRAVA DE SEGURANÇA DO PALPITE DO JOGADOR (CORRIGIDA) ---
     const pGuessInput = document.getElementById('player-guess-input');
     const pSubmitBtn = document.getElementById('btn-submit-guess');
 
     if (pGuessInput && pSubmitBtn) {
       if (data.status === 'playing') {
         if (data.guessLocked) {
-          // Tranca APENAS se o dominado já clicou em enviar nesta rodada
           pGuessInput.disabled = true;
           pSubmitBtn.disabled = true;
           pGuessInput.style.opacity = '0.5';
           pSubmitBtn.style.opacity = '0.5';
           pSubmitBtn.textContent = '🔒 PALPITE ENVIADO (AGUARDANDO VALIDAÇÃO)';
         } else {
-          // Verifica se está sob o castigo do Silêncio Absoluto
           const currentRevealed = data.revealedIndexes ? data.revealedIndexes.length : 0;
           const target = data.silenceTarget || 0;
 
@@ -893,7 +861,6 @@ gameRef.onSnapshot((doc) => {
             pSubmitBtn.style.opacity = '0.5';
             pSubmitBtn.textContent = `🤫 SILÊNCIO: COMPRE +${faltam} DICA(S)`;
           } else {
-            // Libera para digitação normal
             pGuessInput.disabled = false;
             pSubmitBtn.disabled = false;
             pGuessInput.style.opacity = '1';
@@ -902,22 +869,18 @@ gameRef.onSnapshot((doc) => {
           }
         }
       } else {
-        // Se o status for 'finished', 'waiting' ou qualquer outro (fim de rodada),
-        // limpa o texto antigo e deixa o campo pronto e liberado para a próxima carta.
         pGuessInput.disabled = false;
         pSubmitBtn.disabled = false;
         pGuessInput.style.opacity = '1';
         pSubmitBtn.style.opacity = '1';
         pSubmitBtn.textContent = '🔒 CRAVAR PALPITE';
 
-        // Limpa o valor físico do input na tela do jogador para não herdar o lixo do chute anterior
         if (data.status === 'finished' && pGuessInput.value !== '') {
           pGuessInput.value = '';
         }
       }
     }
 
-    // 4. Barra Animada da Dívida
     const progressFill = document.getElementById('debt-progress');
     if (progressFill) {
       const maxVisualDebt = 100;
@@ -937,21 +900,17 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // 5. Dicas Reveladas (Premium)
     const cluesContainer = document.getElementById('revealed-clues');
     const isActivePlayer = document.getElementById('view-player') && document.getElementById('view-player').classList.contains('active');
 
-    // Só atualiza (e gasta a API) se a visão do Jogador estiver ativamente na tela
     if (cluesContainer && isActivePlayer) {
       if (data.revealedIndexes && data.revealedIndexes.length > 0) {
-        // Remove a mensagem de "Vazio" se ela ainda estiver lá
         const emptyMsg = cluesContainer.querySelector('p');
         if (emptyMsg) emptyMsg.remove();
 
         const sortedRevealed = [...data.revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
         const trapList = data.trapIndices || [];
 
-        // Remove do DOM as dicas que não estão mais nos dados do Firebase (caso mude de rodada)
         const activeIds = sortedRevealed.map((item) => `player-clue-box-${item.index}`);
         Array.from(cluesContainer.children).forEach((child) => {
           if (child.id && !activeIds.includes(child.id)) child.remove();
@@ -961,7 +920,6 @@ gameRef.onSnapshot((doc) => {
           const divId = `player-clue-box-${item.index}`;
           let div = document.getElementById(divId);
 
-          // SÓ CRIA E ANIMA SE O QUADRO NÃO EXISTIR NA TELA
           if (!div) {
             const isTrap = trapList.includes(item.index);
             const isRoulette = data.rouletteIndex === item.index;
@@ -970,10 +928,10 @@ gameRef.onSnapshot((doc) => {
             let borderColor = 'var(--gold-dark)';
 
             if (isTrap) {
-              clueText = '<span style="color: var(--red); font-weight: bold;">⚠️ PERDEU A VEZ (ARMADILHA)</span>';
+              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Pague caladinho.</span>';
               borderColor = 'var(--red)';
             } else if (isRoulette) {
-              clueText = '<span style="color: #b538ff; font-weight: bold;">🎰 ROLETA FINDOM ACIONADA</span>';
+              clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
               borderColor = '#b538ff';
             }
 
@@ -990,7 +948,6 @@ gameRef.onSnapshot((doc) => {
               <div class="typewriter-text" style="color: var(--text); min-height: 20px;"></div>
             `;
 
-            // Adiciona no topo ou na ordem correta
             cluesContainer.appendChild(div);
 
             const textTarget = div.querySelector('.typewriter-text');
@@ -1002,18 +959,14 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // 6. Bloqueador e Botões com Feedback de Acerto/Erro
     const playerBlocker = document.getElementById('player-blocker');
     if (playerBlocker) {
-      // Libera a tela APENAS se o jogo está rolando E a Mistress já marcou as traps (trapsReady === true)
       if (data.status === 'playing' && data.trapsReady) {
         playerBlocker.style.display = 'none';
       } else {
         playerBlocker.style.display = 'flex';
 
-        // Customiza o feedback visual baseado na validação do Dominador
         if (data.status === 'playing' && !data.trapsReady) {
-          // Injeta a animação de rotação contínua caso ela ainda não exista no head do documento
           if (!document.getElementById('hourglass-animation-style')) {
             const style = document.createElement('style');
             style.id = 'hourglass-animation-style';
@@ -1033,7 +986,6 @@ gameRef.onSnapshot((doc) => {
             document.head.appendChild(style);
           }
 
-          // Fase 1: Jogo iniciou, mas a Mistress está armando as pegadinhas (Com ampulheta animada)
           playerBlocker.innerHTML = `
             <div class="hourglass-spin-effect" style="font-size: 4rem; margin-bottom: 10px;">⏳</div>
             <h2 style="color: var(--gold); margin: 0; text-transform: uppercase; letter-spacing: 2px;">Preparando Mesa</h2>
@@ -1059,7 +1011,6 @@ gameRef.onSnapshot((doc) => {
           playerBlocker.style.background = 'rgba(35, 9, 9, 0.95)';
           playerBlocker.style.borderColor = 'var(--red)';
         } else {
-          // Fallback padrão (Lobby inicial ou reset de mesa)
           playerBlocker.innerHTML = `
             <div style="font-size: 4rem; margin-bottom: 10px;">🔒</div>
             <h2 style="color: var(--gold); margin: 0; text-transform: uppercase;">Mesa Trancada</h2>
@@ -1076,7 +1027,6 @@ gameRef.onSnapshot((doc) => {
       generateClueButtons(data.revealedIndexes || [], data.clueCost || 5.0);
     }
 
-    // --- 7. RENDERIZADOR DO HISTÓRICO DE CHARADAS (PRESSÃO PSICOLÓGICA) ---
     const adminHistList = document.getElementById('admin-history-list');
     const playerHistList = document.getElementById('player-history-list');
     const historyData = data.history || [];
@@ -1085,7 +1035,6 @@ gameRef.onSnapshot((doc) => {
     if (historyData.length === 0) {
       historyHTML = '<p style="color: #444; text-align: center; margin: 15px 0; font-size: 0.9rem;">Nenhuma charada disputada nesta sessão.</p>';
     } else {
-      // Ordena para exibir as mais recentes no topo da lista
       const sortedHistory = [...historyData].sort((a, b) => b.timestamp - a.timestamp);
       sortedHistory.forEach((item) => {
         const isCorrect = item.result === 'correct';
@@ -1109,7 +1058,6 @@ gameRef.onSnapshot((doc) => {
       });
     }
 
-    // Alimenta o container da tela que estiver ativa no momento
     if (adminHistList && document.getElementById('view-controller').classList.contains('active')) {
       adminHistList.innerHTML = historyHTML;
     }
@@ -1117,4 +1065,55 @@ gameRef.onSnapshot((doc) => {
       playerHistList.innerHTML = historyHTML;
     }
   }
+});
+
+// --- LISTENERS PARA OS BOTÕES DE PREVIEW DE VOZ E SELEÇÃO ---
+document.addEventListener('DOMContentLoaded', () => {
+  const previewBtns = document.querySelectorAll('.btn-voice-preview');
+  const voiceSelects = document.querySelectorAll('.mistress-voice-select');
+
+  // Recupera a voz salva ou define o padrão
+  const savedVoice = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
+
+  // Sincroniza os selects da interface com a voz salva e adiciona o listener de mudança
+  voiceSelects.forEach((select) => {
+    select.value = savedVoice;
+
+    select.addEventListener('change', (e) => {
+      const newVoice = e.target.value;
+      localStorage.setItem('selectedMistressVoice', newVoice);
+
+      // Mantém todos os selects da tela (Admin e Player) sincronizados
+      voiceSelects.forEach((s) => (s.value = newVoice));
+
+      showToast('Voz da Mistress alterada com sucesso.', 'success');
+    });
+  });
+
+  // Array com frases pesadas para testar o tom de voz da Mistress
+  const insultosFindom = [
+    'Olha bem para mim, seu verme asqueroso! Você é só um lixo insignificante debaixo do meu salto. Sinta a sola do meu pé... na sua cara. E quando o cheiro dele entrar no seu nariz você sente dar um pio! Vou cuspir na sua cara imunda... Você não passa de um porco escravo feito para pagar os meus luxos e das minhas amigas. Não fala porra nenhuma... e só pague até quando eu decidir! Seu... merda do caralho',
+  ];
+
+  previewBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      // Se o áudio já estiver rolando, o clique atual funciona como STOP
+      if (window.currentAudio && !window.currentAudio.paused) {
+        window.currentAudio.pause();
+        window.currentAudio = null;
+        return;
+      }
+
+      // Altera visualmente todos os botões de preview para o modo Stop
+      previewBtns.forEach((b) => (b.innerHTML = '⏹️'));
+
+      const randomInsult = insultosFindom[Math.floor(Math.random() * insultosFindom.length)];
+      const dummyElement = document.createElement('div');
+
+      showToast('🔊 Executando humilhação neural...', 'gold');
+
+      // Executa a chamada passando velocidade 0 para focar apenas no áudio
+      typeWriterEffect(dummyElement, randomInsult, 0);
+    });
+  });
 });

@@ -25,20 +25,20 @@ function triggerRouletteSpin(currentData) {
   const centerY = height / 2;
   const radius = width / 2;
 
-  // Grade de 12 fatias, com múltiplos spins e silêncios escalonados
+  // Grade de 12 fatias, atualizada para combar Inflação com novo giro obrigatório
   const options = [
     { id: 'spin_2', label: '2.00 + SPIN', desc: '+ 2.00 e a roleta gira de novo!', color: '#e62236' },
     { id: 'silencio_3', label: 'SILÊNCIO +3', desc: 'Compre +3 dicas para chutar.', color: '#2ecc71' },
-    { id: 'inflacao', label: 'INFLAÇÃO 2X', desc: 'O valor das dicas dobra!', color: '#ff8c00' },
+    { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'O valor das dicas dobra e a roleta gira de novo!', color: '#ff8c00' },
     { id: 'spin_3', label: '3.00 + SPIN', desc: '+ 3.00 e a roleta gira de novo!', color: '#8a6d1c' },
     { id: 'multa_5', label: '5.00', desc: '+ 5.00 na dívida.', color: '#8a6d1c' },
     { id: 'spin_4', label: '4.00 + SPIN', desc: '+ 4.00 e a roleta gira de novo!', color: '#e62236' },
-    { id: 'inflacao', label: 'INFLAÇÃO 2X', desc: 'O valor das dicas dobra!', color: '#ff8c00' },
+    { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'O valor das dicas dobra e a roleta gira de novo!', color: '#ff8c00' },
     { id: 'silencio_2', label: 'SILÊNCIO +2', desc: 'Compre +2 dicas para chutar.', color: '#2ecc71' },
     { id: 'spin_5', label: '5.00 + SPIN', desc: '+ 5.00 e a roleta gira de novo!', color: '#b538ff' },
     { id: 'silencio_4', label: 'SILÊNCIO +4', desc: 'Compre +4 dicas para chutar.', color: '#2ecc71' },
     { id: 'multa_10', label: '10.00', desc: '+ 10.00 na dívida.', color: '#1a1a22' },
-    { id: 'inflacao', label: 'INFLAÇÃO 2X', desc: 'O valor das dicas dobra!', color: '#ff8c00' },
+    { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'O valor das dicas dobra e a roleta gira de novo!', color: '#ff8c00' },
   ];
 
   const numSegments = options.length;
@@ -155,8 +155,8 @@ function triggerRouletteSpin(currentData) {
 
           await gameRef.update(updates);
 
-          // Verifica se o ID clicado é um dos que giram a roleta de novo
-          if (selectedOption.id.startsWith('spin_')) {
+          // CORREÇÃO: Se for spin ou se for inflação, mantém a roleta aberta e força o novo giro
+          if (selectedOption.id.startsWith('spin_') || selectedOption.id === 'inflacao') {
             btnClose.disabled = false;
             btnClose.textContent = 'ACEITAR PUNIÇÃO';
             // Chama a função novamente para girar mais uma vez
@@ -228,7 +228,7 @@ function generateClueButtons(revealedIndexes, clueCost) {
               timestamp: Date.now(),
             }),
           });
-          showToast('ARMADILHA! Perdeu a vez e o valor da dica!', 'danger');
+          showToast('⚠️ Que patético... Caiu na armadilha!', 'danger');
         } else if (isRoulette) {
           window.clickedTraps.push(i - 1);
           btn.style.border = '1px solid #b538ff';
@@ -242,6 +242,7 @@ function generateClueButtons(revealedIndexes, clueCost) {
             }),
           });
 
+          showToast('🎰 Roleta ativada! Sofra as consequências.', 'gold');
           triggerRouletteSpin(currentData);
         } else {
           // DICA NORMAL: COBRA O VALOR DA DICA
