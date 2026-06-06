@@ -91,6 +91,38 @@ function typeWriterEffect(element, text, speed = 65) {
   window.typewriterDivs.set(element, timer);
 }
 
+// --- SISTEMA DE WAKE LOCK (TELA SEMPRE LIGADA) ---
+window.screenWakeLock = null;
+
+window.requestScreenWakeLock = async function () {
+  if ('wakeLock' in navigator) {
+    try {
+      window.screenWakeLock = await navigator.wakeLock.request('screen');
+      console.log('Wake Lock ativado: A tela não vai esmaecer.');
+    } catch (err) {
+      console.error(`Erro ao travar tela: ${err.name}, ${err.message}`);
+    }
+  }
+};
+
+window.releaseScreenWakeLock = function () {
+  if (window.screenWakeLock !== null) {
+    window.screenWakeLock.release().then(() => {
+      window.screenWakeLock = null;
+    });
+  }
+};
+
+// Reativa a trava caso o usuário minimize o navegador/mude de aba e volte
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'visible' && window.screenWakeLock !== null) {
+    const savedRole = sessionStorage.getItem('gameRole');
+    if (savedRole === 'player' || savedRole === 'admin') {
+      await window.requestScreenWakeLock();
+    }
+  }
+});
+
 // --- FUNÇÃO GLOBAL DE TOAST NOTIFICATION ---
 function showToast(message, type = 'gold') {
   let container = document.getElementById('toast-container');
@@ -232,6 +264,8 @@ document.getElementById('btn-enter-player').addEventListener('click', async () =
   document.getElementById('view-selection').classList.remove('active');
   document.getElementById('view-player').classList.add('active');
   generateClueButtons([], 5.0);
+
+  await window.requestScreenWakeLock();
 });
 
 document.querySelectorAll('.btn-back').forEach((btn) => {
@@ -248,6 +282,7 @@ document.querySelectorAll('.btn-back').forEach((btn) => {
       }
     }
     sessionStorage.removeItem('gameRole');
+    window.releaseScreenWakeLock();
     autoRouted = false;
     document.getElementById('view-player').classList.remove('active');
     document.getElementById('view-controller').classList.remove('active');
@@ -442,13 +477,13 @@ gameRef.onSnapshot((doc) => {
       }
 
       if (enterAdminBtn) {
-        enterAdminBtn.disabled = true;
-        enterAdminBtn.innerHTML = '🔒 MESA EM USO';
-        enterAdminBtn.style.opacity = '0.4';
-        enterAdminBtn.style.cursor = 'not-allowed';
-        enterAdminBtn.style.background = 'var(--border)';
-        enterAdminBtn.style.color = '#666';
-        enterAdminBtn.style.boxShadow = 'none';
+        enterAdminBtn.disabled = false;
+        enterAdminBtn.innerHTML = '👑 Retomar Controle';
+        enterAdminBtn.style.opacity = '1';
+        enterAdminBtn.style.cursor = 'pointer';
+        enterAdminBtn.style.background = 'linear-gradient(135deg, var(--red) 0%, #b3101e 50%, #4a0005 100%)';
+        enterAdminBtn.style.color = '#fff';
+        enterAdminBtn.style.boxShadow = '0 6px 16px rgba(0, 0, 0, 0.4)';
       }
 
       if (globalStatus) {

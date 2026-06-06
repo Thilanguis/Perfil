@@ -13,4 +13,16 @@ if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
 const db = firebase.firestore();
-const gameRef = db.collection('findom_sessions').doc('sala_principal');
+
+// Puxa o ID da sala pela URL
+const urlParams = new URLSearchParams(window.location.search);
+let roomId = urlParams.get('sala');
+
+// Se não existir sala na URL, gera um ID único do Firestore e injeta na URL sem recarregar
+if (!roomId) {
+  roomId = db.collection('findom_sessions').doc().id;
+  window.history.replaceState(null, '', `?sala=${roomId}`);
+}
+
+// Aponta o gameRef para a sala correta (nova ou existente)
+const gameRef = db.collection('findom_sessions').doc(roomId);

@@ -82,15 +82,32 @@ document.getElementById('admin-edit-penalty').addEventListener('input', async (e
 
 // Inicialização da Mesa pelo Dominador
 document.getElementById('btn-enter-controller').addEventListener('click', async () => {
-  const adminNameEl = document.getElementById('setup-admin-name');
-  const clueCostEl = document.getElementById('setup-clue-cost');
-  const penaltyEl = document.getElementById('setup-penalty');
-
-  const adminName = adminNameEl ? adminNameEl.value.trim() : 'Dominador';
-  const cCost = clueCostEl ? parseFloat(clueCostEl.value) : 2.0;
-  const pPenalty = penaltyEl ? parseFloat(penaltyEl.value) : 10.0;
-
   try {
+    const doc = await gameRef.get();
+    const data = doc.exists ? doc.data() : {};
+
+    // Se a sala já estiver ativa, apenas retoma o controle sem zerar os dados atuais
+    if (data.status && data.status !== 'closed') {
+      sessionStorage.setItem('gameRole', 'admin');
+      document.getElementById('view-selection').classList.remove('active');
+      document.getElementById('view-controller').classList.add('active');
+      updateAdminDeckList();
+
+      if (typeof window.requestScreenWakeLock === 'function') {
+        await window.requestScreenWakeLock();
+      }
+      return;
+    }
+
+    // Se a mesa estiver fechada, inicializa uma nova sessão do zero
+    const adminNameEl = document.getElementById('setup-admin-name');
+    const clueCostEl = document.getElementById('setup-clue-cost');
+    const penaltyEl = document.getElementById('setup-penalty');
+
+    const adminName = adminNameEl ? adminNameEl.value.trim() : 'Dominador';
+    const cCost = clueCostEl ? parseFloat(clueCostEl.value) : 2.0;
+    const pPenalty = penaltyEl ? parseFloat(penaltyEl.value) : 10.0;
+
     await gameRef.set(
       {
         adminName: adminName,
@@ -110,6 +127,10 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
     document.getElementById('view-selection').classList.remove('active');
     document.getElementById('view-controller').classList.add('active');
     updateAdminDeckList();
+
+    if (typeof window.requestScreenWakeLock === 'function') {
+      await window.requestScreenWakeLock();
+    }
   } catch (error) {
     console.error('Erro ao inicializar sessão do controlador:', error);
   }
@@ -183,6 +204,11 @@ document.getElementById('btn-unlock-board').addEventListener('click', async () =
 document.getElementById('btn-close-session').addEventListener('click', (e) => {
   criarConfirmacaoInline(e.currentTarget, 'Encerrar sessão?', async () => {
     sessionStorage.removeItem('gameRole');
+
+    if (typeof window.releaseScreenWakeLock === 'function') {
+      window.releaseScreenWakeLock();
+    }
+
     try {
       await gameRef.update({
         status: 'closed',
@@ -195,11 +221,57 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
       showToast('Sessão encerrada e submisso desconectado.', 'danger');
       document.getElementById('view-controller').classList.remove('active');
       document.getElementById('view-selection').classList.add('active');
+
+      // Limpa a URL para forçar a criação de uma sala nova num próximo acesso
+      window.history.replaceState(null, '', window.location.pathname);
     } catch (error) {
       console.error('Erro ao fechar sessão:', error);
     }
   });
 });
+
+// Botão de Copiar / Compartilhar Convite
+const btnCopyInvite = document.getElementById('btn-copy-invite');
+if (btnCopyInvite) {
+  btnCopyInvite.addEventListener('click', async () => {
+    const inviteUrl = window.location.href;
+    const shareData = {
+      title: 'Mesa de Tributos',
+      text: 'A Mistress está te aguardando na mesa. Entre agora:',
+      url: inviteUrl,
+    };
+
+    // Tenta usar a Web Share API (Mobile / Navegadores modernos)
+    if (navigator.share) {
+      try {
+        await navigator.share(shareData);
+        // Não disparamos toast de sucesso genérico aqui porque a própria UI do celular assume o controle,
+        // mas você pode logar se precisar.
+      } catch (err) {
+        // Ignora o erro se o usuário apenas fechou a janela de compartilhamento (AbortError)
+        if (err.name !== 'AbortError') {
+          console.error('Erro ao abrir o menu de compartilhamento:', err);
+          fallbackCopyText(inviteUrl);
+        }
+      }
+    } else {
+      // Fallback: Se o navegador não suportar (ex: Desktop antigo), copia o link
+      fallbackCopyText(inviteUrl);
+    }
+  });
+
+  function fallbackCopyText(text) {
+    navigator.clipboard
+      .writeText(text)
+      .then(() => {
+        showToast('Link da mesa copiado! Cole e envie para o dominado.', 'success');
+      })
+      .catch((err) => {
+        console.error('Erro ao copiar:', err);
+        showToast('Falha ao copiar o link.', 'danger');
+      });
+  }
+}
 
 // --- CÁLCULO EXATO DO HISTÓRICO (O GRANDE BUG MATEMÁTICO RESOLVIDO) ---
 
