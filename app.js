@@ -214,41 +214,76 @@ if ('serviceWorker' in navigator) {
 
 function showUpdateModal(worker) {
   const modal = document.getElementById('update-modal');
-  const progressBar = document.getElementById('update-progress-bar');
-  const btnApply = document.getElementById('btn-apply-update');
-  const statusText = document.getElementById('update-status-text');
+  if (!modal) return;
 
-  if (!modal || !progressBar || !btnApply) return;
-
+  // Ativa a exibição do overlay obscurecido do sistema
   modal.style.display = 'flex';
 
-  let progress = 0;
-  const interval = setInterval(() => {
-    progress += Math.floor(Math.random() * 15) + 5;
-    if (progress >= 100) {
-      progress = 100;
-      clearInterval(interval);
-      progressBar.style.width = '100%';
-      statusText.textContent = 'Atualização baixada! Clique para reiniciar.';
-      statusText.style.color = 'var(--green)';
-      btnApply.style.display = 'block';
-    } else {
-      progressBar.style.width = `${progress}%`;
-      statusText.textContent = `Baixando nova versão... ${progress}%`;
-    }
-  }, 250);
+  // FASE 1: Monta a interface de pergunta respeitando os tokens do style.css
+  modal.innerHTML = `
+    <div class="card card-gold" style="width: 90%; max-width: 400px; text-align: center; padding: 30px;">
+      <div style="font-size: 2.5rem; margin-bottom: 12px; filter: drop-shadow(0 0 10px var(--glow-gold));">✨</div>
+      <h2 style="color: var(--gold); margin: 0 0 10px 0; letter-spacing: 2px; font-size: 1.3rem;">ATUALIZAÇÃO DISPONÍVEL</h2>
+      <p style="color: #a6a6c0; font-size: 0.9rem; margin-bottom: 24px; line-height: 1.5;">Uma nova versão do Perfil Tribute foi detectada. Deseja aplicar as novas regras e comandos agora?</p>
+      <div style="display: flex; gap: 12px; width: 100%;">
+        <button class="btn-danger" id="btn-update-later" style="flex: 1; padding: 12px; font-size: 0.85rem; background: var(--border); border: 1px solid #334155; color: #aaa;">Depois</button>
+        <button class="btn-primary" id="btn-update-now" style="flex: 1; padding: 12px; font-size: 0.85rem;">Atualizar</button>
+      </div>
+    </div>
+  `;
 
-  btnApply.addEventListener('click', () => {
-    btnApply.textContent = 'Reiniciando...';
-    btnApply.disabled = true;
-    btnApply.style.opacity = '0.5';
+  // Ação de adiar: apenas fecha o modal e deixa a atualização pendente para a próxima abertura
+  document.getElementById('btn-update-later').onclick = () => {
+    modal.style.display = 'none';
+  };
 
-    worker.postMessage('skipWaiting');
+  // Ação de aceitar: reconstrói o card interno para exibir o progresso animado
+  document.getElementById('btn-update-now').onclick = () => {
+    modal.innerHTML = `
+      <div class="card card-gold" style="width: 90%; max-width: 400px; text-align: center; padding: 30px;">
+        <h2 style="color: var(--gold); margin: 0 0 16px 0; letter-spacing: 2px; font-size: 1.1rem; text-transform: uppercase;">Baixando Nova Versão...</h2>
+        
+        <div style="height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 12px; width: 100%; border: 1px solid var(--border);">
+          <div id="update-progress-bar" style="height: 100%; width: 0%; background: var(--gold); box-shadow: 0 0 12px var(--gold); transition: width 0.15s linear;"></div>
+        </div>
+        
+        <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #888;">
+          <span id="update-status-text">Sincronizando dados...</span>
+          <span id="update-percent" style="color: var(--gold); font-weight: bold;">0%</span>
+        </div>
+      </div>
+    `;
 
-    setTimeout(() => {
-      window.location.reload();
-    }, 800);
-  });
+    let progress = 0;
+    const bar = document.getElementById('update-progress-bar');
+    const percentText = document.getElementById('update-percent');
+    const statusText = document.getElementById('update-status-text');
+
+    const interval = setInterval(() => {
+      progress += Math.floor(Math.random() * 12) + 4;
+
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(interval);
+        statusText.textContent = 'Sessão atualizada!';
+        statusText.style.color = 'var(--green)';
+        bar.style.background = 'var(--green)';
+        bar.style.boxShadow = '0 0 15px var(--green)';
+        percentText.textContent = '100%';
+
+        // Envia o skipWaiting para libertar o novo Service Worker e reinicia o app do zero
+        setTimeout(() => {
+          worker.postMessage('skipWaiting');
+          window.location.reload();
+        }, 600);
+      } else {
+        bar.style.width = progress + '%';
+        percentText.textContent = progress + '%';
+        if (progress > 30) statusText.textContent = 'Modificando painéis...';
+        if (progress > 70) statusText.textContent = 'Preparando roleta...';
+      }
+    }, 180);
+  };
 }
 
 // --- NAVEGAÇÃO BÁSICA ---

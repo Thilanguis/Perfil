@@ -1,0 +1,5193 @@
+[
+  {
+    "id": 1,
+    "palavra": "Guarda-chuva",
+    "tipo": "Objeto",
+    "dicas": [
+      "Fui inventado na China antiga.",
+      "Minha estrutura básica mudou muito pouco ao longo dos séculos.",
+      "Já fui símbolo de status em várias culturas.",
+      "Sou um dos itens que as pessoas mais esquecem em transportes públicos.",
+      "Posso ser automático ou manual.",
+      "Sou feito com estrutura de metal ou fibra.",
+      "Tenho uma versão maior usada na praia.",
+      "Sou fabricado com material impermeável.",
+      "As pessoas me usam para se proteger.",
+      "Sirvo para evitar que você se molhe na chuva."
+    ]
+  },
+  {
+    "id": 2,
+    "palavra": "Micro-ondas",
+    "tipo": "Objeto",
+    "dicas": [
+      "Fui descoberto acidentalmente durante testes com radares.",
+      "Funciono usando radiação não ionizante.",
+      "Tenho um prato que gira no meu interior.",
+      "Não coloque metal dentro de mim.",
+      "Me tornei muito popular nas cozinhas a partir dos anos 70.",
+      "Tenho funções específicas para descongelar alimentos.",
+      "Faço as moléculas de água vibrarem para aquecer a comida.",
+      "Sou muito comum em cozinhas de escritório.",
+      "Faço pipoca bem rápido.",
+      "Sou usado para aquecer alimentos."
+    ]
+  },
+  {
+    "id": 3,
+    "palavra": "Brasil",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o quinto maior país do mundo.",
+      "Sou o único país das Américas que fala português.",
+      "Abrigo grande parte da Floresta Amazônica.",
+      "Sou o maior campeão da Copa do Mundo.",
+      "Minha capital foi planejada e tem formato que lembra um avião.",
+      "Sou conhecido como a terra do samba.",
+      "Minhas cores são verde e amarelo.",
+      "Fico localizado na América do Sul.",
+      "Sou lar do Rio de Janeiro.",
+      "Sou o seu país."
+    ]
+  },
+  {
+    "id": 4,
+    "palavra": "Pelé",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Meu nome de batismo é Edson Arantes.",
+      "Nasci em Três Corações.",
+      "Já fui Ministro do Esporte.",
+      "Cheguei a parar uma guerra para jogar uma partida.",
+      "Marquei mais de mil gols na minha carreira.",
+      "Brilhei jogando no Santos.",
+      "Sou o único tricampeão mundial de seleções.",
+      "Sou eternamente a camisa 10.",
+      "Sou conhecido como o Rei do Futebol.",
+      "Sou considerado um dos maiores jogadores da história."
+    ]
+  },
+  {
+    "id": 5,
+    "palavra": "Violão",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou descendente do alaúde.",
+      "Tenho um corpo oco e uma caixa de ressonância.",
+      "Posso ser acústico ou elétrico.",
+      "Sou muito presente em rodas de amigos.",
+      "Tenho trastes ao longo do meu braço.",
+      "Sou geralmente feito de madeira.",
+      "Preciso ser afinado para soar corretamente.",
+      "Posso ser tocado com os dedos ou com uma palheta.",
+      "Tenho seis cordas.",
+      "Sou muito usado no sertanejo."
+    ]
+  },
+  {
+    "id": 6,
+    "palavra": "Avião",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu consigo voar pelos céus.",
+      "Eu transporto pessoas e cargas rapidamente.",
+      "Você me encontra em aeroportos.",
+      "Eu tenho asas.",
+      "Sou usado para longas viagens.",
+      "Eu fui inspirado no voo dos pássaros.",
+      "Meus primeiros modelos eram feitos de madeira e tecido.",
+      "Eu fui inventado pelos irmãos Wright.",
+      "Eu atravesso continentes em poucas horas.",
+      "Eu uso turbinas ou hélices para me mover."
+    ]
+  },
+  {
+    "id": 7,
+    "palavra": "Bicicleta",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu sou movida pela força das pernas.",
+      "Você me vê muito em ciclovias.",
+      "Tenho duas rodas.",
+      "Sou usada como exercício e transporte.",
+      "Posso ter marchas.",
+      "Já fui um símbolo de liberdade feminina.",
+      "Meu primeiro modelo não tinha pedais.",
+      "Sou muito usada por entregadores.",
+      "Sou comum em cidades sustentáveis.",
+      "Usar capacete comigo é sempre recomendado."
+    ]
+  },
+  {
+    "id": 8,
+    "palavra": "Computador",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu posso rodar jogos e programas.",
+      "Tenho teclado e tela.",
+      "Sou essencial para trabalhar hoje em dia.",
+      "Fui criado para fazer cálculos.",
+      "Posso ser portátil ou de mesa.",
+      "Eu funciono através de bits.",
+      "Meu primeiro modelo ocupava uma sala inteira.",
+      "Posso executar bilhões de operações por segundo.",
+      "Sou usado por programadores.",
+      "Você provavelmente está usando um de mim agora."
+    ]
+  },
+  {
+    "id": 9,
+    "palavra": "Médico",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Eu cuido da saúde das pessoas.",
+      "Uso jaleco.",
+      "Atendo em hospitais.",
+      "Faço diagnósticos.",
+      "Estudei muitos anos.",
+      "Posso ter uma especialidade.",
+      "Uso estetoscópio.",
+      "Já existo desde civilizações antigas.",
+      "Eu faço juramento antes de exercer a profissão.",
+      "Sou chamado quando alguém está doente."
+    ]
+  },
+  {
+    "id": 10,
+    "palavra": "Albert Einstein",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Eu criei a teoria da relatividade.",
+      "Meu cabelo era bem bagunçado.",
+      "Ganhei o Nobel de Física.",
+      "Nasci na Alemanha.",
+      "Fui considerado um dos maiores cientistas da história.",
+      "Fui professor universitário.",
+      "Contribuí para o desenvolvimento da mecânica quântica.",
+      "Minha equação mais famosa tem apenas três letras.",
+      "Fui alvo de espionagem na Guerra Fria.",
+      "Meu cérebro foi estudado após minha morte."
+    ]
+  },
+  {
+    "id": 11,
+    "palavra": "Cleópatra",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Eu fui uma rainha poderosa.",
+      "Meu reinado foi no Egito.",
+      "Sou frequentemente retratada usando ouro.",
+      "Fui famosa pela minha inteligência.",
+      "Tive relações políticas com líderes romanos.",
+      "Falo várias línguas.",
+      "Fui a última faraó do Egito.",
+      "Meu nome está ligado a grandes romances históricos.",
+      "Fui treinada desde cedo para governar.",
+      "Minha morte é um grande mistério histórico."
+    ]
+  },
+  {
+    "id": 12,
+    "palavra": "Japão",
+    "tipo": "Lugar",
+    "dicas": [
+      "Eu sou um conjunto de ilhas.",
+      "Tenho tecnologia avançada.",
+      "Meu transporte público é muito eficiente.",
+      "Minhas flores de cerejeira são famosas.",
+      "Tenho uma das maiores economias do mundo.",
+      "Eu fico na Ásia.",
+      "Tenho muitos vulcões.",
+      "Minha escrita usa três sistemas diferentes.",
+      "Já fui isolado do mundo por séculos.",
+      "Minha capital é uma das maiores cidades do mundo."
+    ]
+  },
+  {
+    "id": 13,
+    "palavra": "Paris",
+    "tipo": "Lugar",
+    "dicas": [
+      "Eu sou conhecida como a cidade do amor.",
+      "Tenho uma torre muito famosa.",
+      "As pessoas me visitam para conhecer minha culinária.",
+      "Fiquei famosa pela moda.",
+      "Sou capital de um país europeu.",
+      "Recebo milhões de turistas por ano.",
+      "Meu rio se chama Sena.",
+      "Grandes artistas viveram aqui.",
+      "Fui palco de importantes revoluções.",
+      "Tenho museus renomados no mundo inteiro."
+    ]
+  },
+  {
+    "id": 14,
+    "palavra": "Amazonas",
+    "tipo": "Lugar",
+    "dicas": [
+      "Eu sou um estado do Brasil.",
+      "Tenho uma floresta muito famosa.",
+      "Sou cortado pelo maior rio do mundo.",
+      "Meu clima é quente e úmido.",
+      "Minha capital é Manaus.",
+      "Abrigo uma rica diversidade de espécies.",
+      "O Festival de Parintins acontece aqui.",
+      "Tenho cidades acessíveis apenas por barco ou avião.",
+      "Minha floresta é chamada de pulmão do mundo.",
+      "Sou um dos maiores estados brasileiros."
+    ]
+  },
+  {
+    "id": 15,
+    "palavra": "Câmera Fotográfica",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu capturo momentos.",
+      "Tenho lente.",
+      "Sou usada por fotógrafos.",
+      "Posso ser digital ou analógica.",
+      "Tenho botão de disparo.",
+      "Meus primeiros modelos precisavam de longas exposições.",
+      "Sou usada em filmes e documentários.",
+      "A luz é essencial para eu funcionar.",
+      "Posso ter zoom óptico.",
+      "Guardo memórias em imagens."
+    ]
+  },
+  {
+    "id": 16,
+    "palavra": "Relógio",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu marco o tempo.",
+      "Fico no pulso ou na parede.",
+      "Tenho ponteiros ou números digitais.",
+      "Sou usado todos os dias.",
+      "Posso despertar você de manhã.",
+      "Minhas versões antigas usavam engrenagens.",
+      "Já existo há milhares de anos.",
+      "Podem me encontrar em torres famosas.",
+      "Meu tic-tac é bem reconhecível.",
+      "Sou indispensável para organização."
+    ]
+  },
+  {
+    "id": 17,
+    "palavra": "Cristiano Ronaldo",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Eu jogo futebol profissionalmente.",
+      "Sou artilheiro nato.",
+      "Já joguei em grandes clubes europeus.",
+      "Uso o número 7.",
+      "Sou muito famoso no mundo inteiro.",
+      "Nasci na Ilha da Madeira.",
+      "Tenho diversos prêmios individuais.",
+      "Sou conhecido pela minha impulsão.",
+      "Tenho uma celebração marcante.",
+      "Sou considerado um dos maiores jogadores da história."
+    ]
+  },
+  {
+    "id": 18,
+    "palavra": "Itália",
+    "tipo": "Lugar",
+    "dicas": [
+      "Eu sou famosa pela gastronomia.",
+      "Meu formato lembra uma bota.",
+      "Tenho cidades históricas.",
+      "Sou berço da cultura romana.",
+      "Tenho uma torre muito inclinada.",
+      "Minha bandeira tem três cores.",
+      "Fico na Europa.",
+      "Sou cheia de ruínas antigas.",
+      "Sou o lar de uma cidade inteira dentro de mim.",
+      "Sou um destino turístico amado no mundo."
+    ]
+  },
+  {
+    "id": 19,
+    "palavra": "Escova de Dentes",
+    "tipo": "Objeto",
+    "dicas": [
+      "Eu mantenho seus dentes limpos.",
+      "Sou usada todos os dias.",
+      "Tenho cerdas.",
+      "Fico geralmente no banheiro.",
+      "Sou usada com pasta.",
+      "Já fui feita de pelos de animais.",
+      "Sou substituída a cada poucos meses.",
+      "Sou essencial para a higiene.",
+      "Existem versões elétricas de mim.",
+      "Meu uso evita problemas bucais."
+    ]
+  },
+  {
+    "id": 20,
+    "palavra": "Cristo Redentor",
+    "tipo": "Lugar",
+    "dicas": [
+      "Eu sou um dos maiores símbolos do Brasil.",
+      "Fico no alto de um morro.",
+      "Sou visitado por turistas do mundo inteiro.",
+      "Tenho os braços abertos.",
+      "Fico no Rio de Janeiro.",
+      "Fui inaugurado em 1931.",
+      "Fui eleito uma das sete maravilhas modernas.",
+      "Sou feito de concreto e pedra-sabão.",
+      "Tenho mais de 30 metros de altura.",
+      "Sou visível de vários pontos da cidade."
+    ]
+  },
+  {
+    "id": 21,
+    "palavra": "Caneta",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para escrever.",
+      "Carrego tinta dentro de mim.",
+      "Posso ser azul, preta ou vermelha.",
+      "Sou encontrada em escolas e escritórios.",
+      "Fui inventada há séculos em versões primitivas.",
+      "Sou leve e fácil de carregar.",
+      "Tenho uma ponta fina que libera tinta.",
+      "Sou essencial para anotações rápidas.",
+      "Posso ser descartável ou recarregável.",
+      "Ajudo a registrar ideias todos os dias."
+    ]
+  },
+  {
+    "id": 22,
+    "palavra": "Tesoura",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para cortar.",
+      "Tenho duas lâminas.",
+      "Sou muito comum em escolas.",
+      "Posso cortar papel, tecido e mais.",
+      "Já existo desde tempos antigos.",
+      "Preciso ser usada com cuidado.",
+      "Sou feita de metal e plástico.",
+      "Sou usada também por cabeleireiros.",
+      "Meu corte pode ser bem preciso.",
+      "Sou essencial em artesanato."
+    ]
+  },
+  {
+    "id": 23,
+    "palavra": "Fogão",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para cozinhar alimentos.",
+      "Funciono com gás ou eletricidade.",
+      "Tenho bocas que geram calor.",
+      "Estou presente em quase toda cozinha.",
+      "Sou essencial na preparação de refeições.",
+      "Fui muito diferente em minha versão antiga.",
+      "Sou usado todos os dias pela maioria das famílias.",
+      "Meus botões controlam minha chama.",
+      "Sou perigoso se mal utilizado.",
+      "Sou indispensável na culinária."
+    ]
+  },
+  {
+    "id": 25,
+    "palavra": "Travesseiro",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para dormir.",
+      "Dou suporte à cabeça.",
+      "Sou macio e confortável.",
+      "Minha espuma pode variar.",
+      "Sou essencial em camas.",
+      "Minha capa costuma ser lavável.",
+      "Existem versões antialérgicas de mim.",
+      "Sou útil para descansar bem.",
+      "Sou encontrado em todos os quartos.",
+      "Ajudo a ter uma boa noite de sono."
+    ]
+  },
+  {
+    "id": 26,
+    "palavra": "Bicicleta",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para locomoção.",
+      "Tenho duas rodas.",
+      "Sou movida pela força humana.",
+      "Sou comum em parques.",
+      "Tenho pedais e guidão.",
+      "Fui inventada no século XIX.",
+      "Sou ótima para exercícios.",
+      "Sou popular no mundo todo.",
+      "Ajudo a evitar trânsito.",
+      "Posso ser usada para lazer ou esporte."
+    ]
+  },
+  {
+    "id": 27,
+    "palavra": "Churrasqueira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para assar carnes.",
+      "Funciono com carvão, gás ou eletricidade.",
+      "Sou muito comum em festas.",
+      "Meu calor deixa a comida saborosa.",
+      "Sou símbolo de confraternização.",
+      "Sou usada há muitos séculos em formas primitivas.",
+      "Posso ser portátil.",
+      "Faço fumaça quando usada com carvão.",
+      "Sou muito popular no Brasil.",
+      "Sou essencial para um bom churrasco."
+    ]
+  },
+  {
+    "id": 28,
+    "palavra": "Garrafa",
+    "tipo": "Objeto",
+    "dicas": [
+      "Guardo líquidos no meu interior.",
+      "Posso ser de plástico, vidro ou metal.",
+      "Sou muito usada no dia a dia.",
+      "Já fui usada por civilizações antigas.",
+      "Sou prática para transportar água.",
+      "Posso ter tampa de rosca.",
+      "Sou usada em esportes.",
+      "Sou encontrada em diferentes tamanhos.",
+      "Sou reciclável.",
+      "Ajudo a manter líquidos armazenados."
+    ]
+  },
+  {
+    "id": 29,
+    "palavra": "Chave",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para abrir portas.",
+      "Tenho formato específico para uma fechadura.",
+      "Sou pequena e metálica.",
+      "Sou carregada em chaveiros.",
+      "Existem versões modernas de mim.",
+      "Sou essencial para segurança.",
+      "Sou fácil de perder.",
+      "Minha invenção é muito antiga.",
+      "Sem mim, você não entra em casa.",
+      "Sou indispensável para trancar algo."
+    ]
+  },
+  {
+    "id": 30,
+    "palavra": "Lápis",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para escrever.",
+      "Tenho grafite dentro de mim.",
+      "Sou comum nas escolas.",
+      "Posso ser apontado.",
+      "Sou barato e muito útil.",
+      "Meu corpo é de madeira.",
+      "Permito apagar o que é escrito.",
+      "Sou usado em desenhos.",
+      "Sou um dos objetos mais antigos da escrita moderna.",
+      "Sou item obrigatório no material escolar."
+    ]
+  },
+  {
+    "id": 31,
+    "palavra": "Deserto do Saara",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um dos lugares mais quentes do mundo.",
+      "Sou o maior deserto quente do planeta.",
+      "Fico no norte da África.",
+      "Tenho dunas gigantescas.",
+      "Quase não chove em mim.",
+      "Minha paisagem é dominada por areia.",
+      "Sou lar de alguns povos nômades.",
+      "Minha temperatura pode cair à noite.",
+      "Sou um dos ambientes mais extremos da Terra.",
+      "Sou conhecido mundialmente como símbolo de calor."
+    ]
+  },
+  {
+    "id": 32,
+    "palavra": "Portugal",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Europa.",
+      "Minha língua influenciou o Brasil.",
+      "Fui pioneiro nas navegações.",
+      "Minha capital é muito famosa.",
+      "Tenho comida típica com bacalhau.",
+      "Fui o império de grandes descobrimentos.",
+      "Sou banhado pelo oceano Atlântico.",
+      "Me tornei independente há séculos.",
+      "Sou um país pequeno, mas muito influente.",
+      "Sou o berço da língua portuguesa."
+    ]
+  },
+  {
+    "id": 33,
+    "palavra": "China",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um dos países mais antigos do mundo.",
+      "Tenho a maior população do planeta.",
+      "Sou lar da Grande Muralha.",
+      "Minha culinária é muito conhecida.",
+      "Fico na Ásia.",
+      "Tenho grandes inovações históricas.",
+      "Minha economia é uma das maiores do mundo.",
+      "Meu idioma é um dos mais difíceis.",
+      "Meu território é imenso.",
+      "Sou um gigante asiático."
+    ]
+  },
+  {
+    "id": 34,
+    "palavra": "Austrália",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país e um continente ao mesmo tempo.",
+      "Fico cercado pelo oceano.",
+      "Sou lar de cangurus.",
+      "Tenho uma grande barreira de corais.",
+      "Minha população é concentrada no litoral.",
+      "Meu verão pode ser muito quente.",
+      "Tenho animais únicos no planeta.",
+      "Meu idioma oficial é o inglês.",
+      "Sou muito procurada para intercâmbio.",
+      "Sou famosa por minha natureza exótica."
+    ]
+  },
+  {
+    "id": 35,
+    "palavra": "Ayrton Senna",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fiquei muito conhecido por minha velocidade.",
+      "Sou um dos maiores nomes do automobilismo.",
+      "Ganhei três campeonatos mundiais.",
+      "Meu país sempre me apoiou muito.",
+      "Minha carreira terminou de forma trágica.",
+      "Minha dedicação inspirou milhões.",
+      "Corri pela McLaren.",
+      "Minha condução na chuva era lendária.",
+      "Sou lembrado com carinho até hoje.",
+      "Sou considerado um herói brasileiro."
+    ]
+  },
+  {
+    "id": 36,
+    "palavra": "Lionel Messi",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um dos maiores jogadores de futebol.",
+      "Nasci na América do Sul.",
+      "Tenho vários prêmios individuais.",
+      "Sou conhecido por minha habilidade com a bola.",
+      "Joguei a maior parte da carreira no mesmo clube.",
+      "Também defendi meu país em Copas do Mundo.",
+      "Uso frequentemente a camisa 10.",
+      "Sou pequeno, mas muito habilidoso.",
+      "Ganhei a Copa do Mundo recentemente.",
+      "Muitos me consideram o melhor de todos os tempos."
+    ]
+  },
+  {
+    "id": 37,
+    "palavra": "Rio Grande do Sul",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico no extremo sul do Brasil.",
+      "Sou conhecido pelo frio intenso.",
+      "Tenho forte influência cultural europeia.",
+      "Meu povo aprecia muito chimarrão.",
+      "Possuo cidades serranas famosas.",
+      "Sou reconhecido pela arquitetura colonial.",
+      "Minha culinária inclui churrasco e pinhão.",
+      "Tenho fronteira com outros países.",
+      "Minha capital é muito conhecida.",
+      "Sou um dos maiores estados brasileiros."
+    ]
+  },
+  {
+    "id": 38,
+    "palavra": "Notebook",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para estudar e trabalhar.",
+      "Sou portátil e posso ser levado para qualquer lugar.",
+      "Tenho teclado e tela integrados.",
+      "Posso ser recarregado.",
+      "Tenho modelos de vários tamanhos.",
+      "Sou mais leve que muitos computadores antigos.",
+      "Tenho touchpad.",
+      "Sirvo para navegar na internet.",
+      "Posso rodar jogos e programas.",
+      "Sou um tipo de computador portátil."
+    ]
+  },
+  {
+    "id": 39,
+    "palavra": "Rio de Janeiro",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma cidade famosa mundialmente.",
+      "Tenho belas praias.",
+      "Sou palco de um dos maiores carnavais do mundo.",
+      "Tenho montanhas icônicas.",
+      "Sou muito visitado por turistas.",
+      "Minha paisagem mistura natureza e cidade.",
+      "Sou conhecido como Cidade Maravilhosa.",
+      "Fui capital do Brasil por um período.",
+      "Tenho estádios históricos.",
+      "Fico na região Sudeste do Brasil."
+    ]
+  },
+  {
+    "id": 40,
+    "palavra": "Frida Kahlo",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma artista famosa.",
+      "Nasci na América do Norte.",
+      "Minha vida foi marcada por superações.",
+      "Meus autorretratos são muito conhecidos.",
+      "Uso frequentemente cores fortes.",
+      "Tenho forte ligação com cultura mexicana.",
+      "Meu relacionamento amoroso também foi marcante.",
+      "Minha figura virou símbolo feminista.",
+      "Minha arte mistura dor e identidade.",
+      "Sou uma das artistas mais icônicas do século XX."
+    ]
+  },
+  {
+    "id": 41,
+    "palavra": "Sergipe",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o menor estado do Brasil.",
+      "Fico no Nordeste.",
+      "Tenho praias muito bonitas.",
+      "Minha capital é conhecida por qualidade de vida.",
+      "Minha economia envolve petróleo e turismo.",
+      "Tenho festas tradicionais nordestinas.",
+      "Sou vizinho da Bahia.",
+      "Tenho importante patrimônio histórico.",
+      "Sou pequeno, mas muito cultural.",
+      "Sou um dos 27 estados brasileiros."
+    ]
+  },
+  {
+    "id": 42,
+    "palavra": "J.K. Rowling",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma escritora muito famosa.",
+      "Minhas obras viraram filmes de sucesso.",
+      "Fiquei famosa mundialmente no fim dos anos 90.",
+      "Minha série envolve magia.",
+      "Meu personagem principal é muito conhecido.",
+      "Escrevi parte da história em cafeterias.",
+      "Sou do Reino Unido.",
+      "Minha obra marcou uma geração inteira.",
+      "Vendi milhões de livros pelo mundo.",
+      "Criei um dos universos literários mais famosos da história."
+    ]
+  },
+  {
+    "id": 43,
+    "palavra": "Escada",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para alcançar lugares altos.",
+      "Posso ser feita de madeira, alumínio ou ferro.",
+      "Sou comum em obras e residências.",
+      "Existem versões dobráveis e extensíveis.",
+      "Sou composta por degraus.",
+      "Exijo cuidado ao ser usada.",
+      "Sou usada por eletricistas e pintores.",
+      "Sou importante para manutenção doméstica.",
+      "Posso ser fixa ou portátil.",
+      "Ajudo você a subir ou descer."
+    ]
+  },
+  {
+    "id": 44,
+    "palavra": "Carmen Miranda",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma artista brasileira conhecida mundialmente.",
+      "Fiquei famosa nos Estados Unidos.",
+      "Usei figurinos muito chamativos.",
+      "Sou ligada à música e ao cinema.",
+      "Tenho influência na cultura pop.",
+      "Sou associada ao tropicalismo estético.",
+      "Meu visual incluía frutas na cabeça.",
+      "Sou um ícone cultural brasileiro.",
+      "Sou lembrada pela minha energia no palco.",
+      "Fui uma das primeiras brasileiras a conquistar Hollywood."
+    ]
+  },
+  {
+    "id": 45,
+    "palavra": "Machado de Assis",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um grande escritor brasileiro.",
+      "Nasci no século XIX.",
+      "Fui um dos fundadores da Academia Brasileira de Letras.",
+      "Minha obra é conhecida por críticas sociais.",
+      "Escrevi 'Dom Casmurro'.",
+      "Escrevi 'Memórias Póstumas de Brás Cubas'.",
+      "Tive uma infância humilde.",
+      "Sou considerado um dos maiores autores do país.",
+      "Minha literatura é estudada em escolas.",
+      "Muitos discutem até hoje o final de uma das minhas obras."
+    ]
+  },
+  {
+    "id": 46,
+    "palavra": "Salvador",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital brasileira.",
+      "Sou muito conhecida pelo meu carnaval.",
+      "Fui a primeira capital do Brasil.",
+      "Tenho forte influência africana na cultura.",
+      "Sou famosa pelo acarajé.",
+      "Tenho o Pelourinho como cartão-postal.",
+      "Sou banhada pelo oceano Atlântico.",
+      "Minha música é muito presente no país.",
+      "Possuo elevador que liga duas partes da cidade.",
+      "Fico na região nordeste."
+    ]
+  },
+  {
+    "id": 47,
+    "palavra": "Televisão",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou encontrada na maioria das casas.",
+      "Transmito imagens e sons.",
+      "Fui muito popular no século XX.",
+      "Posso ser usada para assistir filmes.",
+      "Sou usada também para jogar videogame.",
+      "Minha tela evoluiu bastante com o tempo.",
+      "Sou ligada na tomada.",
+      "Sou um meio de entretenimento.",
+      "Posso ser grande ou pequena.",
+      "Hoje sou comum em versão inteligente."
+    ]
+  },
+  {
+    "id": 48,
+    "palavra": "Anitta",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma artista brasileira.",
+      "Canto música pop e funk.",
+      "Ganhei reconhecimento internacional.",
+      "Sou muito presente nas redes sociais.",
+      "Meu nome artístico foi inspirado em uma série.",
+      "Sou conhecida por grandes colaborações musicais.",
+      "Nasci no Rio de Janeiro.",
+      "Faço turnês fora do Brasil.",
+      "Sou empresária também.",
+      "Tenho muitos hits famosos."
+    ]
+  },
+  {
+    "id": 49,
+    "palavra": "Pernambuco",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um estado brasileiro.",
+      "Tenho uma capital famosa.",
+      "Sou conhecido pelo frevo.",
+      "Tenho praias muito visitadas.",
+      "Meu nome aparece em músicas tradicionais.",
+      "Meu estado tem Olinda.",
+      "Sou forte na cultura nordestina.",
+      "Tenho uma culinária marcante.",
+      "Fui importante no período colonial.",
+      "Falo 'oxente' com orgulho."
+    ]
+  },
+  {
+    "id": 50,
+    "palavra": "Martelo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado em construções.",
+      "Sou segurado com uma mão.",
+      "Sirvo para bater em algo.",
+      "Meu uso envolve força física.",
+      "Tenho uma parte de metal.",
+      "Sou comum em caixas de ferramentas.",
+      "Posso ajudar a fixar pregos.",
+      "Sou um objeto bem antigo.",
+      "Sou simples, mas útil.",
+      "Carpinteiros me utilizam bastante."
+    ]
+  },
+  {
+    "id": 51,
+    "palavra": "Shakespeare",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um importante dramaturgo.",
+      "Nasci na Inglaterra.",
+      "Vivi no século XVI.",
+      "Escrevi tragédias muito famosas.",
+      "Sou autor de 'Hamlet'.",
+      "Escrevi 'Romeu e Julieta'.",
+      "Minha obra é muito estudada.",
+      "Sou referência mundial na literatura.",
+      "Muitos me consideram o maior escritor da história.",
+      "Minhas peças ainda são encenadas hoje."
+    ]
+  },
+  {
+    "id": 52,
+    "palavra": "Egito",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Tenho uma história muito antiga.",
+      "Fui lar de faraós.",
+      "Sou famoso por grandes construções.",
+      "Tenho desertos.",
+      "Sou banhado por um grande rio.",
+      "Tenho uma cidade chamada Cairo.",
+      "Meu país atrai muitos turistas.",
+      "Meus símbolos aparecem em filmes.",
+      "Minhas pirâmides são muito conhecidas."
+    ]
+  },
+  {
+    "id": 53,
+    "palavra": "Bola",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada em vários esportes.",
+      "Sou redonda.",
+      "Posso quicar.",
+      "Sou presente em brincadeiras infantis.",
+      "Sou usada em campos e quadras.",
+      "Posso ser pequena ou grande.",
+      "Geralmente sou leve.",
+      "Vários jogos dependem de mim.",
+      "Sou fácil de identificar.",
+      "Sou muito comum em competições esportivas."
+    ]
+  },
+  {
+    "id": 54,
+    "palavra": "Santos Dumont",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um brasileiro famoso.",
+      "Fui pioneiro em uma área tecnológica.",
+      "Trabalhei com máquinas voadoras.",
+      "Sou conhecido em escolas no país.",
+      "Morei na França durante parte da vida.",
+      "Minha invenção ficou famosa em 1906.",
+      "Meu nome aparece em aeroportos.",
+      "Sou figura importante na história.",
+      "Meu trabalho gerou debates internacionais.",
+      "Sou chamado de Pai da Aviação por muitos."
+    ]
+  },
+  {
+    "id": 55,
+    "palavra": "Minas Gerais",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um estado brasileiro.",
+      "Minha culinária é famosa.",
+      "Sou conhecido por minhas montanhas.",
+      "Tenho cidades históricas.",
+      "Produzo muito café.",
+      "Tenho a segunda maior população do país.",
+      "Tenho um sotaque reconhecido.",
+      "Minha capital não tem praia.",
+      "Sou forte na mineração.",
+      "Sou muito importante na história nacional."
+    ]
+  },
+  {
+    "id": 56,
+    "palavra": "Óculos",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no rosto.",
+      "Ajudo na visão.",
+      "Tenho duas lentes.",
+      "Posso ser de grau ou de sol.",
+      "Sou comum entre adultos e crianças.",
+      "Sou vendido em óticas.",
+      "Existem muitos modelos diferentes.",
+      "Posso proteger contra luz forte.",
+      "Fico preso nas orelhas.",
+      "Sou útil no dia a dia."
+    ]
+  },
+  {
+    "id": 57,
+    "palavra": "George Washington",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma pessoa histórica.",
+      "Vivi nos Estados Unidos.",
+      "Fui um líder militar.",
+      "Tive papel importante na independência.",
+      "Fui o primeiro presidente do país.",
+      "Minha imagem aparece em dinheiro.",
+      "Sou muito estudado em escolas.",
+      "Tenho monumentos em minha homenagem.",
+      "Vivi no século XVIII.",
+      "Sou uma figura relevante mundialmente."
+    ]
+  },
+  {
+    "id": 58,
+    "palavra": "Coreia do Sul",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país asiático.",
+      "Sou muito moderno.",
+      "Tenho tecnologia avançada.",
+      "Tenho empresas famosas mundialmente.",
+      "Minha capital é muito conhecida.",
+      "Meu país tem música popular famosa.",
+      "Sou pequeno territorialmente.",
+      "Sou dividido em duas partes.",
+      "Tenho alta qualidade educacional.",
+      "Minha culinária inclui pratos apimentados."
+    ]
+  },
+  {
+    "id": 59,
+    "palavra": "Cadeira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para sentar.",
+      "Estou presente em casas e escritórios.",
+      "Geralmente tenho quatro pernas.",
+      "Posso ser de madeira ou plástico.",
+      "Posso ter almofada.",
+      "Sou usada diariamente.",
+      "Estou em salas de aula.",
+      "Sou leve na maioria das vezes.",
+      "Existem muitos modelos diferentes.",
+      "Sou um objeto muito comum."
+    ]
+  },
+  {
+    "id": 60,
+    "palavra": "Van Gogh",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um artista.",
+      "Nasci na Europa.",
+      "Vivi no século XIX.",
+      "Meu estilo é pós-impressionista.",
+      "Tenho quadros muito famosos.",
+      "Tive uma vida difícil.",
+      "Uma das minhas obras retrata girassóis.",
+      "Fui reconhecido mais após minha morte.",
+      "Minha arte é estudada no mundo todo.",
+      "Minha história envolve um incidente com a orelha."
+    ]
+  },
+  {
+    "id": 61,
+    "palavra": "Canadá",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Tenho clima frio.",
+      "Sou muito seguro.",
+      "Tenho duas línguas oficiais.",
+      "Minha bandeira tem uma folha.",
+      "Sou conhecido por florestas e lagos.",
+      "Tenho animais como alces e ursos.",
+      "Tenho uma cidade chamada Toronto.",
+      "Sou parte da América do Norte.",
+      "Sou muito procurado por imigrantes."
+    ]
+  },
+  {
+    "id": 62,
+    "palavra": "Faca",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada na cozinha.",
+      "Tenho uma lâmina.",
+      "Sou usada para cortar alimentos.",
+      "Sou um utensílio doméstico.",
+      "Existem vários tamanhos de mim.",
+      "Sou manuseada com cuidado.",
+      "Sou comum em restaurantes.",
+      "Sou parte de conjuntos de cozinha.",
+      "Meu cabo pode ser de vários materiais.",
+      "faço parte do cotidiano culinário."
+    ]
+  },
+  {
+    "id": 63,
+    "palavra": "Leonardo da Vinci",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um gênio renascentista.",
+      "Fui pintor, inventor e estudioso.",
+      "Nasci na Itália.",
+      "Escrevia muitas ideias em cadernos.",
+      "Pintei uma das obras mais famosas do mundo.",
+      "Estudei anatomia.",
+      "Tive interesse por máquinas.",
+      "Minha obra inclui a Mona Lisa.",
+      "Fui referência em várias áreas.",
+      "Vivi entre os séculos XV e XVI."
+    ]
+  },
+  {
+    "id": 64,
+    "palavra": "Argentina",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país sul-americano.",
+      "Sou vizinha do Brasil.",
+      "Minha capital é muito famosa.",
+      "Sou conhecida pelo tango.",
+      "Tenho regiões muito frias.",
+      "Tenho paisagens com montanhas.",
+      "Minha culinária é famosa.",
+      "Tenho um time de futebol muito tradicional.",
+      "Minha bandeira é azul e branca.",
+      "Tenho um grande território."
+    ]
+  },
+  {
+    "id": 65,
+    "palavra": "Maria Bethânia",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma cantora brasileira.",
+      "Nasci na Bahia.",
+      "Sou irmã de um famoso compositor.",
+      "Tenho uma voz marcante.",
+      "Faço parte da MPB.",
+      "Minha carreira começou nos anos 60.",
+      "Tenho inúmeros álbuns de sucesso.",
+      "Sou conhecida pela presença cênica.",
+      "Tenho ligação com o tropicalismo.",
+      "Sou uma das maiores artistas do país."
+    ]
+  },
+  {
+    "id": 66,
+    "palavra": "Fernando de Noronha",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um arquipélago brasileiro.",
+      "Fico no nordeste.",
+      "Sou conhecido por águas cristalinas.",
+      "Sou destino turístico famoso.",
+      "Tenho proteção ambiental.",
+      "Minhas praias estão entre as mais bonitas do mundo.",
+      "Sou excelente para mergulho.",
+      "Sou relativamente isolado.",
+      "Sou patrimônio da UNESCO.",
+      "Recebo turistas do mundo inteiro."
+    ]
+  },
+  {
+    "id": 67,
+    "palavra": "Violino",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento musical.",
+      "Tenho quatro cordas.",
+      "Sou tocado com arco.",
+      "Sou comum em orquestras.",
+      "Sou portátil.",
+      "Sou feito de madeira.",
+      "Produzo sons agudos.",
+      "Sou muito usado na música clássica.",
+      "Exijo prática para dominar.",
+      "Sou considerado elegante."
+    ]
+  },
+  {
+    "id": 68,
+    "palavra": "Elon Musk",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um empresário famoso.",
+      "Nasci na África.",
+      "Tenho empresas de tecnologia.",
+      "Atuo na exploração espacial.",
+      "Fui líder de uma montadora elétrica.",
+      "Estou entre os mais ricos do mundo.",
+      "Tenho uma empresa de foguetes.",
+      "Sou ativo na internet.",
+      "Sou visto como polêmico.",
+      "Estou ligado a inovações."
+    ]
+  },
+  {
+    "id": 69,
+    "palavra": "Recife",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital brasileira.",
+      "Fico no nordeste.",
+      "Sou conhecida por pontes.",
+      "Tenho carnaval tradicional.",
+      "Sou histórica.",
+      "Fui influenciada por holandeses.",
+      "Tenho praias famosas.",
+      "Abrigo o frevo.",
+      "Sou chamada de Veneza brasileira.",
+      "Tenho grande importância cultural."
+    ]
+  },
+  {
+    "id": 70,
+    "palavra": "Galileu Galilei",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um cientista famoso.",
+      "Vivi na Europa.",
+      "Estudei astronomia.",
+      "Defendi ideias revolucionárias.",
+      "Observei luas ao redor de outro planeta.",
+      "Usei telescópios.",
+      "Fui perseguido por minhas ideias.",
+      "Sou considerado pai da ciência moderna.",
+      "Nasci no século XVI.",
+      "Meu nome aparece em livros escolares."
+    ]
+  },
+  {
+    "id": 71,
+    "palavra": "Bahia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um estado brasileiro.",
+      "Estou no nordeste.",
+      "Tenho forte influência africana.",
+      "Minha capital tem um elevador famoso.",
+      "Sou conhecido pela culinária.",
+      "Tenho festas tradicionais.",
+      "Sou muito visitado.",
+      "Tenho belas praias.",
+      "Sou berço de artistas famosos.",
+      "Sou culturalmente marcante."
+    ]
+  },
+  {
+    "id": 72,
+    "palavra": "Panela de Pressão",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada na cozinha.",
+      "Cozinho alimentos mais rápido.",
+      "Faço barulho característico.",
+      "Funciono com vapor.",
+      "Preciso de cuidado ao abrir.",
+      "Sou feita de metal.",
+      "Não sou usada em micro-ondas.",
+      "Sou comum em casas brasileiras.",
+      "Facilito o preparo de carnes.",
+      "Tenho uma válvula importante."
+    ]
+  },
+  {
+    "id": 73,
+    "palavra": "Marilyn Monroe",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma atriz famosa.",
+      "Vivi nos Estados Unidos.",
+      "Sou ícone de beleza.",
+      "Fiquei famosa no cinema.",
+      "Atuei em várias comédias.",
+      "Meu vestido branco é memorável.",
+      "Fui símbolo dos anos 50.",
+      "Minha vida pessoal teve polêmicas.",
+      "Sou lembrada até hoje.",
+      "Minha imagem virou referência pop."
+    ]
+  },
+  {
+    "id": 74,
+    "palavra": "Bahamas",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país insular.",
+      "Estou no Caribe.",
+      "Sou famoso por praias claras.",
+      "Atraio muitos turistas.",
+      "Tenho clima tropical.",
+      "Sou composto por várias ilhas.",
+      "Sou destino de cruzeiros.",
+      "Possuo grandes resorts.",
+      "Falo inglês.",
+      "Tenho águas azul-turquesa."
+    ]
+  },
+  {
+    "id": 75,
+    "palavra": "Frigideira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada na cozinha.",
+      "Sirvo para fritar alimentos.",
+      "Sou geralmente redonda.",
+      "Tenho cabo.",
+      "Sou feita de metal.",
+      "Fico sobre o fogão.",
+      "Posso ter revestimento antiaderente.",
+      "Sou muito comum em casas.",
+      "Sou leve.",
+      "Preparo ovos com facilidade."
+    ]
+  },
+  {
+    "id": 76,
+    "palavra": "Pablo Picasso",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um artista europeu.",
+      "Nasci na Espanha.",
+      "Fui pintor e escultor.",
+      "Sou um dos criadores do cubismo.",
+      "Minha obra mais famosa retrata uma guerra.",
+      "Fui muito produtivo.",
+      "Meu estilo mudou várias vezes.",
+      "Morei na França.",
+      "Fui um dos artistas mais influentes do século XX.",
+      "Minhas obras valem milhões."
+    ]
+  },
+  {
+    "id": 77,
+    "palavra": "Dubai",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma cidade famosa.",
+      "Fico no Oriente Médio.",
+      "Tenho arranha-céus modernos.",
+      "Possuo um dos edifícios mais altos do mundo.",
+      "Meu clima é desértico.",
+      "Sou destino turístico de luxo.",
+      "Tenho ilhas artificiais.",
+      "Sou parte dos Emirados Árabes Unidos.",
+      "Meu comércio é forte.",
+      "Sou muito fotografada."
+    ]
+  },
+  {
+    "id": 78,
+    "palavra": "Trator",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um veículo.",
+      "Sou usado na agricultura.",
+      "Sou lento.",
+      "Sou muito forte.",
+      "Tenho rodas grandes.",
+      "Puxo equipamentos pesados.",
+      "Sou comum em fazendas.",
+      "Existem vários modelos de mim.",
+      "Sou movido a diesel.",
+      "Ajudo a preparar a terra."
+    ]
+  },
+  {
+    "id": 79,
+    "palavra": "Nelson Mandela",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um líder mundial.",
+      "Nasci na África.",
+      "Fui preso por muitos anos.",
+      "Lutei contra a segregação racial.",
+      "Ganhei o Prêmio Nobel da Paz.",
+      "Fui presidente do meu país.",
+      "Sou símbolo de resistência.",
+      "Defendi igualdade e justiça.",
+      "Minha história é estudada mundialmente.",
+      "Sou inspiração para muitos."
+    ]
+  },
+  {
+    "id": 80,
+    "palavra": "Atenas",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma cidade histórica.",
+      "Estou na Europa.",
+      "Fui importante na antiguidade.",
+      "Fui berço da democracia.",
+      "Tenho ruínas famosas.",
+      "Sou capital de um país mediterrâneo.",
+      "Tive grandes filósofos.",
+      "Sou destino turístico.",
+      "Minha Acrópole é famosa.",
+      "Existia antes de Cristo."
+    ]
+  },
+  {
+    "id": 81,
+    "palavra": "Teclado",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no dia a dia.",
+      "Tenho várias teclas.",
+      "Sou encontrado em escritórios.",
+      "Uso letras e símbolos.",
+      "Sou ligado a outro aparelho.",
+      "Sou essencial para digitar.",
+      "Posso ser mecânico ou de membrana.",
+      "Uso padrões como ABNT.",
+      "Sou muito usado por gamers.",
+      "Faço parte de computadores."
+    ]
+  },
+  {
+    "id": 82,
+    "palavra": "Neil Armstrong",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um astronauta.",
+      "Sou dos Estados Unidos.",
+      "Tenho relação com a Lua.",
+      "Fiz parte de uma missão famosa.",
+      "Usei traje espacial.",
+      "Virei um ícone mundial.",
+      "Disse uma frase célebre.",
+      "Minhas imagens foram transmitidas na TV.",
+      "Sou figura histórica da ciência.",
+      "Fiz algo inédito para a humanidade."
+    ]
+  },
+  {
+    "id": 83,
+    "palavra": "Chile",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Estou na América do Sul.",
+      "Sou estreito e comprido.",
+      "Tenho deserto e montanhas.",
+      "Tenho neve.",
+      "Minha capital é movimentada.",
+      "Sou famoso por vinhos.",
+      "Tenho vulcões.",
+      "Falo espanhol.",
+      "Sou banhado pelo oceano Pacífico."
+    ]
+  },
+  {
+    "id": 84,
+    "palavra": "Liquidificador",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado na cozinha.",
+      "Tenho lâminas.",
+      "Sou elétrico.",
+      "Sirvo para triturar.",
+      "Faço sucos.",
+      "Tenho um copo transparente.",
+      "Faço bastante barulho.",
+      "Sou muito usado no Brasil.",
+      "Minha base é pesada.",
+      "Tenho várias velocidades."
+    ]
+  },
+  {
+    "id": 85,
+    "palavra": "Marie Curie",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cientista.",
+      "Ganhei dois prêmios Nobel.",
+      "Estudei radioatividade.",
+      "Descobri elementos químicos.",
+      "Nasci na Europa Oriental.",
+      "Migrei para outro país europeu.",
+      "Trabalhei com meu marido.",
+      "Meu trabalho revolucionou a ciência.",
+      "Fui pioneira entre mulheres.",
+      "Meu legado vive até hoje."
+    ]
+  },
+  {
+    "id": 86,
+    "palavra": "Noruega",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país europeu.",
+      "Tenho clima frio.",
+      "Sou famoso pelos fiordes.",
+      "Tenho alta qualidade de vida.",
+      "Minha capital é organizada.",
+      "Meus vikings são famosos.",
+      "Tenho muita natureza.",
+      "Uso coroa real.",
+      "Sou parte da Escandinávia.",
+      "Neva bastante aqui."
+    ]
+  },
+  {
+    "id": 87,
+    "palavra": "Guarda-roupa",
+    "tipo": "Objeto",
+    "dicas": ["Sou encontrado em quartos.", "Sirvo para guardar coisas.", "Tenho portas.", "Sou grande.", "Posso ter gavetas.", "Guardo roupas.", "Sou de madeira.", "Posso ser planejado.", "Sou muito útil.", "Organizo pertences pessoais."]
+  },
+  {
+    "id": 89,
+    "palavra": "Barack Obama",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui presidente.",
+      "Nasci nos Estados Unidos.",
+      "Fui o primeiro presidente negro do meu país.",
+      "Meu mandato começou em 2009.",
+      "Sou muito popular mundialmente.",
+      "Ganhei o Nobel da Paz.",
+      "Sou advogado de formação.",
+      "Fui senador antes da presidência.",
+      "Minha esposa também é muito conhecida.",
+      "Meu sobrenome é facilmente reconhecido."
+    ]
+  },
+  {
+    "id": 90,
+    "palavra": "Coliseu",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma construção antiga.",
+      "Fico na Europa.",
+      "Fui palco de lutas de gladiadores.",
+      "Sou um grande ponto turístico.",
+      "Fui construído no Império Romano.",
+      "Já tive capacidade para milhares de pessoas.",
+      "Hoje estou parcialmente destruído.",
+      "Sou um símbolo histórico.",
+      "Sou muito fotografado.",
+      "Fico na capital do meu país."
+    ]
+  },
+  {
+    "id": 91,
+    "palavra": "Nevada",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um estado.",
+      "Fico nos Estados Unidos.",
+      "Sou famoso por uma cidade cheia de cassinos.",
+      "Tenho desertos.",
+      "Meu clima é seco.",
+      "Las Vegas fica aqui.",
+      "Meu nome lembra neve.",
+      "Sou muito visitado por turistas.",
+      "Tenho paisagens naturais impressionantes.",
+      "Sou popular em filmes de Hollywood."
+    ]
+  },
+  {
+    "id": 92,
+    "palavra": "Monte Everest",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o ponto mais alto da Terra.",
+      "Situo-me na cordilheira do Himalaia.",
+      "A minha altitude ultrapassa 8 mil metros.",
+      "Muitos alpinistas treinam anos para me escalar.",
+      "Sou extremamente frio.",
+      "A falta de oxigênio é um grande perigo.",
+      "Fico na fronteira entre dois países.",
+      "Sou um desafio para aventureiros.",
+      "Sou conhecido mundialmente.",
+      "Tenho o 'Topo do Mundo' como apelido."
+    ]
+  },
+  {
+    "id": 93,
+    "palavra": "Shakira",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma cantora internacional.",
+      "Nasci na Colômbia.",
+      "Tenho músicas que misturam pop e ritmos latinos.",
+      "Fui jurada em um reality musical.",
+      "Minha dança de quadril é muito famosa.",
+      "Gravei música oficial de Copa do Mundo.",
+      "Sou conhecida desde os anos 90.",
+      "Tenho hits que tocam no mundo todo.",
+      "Faço muitos shows grandiosos.",
+      "Tenho uma voz marcante."
+    ]
+  },
+  {
+    "id": 94,
+    "palavra": "Copo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para beber líquidos.",
+      "Posso ser de vidro, plástico ou metal.",
+      "Sou comum em qualquer cozinha.",
+      "Sirvo água, suco ou refrigerante.",
+      "Sou leve de carregar.",
+      "Alguns possuem desenhos.",
+      "Frequentemente fico ao lado de pratos.",
+      "Sou usado diariamente.",
+      "Tenho diversos tamanhos.",
+      "Nem sempre sou descartável."
+    ]
+  },
+  {
+    "id": 95,
+    "palavra": "Bélgica",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Europa.",
+      "Sou famoso por chocolates.",
+      "Minha capital também é sede da União Europeia.",
+      "Falo mais de um idioma oficial.",
+      "Tenho waffles tradicionais.",
+      "Possuo cidades históricas.",
+      "Sou um país pequeno.",
+      "Minha bandeira tem três cores verticais.",
+      "Abrigo o Parlamento Europeu.",
+      "Sou conhecido pela boa cerveja."
+    ]
+  },
+  {
+    "id": 96,
+    "palavra": "Charles Darwin",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um cientista britânico.",
+      "Fiquei conhecido pela teoria da evolução.",
+      "Viajei a bordo do navio Beagle.",
+      "Observei espécies nas Ilhas Galápagos.",
+      "Escrevi 'A Origem das Espécies'.",
+      "Nasci no século XIX.",
+      "Estudei biologia e história natural.",
+      "Minha teoria explica a seleção natural.",
+      "Sou muito citado em escolas e universidades.",
+      "Minha obra mudou a ciência."
+    ]
+  },
+  {
+    "id": 97,
+    "palavra": "Chinelo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado nos pés.",
+      "Sou comum no calor.",
+      "Sou muito popular no Brasil.",
+      "Alguns me chamam de sandália.",
+      "Posso ser de borracha.",
+      "Uso frequente dentro de casa.",
+      "Sou leve e confortável.",
+      "Muito usado na praia.",
+      "Tenho tiras na parte superior.",
+      "Posso ser colorido ou simples."
+    ]
+  },
+  {
+    "id": 98,
+    "palavra": "Reino Unido",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou formado por quatro nações.",
+      "Minha capital é muito famosa.",
+      "Tenho uma família real conhecida mundialmente.",
+      "Minha língua oficial é muito estudada.",
+      "Fui protagonista da Revolução Industrial.",
+      "Tenho muitos castelos.",
+      "Minha culinária inclui fish and chips.",
+      "Possuo uma monarquia.",
+      "Sou uma potência histórica.",
+      "Fico na Europa."
+    ]
+  },
+  {
+    "id": 99,
+    "palavra": "Hércules",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou figura da mitologia.",
+      "Sou conhecido pela força extrema.",
+      "Realizei doze trabalhos.",
+      "Sou filho de um deus.",
+      "Meu nome tem versões em filmes e desenhos.",
+      "Sou famoso na cultura grega.",
+      "Enfrentei criaturas perigosas.",
+      "Muitos contam minha história até hoje.",
+      "Sou um herói lendário.",
+      "Minha fama atravessou séculos."
+    ]
+  },
+  {
+    "id": 100,
+    "palavra": "Vinícius",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um dos criadores do Jogo Perfil",
+      "Meu nome começa com a letra V",
+      "Meu nome termina com a letra S",
+      "Sou o criador do Jogo Perfil",
+      "Meu nome começa com a letra V",
+      "Meu nome termina com a letra S",
+      "Sou um dos criadores do Jogo Perfil",
+      "Meu nome começa com a letra V",
+      "Meu nome termina com a letra S",
+      "Sou um dos criadores do Jogo Perfil"
+    ]
+  },
+  {
+    "id": 102,
+    "palavra": "Cacto",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou uma planta.",
+      "Vivo bem em lugares secos.",
+      "Tenho espinhos.",
+      "Armazeno água.",
+      "Sou resistente ao calor.",
+      "Posso ser pequeno ou grande.",
+      "Sou comum em desertos.",
+      "Sou fácil de cuidar.",
+      "Alguns têm flores.",
+      "Sou muito usado como decoração."
+    ]
+  },
+  {
+    "id": 103,
+    "palavra": "Líbano",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país do Oriente Médio.",
+      "Minha capital tem o mesmo nome de um famoso hotel.",
+      "Tenho influência árabe e mediterrânea.",
+      "Minha culinária é muito apreciada.",
+      "Fui lar de uma antiga civilização fenícia.",
+      "Tenho belas montanhas.",
+      "Minha bandeira possui um cedro.",
+      "Sou pequeno em território.",
+      "Tenho história milenar.",
+      "Minha costa é banhada pelo mar Mediterrâneo."
+    ]
+  },
+  {
+    "id": 104,
+    "palavra": "Toalha",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada no banheiro.",
+      "Sirvo para secar.",
+      "Sou feita de tecido.",
+      "Posso ser de rosto ou de banho.",
+      "Fico pendurada na parede ou porta.",
+      "Sou item essencial de higiene.",
+      "Sou macia.",
+      "Sou lavável.",
+      "Crianças e adultos me usam.",
+      "Sou comum em qualquer casa."
+    ]
+  },
+  {
+    "id": 106,
+    "palavra": "Mahatma Gandhi",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um líder político e espiritual.",
+      "Defendi a resistência pacífica.",
+      "Nasci na Índia.",
+      "Fui fundamental na independência do meu país.",
+      "Pregava a não violência.",
+      "Me tornei símbolo mundial de paz.",
+      "Minha luta inspirou outros líderes.",
+      "Vivi no século XX.",
+      "Sou conhecido por usar roupas simples.",
+      "Deixei um legado duradouro."
+    ]
+  },
+  {
+    "id": 107,
+    "palavra": "Batedeira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um eletrodoméstico de cozinha.",
+      "Sou usada em receitas.",
+      "Ajudo a misturar ingredientes.",
+      "Tenho pás giratórias.",
+      "Sou muito útil para fazer bolos.",
+      "Existem versões pequenas e grandes.",
+      "Funciono com eletricidade.",
+      "Economizo esforço manual.",
+      "Sou comum em cozinhas domésticas.",
+      "Algumas versões possuem suporte fixo."
+    ]
+  },
+  {
+    "id": 108,
+    "palavra": "Serra da Mantiqueira",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma cadeia montanhosa.",
+      "Estou localizada no Sudeste do Brasil.",
+      "Sou famosa por cidades frias.",
+      "Tenho grande biodiversidade.",
+      "Possuo muitas trilhas.",
+      "Atraio turistas o ano todo.",
+      "Alguns me consideram um refúgio natural.",
+      "Possuo belas paisagens.",
+      "Sou importante para recursos hídricos.",
+      "Minas, Rio e São Paulo me dividem."
+    ]
+  },
+  {
+    "id": 110,
+    "palavra": "Machu Picchu",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um sítio histórico.",
+      "Fico na América do Sul.",
+      "Fui construído por uma civilização antiga.",
+      "Estou localizado nas montanhas.",
+      "Sou Patrimônio da Humanidade.",
+      "Acesso a mim exige trilha ou trem.",
+      "Tenho estruturas de pedra preservadas.",
+      "Minha origem envolve mistérios.",
+      "Sou muito visitado por turistas.",
+      "Fico no Peru."
+    ]
+  },
+  {
+    "id": 111,
+    "palavra": "Selena Gomez",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma artista internacional.",
+      "Comecei carreira ainda criança.",
+      "Sou cantora e atriz.",
+      "Já atuei em séries e filmes.",
+      "Tenho músicas famosas no mundo todo.",
+      "Tenho forte presença nas redes sociais.",
+      "Também sou produtora.",
+      "Meu nome é bastante conhecido entre jovens.",
+      "Trabalhei no Disney Channel.",
+      "Já recebi diversos prêmios."
+    ]
+  },
+  {
+    "id": 112,
+    "palavra": "Estetoscópio",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento profissional.",
+      "Sou muito usado na área da saúde.",
+      "Sirvo para ouvir sons do corpo.",
+      "Geralmente fico pendurado no pescoço.",
+      "Funciono com auscultação.",
+      "Sou essencial em exames médicos.",
+      "Tenho duas hastes e um disco.",
+      "Sou leve e portátil.",
+      "Sou usado diariamente em hospitais.",
+      "Ajudo a salvar vidas."
+    ]
+  },
+  {
+    "id": 113,
+    "palavra": "México",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país da América do Norte.",
+      "Minha culinária é muito famosa.",
+      "Tenho praias populares.",
+      "Meu idioma oficial é o espanhol.",
+      "Possuo pirâmides antigas.",
+      "Minha capital tem o mesmo nome que o país.",
+      "Tenho cultura rica e colorida.",
+      "Sou conhecido pelo Dia dos Mortos.",
+      "Exporto muitas comidas típicas.",
+      "Sou lar dos astecas e maias."
+    ]
+  },
+  {
+    "id": 115,
+    "palavra": "Beethoven",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um músico clássico.",
+      "Nasci na Alemanha.",
+      "Compus sinfonias famosas.",
+      "Trabalhei no século XVIII e XIX.",
+      "Fiquei parcialmente surdo.",
+      "Minha música influenciou gerações.",
+      "Compus a 9ª Sinfonia.",
+      "Sou considerado um gênio.",
+      "Minha obra é estudada até hoje.",
+      "Fui um dos maiores compositores da história."
+    ]
+  },
+  {
+    "id": 117,
+    "palavra": "Finlândia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país do norte da Europa.",
+      "Sou conhecido pela educação de qualidade.",
+      "Tenho muitos lagos.",
+      "Possuo invernos longos.",
+      "Minha capital fica no litoral.",
+      "Tenho saunas tradicionais.",
+      "Sou considerado muito seguro.",
+      "Meu idioma é diferente dos demais países da região.",
+      "Vejo auroras boreais em algumas áreas.",
+      "Sou vizinho da Suécia."
+    ]
+  },
+  {
+    "id": 118,
+    "palavra": "Vassoura",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada na limpeza.",
+      "Tenho cabo longo.",
+      "Tenho cerdas na ponta.",
+      "Sou muito comum em casas.",
+      "Sou usada para varrer.",
+      "Posso ser de palha ou sintética.",
+      "Sou leve.",
+      "Fico guardada em áreas de serviço.",
+      "Sou usada quase todos os dias.",
+      "Meu formato é simples e funcional."
+    ]
+  },
+  {
+    "id": 120,
+    "palavra": "Tubarão",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um animal marinho.",
+      "Tenho várias fileiras de dentes.",
+      "Nado rapidamente.",
+      "Sou considerado um predador.",
+      "Algumas espécies podem medir muitos metros.",
+      "Meu esqueleto é cartilaginoso.",
+      "Apareço em filmes famosos.",
+      "Vivo em águas salgadas.",
+      "Tenho excelente olfato.",
+      "Alguns me acham assustador."
+    ]
+  },
+  {
+    "id": 121,
+    "palavra": "Saxofone",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento musical.",
+      "Sou feito de metal.",
+      "Sou muito usado no jazz.",
+      "Tenho um som encorpado.",
+      "Preciso de palheta para tocar.",
+      "Sou segurado de lado.",
+      "Apareço em bandas e orquestras.",
+      "Tenho muitas chaves e botões.",
+      "Sou brilhante na maior parte das vezes.",
+      "Meu nome começa com a letra S."
+    ]
+  },
+  {
+    "id": 122,
+    "palavra": "Croácia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país europeu.",
+      "Tenho litoral no Mar Adriático.",
+      "Minha capital é Zagreb.",
+      "Fui finalista da Copa de 2018.",
+      "Tenho cidades históricas.",
+      "Meu país tem ilhas e praias bonitas.",
+      "Falo uma língua eslava.",
+      "Sou vizinho da Eslovênia.",
+      "Tenho bandeira vermelha, branca e azul.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 123,
+    "palavra": "Lanterna",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sirvo para iluminar.",
+      "Sou usada no escuro.",
+      "Posso funcionar com pilhas.",
+      "Sou portátil.",
+      "Algumas versões são recarregáveis.",
+      "Sou comum em acampamentos.",
+      "Posso ter vários níveis de luz.",
+      "Sou segura na mão.",
+      "Meu nome lembra luz.",
+      "Sou útil durante quedas de energia."
+    ]
+  },
+  {
+    "id": 125,
+    "palavra": "Patins",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para deslizar.",
+      "Possuo rodas.",
+      "Muitas pessoas usam para se exercitar.",
+      "Posso ser inline ou tradicional.",
+      "Equilíbrio é necessário para me usar.",
+      "Sou comum em pistas.",
+      "Crianças gostam muito de mim.",
+      "Uso tênis como base.",
+      "Posso ter freios na frente ou atrás.",
+      "Meu nome termina com S."
+    ]
+  },
+  {
+    "id": 126,
+    "palavra": "Vulcão",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma formação geológica.",
+      "Posso entrar em erupção.",
+      "Lanço lava e cinzas.",
+      "Posso adormecer por séculos.",
+      "Alguns turistas gostam de me visitar.",
+      "Existem muitos de mim ao redor do Círculo de Fogo.",
+      "Sou formado por ação tectônica.",
+      "Minha lava fica incandescente.",
+      "Posso criar novas ilhas.",
+      "Meu nome começa com V."
+    ]
+  },
+  {
+    "id": 129,
+    "palavra": "Harpa",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento musical.",
+      "Tenho muitas cordas.",
+      "Sou grande e elegante.",
+      "Apareço em orquestras.",
+      "Meu som é suave.",
+      "Sou tocada com os dedos.",
+      "Minha forma é curva.",
+      "Posso ser muito pesada.",
+      "Fui usada desde a antiguidade.",
+      "Meu nome começa com H."
+    ]
+  },
+  {
+    "id": 131,
+    "palavra": "Dinamarca",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país europeu.",
+      "Fiz parte dos vikings.",
+      "Minha capital é Copenhague.",
+      "Tenho clima frio.",
+      "Meu país é pequeno.",
+      "Minha bandeira é vermelha e branca.",
+      "Tenho excelente qualidade de vida.",
+      "Sou vizinho da Alemanha.",
+      "Falo uma língua germânica.",
+      "Meu nome começa com D."
+    ]
+  },
+  {
+    "id": 132,
+    "palavra": "Trompete",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento musical.",
+      "Tenho pistões.",
+      "Sou muito usado no jazz e no blues.",
+      "Sou de metal.",
+      "Tenho som forte e brilhante.",
+      "Sou pequeno comparado a outros metais.",
+      "Requer boa respiração.",
+      "Sou muito antigo.",
+      "Sou usado em fanfarras.",
+      "Meu nome termina com E."
+    ]
+  },
+  {
+    "id": 134,
+    "palavra": "Isaac Newton",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um cientista muito famoso.",
+      "Nasci no século XVII.",
+      "Estudei movimento e gravidade.",
+      "Fui matemático e físico.",
+      "Contribuí para o cálculo.",
+      "Observei a queda de uma maçã.",
+      "Sou inglês.",
+      "Escrevi obras importantes.",
+      "Desenvolvi leis sobre força.",
+      "Meu sobrenome começa com N."
+    ]
+  },
+  {
+    "id": 135,
+    "palavra": "Mozart",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um grande compositor.",
+      "Nasci na Áustria no século XVIII.",
+      "Fui considerado um gênio desde criança.",
+      "Escrevi muitas sinfonias.",
+      "Compus óperas famosas.",
+      "Tinha enorme facilidade para música.",
+      "Morri jovem.",
+      "Influenciei toda a música clássica.",
+      "Meu nome completo é longo.",
+      "Meu sobrenome começa com M."
+    ]
+  },
+  {
+    "id": 136,
+    "palavra": "Stephen Hawking",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou físico teórico.",
+      "Estudei buracos negros.",
+      "Escrevi livros de divulgação científica.",
+      "Fui professor em Cambridge.",
+      "Vivi com uma doença degenerativa.",
+      "Tornei-me referência em cosmologia.",
+      "Fiquei conhecido pela voz sintetizada.",
+      "Apareci em séries e documentários.",
+      "Nasci no século XX.",
+      "Meu sobrenome começa com H."
+    ]
+  },
+  {
+    "id": 138,
+    "palavra": "Stephen King",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou escritor.",
+      "Fico conhecido por histórias de terror.",
+      "Escrevi 'It'.",
+      "Tenho muitos livros adaptados para filmes.",
+      "Nasci nos Estados Unidos.",
+      "Sou um dos autores mais vendidos do mundo.",
+      "Comecei a escrever ainda jovem.",
+      "Fui professor.",
+      "Meu nome aparece em muitas listas literárias.",
+      "Meu sobrenome é King."
+    ]
+  },
+  {
+    "id": 139,
+    "palavra": "Confúcio",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um filósofo.",
+      "Nasci na Antiguidade.",
+      "Minhas ideias influenciam muitos países.",
+      "Falo sobre moral, virtude e sociedade.",
+      "Sou muito estudado até hoje.",
+      "Minhas frases são famosas.",
+      "Trabalhei como professor.",
+      "Tive muitos discípulos.",
+      "Minhas ideias formam um sistema filosófico.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 141,
+    "palavra": "Usain Bolt",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atleta.",
+      "Especialista em corrida.",
+      "Ganhei várias medalhas olímpicas.",
+      "Sou muito rápido.",
+      "Tenho recordes mundiais.",
+      "Nasci na Jamaica.",
+      "Fui destaque nas provas de 100 e 200 metros.",
+      "Meu apelido envolve um raio.",
+      "Corri em grandes estádios.",
+      "Meu sobrenome começa com B."
+    ]
+  },
+  {
+    "id": 142,
+    "palavra": "Morgan Freeman",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Tenho uma voz muito marcante.",
+      "Atuei em filmes premiados.",
+      "Sou norte-americano.",
+      "Faço muitos papéis de autoridade.",
+      "Sou reconhecido por minha narração.",
+      "Ganhei um Oscar.",
+      "Participo de muitos documentários.",
+      "Tenho carreira longa.",
+      "Meu sobrenome começa com F."
+    ]
+  },
+  {
+    "id": 143,
+    "palavra": "Amelia Earhart",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou pioneira.",
+      "Fui uma das primeiras mulheres na aviação.",
+      "Atravessei o oceano.",
+      "Fiquei famosa por minha coragem.",
+      "Desapareci misteriosamente.",
+      "Inspirei muitas outras mulheres.",
+      "Nasci nos Estados Unidos.",
+      "Meu caso é estudado até hoje.",
+      "Tenho livros sobre minha vida.",
+      "Meu sobrenome começa com E."
+    ]
+  },
+  {
+    "id": 144,
+    "palavra": "Bruce Lee",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator e lutador.",
+      "Popularizei as artes marciais no cinema.",
+      "Tenho velocidade impressionante.",
+      "Meus filmes viraram clássicos.",
+      "Criei meu próprio estilo de luta.",
+      "Sou muito admirado no mundo todo.",
+      "Fui um ícone cultural.",
+      "Nasci no século XX.",
+      "Tive carreira curta, mas marcante.",
+      "Meu sobrenome é Lee."
+    ]
+  },
+  {
+    "id": 147,
+    "palavra": "Nikola Tesla",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou inventor.",
+      "Trabalhei com eletricidade.",
+      "Minhas ideias foram revolucionárias.",
+      "Nasci na Europa no século XIX.",
+      "Contribuí para a corrente alternada.",
+      "Sou tema de muitos livros.",
+      "Fui rival de Thomas Edison.",
+      "Meu nome é muito citado hoje.",
+      "Tenho estátuas em vários lugares.",
+      "Meu sobrenome começa com T."
+    ]
+  },
+  {
+    "id": 148,
+    "palavra": "Tolkien",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou escritor.",
+      "Criei mundos de fantasia complexos.",
+      "Escrevi 'O Senhor dos Anéis'.",
+      "Também sou linguista.",
+      "Nasci na África do Sul e vivi no Reino Unido.",
+      "Desenvolvi idiomas fictícios.",
+      "Minha obra inspirou muitos autores.",
+      "Fui professor em Oxford.",
+      "Tenho fãs no mundo todo.",
+      "Meu sobrenome começa com T."
+    ]
+  },
+  {
+    "id": 149,
+    "palavra": "Maria Antonieta",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui uma figura importante da França.",
+      "Meu nome está ligado à monarquia.",
+      "Sou lembrada por meu estilo extravagante.",
+      "Vivi no século XVIII.",
+      "Fui casada com um rei.",
+      "Meu destino foi trágico.",
+      "Sou associada à Revolução Francesa.",
+      "Há muitas frases atribuídas a mim.",
+      "Meu nome aparece em livros de história.",
+      "Meu sobrenome começa com A."
+    ]
+  },
+  {
+    "id": 152,
+    "palavra": "Freud",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui um pensador influente.",
+      "Criei uma nova área de estudo.",
+      "Meu trabalho envolve a mente humana.",
+      "Nasci na Europa.",
+      "Fui médico de formação.",
+      "Desenvolvi teorias polêmicas.",
+      "Minha obra influenciou muitas áreas.",
+      "Meu nome é estudado até hoje.",
+      "Fundamentei a psicanálise.",
+      "Meu sobrenome começa com F."
+    ]
+  },
+  {
+    "id": 155,
+    "palavra": "Tarantino",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou diretor de cinema.",
+      "Meus filmes têm diálogos marcantes.",
+      "Sou conhecido por cenas intensas.",
+      "Trabalho desde o século XX.",
+      "Ganhei Oscar.",
+      "Meu estilo é facilmente reconhecível.",
+      "Fui funcionário de locadora.",
+      "Tenho fãs no mundo inteiro.",
+      "Sou norte-americano.",
+      "Meu sobrenome começa com T."
+    ]
+  },
+  {
+    "id": 157,
+    "palavra": "Agatha Christie",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou escritora.",
+      "Fiquei famosa por romances de mistério.",
+      "Criei detetives icônicos.",
+      "Nasci no Reino Unido.",
+      "Venda milhões de livros.",
+      "Sou uma das autoras mais lidas do mundo.",
+      "Minhas histórias têm finais inesperados.",
+      "Muitas obras viraram filmes e séries.",
+      "Vivi no século XX.",
+      "Meu sobrenome começa com C."
+    ]
+  },
+  {
+    "id": 158,
+    "palavra": "Islândia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Tenho muitas paisagens naturais.",
+      "Sou conhecido por vulcões e geleiras.",
+      "Minha capital fica no litoral.",
+      "Tenho águas termais muito famosas.",
+      "Fico no norte do Atlântico.",
+      "Tenho baixa população.",
+      "Possuo muitos fenômenos naturais.",
+      "A aurora boreal é visível aqui.",
+      "Meu nome começa com I."
+    ]
+  },
+  {
+    "id": 159,
+    "palavra": "Nigéria",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país africano.",
+      "Tenho população muito numerosa.",
+      "Minha economia é uma das maiores do continente.",
+      "Tenho grande diversidade cultural.",
+      "Sou conhecido pela indústria cinematográfica.",
+      "Tenho várias línguas faladas.",
+      "Minha capital não é minha maior cidade.",
+      "Sou banhado pelo Atlântico.",
+      "Meu nome aparece em rankings internacionais.",
+      "Meu nome começa com N."
+    ]
+  },
+  {
+    "id": 160,
+    "palavra": "Havaí",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou formado por ilhas.",
+      "Tenho clima tropical.",
+      "Sou famoso por praias.",
+      "As pessoas surfam muito aqui.",
+      "Tenho vulcões ativos.",
+      "Pertenço aos Estados Unidos.",
+      "A cultura local é muito marcante.",
+      "Sou destino turístico.",
+      "Minha capital é Honolulu.",
+      "Meu nome começa com H."
+    ]
+  },
+  {
+    "id": 161,
+    "palavra": "Telescópio",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para observar.",
+      "Vejo coisas distantes.",
+      "Sou muito usado em astronomia.",
+      "Existem versões amadoras e profissionais.",
+      "Posso ser muito grande.",
+      "Ajudo cientistas em descobertas.",
+      "Funciono com lentes ou espelhos.",
+      "Fico apontado para o céu.",
+      "Sou encontrado em observatórios.",
+      "Meu nome começa com T."
+    ]
+  },
+  {
+    "id": 162,
+    "palavra": "Capacete",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou uma proteção.",
+      "Sou usado na cabeça.",
+      "Apareço em diversos esportes.",
+      "Sou feito de materiais resistentes.",
+      "Sou obrigatório em algumas atividades.",
+      "Meu uso evita acidentes graves.",
+      "Sou comum em construções.",
+      "Soldados também me utilizam.",
+      "Sou encontrado em vários formatos.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 163,
+    "palavra": "Agenda",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada no dia a dia.",
+      "Ajudo a organizar compromissos.",
+      "Posso ser física ou digital.",
+      "Tenho páginas ou interface.",
+      "Sou muito usada por estudantes.",
+      "Profissionais também dependem de mim.",
+      "Ajudo na produtividade.",
+      "Sou encontrada em vários tamanhos.",
+      "Posso ter calendário integrado.",
+      "Meu nome começa com A."
+    ]
+  },
+  {
+    "id": 164,
+    "palavra": "Bússola",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada há séculos para navegação.",
+      "Funciono apontando para uma direção específica.",
+      "Ajudava muito exploradores e viajantes.",
+      "Sou pequena e portátil.",
+      "Não preciso de energia elétrica.",
+      "Posso ser usada em trilhas.",
+      "Sou comum em kits de sobrevivência.",
+      "Meu funcionamento depende do campo magnético.",
+      "Fui fundamental em grandes expedições.",
+      "Normalmente sou guardada no bolso."
+    ]
+  },
+  {
+    "id": 165,
+    "palavra": "Serra do Mar",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma longa cadeia montanhosa.",
+      "Estou localizada no litoral de um país sul-americano.",
+      "Tenho grande importância ecológica.",
+      "Sou coberta por Mata Atlântica.",
+      "Vários estados me atravessam.",
+      "Possuo áreas de preservação.",
+      "Sou conhecida por minha biodiversidade.",
+      "Alguns trechos têm vistas para o mar.",
+      "Sou formada por terrenos antigos.",
+      "Muitas cidades ficam próximas a mim."
+    ]
+  },
+  {
+    "id": 167,
+    "palavra": "Viena",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital europeia.",
+      "Tenho arquitetura elegante e histórica.",
+      "Sou famosa pela música clássica.",
+      "Diversos compositores viveram aqui.",
+      "Tenho cafés muito tradicionais.",
+      "Fui centro político de um grande império.",
+      "Eventos culturais acontecem o ano todo.",
+      "Possuo palácios famosos.",
+      "Sou muito visitada por turistas.",
+      "Minha atmosfera mistura tradição e modernidade."
+    ]
+  },
+  {
+    "id": 168,
+    "palavra": "Farol",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou encontrado próximo ao mar.",
+      "Minha luz é visível à longa distância.",
+      "Ajudo a orientar embarcações.",
+      "Meu funcionamento já foi manual.",
+      "Hoje posso ser automatizado.",
+      "Fico em estruturas altas.",
+      "Sou símbolo de segurança marítima.",
+      "Já apareci em muitos filmes.",
+      "Sou resistente a ventos fortes.",
+      "Existem versões históricas muito famosas."
+    ]
+  },
+  {
+    "id": 169,
+    "palavra": "Franz Kafka",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui escritor.",
+      "Minha obra tem um estilo único e perturbador.",
+      "Criei histórias de opressão e absurdo.",
+      "Minha vida foi reservada.",
+      "Minha obra mais famosa envolve um homem transformado.",
+      "Escrevi em alemão.",
+      "Me tornei mais famoso após minha morte.",
+      "Pedi para meu amigo destruir meus manuscritos.",
+      "Sou estudado em universidades do mundo todo.",
+      "Sou associado ao termo 'kafkiano'."
+    ]
+  },
+  {
+    "id": 170,
+    "palavra": "Capadócia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma região turística muito famosa.",
+      "Tenho formações rochosas incomuns.",
+      "Passeios de balão são tradição aqui.",
+      "Minha paisagem parece outro planeta.",
+      "Abrigo cidades subterrâneas antigas.",
+      "Fiquei conhecida pelas 'chaminés de fada'.",
+      "Sou patrimônio mundial.",
+      "Tenho clima semiárido.",
+      "Recebo milhares de visitantes por ano.",
+      "Minhas cavernas foram usadas como moradia."
+    ]
+  },
+  {
+    "id": 171,
+    "palavra": "Sino",
+    "tipo": "Objeto",
+    "dicas": [
+      "Produzo som ao ser movimentado.",
+      "Sou usado em cerimônias.",
+      "Apareço em templos e igrejas.",
+      "Posso ser pequeno ou gigante.",
+      "Fui usado historicamente para avisos.",
+      "Meu som é metálico.",
+      "Sou feito comumente de bronze.",
+      "Também apareço em escolas antigas.",
+      "Já fui tocado para marcar horas.",
+      "Alguns me consideram um símbolo espiritual."
+    ]
+  },
+  {
+    "id": 172,
+    "palavra": "Marrocos",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Tenho cidades com mercados tradicionais.",
+      "Possuo influência árabe e berbere.",
+      "Meus artesanatos são muito conhecidos.",
+      "Tenho desertos, montanhas e litoral.",
+      "Minha culinária inclui pratos com especiarias.",
+      "Tenho uma cidade famosa pela cor azul.",
+      "Sou um destino turístico popular.",
+      "Minha história é muito antiga.",
+      "Fico no continente africano."
+    ]
+  },
+  {
+    "id": 174,
+    "palavra": "Globo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou educativo.",
+      "Mostro fronteiras e continentes.",
+      "Sou usado em escolas e escritórios.",
+      "Ajudo a visualizar o planeta.",
+      "Posso girar sobre um eixo.",
+      "Existem versões iluminadas.",
+      "Sou comum em mesas de estudo.",
+      "Mostro oceanos e países.",
+      "Já existo há muitos séculos.",
+      "Ajudo a ensinar geografia."
+    ]
+  },
+  {
+    "id": 177,
+    "palavra": "Pente",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no cotidiano.",
+      "Sirvo para organizar algo.",
+      "Posso ser feito de madeira ou plástico.",
+      "Sou encontrado em salões de beleza.",
+      "Sou portátil.",
+      "Tenho dentes alinhados.",
+      "Sou útil para desembaraçar.",
+      "Tenho vários formatos.",
+      "Costumo ficar no banheiro.",
+      "Sou muito usado pela manhã."
+    ]
+  },
+  {
+    "id": 180,
+    "palavra": "Monte Fuji",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma montanha muito fotografada.",
+      "Sou um símbolo cultural.",
+      "Tenho formato cônico.",
+      "Minha aparência muda conforme a estação.",
+      "Sou destino de trilhas e peregrinações.",
+      "Tenho neve em parte do ano.",
+      "Fico próximo de cidades populosas.",
+      "Sou considerado sagrado.",
+      "Já apareci em inúmeras pinturas tradicionais.",
+      "Sou o ponto mais alto do meu país."
+    ]
+  },
+  {
+    "id": 181,
+    "palavra": "Clarice Lispector",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma escritora muito estudada.",
+      "Minha obra explora emoções profundas.",
+      "Minha personalidade é considerada enigmática.",
+      "Migrei para o Brasil ainda criança.",
+      "Me tornei referência na literatura moderna.",
+      "Escrevi romances, contos e crônicas.",
+      "Meu estilo é introspectivo.",
+      "Minha escrita influenciou muitas gerações.",
+      "Fui jornalista também.",
+      "Uma das minhas frases virou meme sem querer."
+    ]
+  },
+  {
+    "id": 183,
+    "palavra": "Violoncelo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um instrumento musical.",
+      "Tenho corpo grande.",
+      "Sou tocado com arco.",
+      "Minha sonoridade é grave e expressiva.",
+      "Sou comum em orquestras.",
+      "Fico apoiado ao chão durante a execução.",
+      "Tenho quatro cordas.",
+      "Sou feito tradicionalmente de madeira.",
+      "Requer postura específica para tocar.",
+      "Sou apreciado em músicas clássicas."
+    ]
+  },
+  {
+    "id": 185,
+    "palavra": "Seul",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital moderna.",
+      "Tenho distritos tecnológicos.",
+      "Misturo tradição e inovação.",
+      "Sou famosa por mercados noturnos.",
+      "Minha culinária é muito característica.",
+      "Tenho palácios preservados.",
+      "Minha população é enorme.",
+      "Sou conhecida por entretenimento pop.",
+      "Meu metrô é bastante avançado.",
+      "Fico no leste da Ásia."
+    ]
+  },
+  {
+    "id": 186,
+    "palavra": "Âncora",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou fundamental para embarcações.",
+      "Uso peso para fixação.",
+      "Fico junto a cordas ou correntes.",
+      "Minha função é evitar movimentos indesejados.",
+      "Já existo desde a antiguidade.",
+      "Tenho formatos variados.",
+      "Sou símbolo de estabilidade.",
+      "Mergulho até o fundo para cumprir meu papel.",
+      "Sou usada tanto em barcos pequenos quanto grandes.",
+      "Muitos me associam ao mar."
+    ]
+  },
+  {
+    "id": 187,
+    "palavra": "Jordânia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Tenho desertos famosos.",
+      "Abrigo uma antiga cidade esculpida em pedra.",
+      "Minha cultura é muito rica.",
+      "Fico no Oriente Médio.",
+      "Sou destino turístico por causa da minha história.",
+      "Tenho sítios arqueológicos impressionantes.",
+      "Meu clima é predominantemente seco.",
+      "Muitos povos antigos passaram por aqui.",
+      "Sou politicamente importante na região."
+    ]
+  },
+  {
+    "id": 189,
+    "palavra": "Corda",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para prender ou segurar coisas.",
+      "Posso ser grossa ou fina.",
+      "Sou feita de fibras torcidas.",
+      "Tenho muita resistência.",
+      "Sou utilizada em escadas, esportes e transporte.",
+      "Marinheiros dependem muito de mim.",
+      "Já fui feita com materiais naturais.",
+      "Sou comum em acampamentos.",
+      "Sou leve e portátil.",
+      "Posso ser trançada de várias formas."
+    ]
+  },
+  {
+    "id": 191,
+    "palavra": "Chaleira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada na cozinha.",
+      "Sirvo para aquecer líquidos.",
+      "Muitas versões assobiam quando estou pronta.",
+      "Sou encontrada em acampamentos.",
+      "Posso ser de metal ou vidro.",
+      "Sou usada em rituais de chá.",
+      "Minha tampa normalmente é removível.",
+      "Sou resistente ao calor.",
+      "Fui muito comum antes dos elétricos.",
+      "Sou bastante prática no dia a dia."
+    ]
+  },
+  {
+    "id": 193,
+    "palavra": "Santiago",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Fico rodeada por montanhas.",
+      "Tenho clima seco na maior parte do ano.",
+      "Possuo bairros modernos.",
+      "Sou conhecida por vinhos próximos à região.",
+      "Tenho museus e centros culturais importantes.",
+      "Meu trânsito é intenso.",
+      "Vários turistas me visitam anualmente.",
+      "Tenho uma cordilheira visível da cidade.",
+      "Sou uma das maiores cidades da América do Sul."
+    ]
+  },
+  {
+    "id": 194,
+    "palavra": "Robert Downey Jr.",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Meu sobrenome começa com D.",
+      "Tive altos e baixos na carreira.",
+      "Sou conhecido por interpretar um herói tecnológico.",
+      "Fiz parte de um grande universo cinematográfico.",
+      "Atuei em filmes de ação e comédia.",
+      "Também participei de produções independentes.",
+      "Ganhei muitos fãs em todo o mundo.",
+      "Tenho um estilo carismático.",
+      "Sou um dos atores mais bem pagos."
+    ]
+  },
+  {
+    "id": 195,
+    "palavra": "Lady Gaga",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantora.",
+      "Tenho um estilo artístico único.",
+      "Fiquei famosa com músicas pop.",
+      "Também sou atriz.",
+      "Meu nome artístico começa com L.",
+      "Uso figurinos marcantes.",
+      "Ganhei muitos prêmios.",
+      "Participei de produções de cinema.",
+      "Tenho uma grande base de fãs.",
+      "Sou conhecida por minha voz poderosa."
+    ]
+  },
+  {
+    "id": 196,
+    "palavra": "Tom Hanks",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Atuo há muitas décadas.",
+      "Já interpretei personagens emocionantes.",
+      "Protagonizei histórias inspiradoras.",
+      "Ganhei prêmios importantes.",
+      "Tenho uma voz facilmente reconhecível.",
+      "Atuei em filmes de comédia e drama.",
+      "Sou muito respeitado na indústria.",
+      "Meu sobrenome começa com H.",
+      "Interpretou um marinheiro famoso em uma animação."
+    ]
+  },
+  {
+    "id": 197,
+    "palavra": "Zendaya",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atriz.",
+      "Comecei em produções juvenis.",
+      "Ganhei destaque em uma série dramática.",
+      "Também sou cantora e modelo.",
+      "Meu nome começa com Z.",
+      "Tenho forte presença na cultura pop.",
+      "Fiz par romântico em filmes de super-herói.",
+      "Gosto de moda.",
+      "Ganhei prêmios importantes.",
+      "Tenho milhões de seguidores."
+    ]
+  },
+  {
+    "id": 198,
+    "palavra": "Keanu Reeves",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Protagonizei filmes de ação icônicos.",
+      "Fiquei famoso nos anos 90.",
+      "Meu sobrenome começa com R.",
+      "Sou conhecido por ser gentil com fãs.",
+      "Interpretei um personagem envolvido com realidade virtual.",
+      "Atuei em uma saga de ação moderna.",
+      "Tenho uma carreira longa.",
+      "Também toco baixo.",
+      "Tenho fama de humilde."
+    ]
+  },
+  {
+    "id": 199,
+    "palavra": "Adele",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantora.",
+      "Tenho voz poderosa.",
+      "Minhas músicas são emocionantes.",
+      "Meu nome começa com A.",
+      "Ganhei diversos prêmios.",
+      "Meus álbuns batem recordes.",
+      "Sou conhecida pelo estilo clássico.",
+      "Faço performances ao vivo marcantes.",
+      "Meu nome artístico é curto.",
+      "Tenho forte presença na mídia."
+    ]
+  },
+  {
+    "id": 200,
+    "palavra": "Murilo",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um dos criadores do Jogo Perfil",
+      "Meu nome começa com a letra M",
+      "Meu nome termina com a letra O",
+      "Sou o criador do Jogo Perfil",
+      "Meu nome começa com a letra M",
+      "Meu nome termina com a letra O",
+      "Sou um dos criadores do Jogo Perfil",
+      "Meu nome começa com a letra M",
+      "Meu nome termina com a letra O",
+      "Sou um dos criadores do Jogo Perfil"
+    ]
+  },
+  {
+    "id": 201,
+    "palavra": "Dwayne Johnson",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Meu sobrenome começa com J.",
+      "Fui atleta profissional.",
+      "Sou conhecido por filmes de ação.",
+      "Tenho grande força física.",
+      "Também fiz comédias.",
+      "Participei de franquias famosas.",
+      "Sou muito carismático.",
+      "Tenho milhões de seguidores.",
+      "Meu apelido é amplamente reconhecido."
+    ]
+  },
+  {
+    "id": 202,
+    "palavra": "Anne Hathaway",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atriz.",
+      "Participei de filmes de fantasia e drama.",
+      "Fiquei famosa com uma comédia sobre moda.",
+      "Ganhei prêmios importantes.",
+      "Tenho grande versatilidade.",
+      "Fiz papéis marcantes em musicais.",
+      "Atuo desde jovem.",
+      "Meu sobrenome começa com H.",
+      "Sou muito reconhecida pelo sorriso.",
+      "Tenho carreira internacional."
+    ]
+  },
+  {
+    "id": 203,
+    "palavra": "Ed Sheeran",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantor.",
+      "Escrevo minhas próprias músicas.",
+      "Minha carreira começou de forma simples.",
+      "Tenho estilo acústico.",
+      "Ganhei prêmios importantes.",
+      "Meu cabelo é marcante.",
+      "Faço turnês enormes.",
+      "Tenho canções muito populares.",
+      "Já fiz participações especiais em séries.",
+      "Meu sobrenome começa com S."
+    ]
+  },
+  {
+    "id": 203,
+    "palavra": "Copo Térmico",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um recipiente.",
+      "Mantenho líquidos quentes ou frios.",
+      "Sou usado no dia a dia.",
+      "Posso ter tampa.",
+      "Sou comum em escritórios.",
+      "Muitas pessoas me carregam na mochila.",
+      "Sou reutilizável.",
+      "Ajudo a evitar desperdício.",
+      "Sou prático e portátil.",
+      "Meu nome tem duas palavras."
+    ]
+  },
+  {
+    "id": 204,
+    "palavra": "Estocolmo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Tenho clima frio.",
+      "Sou formada por várias ilhas.",
+      "Tenho canais e pontes.",
+      "Sou conhecida pela organização urbana.",
+      "Tenho museus famosos.",
+      "Sou uma cidade tecnológica.",
+      "Faço parte da Europa.",
+      "Fico no norte do continente.",
+      "Meu nome começa com E."
+    ]
+  },
+  {
+    "id": 205,
+    "palavra": "Harrison Ford",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Protagonizei filmes de aventura.",
+      "Sou conhecido por interpretar um arqueólogo famoso.",
+      "Também atuei em ficções científicas.",
+      "Tenho carreira de décadas.",
+      "Ganhei fãs no mundo todo.",
+      "Sou admirado por papéis icônicos.",
+      "Meu nome aparece em sagas famosas.",
+      "Já trabalhei com grandes diretores.",
+      "Meu sobrenome começa com F."
+    ]
+  },
+  {
+    "id": 206,
+    "palavra": "Caneca",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para beber.",
+      "Costumo ter alça.",
+      "Sou muito comum em cozinhas.",
+      "Sou feita de vários materiais.",
+      "Muitas pessoas me colecionam.",
+      "Sou resistente.",
+      "Sirvo para bebidas quentes.",
+      "Posso ter estampas.",
+      "Sou presente comum.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 207,
+    "palavra": "Praga",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Tenho arquitetura histórica.",
+      "Possuo um famoso relógio astronômico.",
+      "Sou muito visitada por turistas.",
+      "Tenho castelos e pontes.",
+      "Fico na Europa.",
+      "Sou conhecida por minha culinária.",
+      "Meu centro histórico é preservado.",
+      "Fiquei famosa em livros e filmes.",
+      "Meu nome começa com P."
+    ]
+  },
+  {
+    "id": 208,
+    "palavra": "Jennifer Lopez",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantora.",
+      "Também sou atriz.",
+      "Fiquei famosa nos anos 90.",
+      "Tenho músicas dançantes.",
+      "Protagonizei filmes românticos.",
+      "Sou referência no entretenimento.",
+      "Tenho milhões de seguidores.",
+      "Sou conhecida por apresentações energéticas.",
+      "Tenho carreira internacional.",
+      "Meu sobrenome começa com L."
+    ]
+  },
+  {
+    "id": 209,
+    "palavra": "Aspirador de Pó",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para limpeza.",
+      "Funciono com motor.",
+      "Sou comum em casas.",
+      "Ajudo a remover sujeira.",
+      "Posso ser portátil.",
+      "Tenho vários modelos.",
+      "Sou muito prático.",
+      "Facilito tarefas domésticas.",
+      "Alguns de mim funcionam sozinhos.",
+      "Meu nome tem três palavras."
+    ]
+  },
+  {
+    "id": 210,
+    "palavra": "Monte Sinai",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um local histórico.",
+      "Tenho significado religioso.",
+      "Sou mencionado em narrativas antigas.",
+      "Sou uma montanha.",
+      "Atraio visitantes do mundo todo.",
+      "Tenho paisagem árida.",
+      "Fico em uma região montanhosa.",
+      "Sou famoso há milênios.",
+      "Meu nome tem duas palavras.",
+      "Meu nome começa com M."
+    ]
+  },
+  {
+    "id": 211,
+    "palavra": "Jennifer Aniston",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atriz.",
+      "Fiquei mundialmente conhecida em uma série famosa.",
+      "Atuei em comédias românticas.",
+      "Tenho carreira extensa.",
+      "Ganhei prêmios importantes.",
+      "Sou muito querida pelo público.",
+      "Tenho grande presença na mídia.",
+      "Minha personagem mais famosa tinha muitos amigos.",
+      "Sou lembrada pelo humor.",
+      "Meu sobrenome começa com A."
+    ]
+  },
+  {
+    "id": 212,
+    "palavra": "Panela",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usada para cozinhar.",
+      "Sou muito comum em casas.",
+      "Sou feita de vários materiais.",
+      "Posso ter tampa.",
+      "Tenho alças.",
+      "Sirvo para preparar diversos alimentos.",
+      "Sou resistente ao calor.",
+      "Sou usada todos os dias.",
+      "Posso ter diferentes tamanhos.",
+      "Meu nome começa com P."
+    ]
+  },
+  {
+    "id": 213,
+    "palavra": "Catar",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país.",
+      "Fico no Oriente Médio.",
+      "Tenho clima muito quente.",
+      "Tenho grande riqueza.",
+      "Fiquei conhecido por eventos esportivos.",
+      "Sou pequeno territorialmente.",
+      "Tenho economia forte.",
+      "Possuo construções modernas.",
+      "Sou cercado por uma península.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 215,
+    "palavra": "Cofre",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para guardar coisas importantes.",
+      "Sou resistente.",
+      "Normalmente sou de metal.",
+      "Sou seguro.",
+      "Alguns de mim têm senha.",
+      "Sou comum em bancos e casas.",
+      "Posso ser pequeno ou grande.",
+      "Sou feito para proteger.",
+      "Você não me abre facilmente.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 216,
+    "palavra": "Oslo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Fico ao norte da Europa.",
+      "Tenho clima frio.",
+      "Sou cercada por natureza.",
+      "Tenho arquitetura moderna.",
+      "Sou conhecida pela qualidade de vida.",
+      "Atraio muitos turistas.",
+      "Tenho museus importantes.",
+      "Sou banhada por um fiorde.",
+      "Meu nome começa com O."
+    ]
+  },
+  {
+    "id": 217,
+    "palavra": "Sandra Bullock",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atriz.",
+      "Atuei em filmes de comédia e drama.",
+      "Ganhei prêmios importantes.",
+      "Tenho carreira de décadas.",
+      "Protagonizei histórias marcantes.",
+      "Sou muito querida pelo público.",
+      "Sou reconhecida por meu carisma.",
+      "Já participei de sucessos de bilheteria.",
+      "Sou conhecida por minha versatilidade.",
+      "Meu sobrenome começa com B."
+    ]
+  },
+  {
+    "id": 218,
+    "palavra": "Michael Jackson",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantor.",
+      "Fui um dos artistas mais influentes da história.",
+      "Revolucionei a música pop.",
+      "Sou conhecido por coreografias marcantes.",
+      "Lancei um dos álbuns mais vendidos do mundo.",
+      "Tenho inúmeros prêmios.",
+      "Meu estilo impactou gerações.",
+      "Fui apelidado de 'Rei do Pop'.",
+      "Minha dança é imitada até hoje.",
+      "Meu sobrenome começa com J."
+    ]
+  },
+  {
+    "id": 219,
+    "palavra": "Edimburgo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Tenho um castelo muito famoso.",
+      "Sou conhecida por festivais culturais.",
+      "Fico na Europa.",
+      "Tenho clima frio.",
+      "Meus prédios têm estilo antigo.",
+      "Atraio milhares de turistas.",
+      "Sou cheia de lendas históricas.",
+      "Possuo uma cidade velha e uma nova.",
+      "Meu nome começa com E."
+    ]
+  },
+  {
+    "id": 220,
+    "palavra": "Sofá",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para sentar.",
+      "Fico geralmente na sala.",
+      "Sou confortável.",
+      "Posso ter almofadas.",
+      "Tenho vários tamanhos.",
+      "Sou usado diariamente.",
+      "Sou feito de vários materiais.",
+      "Pessoas descansam em mim.",
+      "Posso ter várias cores.",
+      "Meu nome começa com S."
+    ]
+  },
+  {
+    "id": 218,
+    "palavra": "Michael Jackson",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantor.",
+      "Fui um dos artistas mais influentes da história.",
+      "Revolucionei a música pop.",
+      "Sou conhecido por coreografias marcantes.",
+      "Lancei um dos álbuns mais vendidos do mundo.",
+      "Tenho inúmeros prêmios.",
+      "Meu estilo impactou gerações.",
+      "Fui apelidado de 'Rei do Pop'.",
+      "Minha dança é imitada até hoje.",
+      "Meu sobrenome começa com J."
+    ]
+  },
+  {
+    "id": 219,
+    "palavra": "Edimburgo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma capital.",
+      "Tenho um castelo muito famoso.",
+      "Sou conhecida por festivais culturais.",
+      "Fico na Europa.",
+      "Tenho clima frio.",
+      "Meus prédios têm estilo antigo.",
+      "Atraio milhares de turistas.",
+      "Sou cheia de lendas históricas.",
+      "Possuo uma cidade velha e uma nova.",
+      "Meu nome começa com E."
+    ]
+  },
+  {
+    "id": 220,
+    "palavra": "Sofá",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado para sentar.",
+      "Fico geralmente na sala.",
+      "Sou confortável.",
+      "Posso ter almofadas.",
+      "Tenho vários tamanhos.",
+      "Sou usado diariamente.",
+      "Sou feito de vários materiais.",
+      "Pessoas descansam em mim.",
+      "Posso ter várias cores.",
+      "Meu nome começa com S."
+    ]
+  },
+  {
+    "id": 221,
+    "palavra": "Tom Hanks",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou ator.",
+      "Ganhei prêmios importantes.",
+      "Protagonizei filmes emocionantes.",
+      "Já atuei como personagem baseado em fatos reais.",
+      "Tenho carreira extensa.",
+      "Sou conhecido por papéis marcantes.",
+      "Sou querido pelo público.",
+      "Apareci em clássicos do cinema.",
+      "Meu nome artístico é simples.",
+      "Meu sobrenome começa com H."
+    ]
+  },
+  {
+    "id": 222,
+    "palavra": "Luxemburgo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um país pequeno.",
+      "Fico na Europa.",
+      "Sou muito rico.",
+      "Tenho três idiomas oficiais.",
+      "Sou cercado por outros países.",
+      "Possuo castelos medievais.",
+      "Tenho uma capital com o mesmo nome.",
+      "Sou muito seguro.",
+      "Tenho alto padrão de vida.",
+      "Meu nome começa com L."
+    ]
+  },
+  {
+    "id": 223,
+    "palavra": "Colar",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um acessório.",
+      "Sou usado no pescoço.",
+      "Tenho vários estilos.",
+      "Posso ter pingentes.",
+      "Sou muito usado em ocasiões especiais.",
+      "Existem versões simples e luxuosas.",
+      "Sou comum como presente.",
+      "Fui usado desde civilizações antigas.",
+      "Posso ser feito de diversos materiais.",
+      "Meu nome começa com C."
+    ]
+  },
+  {
+    "id": 224,
+    "palavra": "Meryl Streep",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou atriz.",
+      "Sou considerada uma das melhores do mundo.",
+      "Ganhei vários prêmios importantes.",
+      "Sou conhecida por papéis intensos.",
+      "Atuo há décadas.",
+      "Possuo grande versatilidade.",
+      "Participei de filmes dramáticos e cômicos.",
+      "Sou respeitada pela crítica.",
+      "Sou referência na indústria.",
+      "Meu sobrenome começa com S."
+    ]
+  },
+  {
+    "id": 225,
+    "palavra": "Istambul",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma grande cidade.",
+      "Fico em dois continentes.",
+      "Tenho importância histórica.",
+      "Sou conhecida por mesquitas e palácios.",
+      "Já fui capital de grandes impérios.",
+      "Sou famosa pelo comércio.",
+      "Tenho arquitetura marcante.",
+      "Tenho grande população.",
+      "Sou culturalmente diversa.",
+      "Meu nome começa com I."
+    ]
+  },
+  {
+    "id": 226,
+    "palavra": "Tapete",
+    "tipo": "Objeto",
+    "dicas": [
+      "Fico no chão.",
+      "Sou usado na decoração.",
+      "Posso ser macio.",
+      "Existem versões grandes e pequenas.",
+      "Sou comum em salas e quartos.",
+      "Ajudo a dar conforto.",
+      "Tenho vários padrões e estilos.",
+      "Preciso ser limpo com frequência.",
+      "Sou feito de fibras.",
+      "Meu nome começa com T."
+    ]
+  },
+  {
+    "id": 227,
+    "palavra": "Silvio Santos",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Comecei minha carreira trabalhando como camelô.",
+      "Sou um dos maiores comunicadores da TV brasileira.",
+      "Meu nome de batismo é Senor Abravanel.",
+      "Fundo uma emissora de televisão famosa.",
+      "Tenho um riso muito característico.",
+      "Ficava famoso por jogar aviõezinhos de dinheiro.",
+      "Apresentei programas aos domingos por décadas.",
+      "Já fui candidato à presidência do Brasil.",
+      "Minhas filhas também trabalham na TV.",
+      "O 'Baú da Felicidade' é ligado a mim."
+    ]
+  },
+  {
+    "id": 228,
+    "palavra": "Roberto Carlos",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou conhecido como 'O Rei'.",
+      "Tenho um especial de TV todo fim de ano.",
+      "Sou um cantor e compositor brasileiro.",
+      "Fiz muito sucesso na Jovem Guarda.",
+      "Tenho uma perna mecânica.",
+      "Canto a música 'Detalhes'.",
+      "Gosto muito da cor azul.",
+      "Minha mãe se chamava Lady Laura.",
+      "Sou capixaba (nasci no Espírito Santo).",
+      "Já vendi milhões de discos na América Latina."
+    ]
+  },
+  {
+    "id": 229,
+    "palavra": "Dom Pedro II",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui o último imperador do Brasil.",
+      "Assumi o trono ainda criança.",
+      "Governei por quase 50 anos.",
+      "Era apaixonado por fotografia e ciência.",
+      "Tinha uma barba longa e branca na velhice.",
+      "Fui exilado na Europa após a Proclamação da República.",
+      "Minha filha assinou a Lei Áurea.",
+      "Nasci no Rio de Janeiro.",
+      "Falava diversos idiomas.",
+      "Fui patrono das artes e da educação."
+    ]
+  },
+  {
+    "id": 230,
+    "palavra": "Tiradentes",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Meu nome verdadeiro era Joaquim José.",
+      "Fui dentista amador.",
+      "Participei da Inconfidência Mineira.",
+      "Fui enforcado e esquartejado.",
+      "Sou considerado um herói nacional.",
+      "Tenho um feriado no dia 21 de abril.",
+      "Lutei contra os altos impostos de Portugal.",
+      "Minha imagem é frequentemente associada a Jesus Cristo.",
+      "Nasci em Minas Gerais.",
+      "Gritava por liberdade."
+    ]
+  },
+  {
+    "id": 231,
+    "palavra": "Zumbi dos Palmares",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui o último líder do Quilombo dos Palmares.",
+      "Sou símbolo da resistência negra no Brasil.",
+      "O dia da minha morte é o Dia da Consciência Negra.",
+      "Lutei contra a escravidão no período colonial.",
+      "Nasci livre, mas fui capturado ainda criança.",
+      "Minha cabeça foi exposta em praça pública.",
+      "Vivi na região da Serra da Barriga.",
+      "Dizem que eu não me entregava jamais.",
+      "Fui traído por um companheiro.",
+      "Meu nome remete a guerreiro ou espírito."
+    ]
+  },
+  {
+    "id": 232,
+    "palavra": "Oscar Niemeyer",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou um arquiteto mundialmente famoso.",
+      "Amei as curvas e o concreto armado.",
+      "Projetei os principais prédios de Brasília.",
+      "Vivi mais de 100 anos.",
+      "Fui comunista convicto.",
+      "O Sambódromo do Rio de Janeiro é obra minha.",
+      "Trabalhei com Lúcio Costa.",
+      "Ganhei o prêmio Pritzker.",
+      "Desenhei a sede da ONU em Nova York.",
+      "Dizia que a vida é um sopro."
+    ]
+  },
+  {
+    "id": 233,
+    "palavra": "Gisele Bündchen",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma supermodelo brasileira.",
+      "Nasci no Rio Grande do Sul.",
+      "Fui uma das 'Angels' da Victoria's Secret.",
+      "Tenho uma irmã gêmea.",
+      "Namorei Leonardo DiCaprio.",
+      "Fui casada com um jogador de futebol americano famoso.",
+      "Aposentei-me das passarelas em 2015.",
+      "Sou ativista ambiental.",
+      "Fiz uma participação no filme 'O Diabo Veste Prada'.",
+      "Fui a modelo mais bem paga do mundo por anos."
+    ]
+  },
+  {
+    "id": 234,
+    "palavra": "Neymar",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou jogador de futebol.",
+      "Fui revelado pelo Santos.",
+      "Uso a camisa 10 da Seleção Brasileira.",
+      "Joguei no Barcelona e no PSG.",
+      "Ganhei uma medalha de ouro olímpica.",
+      "Fiz parte do trio MSN (Messi, Suárez e eu).",
+      "Tenho fama de cair bastante em campo.",
+      "Meu pai gerencia minha carreira.",
+      "Já ganhei a Libertadores.",
+      "Transferi-me para o futebol da Arábia Saudita."
+    ]
+  },
+  {
+    "id": 235,
+    "palavra": "Lewis Hamilton",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou piloto de Fórmula 1.",
+      "Nasci na Inglaterra.",
+      "Tenho sete títulos mundiais.",
+      "Fiz história na equipe Mercedes.",
+      "Sou o primeiro piloto negro na categoria.",
+      "Recebi o título de Cavaleiro da Rainha.",
+      "Sou cidadão honorário do Brasil.",
+      "Idolatrado por fãs de Ayrton Senna.",
+      "Sou vegano e ativista.",
+      "Tenho o número 44 no carro."
+    ]
+  },
+  {
+    "id": 236,
+    "palavra": "Fernanda Montenegro",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou considerada a grande dama do teatro brasileiro.",
+      "Fui indicada ao Oscar de Melhor Atriz.",
+      "Atuei no filme 'Central do Brasil'.",
+      "Minha filha também é uma atriz famosa.",
+      "Sou membro da Academia Brasileira de Letras.",
+      "Nasci no Rio de Janeiro.",
+      "Comecei minha carreira no rádio.",
+      "Ganhei o Urso de Prata em Berlim.",
+      "Tenho mais de 90 anos.",
+      "Meu sobrenome artístico é nome de um país (mas não o meu)."
+    ]
+  },
+  {
+    "id": 237,
+    "palavra": "Martin Luther King Jr.",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui um pastor batista norte-americano.",
+      "Lutei pelos direitos civis dos negros.",
+      "Fiz um discurso famoso: 'Eu tenho um sonho'.",
+      "Ganhei o Prêmio Nobel da Paz.",
+      "Pregava a não-violência.",
+      "Fui assassinado em 1968.",
+      "Liderei boicotes a ônibus segregados.",
+      "Tenho um feriado nacional nos EUA.",
+      "Meu nome é inspirado em um reformador religioso.",
+      "Nasci em Atlanta."
+    ]
+  },
+  {
+    "id": 238,
+    "palavra": "Papa Francisco",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou o líder da Igreja Católica.",
+      "Nasci na Argentina.",
+      "Sou o primeiro latino-americano no meu cargo.",
+      "Gosto muito de futebol e torço para o San Lorenzo.",
+      "Meu nome de batismo é Jorge Bergoglio.",
+      "Pertenço à ordem dos Jesuítas.",
+      "Substituí Bento XVI.",
+      "Escolhi meu nome em homenagem ao santo de Assis.",
+      "Moro no Vaticano.",
+      "Defendo causas ambientais e os pobres."
+    ]
+  },
+  {
+    "id": 239,
+    "palavra": "Rainha Elizabeth II",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui monarca do Reino Unido por 70 anos.",
+      "Adorava cães da raça Corgi.",
+      "Vi passar mais de 15 primeiros-ministros.",
+      "Meu rosto estava em moedas e selos.",
+      "Fui mecânica durante a Segunda Guerra Mundial.",
+      "Tive quatro filhos, incluindo o atual Rei Charles.",
+      "Celebrei o Jubileu de Platina.",
+      "Vivi no Palácio de Buckingham.",
+      "Falecei em 2022.",
+      "Raramente dava entrevistas."
+    ]
+  },
+  {
+    "id": 240,
+    "palavra": "Princesa Diana",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Era conhecida como Lady Di.",
+      "Fui casada com o Príncipe Charles.",
+      "Morri em um acidente de carro em Paris.",
+      "Era chamada de 'A Princesa do Povo'.",
+      "Fiz campanhas contra minas terrestres.",
+      "Sou mãe dos príncipes William e Harry.",
+      "Era um ícone da moda.",
+      "Meu divórcio foi um escândalo mundial.",
+      "Fui professora de jardim de infância antes da fama.",
+      "Tinha uma relação difícil com a imprensa."
+    ]
+  },
+  {
+    "id": 241,
+    "palavra": "Walt Disney",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Criei o camundongo mais famoso do mundo.",
+      "Fundo um império de entretenimento.",
+      "Construí o primeiro grande parque temático na Califórnia.",
+      "Ganhei o recorde de Oscars individuais.",
+      "Fiz o primeiro longa de animação: 'Branca de Neve'.",
+      "Dizem a lenda que fui congelado (mas é mito).",
+      "Comecei desenhando em uma garagem.",
+      "Meu irmão Roy foi meu sócio.",
+      "Tenho assinatura muito famosa.",
+      "Criei o personagem Pato Donald."
+    ]
+  },
+  {
+    "id": 242,
+    "palavra": "Steve Jobs",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui cofundador da Apple.",
+      "Revolucionei os smartphones com o iPhone.",
+      "Fui demitido da minha própria empresa e depois voltei.",
+      "Comprei a estúdio que virou a Pixar.",
+      "Usava sempre blusa preta de gola alta e jeans.",
+      "Morri de câncer no pâncreas.",
+      "Apresentava produtos dizendo 'One more thing...'.",
+      "Lancei o iPad e o iPod.",
+      "Era conhecido por ser perfeccionista e difícil.",
+      "Comecei a empresa na garagem dos pais."
+    ]
+  },
+  {
+    "id": 243,
+    "palavra": "Bill Gates",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui o homem mais rico do mundo por muitos anos.",
+      "Funde a Microsoft.",
+      "Abandonei a faculdade de Harvard.",
+      "Criei o sistema operacional Windows.",
+      "Sou muito focado em filantropia hoje em dia.",
+      "Tenho uma fundação com minha ex-esposa Melinda.",
+      "Previ uma pandemia anos antes de acontecer.",
+      "Sou amigo de Warren Buffett.",
+      "Uso óculos desde jovem.",
+      "Escrevi livros sobre o futuro e o clima."
+    ]
+  },
+  {
+    "id": 244,
+    "palavra": "Mark Zuckerberg",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Criei a rede social Facebook.",
+      "Estudava em Harvard quando comecei meu negócio.",
+      "Sou dono do Instagram e do WhatsApp.",
+      "Minha empresa agora se chama Meta.",
+      "Fui retratado no filme 'A Rede Social'.",
+      "Falo mandarim.",
+      "Sou um dos bilionários mais jovens da história.",
+      "Visto sempre camisetas cinzas básicas.",
+      "Depus no congresso americano sobre privacidade.",
+      "Tenho foco no metaverso."
+    ]
+  },
+  {
+    "id": 245,
+    "palavra": "Michael Jackson",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou o Rei do Pop.",
+      "Comecei a cantar ainda criança com meus irmãos.",
+      "Criei o passo de dança 'Moonwalk'.",
+      "Meu álbum 'Thriller' é o mais vendido da história.",
+      "Usava uma luva branca em uma mão só.",
+      "Tinha um rancho chamado Neverland.",
+      "Minha pele ficou branca devido ao vitiligo.",
+      "Morri em 2009.",
+      "Cantei 'Billie Jean' e 'Beat It'.",
+      "Fui um ícone dos videoclipes."
+    ]
+  },
+  {
+    "id": 246,
+    "palavra": "Elvis Presley",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou o Rei do Rock.",
+      "Minha casa se chama Graceland.",
+      "Morri em 1977, mas muitos dizem que não morri.",
+      "Tinha um topete famoso.",
+      "Servi ao exército no auge da fama.",
+      "Fiz muitos filmes em Hollywood.",
+      "Nasci no Mississippi, EUA.",
+      "Usava macacões brancos com pedrarias.",
+      "Ficava famoso pelo rebolado polêmico.",
+      "Cantei 'Love Me Tender'."
+    ]
+  },
+  {
+    "id": 247,
+    "palavra": "John Lennon",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui membro dos Beatles.",
+      "Compus a música 'Imagine'.",
+      "Era casado com Yoko Ono.",
+      "Usava óculos redondos característicos.",
+      "Fui assassinado em Nova York.",
+      "Fiz protestos pela paz na cama.",
+      "Nasci em Liverpool.",
+      "Disse que minha banda era mais popular que Jesus.",
+      "Toquei guitarra e piano.",
+      "Tenho um memorial no Central Park."
+    ]
+  },
+  {
+    "id": 248,
+    "palavra": "Freddie Mercury",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui vocalista da banda Queen.",
+      "Nasci em Zanzibar (atual Tanzânia).",
+      "Meu nome verdadeiro era Farrokh Bulsara.",
+      "Cantei 'Bohemian Rhapsody'.",
+      "Tinha um bigode icônico.",
+      "Minha performance no Live Aid é lendária.",
+      "Morri em decorrência da AIDS.",
+      "Tinha uma voz muito potente.",
+      "O filme sobre minha vida ganhou Oscar.",
+      "Estudei design gráfico."
+    ]
+  },
+  {
+    "id": 249,
+    "palavra": "Beyoncé",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Comecei no grupo Destiny's Child.",
+      "Sou chamada de Queen B.",
+      "Sou casada com o rapper Jay-Z.",
+      "Tenho uma filha chamada Blue Ivy.",
+      "Lancei um álbum visual chamado 'Lemonade'.",
+      "Sou a artista com mais Grammys na história.",
+      "Nasci no Texas, EUA.",
+      "Cantei 'Single Ladies'.",
+      "Atuei no filme 'O Rei Leão' (voz) e 'Dreamgirls'.",
+      "Fiz uma turnê mundial chamada Renaissance."
+    ]
+  },
+  {
+    "id": 250,
+    "palavra": "Taylor Swift",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Comecei cantando música country.",
+      "Escrevo músicas sobre meus ex-namorados.",
+      "Minha turnê 'The Eras Tour' quebrou recordes.",
+      "Regravei meus álbuns para ter os direitos deles.",
+      "Tenho uma legião de fãs chamados 'Swifties'.",
+      "Nasci em 1989 (nome de um álbum meu).",
+      "Tive uma briga famosa com Kanye West.",
+      "Gosto muito de gatos.",
+      "Namorei um jogador de futebol americano (Travis Kelce).",
+      "Ganhei o Grammy de Álbum do Ano várias vezes."
+    ]
+  },
+  {
+    "id": 251,
+    "palavra": "Tom Cruise",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Faço meus próprios dublês em cenas perigosas.",
+      "Sou a estrela da franquia 'Missão Impossível'.",
+      "Pilotei caças no filme 'Top Gun'.",
+      "Sou um membro famoso da Cientologia.",
+      "Já fui casado com Nicole Kidman e Katie Holmes.",
+      "Pulei no sofá da Oprah Winfrey.",
+      "Corro muito em quase todos os meus filmes.",
+      "Atuei em 'Rain Man'.",
+      "Tenho um sorriso muito famoso.",
+      "Não envelheço (aparentemente)."
+    ]
+  },
+  {
+    "id": 252,
+    "palavra": "Will Smith",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fiquei famoso na série 'Um Maluco no Pedaço'.",
+      "Sou ator e rapper.",
+      "Atuei na trilogia 'Homens de Preto'.",
+      "Ganhei um Oscar pelo filme 'King Richard'.",
+      "Dei um tapa em Chris Rock ao vivo na TV.",
+      "Sou pai de Jaden e Willow.",
+      "Cantei a música tema do meu seriado.",
+      "Fiz o gênio no live-action de 'Aladdin'.",
+      "Nasci na Filadélfia.",
+      "Já fui chamado de 'Fresh Prince'."
+    ]
+  },
+  {
+    "id": 253,
+    "palavra": "Johnny Depp",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fiquei famoso interpretando o Capitão Jack Sparrow.",
+      "Tenho uma parceria longa com o diretor Tim Burton.",
+      "Fiz o personagem Edward Mãos de Tesoura.",
+      "Tive um julgamento muito midiático contra minha ex.",
+      "Toquei em uma banda chamada Hollywood Vampires.",
+      "Fiz o Chapeleiro Maluco.",
+      "Já fui o homem mais sexy do mundo.",
+      "Tenho muitas tatuagens.",
+      "Fui dono de um clube famoso, o Viper Room.",
+      "Atuei no primeiro 'A Hora do Pesadelo'."
+    ]
+  },
+  {
+    "id": 254,
+    "palavra": "Charlie Chaplin",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou o ícone do cinema mudo.",
+      "Meu personagem mais famoso é 'O Vagabundo'.",
+      "Usava chapéu coco e bengala.",
+      "Tinha um bigodinho curto.",
+      "Andava de um jeito engraçado.",
+      "Fiz o filme 'O Grande Ditador'.",
+      "Nasci na Inglaterra.",
+      "Fui um dos fundadores da United Artists.",
+      "Recebi um Oscar honorário e fui aplaudido por minutos.",
+      "Compus a música 'Smile'."
+    ]
+  },
+  {
+    "id": 255,
+    "palavra": "Abraham Lincoln",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui o 16º presidente dos Estados Unidos.",
+      "Liderei o país durante a Guerra Civil.",
+      "Aboli a escravidão no meu país.",
+      "Usava uma cartola muito alta.",
+      "Fui assassinado em um teatro.",
+      "Meu rosto está na nota de 5 dólares.",
+      "Nasci em uma cabana de madeira.",
+      "Era conhecido pela minha altura.",
+      "Fui advogado antes da política.",
+      "Discursei em Gettysburg."
+    ]
+  },
+  {
+    "id": 256,
+    "palavra": "Napoleão Bonaparte",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui imperador da França.",
+      "Nasci na ilha de Córsega.",
+      "Fui exilado na ilha de Santa Helena.",
+      "Perdi a Batalha de Waterloo.",
+      "Dizem que eu era muito baixo (mito).",
+      "Sempre retratado com a mão dentro do casaco.",
+      "Conquistei grande parte da Europa.",
+      "Criei um código civil famoso.",
+      "Casei-me com Josefina.",
+      "Meu exército sofreu muito no inverno russo."
+    ]
+  },
+  {
+    "id": 257,
+    "palavra": "Júlio César",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui um ditador de Roma.",
+      "Fui assassinado com facadas no Senado.",
+      "Disse a frase 'Veni, vidi, vici' (Vim, vi e venci).",
+      "Tive um romance com Cleópatra.",
+      "Fui traído pelo meu filho adotivo Brutus.",
+      "Reformei o calendário (Calendário Juliano).",
+      "Conquistei a Gália (atual França).",
+      "Meu nome virou sinônimo de imperador (Kaiser, Czar).",
+      "Cruzei o rio Rubicão.",
+      "Nasci em uma família patrícia."
+    ]
+  },
+  {
+    "id": 258,
+    "palavra": "Alexandre, o Grande",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Fui rei da Macedônia.",
+      "Fui aluno do filósofo Aristóteles.",
+      "Criei um dos maiores impérios do mundo antigo.",
+      "Nunca perdi uma batalha.",
+      "Morri muito jovem, aos 32 anos.",
+      "Tinha um cavalo famoso chamado Bucéfalo.",
+      "Fundo a cidade de Alexandria no Egito.",
+      "Cortei o Nó Górdio.",
+      "Meu pai era Filipe II.",
+      "Conquistei o Império Persa."
+    ]
+  },
+  {
+    "id": 259,
+    "palavra": "Christiane Torloni",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou uma atriz brasileira famosa.",
+      "Fiz a frase meme: 'Hoje é dia de rock, bebê'.",
+      "Atuei na novela 'A Viagem' como Diná.",
+      "Fiz muitas novelas na Rede Globo.",
+      "Fui musa nos anos 80 e 90.",
+      "Participei do Rock in Rio quando disse minha frase famosa.",
+      "Fiz a vilã Tereza Cristina em 'Fina Estampa'.",
+      "Tenho uma voz marcante.",
+      "Nasci em São Paulo.",
+      "Já posei para a revista Playboy."
+    ]
+  },
+  {
+    "id": 260,
+    "palavra": "Faustão",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Meu nome é Fausto Silva.",
+      "Apresentei o 'Domingão' por 32 anos.",
+      "Tenho o bordão 'Oloco, meu!'.",
+      "Sempre falo 'quem sabe faz ao vivo'.",
+      "Gosto de usar relógios grandes.",
+      "Comecei como repórter esportivo.",
+      "Tive um quadro chamado 'Videocassetadas'.",
+      "Saí da Globo e fui para a Band.",
+      "Passo por um transplante de coração recente.",
+      "Minha esposa é Luciana Cardoso."
+    ]
+  },
+  {
+    "id": 261,
+    "palavra": "Ivete Sangalo",
+    "tipo": "Pessoa",
+    "dicas": [
+      "Sou cantora de Axé.",
+      "Nasci na Bahia (Juazeiro).",
+      "Fui vocalista da Banda Eva.",
+      "Levanto poeira nos meus shows.",
+      "Sou chamada de 'Veveta'.",
+      "Apresentei o programa 'The Masked Singer'.",
+      "Já cantei no Maracanã lotado.",
+      "Tenho muita energia no palco.",
+      "Sou uma das cantoras mais populares do Brasil.",
+      "Tenho filhos gêmeos."
+    ]
+  },
+  {
+    "id": 262,
+    "palavra": "Torre Eiffel",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o símbolo máximo de Paris.",
+      "Fui construída para uma Exposição Universal em 1889.",
+      "Sou feita de treliças de ferro.",
+      "Muitos artistas da época me odiaram quando fui erguida.",
+      "Tenho mais de 300 metros de altura.",
+      "Fico no Campo de Marte.",
+      "Recebo milhões de turistas todos os anos.",
+      "Tenho restaurantes no meu interior.",
+      "À noite, brilho com milhares de luzes.",
+      "Levo o sobrenome do meu engenheiro criador."
+    ]
+  },
+  {
+    "id": 263,
+    "palavra": "Estátua da Liberdade",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico em uma ilha na entrada de Nova York.",
+      "Fui um presente da França para os Estados Unidos.",
+      "Seguro uma tocha na mão direita.",
+      "Minha cor verde é devido à oxidação do cobre.",
+      "Tenho correntes quebradas nos meus pés.",
+      "Represento a deusa romana Libertas.",
+      "Minha coroa tem sete raios.",
+      "Fui a primeira visão de muitos imigrantes que chegavam de navio.",
+      "É possível subir até a minha coroa.",
+      "Seguro uma tábua com a data da independência americana."
+    ]
+  },
+  {
+    "id": 264,
+    "palavra": "Muralha da China",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou uma estrutura militar de defesa.",
+      "Tenho milhares de quilômetros de extensão.",
+      "Fui construída ao longo de várias dinastias.",
+      "Dizem que sou visível do espaço (mas é exagero).",
+      "Fui feita para proteger contra invasões do norte.",
+      "Sou feita de pedra, tijolo e terra compactada.",
+      "Muitos trabalhadores morreram na minha construção.",
+      "Atravesso desertos e montanhas.",
+      "Sou o maior monumento do mundo em comprimento.",
+      "Fico na Ásia."
+    ]
+  },
+  {
+    "id": 265,
+    "palavra": "Taj Mahal",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um mausoléu de mármore branco.",
+      "Fico na cidade de Agra, na Índia.",
+      "Fui construído por um imperador para sua esposa favorita.",
+      "Sou considerado uma das maiores provas de amor do mundo.",
+      "Tenho uma cúpula central enorme.",
+      "Sou cercado por quatro minaretes.",
+      "Meus jardins são simétricos.",
+      "Mudo de cor dependendo da luz do sol.",
+      "Recebo milhões de visitantes.",
+      "Sou Patrimônio Mundial da UNESCO."
+    ]
+  },
+  {
+    "id": 266,
+    "palavra": "Big Ben",
+    "tipo": "Lugar",
+    "dicas": [
+      "Na verdade, sou o nome do sino, não da torre.",
+      "Fico no Palácio de Westminster.",
+      "Sou o relógio mais famoso de Londres.",
+      "Minha torre foi renomeada para Elizabeth Tower.",
+      "Toco notas musicais a cada hora.",
+      "Fico às margens do rio Tâmisa.",
+      "Tenho estilo neogótico.",
+      "Fui concluído em 1859.",
+      "Tenho quatro faces de relógio.",
+      "Sou um símbolo da pontualidade britânica."
+    ]
+  },
+  {
+    "id": 267,
+    "palavra": "Casa Branca",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a residência oficial do presidente dos EUA.",
+      "Meu endereço é Avenida Pensilvânia, 1600.",
+      "Fico em Washington, D.C.",
+      "Tenho o famoso Salão Oval.",
+      "Já fui incendiada pelos britânicos em 1814.",
+      "Tenho uma ala oeste (West Wing) famosa.",
+      "Minha fachada é neoclássica.",
+      "Tenho um bunker subterrâneo.",
+      "Recebo chefes de estado do mundo todo.",
+      "Meu nome vem da cor das minhas paredes externas."
+    ]
+  },
+  {
+    "id": 268,
+    "palavra": "Vaticano",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o menor país do mundo.",
+      "Fico dentro da cidade de Roma.",
+      "Sou a sede da Igreja Católica.",
+      "O Papa mora aqui.",
+      "Tenho a Basílica de São Pedro.",
+      "Guardo a Capela Sistina e os afrescos de Michelangelo.",
+      "Tenho minha própria guarda, a Guarda Suíça.",
+      "Possuo correios e selos próprios.",
+      "Não faço parte da União Europeia, mas uso Euro.",
+      "Recebo peregrinos o ano inteiro."
+    ]
+  },
+  {
+    "id": 269,
+    "palavra": "Hollywood",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico em Los Angeles, Califórnia.",
+      "Sou o centro da indústria cinematográfica americana.",
+      "Tenho um letreiro gigante numa colina.",
+      "Tenho a Calçada da Fama.",
+      "Aqui acontece a cerimônia do Oscar.",
+      "Muitos estúdios de cinema começaram aqui.",
+      "Sou sinônimo de celebridades e glamour.",
+      "Tenho o Teatro Chinês.",
+      "Turistas buscam ver estrelas de cinema nas ruas.",
+      "Meu nome significa 'bosque de azevinho'."
+    ]
+  },
+  {
+    "id": 270,
+    "palavra": "Disney World",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Flórida, perto de Orlando.",
+      "Sou o maior complexo de parques temáticos do mundo.",
+      "Tenho o castelo da Cinderela.",
+      "Fui idealizado por Walt, mas inaugurado por seu irmão.",
+      "Tenho quatro parques principais.",
+      "O rato Mickey é meu anfitrião.",
+      "Tenho um parque futurista chamado Epcot.",
+      "Recebo famílias do mundo inteiro.",
+      "Tenho hotéis e parques aquáticos dentro de mim.",
+      "Sou chamado de 'O Lugar Mais Mágico da Terra'."
+    ]
+  },
+  {
+    "id": 271,
+    "palavra": "Las Vegas",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico no meio do deserto de Nevada.",
+      "Sou famosa pelos cassinos e hotéis luxuosos.",
+      "Minha rua principal é chamada de 'Strip'.",
+      "Tenho réplicas da Torre Eiffel e de Veneza.",
+      "Sou conhecida como a 'Cidade do Pecado'.",
+      "Muitas pessoas vêm aqui para casar em capelas rápidas.",
+      "Tenho shows residentes de grandes artistas.",
+      "O que acontece aqui, fica aqui.",
+      "Tenho muitas luzes neon.",
+      "Fui cenário do filme 'Se Beber, Não Case'."
+    ]
+  },
+  {
+    "id": 272,
+    "palavra": "Triângulo das Bermudas",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico no Oceano Atlântico.",
+      "Sou famoso por desaparecimentos misteriosos.",
+      "Meus vértices são Flórida, Porto Rico e Bermudas.",
+      "Aviões e navios supostamente somem aqui.",
+      "Muitas lendas envolvem alienígenas ou portais.",
+      "Cientistas culpam tempestades e erros humanos.",
+      "Não apareço em mapas oficiais com esse nome.",
+      "Sou tema de muitos documentários e filmes.",
+      "Bússolas podem falhar na minha região.",
+      "Sou uma área de tráfego intenso, apesar da fama."
+    ]
+  },
+  {
+    "id": 273,
+    "palavra": "Polo Norte",
+    "tipo": "Lugar",
+    "dicas": [
+      "Não tenho terra firme, sou gelo flutuante.",
+      "Fico no meio do Oceano Ártico.",
+      "Dizem que o Papai Noel mora aqui.",
+      "Tenho 6 meses de dia e 6 meses de noite.",
+      "Ursos polares vivem na minha região.",
+      "Sou o ponto mais setentrional da Terra.",
+      "O gelo está derretendo devido ao aquecimento global.",
+      "Não pertenço a nenhum país especificamente.",
+      "A estrela Polaris fica quase acima de mim.",
+      "Exploradores competiram para chegar aqui primeiro."
+    ]
+  },
+  {
+    "id": 274,
+    "palavra": "Lua",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou o único satélite natural da Terra.",
+      "O homem pisou em mim em 1969.",
+      "Tenho crateras visíveis a olho nu.",
+      "Influencio as marés dos oceanos.",
+      "Não tenho luz própria, apenas reflito o sol.",
+      "Tenho fases (cheia, nova, minguante, crescente).",
+      "A gravidade aqui é bem mais fraca que na Terra.",
+      "Um dia aqui dura cerca de 27 dias terrestres.",
+      "Neil Armstrong caminhou na minha superfície.",
+      "Tenho um lado oculto que nunca é visto da Terra."
+    ]
+  },
+  {
+    "id": 275,
+    "palavra": "Marte",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou conhecido como o Planeta Vermelho.",
+      "Sou o quarto planeta do sistema solar.",
+      "Tenho o maior vulcão do sistema solar (Monte Olimpo).",
+      "Robôs como Curiosity e Perseverance andam por aqui.",
+      "Elon Musk quer colonizar minha superfície.",
+      "Tenho duas luas pequenas.",
+      "Minha atmosfera é fina e irrespirável.",
+      "Cientistas buscam sinais de água antiga aqui.",
+      "Sou vizinho da Terra.",
+      "Levo o nome do deus romano da guerra."
+    ]
+  },
+  {
+    "id": 276,
+    "palavra": "Rio Nilo",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na África.",
+      "Atravesso o deserto do Saara.",
+      "Sou fundamental para a história do Egito Antigo.",
+      "Deságuo no Mar Mediterrâneo.",
+      "Tenho crocodilos famosos.",
+      "Disputo o título de maior rio do mundo com o Amazonas.",
+      "Minhas cheias fertilizavam as terras agrícolas antigas.",
+      "Passo por cidades como Cairo e Cartum.",
+      "Nasço no Lago Vitória (uma das nascentes).",
+      "Tenho um delta enorme na minha foz."
+    ]
+  },
+  {
+    "id": 277,
+    "palavra": "Veneza",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Itália.",
+      "Não tenho carros nas ruas principais.",
+      "Minhas 'ruas' são canais de água.",
+      "O transporte é feito por barcos e gôndolas.",
+      "Tenho a famosa Praça de São Marcos.",
+      "Sofro com inundações periódicas ('Acqua Alta').",
+      "Sou famosa pelo vidro de Murano.",
+      "Tenho um carnaval com máscaras elegantes.",
+      "Fui construída sobre estacas de madeira.",
+      "A Ponte dos Suspiros fica aqui."
+    ]
+  },
+  {
+    "id": 278,
+    "palavra": "Amsterdã",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Holanda (Países Baixos).",
+      "Tenho mais bicicletas do que pessoas.",
+      "Sou cortada por canais concêntricos.",
+      "A Casa de Anne Frank fica aqui.",
+      "Tenho museus famosos como o de Van Gogh.",
+      "Sou conhecida pela tolerância e liberalismo.",
+      "Tenho o Distrito da Luz Vermelha.",
+      "Minhas casas são estreitas e altas.",
+      "Muitas pessoas moram em casas-barco.",
+      "Tulipas são muito vendidas nos meus mercados."
+    ]
+  },
+  {
+    "id": 279,
+    "palavra": "Berlim",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Alemanha.",
+      "Fui dividida por um muro durante a Guerra Fria.",
+      "Tenho o Portão de Brandemburgo.",
+      "Fui palco de grandes eventos da Segunda Guerra Mundial.",
+      "Tenho uma ilha cheia de museus.",
+      "Sou famosa pela música eletrônica e vida noturna.",
+      "O Reichstag (parlamento) tem uma cúpula de vidro.",
+      "Fui reunificada em 1990.",
+      "Tenho uma torre de TV muito alta na Alexanderplatz.",
+      "Sou uma cidade muito verde e artística."
+    ]
+  },
+  {
+    "id": 280,
+    "palavra": "Moscou",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Rússia.",
+      "Tenho a Praça Vermelha.",
+      "O Kremlin é a sede do meu governo.",
+      "Tenho a Catedral de São Basílio com cúpulas coloridas.",
+      "Meus invernos são rigorosos.",
+      "Tenho um dos metrôs mais bonitos do mundo.",
+      "Fico na parte europeia do país.",
+      "O Teatro Bolshoi (balé) fica aqui.",
+      "Fui invadida por Napoleão, que encontrou a cidade vazia.",
+      "O corpo de Lenin está exposto aqui."
+    ]
+  },
+  {
+    "id": 281,
+    "palavra": "Jerusalém",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou sagrada para judeus, cristãos e muçulmanos.",
+      "Tenho o Muro das Lamentações.",
+      "O Domo da Rocha brilha na minha paisagem.",
+      "Fico entre o Mediterrâneo e o Mar Morto.",
+      "Jesus passou seus últimos dias aqui.",
+      "Fui destruída e reconstruída muitas vezes.",
+      "Sou uma das cidades mais antigas do mundo.",
+      "Tenho bairros divididos por religião na Cidade Velha.",
+      "A Igreja do Santo Sepulcro fica aqui.",
+      "Sou foco de disputas políticas há séculos."
+    ]
+  },
+  {
+    "id": 282,
+    "palavra": "Meca",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Arábia Saudita.",
+      "Sou a cidade mais sagrada do Islã.",
+      "Apenas muçulmanos podem entrar na minha área sagrada.",
+      "Abrigo a Caaba (cubo preto).",
+      "Milhões de peregrinos vêm aqui todo ano.",
+      "Todo muçulmano deve me visitar uma vez na vida.",
+      "As pessoas rezam voltadas para mim.",
+      "Sou o local de nascimento do profeta Maomé.",
+      "Tenho a maior mesquita do mundo.",
+      "Fico em uma região desértica."
+    ]
+  },
+  {
+    "id": 283,
+    "palavra": "Pantanal",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a maior planície inundável do mundo.",
+      "Fico principalmente no Brasil (Mato Grosso e MS).",
+      "Tenho uma biodiversidade imensa.",
+      "A onça-pintada é meu maior predador.",
+      "O tuiuiú é minha ave símbolo.",
+      "Fico alagado durante parte do ano.",
+      "Sou um destino de ecoturismo e pesca.",
+      "Estendo-me também pela Bolívia e Paraguai.",
+      "Tenho jacarés e capivaras em abundância.",
+      "Sou considerado Patrimônio Natural da Humanidade."
+    ]
+  },
+  {
+    "id": 284,
+    "palavra": "Lençóis Maranhenses",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico no nordeste do Brasil.",
+      "Pareço um deserto, mas chove bastante aqui.",
+      "Tenho dunas de areia branca a perder de vista.",
+      "Lagoas de água doce se formam entre as dunas.",
+      "As lagoas Azul e Bonita são famosas.",
+      "Minha paisagem muda com o vento.",
+      "Fico no estado do Maranhão.",
+      "Sou um Parque Nacional.",
+      "A melhor época para visitar é após as chuvas.",
+      "Já fui cenário de filmes (como Vingadores)."
+    ]
+  },
+  {
+    "id": 285,
+    "palavra": "Chapada Diamantina",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico no coração da Bahia.",
+      "Tenho muitas cachoeiras, grutas e cânions.",
+      "Fui centro da exploração de diamantes no passado.",
+      "Tenho o Morro do Pai Inácio.",
+      "A Cachoeira da Fumaça (uma das mais altas do Brasil) fica aqui.",
+      "Minha água muitas vezes tem cor avermelhada.",
+      "O Poço Azul é uma atração famosa.",
+      "Sou paraíso para quem gosta de trilhas (trekking).",
+      "Tenho uma cidadezinha charmosa chamada Lençóis.",
+      "Sou um Parque Nacional."
+    ]
+  },
+  {
+    "id": 286,
+    "palavra": "Avenida Paulista",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a rua mais famosa de São Paulo.",
+      "O MASP (museu) fica em mim.",
+      "Sou o centro financeiro da cidade.",
+      "Fico fechada para carros aos domingos.",
+      "Tenho muitas antenas de rádio e TV.",
+      "Fui endereço dos barões do café no passado.",
+      "Hoje sou cheia de prédios comerciais e shoppings.",
+      "A corrida de São Silvestre passa por mim.",
+      "Sou palco de grandes manifestações populares.",
+      "Tenho estações de metrô ao longo de toda a extensão."
+    ]
+  },
+  {
+    "id": 287,
+    "palavra": "Maracanã",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um templo do futebol mundial.",
+      "Fico no Rio de Janeiro.",
+      "Sedi duas finais de Copa do Mundo.",
+      "Já recebi públicos de quase 200 mil pessoas.",
+      "Meu nome oficial é Jornalista Mário Filho.",
+      "Times como Flamengo e Fluminense jogam aqui.",
+      "Fui reformado para a Copa de 2014.",
+      "Tenho formato oval.",
+      "O milésimo gol de Pelé foi aqui.",
+      "Shows de grandes artistas como Paul McCartney acontecem aqui."
+    ]
+  },
+  {
+    "id": 288,
+    "palavra": "Torre de Pisa",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Itália.",
+      "Sou famosa por ser torta.",
+      "Comecei a inclinar durante a construção.",
+      "Sou o campanário (torre de sinos) da catedral ao lado.",
+      "Galileu supostamente jogou objetos do meu topo.",
+      "Fui estabilizada para não cair.",
+      "Sou feita de mármore branco.",
+      "Turistas tiram fotos fingindo que estão me segurando.",
+      "Tenho oito andares.",
+      "Sou Patrimônio Mundial da UNESCO."
+    ]
+  },
+  {
+    "id": 289,
+    "palavra": "Ilha de Páscoa",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou um dos lugares mais isolados do mundo.",
+      "Pertenço ao Chile.",
+      "Tenho estátuas de pedra gigantes chamadas Moai.",
+      "Minhas estátuas têm cabeças enormes.",
+      "Fico no Oceano Pacífico.",
+      "Meu nome nativo é Rapa Nui.",
+      "Fui descoberta por europeus num domingo de Páscoa.",
+      "É um mistério como transportaram as pedras gigantes.",
+      "Tenho origem vulcânica.",
+      "Não tenho muitas árvores hoje em dia."
+    ]
+  },
+  {
+    "id": 290,
+    "palavra": "Chernobyl",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Ucrânia.",
+      "Fui palco do pior acidente nuclear da história.",
+      "A cidade vizinha, Pripyat, é uma cidade fantasma.",
+      "Aconteceu em 1986.",
+      "Tenho uma zona de exclusão ao redor.",
+      "A natureza tomou conta das construções abandonadas.",
+      "Ainda há radiação no local.",
+      "Turistas corajosos visitam a área hoje.",
+      "Fiz parte da União Soviética.",
+      "Um sarcófago de concreto cobre o reator explodido."
+    ]
+  },
+  {
+    "id": 291,
+    "palavra": "Alcatraz",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fui uma prisão de segurança máxima.",
+      "Fico em uma ilha na baía de São Francisco.",
+      "Era considerada impossível de fugir.",
+      "O gângster Al Capone ficou preso aqui.",
+      "Hoje sou um ponto turístico.",
+      "Sou chamada de 'A Rocha'.",
+      "Fui fechada nos anos 60.",
+      "A água ao redor é gelada e tem correnteza forte.",
+      "Já fui ocupada por ativistas indígenas.",
+      "Inspirei muitos filmes de fuga."
+    ]
+  },
+  {
+    "id": 292,
+    "palavra": "Transilvânia",
+    "tipo": "Lugar",
+    "dicas": [
+      "Fico na Romênia.",
+      "Sou uma região cercada pelas montanhas Cárpatos.",
+      "Sou o lar lendário do Conde Drácula.",
+      "Tenho muitos castelos medievais, como o Castelo de Bran.",
+      "Sou famosa por lendas de vampiros.",
+      "Tenho florestas densas e neblina.",
+      "Minhas cidades têm arquitetura gótica e medieval.",
+      "O príncipe Vlad, o Empalador, viveu na região.",
+      "Sou uma região histórica real, não fictícia.",
+      "Atraio turistas no Halloween."
+    ]
+  },
+  {
+    "id": 293,
+    "palavra": "Nova York",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a cidade mais populosa dos EUA.",
+      "Meu apelido é 'Big Apple' (Grande Maçã).",
+      "Tenho a Times Square.",
+      "A Broadway e seus teatros ficam aqui.",
+      "Sou dividida em cinco distritos (como Brooklyn e Manhattan).",
+      "Tenho o Central Park no meio da cidade.",
+      "O Empire State Building é um dos meus ícones.",
+      "Wall Street é meu centro financeiro.",
+      "Sofri os ataques de 11 de setembro.",
+      "Dizem que sou a cidade que nunca dorme."
+    ]
+  },
+  {
+    "id": 294,
+    "palavra": "Madri",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Espanha.",
+      "Tenho o Museu do Prado.",
+      "O Palácio Real fica aqui.",
+      "Sou famosa pelas 'tapas' (petiscos).",
+      "Tenho dois grandes times de futebol (Real e Atlético).",
+      "A praça Puerta del Sol é meu marco zero.",
+      "Fico no centro geográfico do país.",
+      "Tenho um parque famoso chamado Retiro.",
+      "Minha vida noturna é muito agitada.",
+      "Falo castelhano."
+    ]
+  },
+  {
+    "id": 295,
+    "palavra": "Roma",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Itália.",
+      "Sou chamada de 'Cidade Eterna'.",
+      "Tenho o Coliseu.",
+      "Fui o centro de um dos maiores impérios da história.",
+      "A Fontana di Trevi fica aqui.",
+      "O Vaticano fica dentro de mim.",
+      "Dizem que todos os caminhos levam a mim.",
+      "Fui fundada, segundo a lenda, por Rômulo e Remo.",
+      "Tenho ruínas antigas por toda parte.",
+      "O Rio Tibre me corta."
+    ]
+  },
+  {
+    "id": 296,
+    "palavra": "Londres",
+    "tipo": "Lugar",
+    "dicas": [
+      "Sou a capital da Inglaterra e do Reino Unido.",
+      "O Rio Tâmisa passa por mim.",
+      "Tenho ônibus vermelhos de dois andares.",
+      "A família real britânica mora aqui (Palácio de Buckingham).",
+      "Tenho uma roda-gigante chamada London Eye.",
+      "Sou famosa pela neblina e chuva.",
+      "Tenho o metrô mais antigo do mundo (Underground).",
+      "A Tower Bridge é minha ponte mais famosa.",
+      "Sedi as Olimpíadas de 2012.",
+      "Tenho cabines telefônicas vermelhas."
+    ]
+  },
+  {
+    "id": 297,
+    "palavra": "Espelho",
+    "tipo": "Objeto",
+    "dicas": [
+      "Reflito a luz.",
+      "Dizem que quebrar-me dá 7 anos de azar.",
+      "Sou usado para verificar a aparência.",
+      "Estou presente em banheiros e quartos.",
+      "Carros possuem tipos retrovisores de mim.",
+      "Sou feito de vidro com uma camada metálica.",
+      "Apareço na história da Branca de Neve.",
+      "Vampiros não aparecem em mim (segundo a lenda).",
+      "Inverto a imagem da esquerda para a direita.",
+      "Posso ser côncavo, convexo ou plano."
+    ]
+  },
+  {
+    "id": 298,
+    "palavra": "Guarda-sol",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou muito usado na praia.",
+      "Protejo contra raios UV.",
+      "Sou maior que meu 'irmão' que protege da chuva.",
+      "Geralmente sou fincado na areia ou em uma base.",
+      "Faço sombra.",
+      "Tenho tecido colorido e estrutura de metal ou plástico.",
+      "Sou difícil de segurar quando venta muito.",
+      "Fecho e abro com um sistema de hastes.",
+      "Sou um item indispensável no verão.",
+      "Posso ser visto na beira de piscinas."
+    ]
+  },
+  {
+    "id": 299,
+    "palavra": "Mochila",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou carregada nas costas.",
+      "Tenho alças ajustáveis.",
+      "Estudantes me usam muito.",
+      "Viajantes e campistas gostam de mim.",
+      "Tenho zíperes e bolsos.",
+      "Guardo livros, cadernos e roupas.",
+      "Posso ser feita de lona, nylon ou couro.",
+      "Deixo as mãos livres enquanto sou transportada.",
+      "Às vezes fico muito pesada.",
+      "Substituo a pasta ou a mala."
+    ]
+  },
+  {
+    "id": 300,
+    "palavra": "Carteira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Costumo guardar dinheiro.",
+      "Fico no bolso ou na bolsa.",
+      "Guardo documentos importantes como RG e CNH.",
+      "Tenho compartimentos para cartões de crédito.",
+      "Geralmente sou feita de couro ou tecido.",
+      "Posso ter um lugar para colocar moedas.",
+      "Sou um acessório pessoal.",
+      "Perder-me causa uma grande dor de cabeça.",
+      "Dobro ao meio ou fecho com zíper.",
+      "Às vezes tenho fotos de família dentro."
+    ]
+  },
+  {
+    "id": 301,
+    "palavra": "Cinto",
+    "tipo": "Objeto",
+    "dicas": [
+      "Seguro as calças para não caírem.",
+      "Sou usado na cintura.",
+      "Tenho uma fivela.",
+      "Tenho furos para ajuste de tamanho.",
+      "Posso ser de couro ou tecido.",
+      "Sou também um acessório de moda.",
+      "No carro, sirvo para segurança.",
+      "Nas artes marciais, indico a graduação.",
+      "Passo por dentro dos passantes da roupa.",
+      "Posso apertar se você comer muito."
+    ]
+  },
+  {
+    "id": 302,
+    "palavra": "Tênis",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um tipo de calçado.",
+      "Geralmente tenho cadarços.",
+      "Sou usado para praticar esportes.",
+      "Tenho sola de borracha para amortecimento.",
+      "Sou confortável para caminhar.",
+      "Existem marcas famosas como Nike e Adidas.",
+      "Protejo os pés.",
+      "Posso ter cano alto ou baixo.",
+      "Faço barulho de chiar em quadras poliesportivas.",
+      "Posso ter velcro em vez de cordões."
+    ]
+  },
+  {
+    "id": 303,
+    "palavra": "Caderno",
+    "tipo": "Objeto",
+    "dicas": [
+      "Tenho folhas de papel.",
+      "Sou usado na escola e no trabalho.",
+      "Sirvo para escrever anotações.",
+      "Posso ter espiral ou ser brochura.",
+      "Tenho linhas (pautas) para guiar a escrita.",
+      "Tenho capa mole ou dura.",
+      "Minhas folhas podem ser destacadas.",
+      "Geralmente tenho margens.",
+      "Preciso de uma caneta ou lápis para ser útil.",
+      "Posso ser dividido em matérias."
+    ]
+  },
+  {
+    "id": 304,
+    "palavra": "Livro",
+    "tipo": "Objeto",
+    "dicas": [
+      "Tenho capa, lombada e miolo.",
+      "Conto histórias ou transmito conhecimento.",
+      "Sou escrito por um autor.",
+      "Tenho muitas páginas numeradas.",
+      "Posso ser encontrado em bibliotecas.",
+      "Não preciso de bateria para funcionar.",
+      "Sou dividido em capítulos.",
+      "Tenho índice ou sumário.",
+      "O cheiro de quando sou novo é característico.",
+      "Posso ser de ficção ou não-ficção."
+    ]
+  },
+  {
+    "id": 305,
+    "palavra": "Jornal",
+    "tipo": "Objeto",
+    "dicas": [
+      "Trago as notícias do dia.",
+      "Sou feito de papel barato e reciclável.",
+      "Mancho os dedos de tinta preta às vezes.",
+      "Estou perdendo espaço para a internet.",
+      "Tenho seções de esportes, política e cultura.",
+      "Tenho palavras cruzadas e horóscopo.",
+      "Sou vendido em bancas.",
+      "Posso ser diário ou semanal.",
+      "Sirvo para embrulhar coisas depois de lido.",
+      "Tenho manchetes em letras grandes."
+    ]
+  },
+  {
+    "id": 306,
+    "palavra": "Rádio",
+    "tipo": "Objeto",
+    "dicas": [
+      "Capto ondas invisíveis.",
+      "Toco música e notícias.",
+      "Tenho estações AM e FM.",
+      "Não tenho tela, apenas som.",
+      "Posso funcionar a pilha ou tomada.",
+      "Tenho uma antena.",
+      "Locutores falam através de mim.",
+      "Fui o principal meio de comunicação antes da TV.",
+      "Existo dentro dos carros.",
+      "Sintonizo frequências."
+    ]
+  },
+  {
+    "id": 307,
+    "palavra": "Telefone",
+    "tipo": "Objeto",
+    "dicas": [
+      "Fico ligado a um fio na parede (geralmente).",
+      "Tenho um gancho para apoiar o fone.",
+      "Sirvo para fazer chamadas de voz.",
+      "Antigamente tinha um disco de girar.",
+      "Faço 'trim trim' quando alguém liga.",
+      "Fui inventado por Alexander Graham Bell (oficialmente).",
+      "Hoje em dia sou menos usado que o celular.",
+      "Tenho teclado numérico.",
+      "Posso ter ramais em escritórios.",
+      "Fico em uma base fixa."
+    ]
+  },
+  {
+    "id": 308,
+    "palavra": "Impressora",
+    "tipo": "Objeto",
+    "dicas": [
+      "Transfiro arquivos do computador para o papel.",
+      "Uso tinta ou toner.",
+      "Costumo travar ou ficar sem papel na hora da pressa.",
+      "Uso o padrão de cores CMYK.",
+      "Posso ser a laser ou jato de tinta.",
+      "Fico geralmente em escritórios e home offices.",
+      "Faço barulho rítmico enquanto trabalho.",
+      "Muitas vezes também sou scanner.",
+      "Preciso de cartuchos para funcionar.",
+      "Existo também na versão 3D hoje em dia."
+    ]
+  },
+  {
+    "id": 309,
+    "palavra": "Grampeador",
+    "tipo": "Objeto",
+    "dicas": [
+      "Uno folhas de papel.",
+      "Uso pequenos pedaços de metal.",
+      "Tenho que ser pressionado com força.",
+      "Sou comum em escritórios e escolas.",
+      "Se acabar minha munição, preciso ser recarregado.",
+      "Dobro as pontas do metal para fixar.",
+      "Posso ser de mesa ou de alicate.",
+      "Tenho uma parte debaixo que serve de bigorna.",
+      "Machuco o dedo se usado errado.",
+      "Mantenho documentos organizados juntos."
+    ]
+  },
+  {
+    "id": 310,
+    "palavra": "Borracha",
+    "tipo": "Objeto",
+    "dicas": [
+      "Apago o que foi escrito a lápis.",
+      "Vou diminuindo conforme sou usada.",
+      "Geralmente sou branca e macia.",
+      "Posso ter dois lados (azul e vermelho).",
+      "Faço sujeira (farelo) quando usada.",
+      "Sou item básico do estojo escolar.",
+      "Sou feita de látex ou vinil.",
+      "Tenho cheiro característico.",
+      "Não funciono bem com caneta.",
+      "Sirvo para corrigir erros."
+    ]
+  },
+  {
+    "id": 311,
+    "palavra": "Régua",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sirvo para medir distâncias curtas.",
+      "Ajudo a fazer traços retos.",
+      "Tenho marcações em centímetros e milímetros.",
+      "Geralmente tenho 30 cm.",
+      "Sou feita de plástico, madeira ou metal.",
+      "Sou transparente muitas vezes.",
+      "Estou no material escolar.",
+      "Arquitetos e engenheiros me usam.",
+      "Sou plana e fina.",
+      "Não sirvo para medir curvas."
+    ]
+  },
+  {
+    "id": 312,
+    "palavra": "Lâmpada",
+    "tipo": "Objeto",
+    "dicas": [
+      "Produzo luz artificial.",
+      "Símbolo de uma 'grande ideia'.",
+      "Fico rosqueada em um bocal.",
+      "Posso queimar e precisar ser trocada.",
+      "Thomas Edison a popularizou.",
+      "Antigamente tinha um filamento incandescente.",
+      "Hoje sou econômica (LED).",
+      "Ilumino casas e ruas à noite.",
+      "Sou feita de vidro ou plástico translúcido.",
+      "Preciso de eletricidade."
+    ]
+  },
+  {
+    "id": 313,
+    "palavra": "Vela",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou feita de cera ou parafina.",
+      "Tenho um pavio no meio.",
+      "O fogo me consome aos poucos.",
+      "Sou usada quando acaba a luz.",
+      "Estou presente em bolos de aniversário.",
+      "Crio um clima romântico.",
+      "Posso ser aromática.",
+      "Derreto com o calor.",
+      "Fui a principal fonte de luz antes da eletricidade.",
+      "Simbolizo fé em igrejas."
+    ]
+  },
+  {
+    "id": 314,
+    "palavra": "Fósforo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou um palito de madeira.",
+      "Tenho uma cabeça vermelha (geralmente).",
+      "Preciso ser riscado para acender.",
+      "Moro em uma caixinha.",
+      "Produzo fogo.",
+      "Sou descartável após o uso.",
+      "Tenho cheiro de enxofre quando acendo.",
+      "Sirvo para acender o fogão ou velas.",
+      "Sou perigoso para crianças.",
+      "Queimo rápido."
+    ]
+  },
+  {
+    "id": 315,
+    "palavra": "Isqueiro",
+    "tipo": "Objeto",
+    "dicas": [
+      "Produzo fogo instantâneo.",
+      "Tenho gás ou fluido dentro.",
+      "Tenho uma pedra que faz faísca.",
+      "Sou usado para acender cigarros.",
+      "Sou portátil e caibo no bolso.",
+      "Faço um som de 'click'.",
+      "Posso ser recarregado ou descartável.",
+      "Substituo o fósforo.",
+      "Tenho uma pequena chama regulável.",
+      "Sou feito de plástico ou metal."
+    ]
+  },
+  {
+    "id": 316,
+    "palavra": "Extintor de Incêndio",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou vermelho.",
+      "Sirvo para apagar fogo.",
+      "Fico pendurado na parede em prédios.",
+      "Tenho um pino de segurança.",
+      "Tenho validade e preciso de recarga.",
+      "Existo nos tipos água, pó químico ou CO2.",
+      "Sou obrigatório em carros (ou já fui).",
+      "Tenho uma pequena mangueira.",
+      "Sou pesado.",
+      "Salvo vidas em emergências."
+    ]
+  },
+  {
+    "id": 317,
+    "palavra": "Boia",
+    "tipo": "Objeto",
+    "dicas": [
+      "Flutuo na água.",
+      "Sou cheia de ar.",
+      "Ajudo quem não sabe nadar.",
+      "Posso ter formato de pneu ou animais.",
+      "Sou usada em piscinas e no mar.",
+      "Salva-vidas usam uma versão minha.",
+      "Sou colorida e de plástico.",
+      "Sirvo para diversão ou segurança.",
+      "Sou colocada no braço de crianças.",
+      "Evito afogamentos."
+    ]
+  },
+  {
+    "id": 318,
+    "palavra": "Prancha de Surf",
+    "tipo": "Objeto",
+    "dicas": [
+      "Deslizo sobre a água.",
+      "Sou usada para pegar ondas.",
+      "Tenho uma quilha embaixo.",
+      "O surfista fica em pé em mim.",
+      "Sou feita de fibra e espuma.",
+      "Uso uma corda (leash) presa ao pé.",
+      "Preciso de parafina para não escorregar.",
+      "Gabriel Medina usa uma.",
+      "Sou comprida e estreita.",
+      "Fico na praia."
+    ]
+  },
+  {
+    "id": 319,
+    "palavra": "Skate",
+    "tipo": "Objeto",
+    "dicas": [
+      "Tenho quatro rodinhas pequenas.",
+      "Sou uma prancha de madeira.",
+      "Tenho uma lixa na parte de cima.",
+      "Sou usado para fazer manobras radicais.",
+      "Uso pistas em formato de U (half-pipe).",
+      "Tony Hawk é famoso por me usar.",
+      "Ando no asfalto.",
+      "Exijo equilíbrio.",
+      "Virei esporte olímpico.",
+      "Quem me usa são os skatistas."
+    ]
+  },
+  {
+    "id": 320,
+    "palavra": "Anel",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no dedo.",
+      "Tenho formato circular.",
+      "Simbolizo compromisso ou casamento.",
+      "Posso ser de ouro ou prata.",
+      "Às vezes tenho uma pedra preciosa.",
+      "A aliança é um tipo de mim.",
+      "Sou uma joia ou bijuteria.",
+      "Um filme famoso fala sobre 'O Senhor' de mim.",
+      "Não tenho começo nem fim.",
+      "Posso ser ajustado se ficar largo."
+    ]
+  },
+  {
+    "id": 321,
+    "palavra": "Colar",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no pescoço.",
+      "Posso ter um pingente.",
+      "Sou feito de corrente, cordão ou pérolas.",
+      "Sou um adorno de moda.",
+      "Posso ser curto ou comprido.",
+      "Fecho atrás do pescoço.",
+      "Valorizo o decote.",
+      "Posso ser uma joia cara.",
+      "Medalhas são penduradas em mim.",
+      "Enfeito o colo."
+    ]
+  },
+  {
+    "id": 322,
+    "palavra": "Brinco",
+    "tipo": "Objeto",
+    "dicas": [
+      "Fico na orelha.",
+      "Geralmente preciso de um furo para ser usado.",
+      "Venho em pares.",
+      "Posso ser de argola ou de pino.",
+      "Sou uma joia ou bijuteria.",
+      "Ilumino o rosto.",
+      "Piratas usavam um só.",
+      "Posso ser pequeno ou grande e pendurado.",
+      "Homens e mulheres usam.",
+      "Tenho uma tarraxa para não cair."
+    ]
+  },
+  {
+    "id": 323,
+    "palavra": "Batom",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou maquiagem.",
+      "Sou passado nos lábios.",
+      "A cor vermelha é a mais clássica.",
+      "Venho em um tubo que gira.",
+      "Posso ser líquido ou bastão.",
+      "Posso deixar marcas em copos e roupas.",
+      "Realço a boca.",
+      "Tenho várias cores e texturas (mate, cremoso).",
+      "Sou carregado na necessaire.",
+      "Posso borrar se comer."
+    ]
+  },
+  {
+    "id": 324,
+    "palavra": "Perfume",
+    "tipo": "Objeto",
+    "dicas": [
+      "Tenho um cheiro agradável.",
+      "Sou líquido.",
+      "Fico em frascos de vidro bonitos.",
+      "Sou borrifado no pescoço e pulsos.",
+      "Os franceses são famosos por me fazer.",
+      "Evaporo com o tempo.",
+      "Sou feito de essências e álcool.",
+      "Sou invisível, mas notado.",
+      "Posso ser doce, amadeirado ou cítrico.",
+      "Marca a identidade de uma pessoa."
+    ]
+  },
+  {
+    "id": 325,
+    "palavra": "Sabonete",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sirvo para lavar o corpo.",
+      "Faço espuma.",
+      "Posso ser em barra ou líquido.",
+      "Fico escorregadio quando molhado.",
+      "Tenho cheiro de limpeza.",
+      "Sou usado no banho.",
+      "Elimino sujeira e bactérias.",
+      "Arde se cair no olho.",
+      "Vou diminuindo até acabar.",
+      "Fico na saboneteira."
+    ]
+  },
+  {
+    "id": 326,
+    "palavra": "Shampoo",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sirvo para lavar o cabelo.",
+      "Faço espuma na cabeça.",
+      "Sou vendido em garrafas plásticas.",
+      "Geralmente sou usado antes do condicionador.",
+      "Limpo o couro cabeludo.",
+      "Posso ser anticaspa.",
+      "Sou líquido ou cremoso.",
+      "Tenho cheiro de frutas ou plantas.",
+      "Existem tipos para cabelos secos ou oleosos.",
+      "Dizem que 'não arde nos olhos' (mas arde)."
+    ]
+  },
+  {
+    "id": 327,
+    "palavra": "Papel Higiênico",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sou usado no banheiro.",
+      "Venho em rolos.",
+      "Sou feito de papel macio.",
+      "Sirvo para limpeza íntima.",
+      "Sou descartável.",
+      "Geralmente sou branco.",
+      "Desmancho na água (idealmente).",
+      "Fico num suporte ao lado do vaso.",
+      "É desesperador quando eu acabo.",
+      "Posso ter folha dupla ou tripla."
+    ]
+  },
+  {
+    "id": 328,
+    "palavra": "Fralda",
+    "tipo": "Objeto",
+    "dicas": [
+      "Bebês usam.",
+      "Seguro o xixi e o cocô.",
+      "Posso ser de pano ou descartável.",
+      "Tenho fitas adesivas laterais.",
+      "Evito sujeira na roupa.",
+      "Preciso ser trocada com frequência.",
+      "Mães carregam várias na bolsa.",
+      "Idosos também podem usar.",
+      "Absorvo líquidos.",
+      "Crio um volume no bumbum do bebê."
+    ]
+  },
+  {
+    "id": 329,
+    "palavra": "Mamadeira",
+    "tipo": "Objeto",
+    "dicas": [
+      "Sirvo para alimentar bebês.",
+      "Tenho um bico de borracha ou silicone.",
+      "Levo leite, suco ou água.",
+      "Tenho marcações de volume (ml).",
+      "Substituo o peito materno.",
+      "Preciso ser esterilizada.",
+      "Posso ser de plástico ou vidro.",
+      "Tenho uma tampa para proteger o bico.",
+      "Bebês seguram com as duas mãos.",
+      "O líquido sai por um furinho."
+    ]
+  },
+  {
+    "id": 330,
+    "palavra": "Chupeta",
+    "tipo": "Objeto",
+    "dicas": [
+      "Bebês sugam para acalmar.",
+      "Não tem alimento dentro.",
+      "Tem um bico e uma argola.",
+      "Ajuda o bebê a dormir.",
+      "Dentistas não gostam muito de mim.",
+      "Feita de plástico e silicone.",
+      "Pode cair no chão e precisa lavar.",
+      "Às vezes é presa na roupa por uma corrente.",
+      "Substitui o dedo na boca.",
+      "É difícil tirar o hábito de me usar."
+    ]
+  },
+  {
+    "id": 331,
+    "palavra": "Berço",
+    "tipo": "Objeto",
+    "dicas": [
+      "É uma cama pequena.",
+      "Tem grades laterais para segurança.",
+      "O bebê dorme aqui.",
+      "Tem um colchão pequeno.",
+      "Às vezes tem um móbile pendurado em cima.",
+      "Fica no quarto das crianças.",
+      "O bebê deixa de usar quando cresce e aprende a pular.",
+      "Pode balançar para ninar.",
+      "Protege contra quedas.",
+      "Pode ter mosquiteiro."
+    ]
+  },
+  {
+    "id": 332,
+    "palavra": "Ventilador",
+    "tipo": "Objeto",
+    "dicas": [
+      "Faço vento.",
+      "Tenho hélices que giram rápido.",
+      "Alivio o calor.",
+      "Posso ser de teto, mesa ou chão.",
+      "Faço um barulho constante ('zum').",
+      "Funciono com eletricidade.",
+      "Tenho uma grade de proteção.",
+      "Giro de um lado para o outro.",
+      "Não gela o ar, apenas movimenta.",
+      "Espanto mosquitos com o vento."
+    ]
+  },
+  {
+    "id": 333,
+    "palavra": "Ar condicionado",
+    "tipo": "Objeto",
+    "dicas": [
+      "Deixo o ambiente gelado.",
+      "Controlo a temperatura exata.",
+      "Gasto muita energia elétrica.",
+      "Tenho um controle remoto.",
+      "Sou amado no verão.",
+      "Preciso ficar com janelas fechadas.",
+      "Pingo água do lado de fora.",
+      "Tenho filtro que precisa limpar.",
+      "Faço barulho de motor.",
+      "Sou instalado na parede ou janela."
+    ]
+  },
+  {
+    "id": 334,
+    "palavra": "Controle Remoto",
+    "tipo": "Objeto",
+    "dicas": [
+      "Comando a TV à distância.",
+      "Tenho muitos botões.",
+      "Funciono com pilhas.",
+      "Vivo perdido no sofá.",
+      "Uso sinal infravermelho.",
+      "Mudo o canal e o volume.",
+      "Ninguém gosta de levantar para fazer minha função.",
+      "Posso controlar ar-condicionado também.",
+      "Às vezes preciso de uns tapinhas para funcionar.",
+      "Sou feito de plástico."
+    ]
+  },
+  {
+    "id": 335,
+    "palavra": "Pilha",
+    "tipo": "Objeto",
+    "dicas": [
+      "Armazeno energia química.",
+      "Tenho polo positivo e negativo.",
+      "Faço brinquedos e controles funcionarem.",
+      "Venho nos tamanhos AA, AAA, C, D.",
+      "Posso vazar se ficar velha.",
+      "Algumas de mim são recarregáveis.",
+      "Sou cilíndrica (geralmente).",
+      "Não posso ser jogada no lixo comum.",
+      "Tenho lítio ou alcalina.",
+      "Dou vida a eletrônicos portáteis."
+    ]
+  },
+  {
+    "id": 336,
+    "palavra": "Carregador",
+    "tipo": "Objeto",
+    "dicas": [
+      "Tenho um cabo e uma fonte (plugue).",
+      "Ligo na tomada.",
+      "Dou energia ao smartphone.",
+      "Todo mundo pede um emprestado.",
+      "O cabo costuma quebrar na ponta.",
+      "Posso ter entrada USB-C ou Lightning.",
+      "Sem mim, o telefone 'morre'.",
+      "Esquento um pouco quando uso.",
+      "Sou essencial em viagens.",
+      "Posso ser portátil."
+    ]
+  }
+]
