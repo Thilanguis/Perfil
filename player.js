@@ -81,6 +81,7 @@ function generateClueButtons(revealedIndexes, clueCost) {
 
   window.clickedTraps = window.clickedTraps || [];
 
+  // Retorna ao laço original travado rigidamente em 20 dicas
   for (let i = 1; i <= 20; i++) {
     const btn = document.createElement('button');
     btn.className = 'btn-clue';

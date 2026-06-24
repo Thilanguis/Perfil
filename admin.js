@@ -1,5 +1,21 @@
 // --- AÇÕES DO CONTROLADOR (ADMIN) ---
 
+// Inicializa a música de suspense da fase de preparação (defina o nome do seu arquivo mp3 aqui)
+// Trilha 1: Fase de preparação das armadilhas
+window.bgMusicPrep = window.bgMusicPrep || new Audio('assets/sfx/preparacao-mesa.mp3');
+window.bgMusicPrep.loop = true;
+window.bgMusicPrep.volume = 0.6;
+
+// Trilha 2: Rodada ativa (Mesa liberada). Volume calibrado baixo para não abafar a voz da Azure
+window.bgMusicGameplay = window.bgMusicGameplay || new Audio('assets/sfx/gameplay.mp3');
+window.bgMusicGameplay.loop = true;
+window.bgMusicGameplay.volume = 0.15;
+
+// Trilha 3: Roleta girando e aplicando punições. Volume médio para criar tensão.
+window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.mp3');
+window.bgMusicRoulette.loop = true;
+window.bgMusicRoulette.volume = 0.4;
+
 // Função auxiliar reutilizável para criar a confirmação inline "Sim/Não"
 function criarConfirmacaoInline(botaoOriginal, mensagem, acaoConfirmada) {
   const wrapper = document.createElement('div');
@@ -189,24 +205,43 @@ document.getElementById('btn-start-round').addEventListener('click', async () =>
     status: 'playing',
     guessLocked: false,
     roundResult: '',
+    playPrepMusic: true, // <-- Liga o sinal da música globalmente no banco
   });
 
   showToast('Charada lançada! Prepare as armadilhas e libere a mesa.', 'gold');
 });
 
-// Libera a mesa após a Mistress definir as armadilhas
+// Libera a mesa após a Mistress definir as armadilhas (Unificado e sem duplicidade)
 document.getElementById('btn-unlock-board').addEventListener('click', async () => {
-  await gameRef.update({ trapsReady: true });
+  if (window.bgMusicPrep && !window.bgMusicPrep.paused) {
+    window.bgMusicPrep.pause();
+  }
+
+  await gameRef.update({
+    trapsReady: true,
+    playPrepMusic: false,
+  });
   showToast('Mesa liberada! O dominado agora pode interagir.', 'success');
 });
 
-// Botão para derrubar o jogador
+// Botão para derrubar o jogador com travas completas de áudio
 document.getElementById('btn-close-session').addEventListener('click', (e) => {
   criarConfirmacaoInline(e.currentTarget, 'Encerrar sessão?', async () => {
     sessionStorage.removeItem('gameRole');
 
     if (typeof window.releaseScreenWakeLock === 'function') {
       window.releaseScreenWakeLock();
+    }
+
+    // Mata as instâncias locais instantaneamente
+    if (window.bgMusicPrep && !window.bgMusicPrep.paused) {
+      window.bgMusicPrep.pause();
+    }
+    if (window.bgMusicGameplay && !window.bgMusicGameplay.paused) {
+      window.bgMusicGameplay.pause();
+    }
+    if (window.bgMusicRoulette && !window.bgMusicRoulette.paused) {
+      window.bgMusicRoulette.pause();
     }
 
     try {
@@ -217,13 +252,13 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
         latestGuess: '',
         guessLocked: false,
         history: [],
+        playPrepMusic: false,
       });
       showToast('Sessão encerrada e submisso desconectado.', 'danger');
-      document.getElementById('view-controller').classList.remove('active');
-      document.getElementById('view-selection').classList.add('active');
 
-      // Limpa a URL para forçar a criação de uma sala nova num próximo acesso
-      window.history.replaceState(null, '', window.location.pathname);
+      // Matamos o limbo forçando o navegador a recarregar a página na rota limpa.
+      // Isso destrói os listeners antigos do Firestore e abre espaço para uma nova sala do zero.
+      window.location.href = window.location.pathname;
     } catch (error) {
       console.error('Erro ao fechar sessão:', error);
     }

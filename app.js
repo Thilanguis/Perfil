@@ -1,94 +1,127 @@
 // --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ NEURAL DA AZURE ---
 window.typewriterDivs = window.typewriterDivs || new Map();
 
+// Declaração global do áudio na raiz do projeto
+// Ajustado o caminho para a pasta correta também no arquivo de escuta global
+window.bgMusicPrep = window.bgMusicPrep || new Audio('assets/sfx/preparacao-mesa.mp3');
+window.bgMusicPrep.loop = true;
+window.bgMusicPrep.volume = 0.6;
+
+// Trilha 2: Rodada ativa (Mesa liberada). Volume calibrado baixo para não abafar a voz da Azure
+window.bgMusicGameplay = window.bgMusicGameplay || new Audio('assets/sfx/gameplay.mp3');
+window.bgMusicGameplay.loop = true;
+window.bgMusicGameplay.volume = 0.15;
+
+// Trilha 3: Roleta girando e aplicando punições. Volume médio para criar tensão.
+window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.mp3');
+window.bgMusicRoulette.loop = true;
+window.bgMusicRoulette.volume = 0.4;
+
 function typeWriterEffect(element, text, speed = 65) {
-  if (!element) return;
-  if (element.dataset.fullText === text) return;
+  if (!element) return Promise.resolve();
+  if (element.dataset.fullText === text) return Promise.resolve();
   element.dataset.fullText = text;
 
-  if (window.typewriterDivs.has(element)) {
-    clearInterval(window.typewriterDivs.get(element));
-  }
+  // Retorna uma promessa gerenciada por travas de segurança bi-laterais
+  return new Promise((resolve) => {
+    let expectsAudio = false;
+    let typewriterDone = false;
+    let azureDone = false;
 
-  element.innerHTML = '';
+    // Função de checagem unificada para liberar o resolve apenas quando ambos os estados concluírem
+    const checkCompletion = () => {
+      if (typewriterDone && (azureDone || !expectsAudio)) {
+        resolve();
+      }
+    };
 
-  // Limpa tags HTML para a voz não ler elementos do DOM em voz alta
-  let textToAnimate = text.includes('<span') ? new DOMParser().parseFromString(text, 'text/html').body.textContent : text;
-
-  // --- CONFIGURAÇÃO DA MICROSOFT AZURE SPEECH API ---
-  const azureApiKey = '9oRvYr2ZRtQzGEJw2PDPkoti17tPtwaelJHaIizK5Z1Jh1mBhIjzJQQJ99CFACYeBjFXJ3w3AAAYACOGz2QH'; // <- Recoloque a sua chave real aqui
-  const azureRegion = 'eastus';
-
-  // Puxa a voz escolhida pelo usuário no menu ou usa a Francisca como padrão do sistema
-  const voiceName = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
-
-  if (azureApiKey && azureRegion && azureApiKey !== 'SUA_CHAVE_AQUI') {
-    // SSML: Tunado para dar um tom mais frio, pausado e irônico
-    const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='pt-BR'>
-                <voice name='${voiceName}'>
-                  <prosody rate='0.93' pitch='-2%'>
-                    ${textToAnimate}
-                  </prosody>
-                </voice>
-              </speak>`;
-
-    fetch(`https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
-      method: 'POST',
-      headers: {
-        'Ocp-Apim-Subscription-Key': azureApiKey,
-        'Content-Type': 'application/ssml+xml',
-        'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
-        'User-Agent': 'TributeProfileSystem',
-      },
-      body: ssml,
-    })
-      .then((response) => {
-        if (!response.ok) throw new Error(`Azure HTTP Error: ${response.status}`);
-        return response.blob();
-      })
-      .then((blob) => {
-        const audioUrl = URL.createObjectURL(blob);
-        const audio = new Audio(audioUrl);
-
-        // Se já houver um áudio rodando, interrompe imediatamente
-        if (window.currentAudio) {
-          window.currentAudio.pause();
-        }
-
-        window.currentAudio = audio;
-
-        // Monitora o fim do áudio para resetar os botões de preview da tela
-        audio.addEventListener('ended', () => {
-          document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
-          window.currentAudio = null;
-        });
-
-        // Monitora pausas manuais para resetar o ícone visual
-        audio.addEventListener('pause', () => {
-          document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
-        });
-
-        audio.play().catch((e) => console.log('Bloqueio de autoplay do navegador:', e));
-      })
-      .catch((error) => {
-        console.error('Falha na API da Azure. Rodando apenas escrita visual:', error);
-      });
-  }
-
-  // --- EFEITO DE MÁQUINA DE ESCREVER (VISUAL) ---
-  let i = 0;
-  const timer = setInterval(() => {
-    if (i < textToAnimate.length) {
-      element.textContent += textToAnimate.charAt(i);
-      i++;
-    } else {
-      clearInterval(timer);
-      window.typewriterDivs.delete(element);
-      if (text.includes('<span')) element.innerHTML = text;
+    if (window.typewriterDivs.has(element)) {
+      clearInterval(window.typewriterDivs.get(element));
     }
-  }, speed);
 
-  window.typewriterDivs.set(element, timer);
+    element.innerHTML = '';
+    let textToAnimate = text.includes('<span') ? new DOMParser().parseFromString(text, 'text/html').body.textContent : text;
+
+    const azureApiKey = '9oRvYr2ZRtQzGEJw2PDPkoti17tPtwaelJHaIizK5Z1Jh1mBhIjzJQQJ99CFACYeBjFXJ3w3AAAYACOGz2QH';
+    const azureRegion = 'eastus';
+    const voiceName = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
+
+    if (azureApiKey && azureRegion && azureApiKey !== 'SUA_CHAVE_AQUI') {
+      expectsAudio = true;
+      const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='pt-BR'>
+                  <voice name='${voiceName}'>
+                    <prosody rate='0.93' pitch='-2%'>
+                      ${textToAnimate}
+                    </prosody>
+                  </voice>
+                </speak>`;
+
+      fetch(`https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+        method: 'POST',
+        headers: {
+          'Ocp-Apim-Subscription-Key': azureApiKey,
+          'Content-Type': 'application/ssml+xml',
+          'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
+          'User-Agent': 'TributeProfileSystem',
+        },
+        body: ssml,
+      })
+        .then((response) => {
+          if (!response.ok) throw new Error(`Azure HTTP Error: ${response.status}`);
+          return response.blob();
+        })
+        .then((blob) => {
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+
+          if (window.currentAudio) {
+            window.currentAudio.pause();
+          }
+
+          window.currentAudio = audio;
+
+          audio.addEventListener('ended', () => {
+            document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
+            window.currentAudio = null;
+            azureDone = true;
+            checkCompletion(); // Áudio concluído com sucesso
+          });
+
+          audio.addEventListener('pause', () => {
+            document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
+          });
+
+          audio.play().catch((e) => {
+            console.log('Bloqueio de autoplay:', e);
+            azureDone = true;
+            checkCompletion(); // Destrava em caso de bloqueio do navegador
+          });
+        })
+        .catch((error) => {
+          console.error('Falha na API da Azure:', error);
+          expectsAudio = false;
+          checkCompletion(); // Fallback caso a API caia
+        });
+    }
+
+    // --- EFEITO DE MÁQUINA DE ESCREVER (VISUAL) ---
+    let i = 0;
+    const timer = setInterval(() => {
+      if (i < textToAnimate.length) {
+        element.textContent += textToAnimate.charAt(i);
+        i++;
+      } else {
+        clearInterval(timer);
+        window.typewriterDivs.delete(element);
+        if (text.includes('<span')) element.innerHTML = text;
+
+        typewriterDone = true;
+        checkCompletion(); // Digitação textual concluída
+      }
+    }, speed);
+
+    window.typewriterDivs.set(element, timer);
+  });
 }
 
 // --- SISTEMA DE WAKE LOCK (TELA SEMPRE LIGADA) ---
@@ -657,6 +690,7 @@ gameRef.onSnapshot((doc) => {
 
           const traps = data.trapIndices || [];
 
+          // Retorna a grade do Admin para renderizar sempre os 20 blocos fixos
           for (let i = 1; i <= 20; i++) {
             const block = document.createElement('div');
             const isTrap = traps.includes(i - 1);
@@ -845,7 +879,7 @@ gameRef.onSnapshot((doc) => {
 
                 let clueText = data.clues[item.index];
                 if (isTrap) {
-                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Pague caladinho.</span>';
+                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Filho da puta.</span>';
                 } else if (isRoulette) {
                   clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
                 }
@@ -1014,7 +1048,7 @@ gameRef.onSnapshot((doc) => {
             let borderColor = 'var(--gold-dark)';
 
             if (isTrap) {
-              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Pague caladinho.</span>';
+              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Filho da puta.</span>';
               borderColor = 'var(--red)';
             } else if (isRoulette) {
               clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
@@ -1112,6 +1146,7 @@ gameRef.onSnapshot((doc) => {
 
     const viewPlayer = document.getElementById('view-player');
     if (viewPlayer && viewPlayer.classList.contains('active') && data.status === 'playing') {
+      // Chamada restaurada para o padrão de 20 rodadas fixas
       generateClueButtons(data.revealedIndexes || [], data.clueCost || 5.0);
     }
 
@@ -1206,6 +1241,12 @@ gameRef.onSnapshot((doc) => {
 
     if (data.rouletteData && data.rouletteData.active) {
       if (modal) modal.style.display = 'flex';
+
+      // Liga a música da roleta assim que ela abrir na tela de qualquer um dos jogadores
+      if (window.bgMusicRoulette && window.bgMusicRoulette.paused) {
+        window.bgMusicRoulette.currentTime = 0;
+        window.bgMusicRoulette.play().catch((e) => console.log('Áudio da roleta travado:', e));
+      }
 
       const options = [
         { id: 'spin_2', label: '2.00 + SPIN', desc: '+ CAD 2.00 e gira de novo!', color: '#e62236' },
@@ -1336,7 +1377,7 @@ gameRef.onSnapshot((doc) => {
                   latestGuess: '🎭 Aplicando os castigos em sequência...',
                 });
 
-                // LOOP DRAMÁTICO COM NARRAÇÃO DA MISTRESS (2.5 segundos de intervalo por suspense)
+                // LOOP DRAMÁTICO COM NARRAÇÃO DA MISTRESS
                 for (const penaltyId of currentPending) {
                   let updates = {};
                   const freshDoc = await gameRef.get();
@@ -1350,7 +1391,7 @@ gameRef.onSnapshot((doc) => {
                     const qteDicas = parseInt(penaltyId.split('_')[1]);
 
                     updates.silenceTarget = base + qteDicas;
-                    fraseCastigo = `Mais ${qteDicas} dicas de silêncio! Cala a boca e gaste mais otário!`;
+                    fraseCastigo = `Mais ${qteDicas} dicas de silêncio! Cala a boca e gaste mais, otário!`;
                     updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🤫 Punição: Silêncio +${qteDicas}`);
                   } else if (penaltyId === 'inflacao') {
                     const currentMult = freshData.inflationMultiplier || 1;
@@ -1359,7 +1400,7 @@ gameRef.onSnapshot((doc) => {
                     updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔥 Punição: Inflação Multiplicada para ${currentMult * 2}X`);
                   } else if (penaltyId === 'multa_5') {
                     updates.debt = firebase.firestore.FieldValue.increment(5);
-                    fraseCastigo = 'Mais cinco dólares confiscados da sua carteira! Pague agora!';
+                    fraseCastigo = 'Mais cinco dólares confiscados da sua carteira, babaca! ';
                     updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de CAD 5.00`);
                   } else if (penaltyId === 'multa_10') {
                     updates.debt = firebase.firestore.FieldValue.increment(10);
@@ -1368,22 +1409,21 @@ gameRef.onSnapshot((doc) => {
                   } else if (penaltyId.startsWith('spin_')) {
                     const valorGiro = parseInt(penaltyId.split('_')[1]);
                     updates.debt = firebase.firestore.FieldValue.increment(valorGiro);
-                    fraseCastigo = `Mais ${valorGiro} dólares de prejuízo... e a roleta rodou de novo!`;
+                    fraseCastigo = `Mais ${valorGiro} dólares de prejuízo... e outro giro na roleta!`;
                     updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔄 Punição: Giro Extra + Taxa de CAD ${valorGiro.toFixed(2)}`);
                   }
 
-                  // Atualiza a tela da Mistress para ela ler o espetáculo
                   updates.latestGuess = `🎭 ${fraseCastigo}`;
 
-                  // Dispara a chamada da Azure de forma assíncrona usando o elemento invisível do sistema
-                  const dummyVoiceElement = document.createElement('div');
-                  typeWriterEffect(dummyVoiceElement, fraseCastigo, 0);
-
-                  // Atualiza o Firestore para rodar o floating money e o ticker na tela
+                  // 1. Atualiza primeiro o banco de dados para disparar os efeitos de contagem na tela
                   await gameRef.update(updates);
 
-                  // Aguarda 2.5 segundos para a frase terminar e criar o clima de desespero
-                  await new Promise((resolve) => setTimeout(resolve, 2500));
+                  // 2. Coloca o await na chamada para segurar o loop até a frase terminar de ser falada na íntegra
+                  const dummyVoiceElement = document.createElement('div');
+                  await typeWriterEffect(dummyVoiceElement, fraseCastigo, 0);
+
+                  // 3. Pequena pausa de respiro mecânico de 400ms para a próxima frase soar natural
+                  await new Promise((resolve) => setTimeout(resolve, 400));
                 }
 
                 await gameRef.update({
@@ -1402,10 +1442,47 @@ gameRef.onSnapshot((doc) => {
       } else if (data.rouletteData.step === 'applying') {
         if (modal) modal.style.display = 'none';
         window.isSpinningAnimActive = false;
+
+        // Pausa a música quando a tela fechar para começar a aplicação dos castigos falados pela Azure
+        if (window.bgMusicRoulette && !window.bgMusicRoulette.paused) {
+          window.bgMusicRoulette.pause();
+        }
       }
     } else {
       if (modal) modal.style.display = 'none';
       window.isSpinningAnimActive = false;
+
+      // Garante o desligamento caso a roleta seja limpa ou resetada do banco de dados
+      if (window.bgMusicRoulette && !window.bgMusicRoulette.paused) {
+        window.bgMusicRoulette.pause();
+      }
+    }
+
+    // --- SINCRONIZADOR DE ÁUDIO GLOBAL ---
+    // Controla a trilha de preparação
+    if (data.playPrepMusic === true) {
+      if (window.bgMusicPrep.paused) {
+        window.bgMusicPrep.currentTime = 0;
+        window.bgMusicPrep.play().catch((e) => console.log('Áudio de prep travado:', e));
+      }
+    } else {
+      if (!window.bgMusicPrep.paused) {
+        window.bgMusicPrep.pause();
+      }
+    }
+
+    // Controla a trilha da rodada ativa (Mesa liberada e jogo rodando) - Pausa automaticamente se a roleta estiver aberta
+    const isRouletteOpen = data.rouletteData && data.rouletteData.active;
+
+    if (data.status === 'playing' && data.trapsReady === true && !isRouletteOpen) {
+      if (window.bgMusicGameplay.paused) {
+        // Removemo o currentTime = 0 para a música continuar exatamente de onde parou antes do susto da roleta
+        window.bgMusicGameplay.play().catch((e) => console.log('Áudio de gameplay travado:', e));
+      }
+    } else {
+      if (!window.bgMusicGameplay.paused) {
+        window.bgMusicGameplay.pause();
+      }
     }
   }
 });

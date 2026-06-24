@@ -1,5 +1,5 @@
-const CACHE_NAME = 'tribute-profile-v16';
-const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './cards.js', './manifest.json', './icon-192.png', './icon-512.png'];
+const CACHE_NAME = 'tribute-profile-v17';
+const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './cards.js', './manifest.json', './icon-192.png', './icon-512.png', './video.mp4'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
@@ -7,7 +7,41 @@ self.addEventListener('install', (event) => {
       return cache.addAll(ASSETS_TO_CACHE);
     }),
   );
-  self.skipWaiting();
+  // REMOVIDO o self.skipWaiting() daqui para o worker ficar em estágio 'waiting'
+  // até o usuário clicar no botão do modal de atualização
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cache) => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache); // Deleta o cache antigo da rodada de 10 dicas
+          }
+        }),
+      );
+    }),
+  );
+  self.clients.claim();
+});
+
+// Ouve o comando vindo do app.js para aplicar a nova versão
+self.addEventListener('message', (event) => {
+  if (event.data === 'skipWaiting') {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.url.includes('firestore.googleapis.com') || event.request.url.includes('gstatic.com')) {
+    return;
+  }
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      return cachedResponse || fetch(event.request);
+    }),
+  );
 });
 
 self.addEventListener('activate', (event) => {
