@@ -51,11 +51,11 @@
 
           <div style="display: flex; gap: 12px; margin-bottom: 20px">
             <div style="flex: 1">
-              <label style="font-size: 0.8rem; color: #888">Custo da Dica (CAD)</label>
+              <label style="font-size: 0.8rem; color: #888">Custo da Dica (R$)</label>
               <input type="number" id="setup-clue-cost" value="2" />
             </div>
             <div style="flex: 1">
-              <label style="font-size: 0.8rem; color: #888">Multa do Erro (CAD)</label>
+              <label style="font-size: 0.8rem; color: #888">Multa do Erro (R$)</label>
               <input type="number" id="setup-penalty" value="10" />
             </div>
           </div>
@@ -106,12 +106,12 @@
       <!-- Valores Gigantes -->
       <div style="text-align: center; border: 1px dashed var(--gold-dark); padding: 15px; border-radius: 8px; margin-bottom: 20px">
         <h3 style="margin: 0; color: var(--gold)">
-          💰 CAD
+          💰 R$
           <span id="ui-clue-cost">0,00</span>
           por dica
         </h3>
         <h3 style="margin: 5px 0 0 0; color: var(--red)">
-          🔥 CAD
+          🔥 R$
           <span id="ui-mistake-penalty">0,00</span>
           por erro
         </h3>
@@ -146,7 +146,7 @@
         <div>
           <div class="debt-bar-container">
             <h4 style="margin: 0 0 10px 0; color: #888; text-transform: uppercase; letter-spacing: 2px">Dívida Acumulada</h4>
-            <h1 id="player-debt" style="margin: 0; color: var(--gold); font-size: 2.5rem">CAD 0,00</h1>
+            <h1 id="player-debt" style="margin: 0; color: var(--gold); font-size: 2.5rem">R$ 0,00</h1>
             <div class="debt-bar">
               <div id="debt-progress" class="debt-fill"></div>
             </div>
@@ -208,11 +208,11 @@
 
             <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
               <div style="flex: 1">
-                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (CAD)</label>
+                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (R$)</label>
                 <input type="number" id="admin-edit-clue" value="2" style="padding: 8px" />
               </div>
               <div style="flex: 1">
-                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (CAD)</label>
+                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (R$)</label>
                 <input type="number" id="admin-edit-penalty" value="10" style="padding: 8px" />
               </div>
             </div>
@@ -237,7 +237,7 @@
           <div class="card" id="admin-finances-card" style="padding: 0; overflow: hidden; display: none">
             <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
               <p style="margin: 0; color: #888; text-transform: uppercase">Dívida Acumulada</p>
-              <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">CAD 0,00</h1>
+              <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">R$ 0,00</h1>
               <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
             </div>
           </div>

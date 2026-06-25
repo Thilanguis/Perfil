@@ -1,35 +1,38 @@
 // --- AÇÕES DO CONTROLADOR (ADMIN) ---
 
-// Inicializa a música de suspense da fase de preparação (defina o nome do seu arquivo mp3 aqui)
+// ==========================================
+// 🎛️ CENTRAL DE MIXAGEM DE ÁUDIO (EQUILIBRADA)
+// ==========================================
+
 // Trilha 1: Fase de preparação das armadilhas
 window.bgMusicPrep = window.bgMusicPrep || new Audio('assets/sfx/preparacao-mesa.mp3');
 window.bgMusicPrep.loop = true;
-window.bgMusicPrep.volume = 0.6;
+window.bgMusicPrep.volume = 0.45;
 
-// Trilha 2: Rodada ativa (Mesa liberada). Volume calibrado baixo para não abafar a voz da Azure
+// Trilha 2: Rodada ativa (Subida de 0.15 para 0.35 para dar presença sem cobrir a Azure)
 window.bgMusicGameplay = window.bgMusicGameplay || new Audio('assets/sfx/gameplay.mp3');
 window.bgMusicGameplay.loop = true;
-window.bgMusicGameplay.volume = 0.15;
+window.bgMusicGameplay.volume = 0.35;
 
-// Trilha 3: Roleta girando e aplicando punições. Volume médio para criar tensão.
+// Trilha 3: Roleta girando e aplicando punições
 window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.mp3');
 window.bgMusicRoulette.loop = true;
-window.bgMusicRoulette.volume = 0.4;
+window.bgMusicRoulette.volume = 0.45;
 
-// Trilha 4: Clímax do Palpite Cravado (Coração/Relógio). Volume alto para dar impacto psicológico.
+// Trilha 4: Clímax do Palpite Cravado (Coração bombando alto para gerar pânico nas duas telas)
 window.bgMusicSuspense = window.bgMusicSuspense || new Audio('assets/sfx/suspense-palpite.mp3');
 window.bgMusicSuspense.loop = true;
-window.bgMusicSuspense.volume = 0.7;
+window.bgMusicSuspense.volume = 0.85;
 
-// SFX: Feedback instantâneo de Acerto (Toca apenas uma vez)
+// SFX 1: Feedback instantâneo de Acerto (Reduzido de 0.5 para 0.25 para não estourar o ouvido)
 window.sfxCorrect = window.sfxCorrect || new Audio('assets/sfx/resultado-acerto.mp3');
 window.sfxCorrect.loop = false;
-window.sfxCorrect.volume = 0.5;
+window.sfxCorrect.volume = 0.25;
 
-// SFX: Feedback instantâneo de Erro/Taxação (Toca apenas uma vez)
+// SFX 2: Feedback instantâneo de Erro/Taxação (Reduzido de 0.5 para 0.25 para ficar confortável)
 window.sfxWrong = window.sfxWrong || new Audio('assets/sfx/resultado-erro.mp3');
 window.sfxWrong.loop = false;
-window.sfxWrong.volume = 0.5;
+window.sfxWrong.volume = 0.25;
 
 // Função auxiliar reutilizável para criar a confirmação inline "Sim/Não"
 function criarConfirmacaoInline(botaoOriginal, mensagem, acaoConfirmada) {

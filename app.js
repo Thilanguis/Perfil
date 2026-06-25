@@ -1,36 +1,39 @@
 // --- FUNÇÃO GLOBAL PARA EFEITO MÁQUINA DE ESCREVER COM VOZ NEURAL DA AZURE ---
 window.typewriterDivs = window.typewriterDivs || new Map();
 
-// Declaração global do áudio na raiz do projeto
-// Ajustado o caminho para a pasta correta também no arquivo de escuta global
+// ==========================================
+// 🎛️ CENTRAL DE MIXAGEM DE ÁUDIO (EQUILIBRADA)
+// ==========================================
+
+// Trilha 1: Fase de preparação das armadilhas
 window.bgMusicPrep = window.bgMusicPrep || new Audio('assets/sfx/preparacao-mesa.mp3');
 window.bgMusicPrep.loop = true;
-window.bgMusicPrep.volume = 0.6;
+window.bgMusicPrep.volume = 0.45;
 
-// Trilha 2: Rodada ativa (Mesa liberada). Volume calibrado baixo para não abafar a voz da Azure
+// Trilha 2: Rodada ativa (Subida de 0.15 para 0.35 para dar presença sem cobrir a Azure)
 window.bgMusicGameplay = window.bgMusicGameplay || new Audio('assets/sfx/gameplay.mp3');
 window.bgMusicGameplay.loop = true;
-window.bgMusicGameplay.volume = 0.15;
+window.bgMusicGameplay.volume = 0.35;
 
-// Trilha 3: Roleta girando e aplicando punições. Volume médio para criar tensão.
+// Trilha 3: Roleta girando e aplicando punições
 window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.mp3');
 window.bgMusicRoulette.loop = true;
-window.bgMusicRoulette.volume = 0.4;
+window.bgMusicRoulette.volume = 0.45;
 
-// Trilha 4: Clímax do Palpite Cravado (Coração/Relógio). Volume alto para dar impacto psicológico.
+// Trilha 4: Clímax do Palpite Cravado (Coração bombando alto para gerar pânico nas duas telas)
 window.bgMusicSuspense = window.bgMusicSuspense || new Audio('assets/sfx/suspense-palpite.mp3');
 window.bgMusicSuspense.loop = true;
-window.bgMusicSuspense.volume = 0.7;
+window.bgMusicSuspense.volume = 0.85;
 
-// SFX: Feedback instantâneo de Acerto (Toca apenas uma vez)
+// SFX 1: Feedback instantâneo de Acerto (Reduzido de 0.5 para 0.25 para não estourar o ouvido)
 window.sfxCorrect = window.sfxCorrect || new Audio('assets/sfx/resultado-acerto.mp3');
 window.sfxCorrect.loop = false;
-window.sfxCorrect.volume = 0.5;
+window.sfxCorrect.volume = 0.25;
 
-// SFX: Feedback instantâneo de Erro/Taxação (Toca apenas uma vez)
+// SFX 2: Feedback instantâneo de Erro/Taxação (Reduzido de 0.5 para 0.25 para ficar confortável)
 window.sfxWrong = window.sfxWrong || new Audio('assets/sfx/resultado-erro.mp3');
 window.sfxWrong.loop = false;
-window.sfxWrong.volume = 0.5;
+window.sfxWrong.volume = 0.25;
 
 function typeWriterEffect(element, text, speed = 65) {
   if (!element) return Promise.resolve();
@@ -381,11 +384,11 @@ function animateValue(element, start, end, duration) {
     if (!startTimestamp) startTimestamp = timestamp;
     const progress = Math.min((timestamp - startTimestamp) / duration, 1);
     const current = start + progress * (end - start);
-    element.textContent = `CAD ${current.toFixed(2)}`;
+    element.textContent = `R$ ${current.toFixed(2)}`;
     if (progress < 1) {
       window.requestAnimationFrame(step);
     } else {
-      element.textContent = `CAD ${end.toFixed(2)}`;
+      element.textContent = `R$ ${end.toFixed(2)}`;
     }
   };
   window.requestAnimationFrame(step);
@@ -453,7 +456,7 @@ gameRef.onSnapshot((doc) => {
 
         const floatText = document.createElement('div');
         floatText.className = 'floating-money';
-        floatText.textContent = `+ CAD ${diff.toFixed(2)}`;
+        floatText.textContent = `+ R$ ${diff.toFixed(2)}`;
         floatText.style.left = '50%';
         floatText.style.top = '50%';
         floatContainer.appendChild(floatText);
@@ -472,24 +475,17 @@ gameRef.onSnapshot((doc) => {
 
             if (pDebt && viewPlayer && viewPlayer.classList.contains('active')) {
               animateValue(pDebt, previousDebt, currentDebt, 1200);
-              pDebt.classList.remove('debt-pop');
-              void pDebt.offsetWidth;
-              pDebt.classList.add('debt-pop');
             }
             if (aDebt && viewAdmin && viewAdmin.classList.contains('active')) {
               animateValue(aDebt, previousDebt, currentDebt, 1200);
-              aDebt.classList.remove('debt-pop');
-              void aDebt.offsetWidth;
-              aDebt.classList.add('debt-pop');
             }
-            floatText.remove();
           }, 800);
         }, 600);
       } else {
         const pDebt = document.getElementById('player-debt');
         const aDebt = document.getElementById('admin-current-debt');
-        if (pDebt) pDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
-        if (aDebt) aDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
+        if (pDebt) pDebt.textContent = `R$ ${currentDebt.toFixed(2)}`;
+        if (aDebt) aDebt.textContent = `R$ ${currentDebt.toFixed(2)}`;
       }
 
       try {
@@ -498,8 +494,8 @@ gameRef.onSnapshot((doc) => {
     } else {
       const pDebt = document.getElementById('player-debt');
       const aDebt = document.getElementById('admin-current-debt');
-      if (pDebt) pDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
-      if (aDebt) aDebt.textContent = `CAD ${currentDebt.toFixed(2)}`;
+      if (pDebt) pDebt.textContent = `R$ ${currentDebt.toFixed(2)}`;
+      if (aDebt) aDebt.textContent = `R$ ${currentDebt.toFixed(2)}`;
     }
 
     localPlayerDebt = currentDebt;
@@ -894,7 +890,7 @@ gameRef.onSnapshot((doc) => {
 
                 let clueText = data.clues[item.index];
                 if (isTrap) {
-                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Filho da puta.</span>';
+                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa... idiota.</span>';
                 } else if (isRoulette) {
                   clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
                 }
@@ -1063,7 +1059,7 @@ gameRef.onSnapshot((doc) => {
             let borderColor = 'var(--gold-dark)';
 
             if (isTrap) {
-              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! Filho da puta.</span>';
+              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! idiota.</span>';
               borderColor = 'var(--red)';
             } else if (isRoulette) {
               clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
@@ -1199,7 +1195,7 @@ gameRef.onSnapshot((doc) => {
             <div style="color: #fff; font-weight: bold; font-size: 1rem; margin-bottom: 6px;">${item.answer}</div>
             <div style="display: flex; justify-content: space-between; color: #888; font-size: 0.8rem; border-top: 1px dashed #222; padding-top: 6px;">
               <span>Dicas Compradas: <strong style="color: var(--text);">${item.cluesUsed}</strong></span>
-              <span>Dano: <strong style="color: ${isCorrect ? 'var(--text)' : 'var(--red)'};">CAD ${item.cost.toFixed(2)}</strong></span>
+              <span>Dano: <strong style="color: ${isCorrect ? 'var(--text)' : 'var(--red)'};">R$ ${item.cost.toFixed(2)}</strong></span>
             </div>
             ${subPenaltiesHTML}
           </div>
@@ -1278,17 +1274,17 @@ gameRef.onSnapshot((doc) => {
       }
 
       const options = [
-        { id: 'spin_2', label: '2.00 + SPIN', desc: '+ CAD 2.00 e gira de novo!', color: '#e62236' },
+        { id: 'spin_2', label: '2.00 + SPIN', desc: '+ R$ 2.00 e gira de novo!', color: '#e62236' },
         { id: 'silencio_3', label: 'SILÊNCIO +3', desc: 'Compre +3 dicas antes de chutar.', color: '#2ecc71' },
         { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
-        { id: 'spin_3', label: '3.00 + SPIN', desc: '+ CAD 3.00 e gira de novo!', color: '#8a6d1c' },
-        { id: 'multa_5', label: '5.00', desc: '+ CAD 5.00 na dívida.', color: '#8a6d1c' },
-        { id: 'spin_4', label: '4.00 + SPIN', desc: '+ CAD 4.00 e gira de novo!', color: '#e62236' },
+        { id: 'spin_3', label: '3.00 + SPIN', desc: '+ R$ 3.00 e gira de novo!', color: '#8a6d1c' },
+        { id: 'multa_5', label: '5.00', desc: '+ R$ 5.00 na dívida.', color: '#8a6d1c' },
+        { id: 'spin_4', label: '4.00 + SPIN', desc: '+ R$ 4.00 e gira de novo!', color: '#e62236' },
         { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
         { id: 'silencio_2', label: 'SILÊNCIO +2', desc: 'Compre +2 dicas antes de chutar.', color: '#2ecc71' },
-        { id: 'spin_5', label: '5.00 + SPIN', desc: '+ CAD 5.00 e gira de novo!', color: '#b538ff' },
+        { id: 'spin_5', label: '5.00 + SPIN', desc: '+ R$ 5.00 e gira de novo!', color: '#b538ff' },
         { id: 'silencio_4', label: 'SILÊNCIO +4', desc: 'Compre +4 dicas antes de chutar.', color: '#2ecc71' },
-        { id: 'multa_10', label: '10.00', desc: '+ CAD 10.00 na dívida.', color: '#1a1a22' },
+        { id: 'multa_10', label: '10.00', desc: '+ R$ 10.00 na dívida.', color: '#1a1a22' },
         { id: 'inflacao', label: 'INFLAÇÃO + SPIN', desc: 'A inflação dobra e a roleta gira de novo!', color: '#ff8c00' },
       ];
 
@@ -1429,17 +1425,17 @@ gameRef.onSnapshot((doc) => {
                     updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔥 Punição: Inflação Multiplicada para ${currentMult * 2}X`);
                   } else if (penaltyId === 'multa_5') {
                     updates.debt = firebase.firestore.FieldValue.increment(5);
-                    fraseCastigo = 'Mais cinco dólares confiscados da sua carteira, babaca! ';
-                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de CAD 5.00`);
+                    fraseCastigo = 'Mais cinco reais confiscados da sua carteira, babaca! ';
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de R$ 5.00`);
                   } else if (penaltyId === 'multa_10') {
                     updates.debt = firebase.firestore.FieldValue.increment(10);
-                    fraseCastigo = 'Mais dez dólares direto para a minha conta! Que porquinho patético!';
-                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de CAD 10.00`);
+                    fraseCastigo = 'Mais dez reais direto para a minha conta! Que porquinho patético!';
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`💸 Punição: Taxa de R$ 10.00`);
                   } else if (penaltyId.startsWith('spin_')) {
                     const valorGiro = parseInt(penaltyId.split('_')[1]);
                     updates.debt = firebase.firestore.FieldValue.increment(valorGiro);
-                    fraseCastigo = `Mais ${valorGiro} dólares de prejuízo... e outro giro na roleta!`;
-                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔄 Punição: Giro Extra + Taxa de CAD ${valorGiro.toFixed(2)}`);
+                    fraseCastigo = `Mais ${valorGiro} reais de prejuízo... e a roleta rodou de novo!`;
+                    updates.roundPenalties = firebase.firestore.FieldValue.arrayUnion(`🔄 Punição: Giro Extra + Taxa de R$ ${valorGiro.toFixed(2)}`);
                   }
 
                   updates.latestGuess = `🎭 ${fraseCastigo}`;
