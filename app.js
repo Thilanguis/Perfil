@@ -17,6 +17,21 @@ window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.
 window.bgMusicRoulette.loop = true;
 window.bgMusicRoulette.volume = 0.4;
 
+// Trilha 4: Clímax do Palpite Cravado (Coração/Relógio). Volume alto para dar impacto psicológico.
+window.bgMusicSuspense = window.bgMusicSuspense || new Audio('assets/sfx/suspense-palpite.mp3');
+window.bgMusicSuspense.loop = true;
+window.bgMusicSuspense.volume = 0.7;
+
+// SFX: Feedback instantâneo de Acerto (Toca apenas uma vez)
+window.sfxCorrect = window.sfxCorrect || new Audio('assets/sfx/resultado-acerto.mp3');
+window.sfxCorrect.loop = false;
+window.sfxCorrect.volume = 0.5;
+
+// SFX: Feedback instantâneo de Erro/Taxação (Toca apenas uma vez)
+window.sfxWrong = window.sfxWrong || new Audio('assets/sfx/resultado-erro.mp3');
+window.sfxWrong.loop = false;
+window.sfxWrong.volume = 0.5;
+
 function typeWriterEffect(element, text, speed = 65) {
   if (!element) return Promise.resolve();
   if (element.dataset.fullText === text) return Promise.resolve();
@@ -1199,15 +1214,22 @@ gameRef.onSnapshot((doc) => {
       playerHistList.innerHTML = historyHTML;
     }
 
-    // --- GATILHO DA VOZ DE JULGAMENTO (ACERTO / ERRO) ---
+    // --- GATILHO DA VOZ DE JULGAMENTO E EFEITOS SONOROS (ACERTO / ERRO) ---
     if (data.status === 'finished' && data.roundResult && !isFirstLoad) {
       const currentHistoryLen = historyData.length;
-      // Garante que a voz só toque uma vez por rodada finalizada
+
+      // Garante que a voz e os efeitos sonoros rodem uma única vez por rodada concluída
       if (window.lastVoicedRound !== currentHistoryLen) {
         window.lastVoicedRound = currentHistoryLen;
 
         let fraseJulgamento = '';
         if (data.roundResult === 'correct') {
+          // Reseta o ponteiro e roda o som de sucesso para as duas telas
+          if (window.sfxCorrect) {
+            window.sfxCorrect.currentTime = 0;
+            window.sfxCorrect.play().catch((e) => console.log('Bloqueio de áudio no SFX de acerto:', e));
+          }
+
           const frasesAcerto = [
             'Até que enfim usou esse cérebro minúsculo para alguma coisa! Acertou... mas não fez mais do que a sua obrigação, seu lixo.',
             'Acertou! Parabéns por fazer o mínimo, seu verme. Mas não ache que isso te salva da próxima humilhação.',
@@ -1215,6 +1237,12 @@ gameRef.onSnapshot((doc) => {
           ];
           fraseJulgamento = frasesAcerto[Math.floor(Math.random() * frasesAcerto.length)];
         } else if (data.roundResult === 'wrong') {
+          // Reseta o ponteiro e roda o som de erro/multa para as duas telas
+          if (window.sfxWrong) {
+            window.sfxWrong.currentTime = 0;
+            window.sfxWrong.play().catch((e) => console.log('Bloqueio de áudio no SFX de erro:', e));
+          }
+
           const frasesErro = [
             'Palpite errado! Como você é burro! Sinta o peso dessa multa afundando a sua conta... seu verme patético.',
             'Errou! Que mente fraca e inútil... Vai pagar muito caro por essa burrice, seu lixo.',
@@ -1223,6 +1251,7 @@ gameRef.onSnapshot((doc) => {
           fraseJulgamento = frasesErro[Math.floor(Math.random() * frasesErro.length)];
         }
 
+        // Instancia o elemento invisível do DOM para processar a síntese de voz da Azure
         const dummyVoice = document.createElement('div');
         typeWriterEffect(dummyVoice, fraseJulgamento, 0);
       }
@@ -1458,6 +1487,22 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
+    // --- GATILHO REATIVO DA VOZ DA ROLETA PARA O DOMINADOR ---
+    // Se houver uma frase de castigo ativa e for a tela do Admin, dispara a voz da Azure em sincronia
+    if (data.latestGuess && data.latestGuess.startsWith('🎭')) {
+      if (window.lastProcessedRoulettePhrase !== data.latestGuess) {
+        window.lastProcessedRoulettePhrase = data.latestGuess;
+
+        const isControllerviewActive = document.getElementById('view-controller') && document.getElementById('view-controller').classList.contains('active');
+        if (isControllerviewActive) {
+          const dummyVoiceAdmin = document.createElement('div');
+          // Remove o emoji para mandar apenas o texto limpo para a API
+          const textoLimpo = data.latestGuess.replace('🎭 ', '');
+          typeWriterEffect(dummyVoiceAdmin, textoLimpo, 0);
+        }
+      }
+    }
+
     // --- SINCRONIZADOR DE ÁUDIO GLOBAL ---
     // Controla a trilha de preparação
     if (data.playPrepMusic === true) {
@@ -1471,17 +1516,29 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    // Controla a trilha da rodada ativa (Mesa liberada e jogo rodando) - Pausa automaticamente se a roleta estiver aberta
+    // Controla a trilha da rodada ativa (Mesa liberada e jogo rodando) - Pausa se a roleta ou o palpite cravado estiverem ativos
     const isRouletteOpen = data.rouletteData && data.rouletteData.active;
+    const isGuessLocked = data.guessLocked === true;
 
-    if (data.status === 'playing' && data.trapsReady === true && !isRouletteOpen) {
+    if (data.status === 'playing' && data.trapsReady === true && !isRouletteOpen && !isGuessLocked) {
       if (window.bgMusicGameplay.paused) {
-        // Removemo o currentTime = 0 para a música continuar exatamente de onde parou antes do susto da roleta
         window.bgMusicGameplay.play().catch((e) => console.log('Áudio de gameplay travado:', e));
       }
     } else {
       if (!window.bgMusicGameplay.paused) {
         window.bgMusicGameplay.pause();
+      }
+    }
+
+    // Controla a trilha de Suspense Máximo (Palpite Cravado) para ambas as telas simultaneamente
+    if (data.status === 'playing' && isGuessLocked && !isRouletteOpen) {
+      if (window.bgMusicSuspense.paused) {
+        window.bgMusicSuspense.currentTime = 0;
+        window.bgMusicSuspense.play().catch((e) => console.log('Áudio de suspense travado:', e));
+      }
+    } else {
+      if (!window.bgMusicSuspense.paused) {
+        window.bgMusicSuspense.pause();
       }
     }
   }

@@ -16,6 +16,21 @@ window.bgMusicRoulette = window.bgMusicRoulette || new Audio('assets/sfx/roleta.
 window.bgMusicRoulette.loop = true;
 window.bgMusicRoulette.volume = 0.4;
 
+// Trilha 4: Clímax do Palpite Cravado (Coração/Relógio). Volume alto para dar impacto psicológico.
+window.bgMusicSuspense = window.bgMusicSuspense || new Audio('assets/sfx/suspense-palpite.mp3');
+window.bgMusicSuspense.loop = true;
+window.bgMusicSuspense.volume = 0.7;
+
+// SFX: Feedback instantâneo de Acerto (Toca apenas uma vez)
+window.sfxCorrect = window.sfxCorrect || new Audio('assets/sfx/resultado-acerto.mp3');
+window.sfxCorrect.loop = false;
+window.sfxCorrect.volume = 0.5;
+
+// SFX: Feedback instantâneo de Erro/Taxação (Toca apenas uma vez)
+window.sfxWrong = window.sfxWrong || new Audio('assets/sfx/resultado-erro.mp3');
+window.sfxWrong.loop = false;
+window.sfxWrong.volume = 0.5;
+
 // Função auxiliar reutilizável para criar a confirmação inline "Sim/Não"
 function criarConfirmacaoInline(botaoOriginal, mensagem, acaoConfirmada) {
   const wrapper = document.createElement('div');
@@ -242,6 +257,9 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
     }
     if (window.bgMusicRoulette && !window.bgMusicRoulette.paused) {
       window.bgMusicRoulette.pause();
+    }
+    if (window.bgMusicSuspense && !window.bgMusicSuspense.paused) {
+      window.bgMusicSuspense.pause();
     }
 
     try {
