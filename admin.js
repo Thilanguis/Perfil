@@ -115,6 +115,18 @@ document.getElementById('admin-edit-penalty').addEventListener('input', async (e
 });
 
 // Inicialização da Mesa pelo Dominador
+const roundsOptions = document.getElementById('setup-rounds-options');
+if (roundsOptions) {
+  roundsOptions.addEventListener('click', (event) => {
+    const option = event.target.closest('.round-option');
+    if (!option) return;
+
+    roundsOptions.querySelectorAll('.round-option').forEach((button) => button.classList.remove('active'));
+    option.classList.add('active');
+    document.getElementById('setup-total-rounds').value = option.dataset.rounds;
+  });
+}
+
 document.getElementById('btn-enter-controller').addEventListener('click', async () => {
   try {
     const doc = await gameRef.get();
@@ -138,11 +150,14 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
     const pixKeyEl = document.getElementById('setup-admin-pix');
     const clueCostEl = document.getElementById('setup-clue-cost');
     const penaltyEl = document.getElementById('setup-penalty');
+    const totalRoundsEl = document.getElementById('setup-total-rounds');
 
     const adminName = adminNameEl ? adminNameEl.value.trim() : 'Dominador';
     const pixValidation = window.PixPayment.normalizeKey(pixKeyEl ? pixKeyEl.value : '');
     const cCost = clueCostEl ? parseFloat(clueCostEl.value) : 2.0;
     const pPenalty = penaltyEl ? parseFloat(penaltyEl.value) : 10.0;
+    const requestedRounds = totalRoundsEl ? parseInt(totalRoundsEl.value, 10) : 6;
+    const totalRounds = [4, 6, 8, 10].includes(requestedRounds) ? requestedRounds : 6;
 
     if (!pixValidation.valid) {
       if (pixKeyEl) {
@@ -172,6 +187,8 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
         playerName: '',
         playerJoinedAt: 0,
         pixCharge: null,
+        totalRounds: totalRounds,
+        history: [],
       },
       { merge: true },
     );
@@ -261,6 +278,16 @@ document.getElementById('btn-cancel-pix').addEventListener('click', async () => 
 
 // Lança a Charada para o Jogo
 document.getElementById('btn-start-round').addEventListener('click', async () => {
+  const sessionSnapshot = await gameRef.get();
+  const sessionData = sessionSnapshot.exists ? sessionSnapshot.data() : {};
+  const completedRounds = Array.isArray(sessionData.history) ? sessionData.history.length : 0;
+  const totalRounds = Number(sessionData.totalRounds) || 6;
+
+  if (completedRounds >= totalRounds || sessionData.status === 'session_finished') {
+    showToast('A partida já terminou. Encerre a sessão para abrir uma nova mesa.', 'gold');
+    return;
+  }
+
   let selectedValue = document.getElementById('admin-card-select').value;
   if (!selectedValue) return;
 
@@ -322,6 +349,7 @@ document.getElementById('btn-unlock-board').addEventListener('click', async () =
 document.getElementById('btn-close-session').addEventListener('click', (e) => {
   criarConfirmacaoInline(e.currentTarget, 'Encerrar sessão?', async () => {
     sessionStorage.removeItem('gameRole');
+    sessionStorage.removeItem('devtoolsView');
 
     if (typeof window.releaseScreenWakeLock === 'function') {
       window.releaseScreenWakeLock();
@@ -342,18 +370,21 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
     }
 
     try {
-      await gameRef.update({
-        status: 'closed',
-        debt: 0,
-        revealedIndexes: [],
-        latestGuess: '',
-        guessLocked: false,
-        history: [],
-        playPrepMusic: false,
-        pixCharge: null,
-        adminPixKey: '',
-        adminPixType: '',
-      });
+      await gameRef.set(
+        {
+          status: 'closed',
+          debt: 0,
+          revealedIndexes: [],
+          latestGuess: '',
+          guessLocked: false,
+          history: [],
+          playPrepMusic: false,
+          pixCharge: null,
+          adminPixKey: '',
+          adminPixType: '',
+        },
+        { merge: true },
+      );
       showToast('Sessão encerrada e submisso desconectado.', 'danger');
 
       // Matamos o limbo forçando o navegador a recarregar a página na rota limpa.
@@ -431,14 +462,17 @@ document.getElementById('btn-mark-correct').addEventListener('click', async () =
         timestamp: Date.now(),
       };
 
+      const totalRounds = Number(data.totalRounds) || 6;
+      const isLastRound = (Array.isArray(data.history) ? data.history.length : 0) + 1 >= totalRounds;
+
       await gameRef.update({
-        status: 'finished',
+        status: isLastRound ? 'session_finished' : 'finished',
         latestGuess: '',
         guessLocked: false,
         roundResult: 'correct',
         history: firebase.firestore.FieldValue.arrayUnion(logEntry),
       });
-      showToast('Rodada encerrada com acerto!', 'success');
+      showToast(isLastRound ? 'Partida encerrada com acerto!' : 'Rodada encerrada com acerto!', 'success');
     }
   } catch (error) {
     console.error('Erro ao encerrar rodada com acerto:', error);
@@ -468,15 +502,18 @@ document.getElementById('btn-mark-wrong').addEventListener('click', async () => 
         timestamp: Date.now(),
       };
 
+      const totalRounds = Number(sessionData.totalRounds) || 6;
+      const isLastRound = (Array.isArray(sessionData.history) ? sessionData.history.length : 0) + 1 >= totalRounds;
+
       await gameRef.update({
         debt: firebase.firestore.FieldValue.increment(penaltyValue),
         latestGuess: '',
-        status: 'finished',
+        status: isLastRound ? 'session_finished' : 'finished',
         guessLocked: false,
         roundResult: 'wrong',
         history: firebase.firestore.FieldValue.arrayUnion(logEntry),
       });
-      showToast('Penalidade aplicada! O dominado errou.', 'danger');
+      showToast(isLastRound ? 'Partida encerrada com a penalidade final!' : 'Penalidade aplicada! O dominado errou.', 'danger');
     }
   } catch (error) {
     console.error('Erro crítico no processo de taxação:', error);

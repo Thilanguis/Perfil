@@ -3,6 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const localHosts = new Set(['localhost', '127.0.0.1', '0.0.0.0', '[::1]', '::1']);
+        window.IS_LOCAL_DEV = window.location.protocol === 'file:' || localHosts.has(window.location.hostname);
+        if (!window.IS_LOCAL_DEV || !('serviceWorker' in navigator)) return;
+
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        Promise.all([
+          navigator.serviceWorker.getRegistrations().then((registrations) => Promise.all(registrations.map((registration) => registration.unregister()))),
+          'caches' in window ? caches.keys().then((names) => Promise.all(names.filter((name) => name.startsWith('tribute-profile-')).map((name) => caches.delete(name)))) : Promise.resolve(),
+        ]).then(() => {
+          if (hadController && sessionStorage.getItem('localCacheDetached') !== '1') {
+            sessionStorage.setItem('localCacheDetached', '1');
+            window.location.reload();
+          } else {
+            sessionStorage.removeItem('localCacheDetached');
+          }
+        });
+      })();
+    </script>
     <title>Perfil Findom</title>
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="data:," />
@@ -18,6 +38,37 @@
     <!-- Flash Screen Oculta -->
     <div id="vignette-flash"></div>
     <div id="floating-money-container"></div>
+
+    <aside id="devtools-panel" class="devtools-panel" hidden>
+      <div class="devtools-header">
+        <strong>DEVTOOLS</strong>
+        <button id="devtools-toggle" type="button" aria-label="Recolher painel">—</button>
+      </div>
+      <div class="devtools-content">
+        <div class="devtools-metrics">
+          <span>Status <b id="devtools-status">—</b></span>
+          <span>Rodadas <b id="devtools-round">—</b></span>
+          <span>Dívida <b id="devtools-debt">—</b></span>
+        </div>
+        <div class="devtools-actions">
+          <button type="button" data-dev-view="admin">Dominador</button>
+          <button type="button" data-dev-view="player">Dominado</button>
+          <button type="button" data-dev-view="lobby">Lobby</button>
+        </div>
+        <button id="devtools-next-round" class="devtools-wide devtools-primary" type="button">⏭ Próxima rodada</button>
+        <div class="devtools-actions devtools-round-actions">
+          <button id="devtools-finish-correct" type="button">🧠 Palpite certeiro</button>
+          <button id="devtools-finish-wrong" type="button">💸 Errou — taxar</button>
+          <button id="devtools-finish-game" type="button">🏁 Terminar todas as rodadas</button>
+        </div>
+        <button id="devtools-open-player" class="devtools-wide" type="button">Abrir Dominado em nova aba</button>
+        <p id="devtools-feedback" class="devtools-feedback">Pronto para testar.</p>
+        <details>
+          <summary>Estado ao vivo</summary>
+          <pre id="devtools-state">Aguardando Firestore...</pre>
+        </details>
+      </div>
+    </aside>
 
     <!-- Tela 1: Seleção de Perfil (Lobby) -->
     <div id="view-selection" class="view active">
@@ -62,6 +113,18 @@
               <label style="font-size: 0.8rem; color: #888">Multa do Erro (R$)</label>
               <input type="number" id="setup-penalty" value="10" />
             </div>
+          </div>
+
+          <div class="rounds-setup">
+            <label for="setup-total-rounds">Número de rodadas</label>
+            <div class="rounds-options" id="setup-rounds-options">
+              <button type="button" class="round-option" data-rounds="4">4</button>
+              <button type="button" class="round-option active" data-rounds="6">6</button>
+              <button type="button" class="round-option" data-rounds="8">8</button>
+              <button type="button" class="round-option" data-rounds="10">10</button>
+            </div>
+            <input type="hidden" id="setup-total-rounds" value="6" />
+            <p>Quantidade de charadas que formam uma partida completa.</p>
           </div>
           <button id="btn-enter-controller" class="btn-danger" style="width: 100%">Abrir Mesa</button>
         </div>
@@ -108,6 +171,7 @@
       </div>
 
       <!-- Valores Gigantes -->
+      <div id="player-round-progress" class="round-progress player-round-progress">Rodada 1 de 6</div>
       <div style="text-align: center; border: 1px dashed var(--gold-dark); padding: 15px; border-radius: 8px; margin-bottom: 20px">
         <h3 style="margin: 0; color: var(--gold)">
           💰 R$
@@ -208,6 +272,7 @@
         <div style="display: flex; flex-direction: column; gap: 20px">
           <div class="card card-gold">
             <h3 style="margin-top: 0; color: var(--gold)">Controle das Charadas</h3>
+            <div id="admin-round-progress" class="round-progress">Rodada 1 de 6</div>
             <select id="admin-card-select" style="margin-bottom: 15px"></select>
 
             <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
@@ -222,6 +287,19 @@
             </div>
 
             <button id="btn-start-round" class="btn-primary" style="width: 100%">Lançar Charada</button>
+
+            <section id="admin-final-summary" class="final-summary" hidden>
+              <div class="final-summary-badge">PARTIDA ENCERRADA</div>
+              <h3>Placar final</h3>
+              <div class="final-summary-grid">
+                <div><strong id="final-total-rounds">0</strong><span>Rodadas</span></div>
+                <div><strong id="final-correct-rounds">0</strong><span>Acertos</span></div>
+                <div><strong id="final-wrong-rounds">0</strong><span>Erros</span></div>
+                <div><strong id="final-clues-used">0</strong><span>Dicas</span></div>
+              </div>
+              <p>Tributo final</p>
+              <strong id="final-total-debt" class="final-summary-debt">R$ 0,00</strong>
+            </section>
 
             <div id="admin-history-box" style="margin-top: 20px; border-top: 1px dashed var(--border); padding-top: 15px">
               <h4 style="margin: 0 0 10px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px">Histórico da Sessão</h4>
@@ -370,5 +448,6 @@
     <script src="player.js"></script>
     <script src="admin.js"></script>
     <script src="app.js"></script>
+    <script src="devtools.js"></script>
   </body>
 </html>

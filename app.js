@@ -234,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- SISTEMA DE ATUALIZAÇÃO VIA SERVICE WORKER COM MODAL INTERATIVO ---
-if ('serviceWorker' in navigator) {
+if (!window.IS_LOCAL_DEV && 'serviceWorker' in navigator) {
   window.addEventListener('load', async () => {
     try {
       const registration = await navigator.serviceWorker.register('./service-worker.js');
@@ -663,11 +663,26 @@ gameRef.onSnapshot((doc) => {
     const editPenalty = document.getElementById('admin-edit-penalty');
     const cardSelect = document.getElementById('admin-card-select');
     const startRoundBtn = document.getElementById('btn-start-round');
+    const roundProgress = document.getElementById('admin-round-progress');
+    const playerRoundProgress = document.getElementById('player-round-progress');
 
     const isPlaying = data.status === 'playing';
+    const totalRounds = Number(data.totalRounds) || 6;
+    const completedRounds = Array.isArray(data.history) ? data.history.length : 0;
+    const isSessionFinished = data.status === 'session_finished' || completedRounds >= totalRounds;
 
-    if (cardSelect) cardSelect.disabled = isPlaying;
-    if (startRoundBtn) startRoundBtn.disabled = isPlaying;
+    if (cardSelect) cardSelect.disabled = isPlaying || isSessionFinished;
+    if (startRoundBtn) startRoundBtn.disabled = isPlaying || isSessionFinished;
+    if (roundProgress) {
+      const displayRound = Math.min(completedRounds + 1, totalRounds);
+      roundProgress.textContent = isSessionFinished ? `Partida encerrada · ${totalRounds} de ${totalRounds}` : `Rodada ${displayRound} de ${totalRounds}`;
+      roundProgress.classList.toggle('complete', isSessionFinished);
+    }
+    if (playerRoundProgress) {
+      const displayRound = Math.min(completedRounds + 1, totalRounds);
+      playerRoundProgress.textContent = isSessionFinished ? `Partida encerrada · ${totalRounds} de ${totalRounds}` : `Rodada ${displayRound} de ${totalRounds}`;
+      playerRoundProgress.classList.toggle('complete', isSessionFinished);
+    }
 
     if (editClue) {
       editClue.disabled = false;
@@ -679,7 +694,25 @@ gameRef.onSnapshot((doc) => {
     }
 
     if (startRoundBtn) {
-      startRoundBtn.style.opacity = isPlaying ? '0.5' : '1';
+      startRoundBtn.style.opacity = isPlaying || isSessionFinished ? '0.5' : '1';
+      startRoundBtn.textContent = isSessionFinished ? 'Partida encerrada' : 'Lançar Charada';
+    }
+
+    const finalSummary = document.getElementById('admin-final-summary');
+    if (finalSummary) {
+      finalSummary.hidden = !isSessionFinished;
+      if (isSessionFinished) {
+        const finalHistory = Array.isArray(data.history) ? data.history : [];
+        const correctRounds = finalHistory.filter((item) => item.result === 'correct').length;
+        const wrongRounds = finalHistory.filter((item) => item.result === 'wrong').length;
+        const cluesUsed = finalHistory.reduce((total, item) => total + (Number(item.cluesUsed) || 0), 0);
+        document.getElementById('final-total-rounds').textContent = finalHistory.length;
+        document.getElementById('final-correct-rounds').textContent = correctRounds;
+        document.getElementById('final-wrong-rounds').textContent = wrongRounds;
+        document.getElementById('final-clues-used').textContent = cluesUsed;
+        document.getElementById('final-total-debt').textContent = formatPixCurrency(currentDebt);
+
+      }
     }
 
     const adminStatusContainer = document.getElementById('controller-status-container');
@@ -1242,6 +1275,26 @@ gameRef.onSnapshot((doc) => {
           `;
           playerBlocker.style.background = 'rgba(35, 9, 9, 0.95)';
           playerBlocker.style.borderColor = 'var(--red)';
+        } else if (data.status === 'session_finished') {
+          const finalHistory = Array.isArray(data.history) ? data.history : [];
+          const correctRounds = finalHistory.filter((item) => item.result === 'correct').length;
+          const wrongRounds = finalHistory.filter((item) => item.result === 'wrong').length;
+          const cluesUsed = finalHistory.reduce((total, item) => total + (Number(item.cluesUsed) || 0), 0);
+          const paymentMessage = data.pixCharge?.active ? 'A cobrança Pix final já está disponível.' : 'Aguarde o envio da cobrança Pix final.';
+          playerBlocker.innerHTML = `
+            <div style="font-size: 5rem; margin-bottom: 10px;">🏁</div>
+            <h2 style="color: var(--gold); margin: 0; text-transform: uppercase; letter-spacing: 2px;">Partida encerrada</h2>
+            <p style="color: #aaa; margin: 8px 0 14px;">Todas as ${Number(data.totalRounds) || 6} rodadas foram concluídas.</p>
+            <div class="player-final-stats">
+              <span><strong>${correctRounds}</strong> Acertos</span>
+              <span><strong>${wrongRounds}</strong> Erros</span>
+              <span><strong>${cluesUsed}</strong> Dicas</span>
+            </div>
+            <h3 style="color: var(--green); margin: 15px 0 5px;">Tributo final: R$ ${(Number(data.debt) || 0).toFixed(2).replace('.', ',')}</h3>
+            <p style="color: ${data.pixCharge?.active ? 'var(--gold)' : '#888'}; margin: 0; font-size: 0.85rem;">${paymentMessage}</p>
+          `;
+          playerBlocker.style.background = 'rgba(20, 17, 7, 0.96)';
+          playerBlocker.style.borderColor = 'var(--gold)';
         } else {
           // Se for "waiting" ou recém-criada, cai aqui e exibe Mesa Trancada
           playerBlocker.innerHTML = `
@@ -1311,7 +1364,7 @@ gameRef.onSnapshot((doc) => {
     }
 
     // --- GATILHO DA VOZ DE JULGAMENTO E EFEITOS SONOROS (ACERTO / ERRO) ---
-    if (data.status === 'finished' && data.roundResult && !isFirstLoad) {
+    if ((data.status === 'finished' || data.status === 'session_finished') && data.roundResult && !isFirstLoad) {
       const currentHistoryLen = historyData.length;
 
       // Garante que a voz e os efeitos sonoros rodem uma única vez por rodada concluída

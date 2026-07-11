@@ -1,7 +1,12 @@
-const CACHE_NAME = 'tribute-profile-v20';
-const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './cards.js', './pix.js', './manifest.json', './icon-192.png', './icon-512.png', './video.mp4'];
+const CACHE_NAME = 'tribute-profile-v22';
+const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './devtools.js', './cards.js', './pix.js', './manifest.json', './icon-192.png', './icon-512.png', './video.mp4'];
+const IS_LOCAL_WORKER = ['localhost', '127.0.0.1', '0.0.0.0', '[::1]', '::1'].includes(self.location.hostname);
 
 self.addEventListener('install', (event) => {
+  if (IS_LOCAL_WORKER) {
+    self.skipWaiting();
+    return;
+  }
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
@@ -34,6 +39,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+  if (IS_LOCAL_WORKER) return;
   if (event.request.url.includes('firestore.googleapis.com') || event.request.url.includes('gstatic.com')) {
     return;
   }
