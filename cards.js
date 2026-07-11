@@ -1,5 +1,5 @@
 // Banco de Cartas Fixo do Sistema
-const RAW_PRELOADED_CARDS = [
+const PRELOADED_CARDS = [
   {
     id: 'card_001',
     category: 'Pessoa',
@@ -111,14 +111,14 @@ const RAW_PRELOADED_CARDS = [
   {
     id: 'card_005',
     category: 'Objeto',
-    answer: 'Cafeteira Italiana',
+    answer: 'Cafeteira Moka',
     clues: [
       '1. Sou um ícone do design industrial.',
       '2. Fui inventada na década de 1930.',
-      '3. Meu nome leva a uma região da Europa.',
+      '3. Meu nome é associado historicamente ao porto de Moca, no atual Iêmen.',
       '4. Meu formato é octogonal e inconfundível.',
       '5. Sou feita de metal, geralmente alumínio.',
-      '6. Funcionamento baseado em pressão de vapor.',
+      '6. Meu funcionamento utiliza o aquecimento da água e a pressão gerada no reservatório inferior.',
       '7. Sou composta por três partes principais.',
       '8. Existo em quase todas as casas do meu país de origem.',
       '9. Preciso ser levada diretamente ao fogo.',
@@ -126,13 +126,13 @@ const RAW_PRELOADED_CARDS = [
       '11. Sou o símbolo máximo do ritual matinal.',
       '12. Uso moagem média, nem fina, nem grossa.',
       '13. Não uso filtros de papel.',
-      '14. Fui idealizada para o café espresso caseiro.',
+      '14. Fui idealizada para preparar em casa um café intenso usando diretamente o fogão.',
       '15. Minha base recebe a água.',
       '16. Meu funil recebe o pó.',
       '17. Minha parte superior recebe a infusão pronta.',
       '18. O inventor tinha o sobrenome de Bialetti.',
       '19. Sou o símbolo de "La Moka".',
-      '20. Sou a rainha do café coado à moda italiana.',
+      '20. Sou um ícone italiano do café preparado no fogão.',
     ],
   },
   {
@@ -167,8 +167,8 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Grande Barreira de Corais',
     clues: [
-      '1. Sou visível do espaço sideral.',
-      '2. Sou o maior organismo vivo do mundo.',
+      '1. Minha enorme extensão pode ser registrada em imagens feitas por satélites e astronautas.',
+      '2. Sou o maior sistema de recifes de coral do planeta.',
       '3. Fico localizada no Oceano Pacífico.',
       '4. Estou ao largo da costa de um país-continente.',
       '5. Sou composta por bilhões de minúsculos organismos.',
@@ -210,7 +210,7 @@ const RAW_PRELOADED_CARDS = [
       '14. Preciso de uma estrutura de madeira maciça para sustentar minhas cordas.',
       '15. Sou um dos instrumentos mais versáteis que existem.',
       '16. A técnica para me tocar exige independência das mãos.',
-      '17. O "piano forte" é a tradução da minha dualidade sonora.',
+      '17. Meu nome original descreve a capacidade de alternar sons suaves e fortes.',
       '18. Minhas cordas estão tensionadas sob milhares de quilos de força.',
       '19. Sou o rei dos instrumentos na música ocidental.',
       '20. Mozart compôs muitos concertos pensando em mim.',
@@ -231,8 +231,8 @@ const RAW_PRELOADED_CARDS = [
       '8. O nome da minha aeronave era 14-bis.',
       '9. Diferente de outros inventores, não precisei de catapultas para decolar.',
       '10. Fui um defensor da paz e do uso civil da aviação.',
-      '11. Detesto que digam que não fui o primeiro, pois provei meu feito.',
-      '12. Inventei o relógio de pulso para poder cronometrar meus voos.',
+      '11. Meu voo foi realizado diante do público e de observadores oficiais na Europa.',
+      '12. Ajudei a popularizar o relógio de pulso masculino após pedir a Louis Cartier um modelo prático para voar.',
       '13. Fui uma celebridade mundial na virada do século XX.',
       '14. Desenvolvi o "Demoiselle", um avião leve e elegante.',
       '15. Tive uma vida marcada pela elegância e pelos estudos.',
@@ -321,7 +321,7 @@ const RAW_PRELOADED_CARDS = [
       '17. Meu jogo de despedida reuniu grandes estrelas do mundo.',
       '18. Fui reconhecido pela FIFA como o jogador do século XX.',
       '19. Minha imagem é sinônimo de excelência esportiva.',
-      '20. O mundo me conhece apenas pelo meu apelido de quatro letras.',
+      '20. Meu nome de batismo foi inspirado em Thomas Edison, embora a grafia registrada tenha variado.',
     ],
   },
   {
@@ -343,7 +343,7 @@ const RAW_PRELOADED_CARDS = [
       '12. O Grande Canal corta toda a minha extensão.',
       '13. Sou a capital da região do Vêneto.',
       '14. Fico na Itália.',
-      '15. A gondola é meu símbolo máximo de transporte romântico.',
+      '15. Um tipo tradicional de embarcação exige que o condutor reme em pé e de frente para o percurso.',
       '16. Fui palco de expedições de Marco Polo.',
       '17. Minha sobrevivência depende de obras monumentais contra o mar.',
       '18. Não circulam carros em meu centro histórico.',
@@ -373,9 +373,9 @@ const RAW_PRELOADED_CARDS = [
       '15. Sou o símbolo da orientação e do caminho certo.',
       '16. Fui essencial para as rotas comerciais entre continentes.',
       '17. Minha tecnologia é baseada na física clássica dos campos magnéticos.',
-      '18. Sem mim, o mundo seria muito maior e mais perigoso.',
+      '18. A declinação magnética explica por que minha indicação pode diferir do Norte geográfico.',
       '19. Aponto o caminho mesmo nas noites mais escuras.',
-      '20. Sou a prova de que a natureza sempre nos dá um norte.',
+      '20. Minha leitura costuma ser combinada com uma rosa dos ventos para indicar direções.',
     ],
   },
   {
@@ -422,7 +422,7 @@ const RAW_PRELOADED_CARDS = [
       '10. Fui um autodidata fascinado pelos segredos da natureza.',
       '11. Passei os últimos anos da minha vida na corte da França.',
       '12. Escrevia muitas das minhas anotações em escrita espelhada.',
-      '13. A "Última Ceia" é um dos meus afrescos mais estudados.',
+      '13. A "Última Ceia" é uma pintura mural experimental e uma das minhas obras mais estudadas.',
       '14. Minha mente era tão vasta que deixei muitas obras inacabadas.',
       '15. Fui um observador atento do voo dos pássaros.',
       '16. Antecipei invenções como o helicóptero e o paraquedas.',
@@ -518,7 +518,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Deserto do Saara',
     clues: [
-      '1. Sou o maior deserto quente do mundo.',
+      '1. Minha área alternou períodos extremamente secos e fases verdes ao longo de milhares de anos.',
       '2. Ocupo quase todo o norte da África.',
       '3. Minha temperatura pode variar drasticamente do dia para a noite.',
       '4. Apesar da fama, grande parte de mim é rochosa, não areia.',
@@ -550,7 +550,7 @@ const RAW_PRELOADED_CARDS = [
       '3. O filamento de carbono foi meu primeiro componente central.',
       '4. Antes de mim, as pessoas dependiam de velas e óleo.',
       '5. O vidro é a parte que protege meu interior do ambiente.',
-      '16. O vácuo dentro de mim é essencial para que o filamento não queime.',
+      '6. O vácuo dentro de mim é essencial para que o filamento não queime.',
       '7. Evoluí dos filamentos para o gás halogênio e, finalmente, para o LED.',
       '8. O LED me tornou muito mais eficiente e durável.',
       '9. Sou o símbolo da ideia e da inovação.',
@@ -576,7 +576,7 @@ const RAW_PRELOADED_CARDS = [
       '2. Nasci na pequena cidade de Stratford-upon-Avon.',
       '3. Minha obra abrange tragédias, comédias e sonetos.',
       '4. O teatro "Globe" foi o palco principal das minhas peças.',
-      '5. "Ser ou não ser, eis a questão" é a minha frase mais famosa.',
+      '5. Um dos meus solilóquios mais estudados pertence a uma tragédia ambientada na Dinamarca.',
       '6. Romeu e Julieta é a história de amor mais conhecida que escrevi.',
       '7. Hamlet é meu personagem mais complexo e introspectivo.',
       '8. Inventei centenas de palavras que são usadas na língua até hoje.',
@@ -628,15 +628,15 @@ const RAW_PRELOADED_CARDS = [
     clues: [
       '1. Sou o computador de bolso que revolucionou a sociedade.',
       '2. Em mim, cabem a internet, a câmera, o mapa e o telefone.',
-      '3. Steve Jobs me apresentou ao mundo em 2007.',
+      '3. O lançamento do iPhone em 2007 acelerou minha popularização e definiu muitos padrões modernos.',
       '4. Substituí o relógio, a lanterna, a calculadora e a agenda.',
       '5. Dependo de uma tela sensível ao toque para funcionar.',
       '6. Minha conexão com a rede global é constante.',
       '7. Sou movido por sistemas operacionais como iOS e Android.',
-      '8. Minha câmera evoluiu ao ponto de substituir equipamentos profissionais.',
+      '8. Minha câmera evoluiu a ponto de substituir câmeras dedicadas em grande parte do uso cotidiano.',
       '9. Sou o item que as pessoas levam para qualquer lugar, até ao banheiro.',
       '10. A bateria é o meu maior ponto de vulnerabilidade.',
-      '11. Fui o principal responsável pela criação da cultura das redes sociais.',
+      '11. Ajudei a transformar redes sociais em uma experiência constante, móvel e baseada em imagens.',
       '12. Revolucionei a forma como consumimos informação e entretenimento.',
       '13. A inteligência artificial hoje é o meu novo motor.',
       '14. O GPS mudou completamente como nos localizamos na cidade.',
@@ -867,7 +867,7 @@ const RAW_PRELOADED_CARDS = [
   {
     id: 'card_033',
     category: 'Lugar',
-    answer: 'Amazonas',
+    answer: 'Floresta Amazônica',
     clues: [
       '1. Sou a maior floresta tropical do mundo.',
       '2. Sou conhecida como o pulmão do planeta, embora os oceanos o sejam mais.',
@@ -878,13 +878,13 @@ const RAW_PRELOADED_CARDS = [
       '7. Diversas tribos indígenas vivem em mim, preservando culturas ancestrais.',
       '8. Minha importância para o equilíbrio climático global é imensa.',
       '9. O desmatamento é a maior ameaça que sofro atualmente.',
-      '10. O rio que me dá nome e me atravessa começa nos Andes e deságua no Atlântico.',
+      '10. Minha região é atravessada por um dos rios mais caudalosos do mundo, que nasce nos Andes e deságua no Atlântico.',
       '11. Milhares de espécies de plantas e animais ainda nem foram catalogadas.',
       '12. Minha umidade gera os "rios voadores" que irrigam outras regiões.',
       '13. A pesca, a extração sustentável e o turismo são potenciais econômicos.',
       '14. O jacaré, a onça-pintada e o boto são meus ícones.',
       '15. Sou um cenário de exploração científica e aventura histórica.',
-      '16. O encontro das águas de dois grandes rios é um fenômeno clássico em mim.',
+      '16. Reúno ambientes de terra firme, várzea e igapó, moldados pelo regime das águas.',
       '17. Enfrento o desafio de equilibrar desenvolvimento e preservação.',
       '18. O calor e a umidade são constantes na minha extensão.',
       '19. Sou o maior tesouro biológico do planeta Terra.',
@@ -953,17 +953,17 @@ const RAW_PRELOADED_CARDS = [
       '1. Vivi na cidade egípcia que era o centro intelectual do mundo antigo.',
       '2. Fui uma das poucas mulheres a se destacar em matemática e astronomia.',
       '3. Lecionava filosofia neoplatônica para alunos de diversas religiões.',
-      '4. Construí astrolábios e planejei instrumentos de medição astronômica.',
+      '4. Fui associada ao ensino e ao aperfeiçoamento de instrumentos usados em astronomia e medição.',
       '5. Fui uma figura de enorme influência política em uma época turbulenta.',
       '6. Minha fama de sábia atraía estudiosos de todo o império.',
       '7. Vivia em um período de forte choque religioso na cidade.',
       '8. Minha independência intelectual incomodava os poderes estabelecidos.',
       '9. Fui tragicamente assassinada por uma multidão fanática.',
-      '10. Minha morte é considerada por muitos o fim da ciência clássica.',
+      '10. Minha morte tornou-se um símbolo da violência contra o pensamento e o conhecimento na Antiguidade tardia.',
       '11. Nenhuma de minhas obras sobreviveu, apenas referências de alunos.',
       '12. Tornei-me um símbolo da luta das mulheres pelo conhecimento.',
       '13. Defendia a racionalidade acima do dogma.',
-      '14. Minha biblioteca era um dos maiores tesouros do conhecimento antigo.',
+      '14. Trabalhei na cidade que havia abrigado uma das bibliotecas mais célebres do mundo antigo.',
       '15. A cidade da grande biblioteca era minha casa e meu laboratório de ideias.',
       '16. Fui professora, pesquisadora e consultora de políticos.',
       '17. Minha vida foi uma ode à curiosidade científica.',
@@ -1172,7 +1172,7 @@ const RAW_PRELOADED_CARDS = [
       '4. Pasteur e Koch me usaram para vencer doenças invisíveis.',
       '5. O zoom é a minha maior promessa para a ciência.',
       '6. A evolução dos meus modelos permitiu ver vírus e até átomos.',
-      '7. O microscópio eletrônico revolucionou o que podíamos enxergar.',
+      '7. Minha versão eletrônica revolucionou o que podíamos enxergar.',
       '8. Fui essencial para o avanço da medicina e da biologia.',
       '9. A curiosidade humana sobre o pequeno me trouxe à existência.',
       '10. O vidro de aumento foi o meu primeiro passo tecnológico.',
@@ -1215,7 +1215,6 @@ const RAW_PRELOADED_CARDS = [
       '20. O mundo me reconhece pela minha sabedoria e pela força da não-violência.',
     ],
   },
-
   {
     id: 'card_046',
     category: 'Tecnologia',
@@ -1248,9 +1247,9 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Vaticano',
     clues: [
-      '1. Sou o menor país do mundo em extensão territorial.',
+      '1. Minha cidadania normalmente depende de uma função exercida e pode deixar de existir quando o cargo termina.',
       '2. Fico localizado dentro de uma grande capital europeia.',
-      '3. Minha capital é a própria cidade de Roma.',
+      '3. Sou uma cidade-Estado independente completamente cercada pela cidade de Roma.',
       '4. Sou a sede central da Igreja Católica Romana.',
       '5. Sou uma monarquia absoluta governada pelo Papa.',
       '6. Minha arquitetura é dominada pela Basílica de São Pedro.',
@@ -1306,7 +1305,7 @@ const RAW_PRELOADED_CARDS = [
       '2. Fui um artista plástico que sofreu com doenças mentais.',
       '3. Vendi apenas um quadro durante toda a minha vida.',
       '4. Minha técnica de pintura utiliza pinceladas grossas e vibrantes.',
-      '15. As cores que usava eram intensas e carregadas de emoção.',
+      '5. As cores que usava eram intensas e carregadas de emoção.',
       '6. A "Noite Estrelada" é a minha obra-prima mais reconhecida.',
       '7. Cortei uma parte da minha própria orelha após uma crise.',
       '8. Meu irmão Theo foi meu maior apoio financeiro e emocional.',
@@ -1493,7 +1492,7 @@ const RAW_PRELOADED_CARDS = [
     clues: [
       '1. Fui um prodígio desde a infância na banda da minha família.',
       '2. Minha carreira solo transformou a indústria da música pop.',
-      '3. O "Rei do Pop" é como o mundo me batizou.',
+      '3. Um título monárquico ligado ao meu gênero musical foi popularizado pela imprensa.',
       '4. O álbum "Thriller" é até hoje o mais vendido de todos os tempos.',
       '5. O "Moonwalk" foi o passo de dança que definiu a minha marca.',
       '6. Minhas luvas brilhantes e chapéus eram parte essencial do meu visual.',
@@ -1518,7 +1517,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Torre Eiffel',
     clues: [
-      '1. Sou o símbolo máximo de uma capital europeia.',
+      '1. Artistas e escritores protestaram contra minha construção antes de eu virar atração permanente.',
       '2. Fui construída para uma Exposição Universal em 1889.',
       '3. Minha estrutura é feita inteiramente de ferro forjado.',
       '4. No início, fui considerada uma "monstruosidade" pelos artistas locais.',
@@ -1599,12 +1598,12 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Estátua da Liberdade',
     clues: [
-      '1. Sou o símbolo mais famoso dos Estados Unidos.',
+      '1. Atravessei o Atlântico desmontada em centenas de peças antes de ser remontada.',
       '2. Fui um presente da França para o povo americano.',
       '3. Fico em uma ilha na baía de Nova York.',
       '4. Minha cor esverdeada é devido à oxidação do cobre.',
       '5. Segura uma tocha acesa em uma mão e um livro na outra.',
-      '6. Na minha cabeça, há uma coroa com sete raios.',
+      '6. Minha estrutura metálica interna foi projetada por um engenheiro francês célebre.',
       '7. A tocha representa o farol da esperança para o mundo.',
       '8. Fui construída por partes e depois montada na minha base.',
       '9. A minha estrutura interna de metal foi projetada pelo mesmo engenheiro da Torre Eiffel.',
@@ -1631,7 +1630,7 @@ const RAW_PRELOADED_CARDS = [
       '3. Minha estrutura básica é composta por duas lentes e uma armação.',
       '4. Já fui um item de luxo feito com pedras preciosas.',
       '5. O astigmatismo, a miopia e a hipermetropia são meus campos de atuação.',
-      '6. O óculos de sol é um acessório indispensável de proteção e moda.',
+      '6. Minha versão escura protege contra o sol e também virou acessório de moda.',
       '7. Já fui símbolo de "intelectualidade", hoje sou um acessório comum.',
       '8. A invenção das lentes progressivas ajudou quem tem problemas com a idade.',
       '9. O material das minhas lentes evoluiu do vidro para resinas leves.',
@@ -1756,7 +1755,6 @@ const RAW_PRELOADED_CARDS = [
       '20. Sou o autor que provou que a imaginação não tem fronteiras.',
     ],
   },
-
   {
     id: 'card_066',
     category: 'Pessoa',
@@ -1770,7 +1768,7 @@ const RAW_PRELOADED_CARDS = [
       '6. Fiquei conhecido mundialmente como o "Rei de Mônaco".',
       '7. Minha rivalidade ferrenha com um piloto francês parou o automobilismo.',
       '8. Conquistei meu primeiro título mundial em 1988.',
-      '9. Minhas cores clássicas de capacete eram amarelo, verde e azul.',
+      '9. Um designer brasileiro criou para mim uma identidade visual que permaneceu quase inalterada por décadas.',
       '10. Sofri um acidente trágico na curva Tamburello.',
       '11. Deixei um legado vivo através de uma fundação educacional infantil com meu nome.',
       '12. Fui tricampeão mundial da minha categoria.',
@@ -1806,7 +1804,7 @@ const RAW_PRELOADED_CARDS = [
       '15. O estilo arquitetônico mistura influências persas, islâmicas e indianas.',
       '16. A entrada é feita através de um imponente portal de arenito vermelho.',
       '17. Atraio milhões de turistas fascinados pela minha história e beleza.',
-      '18. O meu nome significa "Coroa dos Palácios".',
+      '18. A denominação pela qual fiquei conhecido deriva de um título da mulher homenageada por minha construção.',
       '19. A poluição do ar tem sido um desafio para manter o meu brilho.',
       '20. Sou a prova física de que o amor pode ser imortalizado em pedra.',
     ],
@@ -1821,20 +1819,20 @@ const RAW_PRELOADED_CARDS = [
       '3. Minha função básica é acionar o mecanismo de uma tranca.',
       '4. Já fui feita de madeira, bronze, ferro e hoje de ligas metálicas leves.',
       '5. O segredo da minha existência reside nos dentes que corto no meu metal.',
-      '6. A chave-mestra é o objeto que abre quase todas as portas de um sistema.',
+      '6. Minha versão mestra abre quase todas as portas de um mesmo sistema.',
       '7. A tecnologia digital está me substituindo por cartões magnéticos e biometria.',
       '8. Perder-me é uma das experiências mais frustrantes que alguém pode ter.',
       '9. O chaveiro é o acessório onde muitas de nós vivemos juntas.',
       '10. Já fui um item decorativo de luxo, usada em colares na Idade Média.',
-      '11. O ato de "entregar as chaves" é um símbolo de confiança e posse.',
-      '12. Existem chaves que abrem carros, cofres, casas e até corações (metaforicamente).',
+      '11. Entregar o objeto de acesso a alguém é um símbolo de confiança e posse.',
+      '12. Há versões para carros, cofres e casas; na metáfora, posso até abrir corações.',
       '13. O corte preciso é fundamental para que eu funcione sem travar.',
       '14. Se eu não girar, a barreira permanece fechada.',
       '15. O barulho de metal batendo no chaveiro é um som muito familiar.',
       '16. Fui essencial para o desenvolvimento da propriedade privada.',
-      '17. Já existiram chaves gigantescas que pesavam quilos para castelos.',
+      '17. Já existiram versões gigantescas que pesavam quilos e protegiam castelos.',
       '18. Minha forma simples esconde a complexidade de um segredo mecânico.',
-      '19. O "porta-chaves" é o primeiro lugar que você procura ao chegar em casa.',
+      '19. O suporte onde costumo ficar é um dos primeiros lugares procurados ao chegar em casa.',
       '20. Sou o objeto mais simples e mais importante da sua vida cotidiana.',
     ],
   },
@@ -1855,14 +1853,14 @@ const RAW_PRELOADED_CARDS = [
       '10. Se o coração fosse pesado pelo pecado, a alma era devorada por um monstro.',
       '11. Sou filho de Néftis, associado aos rituais fúnebres.',
       '12. Minha silhueta esguia está pintada nas paredes de inúmeras tumbas e pirâmides.',
-      '13. Sou frequentemente representado segurando um cetro real e o símbolo Ankh.',
+      '13. Minha iconografia combina insígnias de autoridade com objetos ligados à passagem para outra vida.',
       '14. Minha cabeça pertence a um animal canídeo selvagem característico do deserto.',
       '15. Fico associado à guarda de cemitérios e necropoles antigas.',
-      '16. Sou o famoso deus com cabeça de chacal.',
+      '16. Minha forma animal se relaciona a canídeos observados perto de necrópoles no deserto.',
       '17. Sou o patrono dos embalsamadores e protetor dos mortos.',
       '18. Meu culto era um dos pilares da religião e transição espiritual no Egito Antigo.',
       '19. Meu nome começa com a letra A e possui três sílabas.',
-      '20. Sou o deus egípcio com cabeça de chacal.',
+      '20. Uma cidade que os gregos chamaram de Cinópolis tornou-se um importante centro do meu culto.',
     ],
   },
   {
@@ -1906,7 +1904,7 @@ const RAW_PRELOADED_CARDS = [
       '7. Já fui um aparelho de mesa pesado, hoje caibo em um relógio.',
       '8. A minha precisão é o que me torna confiável.',
       '9. O teclado numérico é a minha interface principal de comando.',
-      '10. Já existiram calculadoras mecânicas que faziam um barulho único ao girar.',
+      '10. Já existiram versões mecânicas que faziam um barulho único ao girar.',
       '11. Hoje, a maioria das pessoas me usa dentro dos seus smartphones.',
       '12. O erro humano é a única coisa que me impede de dar o resultado certo.',
       '13. Fui a primeira ferramenta de automação do trabalho intelectual.',
@@ -2061,11 +2059,11 @@ const RAW_PRELOADED_CARDS = [
     clues: [
       '1. Tenho minhas origens na Grécia Antiga, em honra aos deuses.',
       '2. Fui revivido no final do século XIX pelo Barão de Coubertin.',
-      '3. Os cinco anéis entrelaçados são o meu símbolo universal.',
+      '3. Minha identidade visual moderna foi apresentada publicamente no início do século XX.',
       '4. Represento a união dos povos através do esporte.',
       '5. A pira principal é acesa com o fogo vindo diretamente da Europa.',
       '6. Ouro, prata e bronze são os metais que recompensam os vencedores.',
-      '7. O lema "Citius, Altius, Fortius" define a busca pela excelência.',
+      '7. Meu lema oficial foi ampliado em 2021 para incluir a ideia de união.',
       '8. Ocorro a cada quatro anos em uma cidade escolhida pelo mundo.',
       '9. Já fui boicotado por questões políticas durante a Guerra Fria.',
       '10. O Atletismo é considerado o meu esporte mais nobre e tradicional.',
@@ -2087,8 +2085,8 @@ const RAW_PRELOADED_CARDS = [
     answer: 'Medusa',
     clues: [
       '1. Na mitologia grega, eu era uma criatura de beleza terrível.',
-      '2. Em vez de cabelos, eu possuía serpentes vivas na cabeça.',
-      '3. Quem olhasse diretamente nos meus olhos era transformado em pedra.',
+      '2. Uma punição divina alterou radicalmente minha aparência nas versões tardias do mito.',
+      '3. Meu poder agia sem contato físico e continuou ativo mesmo depois da minha derrota.',
       '4. Fui uma das três Górgonas, as únicas mortais entre minhas irmãs.',
       '5. O herói Perseu foi quem recebeu a missão de me derrotar.',
       '6. Usei um escudo polido como espelho para não olhar diretamente para mim.',
@@ -2100,11 +2098,11 @@ const RAW_PRELOADED_CARDS = [
       '12. O meu olhar é o símbolo da paralisia diante do medo.',
       '13. A minha imagem foi usada por Atena em seu escudo, o Egide.',
       '14. Represento o lado sombrio e perigoso da beleza feminina.',
-      '15. O mito da Medusa é um tema recorrente na arte mundial.',
+      '15. Meu mito é um tema recorrente na arte mundial.',
       '16. A minha força estava na desgraça de quem ousasse me encarar.',
       '17. Fui banida para o fim do mundo antes de ser encontrada.',
       '18. Sou o exemplo clássico de como os deuses puniam os mortais.',
-      '19. Hoje, sou o símbolo de uma marca de moda italiana famosa.',
+      '19. Uma casa de moda italiana adotou minha imagem como referência à arte e ao poder da Antiguidade.',
       '20. O meu mito atravessou milênios como um aviso sobre o desconhecido.',
     ],
   },
@@ -2122,17 +2120,17 @@ const RAW_PRELOADED_CARDS = [
       '7. Existem vários estilos, como o Nigiri, o Maki e o Uramaki.',
       '8. A frescura dos ingredientes é o segredo do meu sabor.',
       '9. O alga nori é o invólucro que mantém tudo unido.',
-      '10. O sushi tornou-se sinônimo de comida saudável e refinada.',
+      '10. Tornei-me sinônimo de comida saudável e refinada.',
       '11. O corte do peixe é feito com lâminas extremamente afiadas.',
       '12. A estética é tão importante quanto o meu sabor final.',
       '13. O hashi é o par de palitinhos que a maioria usa para me comer.',
       '14. O gengibre em conserva serve para limpar o paladar entre cada pedaço.',
       '15. Fui uma comida de rua barata no Japão antes de virar iguaria.',
       '16. Posso levar legumes, frutas e até carnes fritas no meu preparo.',
-      '17. O sushi de supermercado é muito diferente do preparado na hora pelo mestre.',
+      '17. Minha versão de supermercado é muito diferente da preparada na hora por um mestre.',
       '18. A temperatura do arroz é um detalhe que faz toda a diferença.',
       '19. Sou o prato que melhor representa a precisão da culinária japonesa.',
-      '20. Comer sushi é uma experiência que envolve todos os sentidos.',
+      '20. Minha degustação é uma experiência que envolve todos os sentidos.',
     ],
   },
   {
@@ -2221,12 +2219,12 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Fênix',
     clues: [
-      '1. Sou a criatura lendária que renasce das próprias cinzas.',
+      '1. Autores antigos divergiam bastante sobre a duração do meu ciclo de vida.',
       '2. Tenho origens nas mitologias egípcia e grega.',
       '3. Minha plumagem é descrita como brilhante, em tons de vermelho e ouro.',
       '4. Quando percebo que minha vida está chegando ao fim, construo um ninho.',
       '5. O sol incendeia o ninho e eu me consumo completamente nele.',
-      '6. Do monte de cinzas, eu volto à vida na forma de uma nova ave.',
+      '6. Minha versão descrita por Heródoto teria ligação ritual com Heliópolis.',
       '7. Sou o símbolo universal da imortalidade e do recomeço.',
       '8. Represento a vitória da vida sobre a morte e a superação das provações.',
       '9. A minha vida é um ciclo eterno de destruição e reconstrução.',
@@ -2234,7 +2232,7 @@ const RAW_PRELOADED_CARDS = [
       '11. Fui citada em contos de exploradores como uma ave solar.',
       '12. Minha história é uma metáfora poderosa para a resiliência humana.',
       '13. O fogo que me consome não é uma morte, mas uma transformação.',
-      '14. O mito da fênix existe em diversas culturas pelo mundo.',
+      '14. Meu mito existe em diversas culturas pelo mundo.',
       '15. Nunca houve um registro real da minha existência, sou pura lenda.',
       '16. Represento a esperança de que algo novo sempre pode surgir.',
       '17. Minhas cinzas são o solo onde a minha nova vida floresce.',
@@ -2255,16 +2253,16 @@ const RAW_PRELOADED_CARDS = [
       '5. A Suíça é o país que mais produz e consome as minhas versões refinadas.',
       '6. O cacau contém substâncias que estimulam o prazer e o humor.',
       '7. Posso ser amargo, ao leite ou branco (embora este último não tenha massa de cacau).',
-      '8. A temperagem do chocolate é o segredo do meu brilho e da minha crocância.',
-      '9. O chocolate amargo é considerado o mais saudável e puro.',
+      '8. A temperagem correta é o segredo do meu brilho e da minha crocância.',
+      '9. Minha versão amarga é considerada a mais saudável e pura.',
       '10. Sou o presente mais comum em celebrações como a Páscoa.',
       '11. Sou a base de quase todas as sobremesas amadas no mundo.',
       '12. O meu derretimento na boca é a minha característica mais prazerosa.',
       '13. O cacau fino precisa de condições climáticas tropicais específicas.',
-      '14. O chocolate gourmet valoriza a origem e o percentual de cacau.',
+      '14. Minhas versões gourmet valorizam a origem e o percentual de cacau.',
       '15. Já fui usado como moeda de troca em civilizações antigas.',
-      '16. A indústria do chocolate é um dos maiores mercados do planeta.',
-      '17. A combinação de chocolate com frutas, castanhas e licores é infinita.',
+      '16. Minha indústria movimenta um dos maiores mercados do planeta.',
+      '17. Combino de inúmeras formas com frutas, castanhas e licores.',
       '18. O meu consumo é uma forma de busca por conforto emocional.',
       '19. Transformar a semente amarga na delícia doce é pura alquimia.',
       '20. O mundo é um lugar muito mais doce por causa da minha existência.',
@@ -2293,7 +2291,7 @@ const RAW_PRELOADED_CARDS = [
       '16. Os campos da Toscana são o cartão-postal da Europa rural.',
       '17. Sou um dos países com mais locais classificados como Patrimônio da UNESCO.',
       '18. O futebol é a minha paixão nacional, vivida com fervor intenso.',
-      '19. A Itália é um museu a céu aberto onde quer que você pise.',
+      '19. Sou comparada a um museu a céu aberto em quase todo o meu território.',
       '20. A cultura italiana valoriza o "dolce far niente" e a boa mesa.',
     ],
   },
@@ -2356,13 +2354,13 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Minotauro',
     clues: [
-      '1. Na mitologia grega, sou um monstro com corpo de homem e cabeça de touro.',
+      '1. Minha genealogia nasce de uma punição ligada a um sacrifício recusado por um rei.',
       '2. Fui gerado por uma rainha e um touro sagrado, uma punição divina.',
-      '3. Fui escondido em um labirinto projetado pelo genial Dédalo.',
+      '3. O arquiteto da minha prisão também construiu asas para fugir da mesma ilha.',
       '4. O Labirinto foi construído para que eu não pudesse escapar.',
       '5. Exigia sacrifícios humanos periódicos para acalmar a minha fome.',
       '6. Jovens atenienses eram enviados para serem devorados por mim.',
-      '7. O herói Teseu foi o escolhido para entrar no labirinto e me enfrentar.',
+      '7. Minha derrota encerrou um tributo periódico imposto por Creta a Atenas.',
       '8. Ariadne deu a Teseu um novelo de fio para que ele não se perdesse no labirinto.',
       '9. Derrotei muitos, mas Teseu foi o único que conseguiu me matar.',
       '10. O labirinto de Creta é a minha casa e minha prisão.',
@@ -2388,20 +2386,20 @@ const RAW_PRELOADED_CARDS = [
       '3. Cada país tem a sua própria especialidade e técnica de produção.',
       '4. O tempo de maturação define o meu sabor e a minha textura.',
       '5. O mofo, em alguns tipos, é um ingrediente desejado e não um sinal de estragado.',
-      '6. A França é o país com a maior variedade de queijos do mundo.',
+      '6. A França é o país que reúne algumas das minhas maiores variedades.',
       '7. O Parmesão é um clássico italiano que leva anos para maturar.',
       '8. O Brie e o Camembert são famosos pela sua casca aveludada.',
-      '9. O queijo de cabra possui um sabor mais ácido e característico.',
+      '9. Minha versão feita com leite de cabra possui sabor mais ácido e característico.',
       '10. A coalhada é o meu estágio inicial, antes de ser prensado.',
-      '11. O queijo minas é o orgulho das tradições rurais brasileiras.',
+      '11. Uma variedade mineira é orgulho das tradições rurais brasileiras.',
       '12. O soro é o líquido que sobra da minha fabricação.',
       '13. O fondue é uma das formas mais prazerosas de me consumir aquecido.',
-      '14. O vinho e o queijo formam a dupla mais clássica da gastronomia mundial.',
-      '15. A conservação do queijo foi uma estratégia de sobrevivência no passado.',
+      '14. Com o vinho, formo uma das duplas mais clássicas da gastronomia mundial.',
+      '15. Minha conservação foi uma estratégia de sobrevivência no passado.',
       '16. O aroma de alguns tipos pode ser bem forte e desafiador.',
-      '17. O ralador é a ferramenta que transforma o queijo duro em acompanhamento.',
-      '18. Existem queijos frescos que devem ser consumidos em poucos dias.',
-      '19. O universo do queijo é tão vasto que uma vida inteira não basta para provar tudo.',
+      '17. O ralador transforma minhas versões duras em acompanhamento.',
+      '18. Minhas variedades frescas devem ser consumidas em poucos dias.',
+      '19. Meu universo de variedades é tão vasto que uma vida inteira não basta para provar tudo.',
       '20. Sou a forma mais refinada de preservar a proteína do leite.',
     ],
   },
@@ -2472,18 +2470,18 @@ const RAW_PRELOADED_CARDS = [
       '6. A velocidade da bola no saque profissional é impressionante.',
       '7. O bloqueio é a barreira física que impede a passagem da bola.',
       '8. O Brasil é uma potência mundial neste esporte, com vários ouros olímpicos.',
-      '9. O vôlei de praia é a minha versão solar e disputada na areia.',
+      '9. Minha versão de praia é disputada em duplas sobre a areia.',
       '10. Cada partida é dividida em sets, e o set acaba quando alguém atinge 25 pontos.',
       '11. A comunicação entre os jogadores na quadra é constante e vital.',
       '12. A altura dos jogadores é uma vantagem, mas a técnica é o diferencial.',
       '13. O levantador é o estrategista que decide quem atacará.',
-      '14. A bola de vôlei é leve e feita para ser batida com as mãos.',
-      '15. O vôlei de praia é jogado em dupla, exigindo um esforço físico enorme.',
+      '14. A bola usada em mim é leve e feita para ser batida com as mãos.',
+      '15. Na praia, sou jogado em duplas e exijo enorme esforço físico.',
       '16. Já fui um jogo de lazer entre amigos, hoje sou profissional e olímpico.',
       '17. O rally é o momento em que a bola vai e vem várias vezes sem cair.',
       '18. A precisão do saque pode definir o rumo da partida.',
       '19. A torcida adora o ritmo rápido e emocionante das viradas de placar.',
-      '20. O vôlei é um jogo de paciência, inteligência e explosão.',
+      '20. Sou um jogo de paciência, inteligência e explosão.',
     ],
   },
   {
@@ -2491,20 +2489,20 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Thor',
     clues: [
-      '1. Sou o deus do trovão na mitologia nórdica.',
-      '2. O meu martelo, o Mjolnir, é a arma mais poderosa que existe.',
-      '3. O meu martelo sempre retorna à minha mão após ser lançado.',
-      '4. Sou filho de Odin, o principal deus do panteão nórdico.',
+      '1. Meu culto foi especialmente popular entre agricultores e guerreiros escandinavos.',
+      '2. Um artefato meu foi forjado pelos anões Brokkr e Eitri após uma aposta provocada por Loki.',
+      '3. Uma interferência durante a forja deixou curto o cabo do meu artefato mais célebre.',
+      '4. Minha mãe é Jörð, uma personificação da própria Terra.',
       '5. Sou conhecido pela minha força descomunal e pelo meu temperamento.',
       '6. Protejo tanto os deuses quanto os humanos das ameaças dos gigantes.',
       '7. Os relâmpagos e trovões no céu são causados pela minha batalha.',
-      '8. A minha carruagem é puxada por dois bodes mágicos.',
+      '8. Os animais que puxam meu veículo podiam servir de alimento e retornar à vida, desde que seus ossos fossem preservados.',
       '9. As lendas contam muitas batalhas que travei contra as forças do mal.',
       '10. Sou a encarnação do guerreiro heroico e protetor.',
       '11. Os vikings me veneravam como o maior dos defensores.',
-      '12. O meu nome batizou um dos dias da semana em várias línguas (quinta-feira).',
+      '12. Em línguas germânicas, substituí uma divindade romana na origem do nome de um dia da semana.',
       '13. A minha história foi reinventada nos cinemas modernos.',
-      '14. O Ragnarok é o evento final em que lutarei contra a serpente do mundo.',
+      '14. Na batalha final, ainda consigo caminhar nove passos depois de vencer meu maior adversário.',
       '15. Possuo um cinto que dobra a minha força física.',
       '16. O martelo é um símbolo que muitos usam como amuleto de proteção.',
       '17. Represento a força da natureza que não pode ser dominada.',
@@ -2522,22 +2520,22 @@ const RAW_PRELOADED_CARDS = [
       '2. Minha origem está nas montanhas da Etiópia.',
       '3. O grão que me dá vida precisa ser torrado e moído.',
       '4. A cafeína é o meu componente que te deixa alerta e desperto.',
-      '5. O Brasil é o maior produtor mundial de café.',
+      '5. O Brasil é um dos maiores produtores mundiais do grão que me origina.',
       '6. A máquina de espresso é o meu meio mais comum de preparo rápido.',
       '7. Existem centenas de variedades, sendo Arábica e Robusta as mais conhecidas.',
-      '8. O ritual de coar o café é uma tradição familiar no Brasil.',
+      '8. O ritual de me coar é uma tradição familiar no Brasil.',
       '9. Sou consumido de mil maneiras: com leite, puro, gelado ou doce.',
-      '10. O aroma do café fresco é um dos mais prazerosos que existem.',
+      '10. Meu aroma quando fresco é um dos mais reconhecíveis que existem.',
       '11. A torra é o processo que revela todos os sabores escondidos no grão.',
       '12. Já fui motivo de perseguição política e religiosa no passado.',
-      '13. Os cafés gourmet valorizam a origem e o método de colheita.',
+      '13. Minhas versões gourmet valorizam a origem e o método de colheita.',
       '14. A cafeteria é o local de encontro para negócios e amizades.',
-      '15. O café excessivo pode causar ansiedade, o consumo moderado traz foco.',
-      '16. O café de coador é o símbolo do café caseiro e acolhedor.',
+      '15. Em excesso posso causar ansiedade; com moderação, sou associado ao foco.',
+      '16. Minha versão de coador é símbolo de uma pausa caseira e acolhedora.',
       '17. A arte na espuma do cappuccino é um dos meus encantos visuais.',
-      '18. O café não é apenas uma bebida, é uma cultura e uma economia mundial.',
+      '18. Não sou apenas uma bebida: também represento uma cultura e uma economia mundial.',
       '19. A colheita é um trabalho árduo que movimenta milhões de famílias.',
-      '20. O café é o combustível social que une as pessoas ao redor de uma xícara.',
+      '20. Sou um combustível social que reúne pessoas ao redor de uma xícara.',
     ],
   },
   {
@@ -2564,10 +2562,9 @@ const RAW_PRELOADED_CARDS = [
       '17. O isolamento geográfico permitiu uma evolução única da fauna.',
       '18. A cidade de Camberra é a minha capital política.',
       '19. Sou um destino de aventura constante para quem gosta de natureza.',
-      '20. A Austrália é o mundo invertido onde a natureza segue suas próprias regras.',
+      '20. Sou vista como um mundo invertido onde a natureza segue suas próprias regras.',
     ],
   },
-
   {
     id: 'card_096',
     category: 'Tecnologia',
@@ -2578,9 +2575,9 @@ const RAW_PRELOADED_CARDS = [
       '3. A automação industrial foi a minha primeira grande revolução.',
       '4. Sensores, atuadores e processadores são os meus órgãos vitais.',
       '5. O termo "robô" vem de uma palavra checa que significa "trabalho forçado".',
-      '6. As Leis da Robótica, de Isaac Asimov, guiam a minha ética teórica.',
+      '6. As leis formuladas por Isaac Asimov guiam minha ética teórica.',
       '7. Braços articulados são hoje o padrão nas linhas de montagem automotivas.',
-      '8. A robótica colaborativa permite que eu trabalhe lado a lado com humanos.',
+      '8. Minha vertente colaborativa permite trabalhar lado a lado com humanos.',
       '9. A medicina usa meus braços de precisão para cirurgias mínimas.',
       '10. A exploração espacial é o meu maior desafio em ambientes extremos.',
       '11. Os robôs de busca e salvamento entram onde humanos não conseguem.',
@@ -2643,7 +2640,7 @@ const RAW_PRELOADED_CARDS = [
       '14. A minha essência é a instabilidade e a multiplicidade.',
       '15. Sou frequentemente retratada na arte clássica como uma criatura flamejante.',
       '16. A minha presença nas lendas é um aviso sobre as surpresas da natureza.',
-      '17. O conceito de "quimera" é usado até hoje para ideias fantásticas e irreais.',
+      '17. Meu nome também é usado para descrever ideias fantásticas e irreais.',
       '18. Fui a personificação do horror que desafiava a lógica.',
       '19. A minha história atravessou séculos como um símbolo de pesadelo.',
       '20. Sou a criatura que só existe na fantasia e na lenda.',
@@ -2658,22 +2655,22 @@ const RAW_PRELOADED_CARDS = [
       '2. Minha base é simples: farinha, água e fermento.',
       '3. O fogo assa a massa e transforma tudo em uma crosta dourada.',
       '4. A história da civilização é contada através da minha evolução.',
-      '5. O pão de fermentação natural é uma arte que exige tempo e paciência.',
+      '5. Minha fermentação natural é uma arte que exige tempo e paciência.',
       '6. O forno a lenha dá o sabor característico aos pães artesanais.',
       '7. Existem milhares de variações: de forma, baguete, sírio, integral e doce.',
-      '8. A cultura do pão é um símbolo de sustento e de vida em quase todo lugar.',
+      '8. Minha presença à mesa simboliza sustento e vida em muitas culturas.',
       '9. O trigo é o cereal que mais me representa na história.',
-      '10. O cheiro de pão assando é um gatilho de conforto emocional.',
-      '11. A divisão do pão é um ato ritualístico e simbólico na história humana.',
+      '10. Meu cheiro ao assar é um conhecido gatilho de conforto emocional.',
+      '11. Dividir-me é um ato ritualístico e simbólico na história humana.',
       '12. Já fui o alimento dos escravos e a iguaria dos reis.',
       '13. O fermento é o ser vivo que me faz crescer e ficar aerado.',
       '14. A massa precisa ser sovada com vigor para atingir a estrutura ideal.',
-      '15. O pão amanhecido serve para tantas outras receitas, como rabanadas.',
+      '15. Mesmo amanhecido, sirvo para outras receitas, como rabanadas.',
       '16. O sanduíche é a forma mais comum e prática de me consumir.',
-      '17. O pão artesanal valoriza as farinhas moídas na pedra.',
+      '17. Minha versão artesanal valoriza farinhas moídas na pedra.',
       '18. A crosta crocante e o miolo macio são o meu par perfeito.',
       '19. Sou o acompanhamento que nunca falta em nenhuma mesa do mundo.',
-      '20. O pão é o alimento que une a história humana ao fogo e à terra.',
+      '20. Sou um alimento que liga a história humana ao fogo e à terra.',
     ],
   },
   {
@@ -2681,11 +2678,11 @@ const RAW_PRELOADED_CARDS = [
     category: 'Geografia',
     answer: 'Canadá',
     clues: [
-      '1. Sou o segundo maior país do mundo em extensão territorial.',
+      '1. Tenho a maior extensão de litoral do planeta, distribuída por três oceanos.',
       '2. Ocupo a maior parte do norte do continente americano.',
       '3. O frio intenso e as florestas vastas são a minha marca.',
-      '4. A folha de bordo (Maple Leaf) é o meu símbolo nacional.',
-      '5. O xarope de bordo é a minha iguaria mais famosa e produzida.',
+      '4. O desenho atual da minha bandeira foi adotado apenas em 1965, após intenso debate.',
+      '5. Uma seiva concentrada faz parte da minha economia rural e de tradições indígenas anteriores à colonização.',
       '6. Sou bilíngue: falo inglês e francês em todo o meu território.',
       '7. Lagos espalhados por todo lado fazem parte da minha geografia.',
       '8. O hóquei no gelo é a minha paixão nacional indiscutível.',
@@ -2816,11 +2813,11 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Hades',
     clues: [
-      '1. Sou o deus do submundo na mitologia grega.',
-      '2. Irmão de Zeus e Poseidon, a minha soberania é sobre os mortos.',
+      '1. Na partilha do cosmos entre três irmãos, recebi um reino que poucos visitavam voluntariamente.',
+      '2. Meu nome era evitado pelos gregos, que preferiam títulos e eufemismos respeitosos.',
       '3. O meu reino é frequentemente confundido com o inferno, mas é um lugar de descanso.',
       '4. O rio Estige é a fronteira que separa o mundo dos vivos do meu.',
-      '5. Cérbero, o cão de três cabeças, guarda as entradas do meu domínio.',
+      '5. Um dos poucos heróis que invadiu meu reino precisou cumprir uma tarefa sem usar armas.',
       '6. A minha esposa, Perséfone, vive comigo metade do ano.',
       '7. O capacete da invisibilidade é um dos meus maiores tesouros.',
       '8. Não sou o mal, sou apenas o administrador das almas.',
@@ -2852,17 +2849,17 @@ const RAW_PRELOADED_CARDS = [
       '7. Posso ser um lanche simples ou uma obra gourmet de alta gastronomia.',
       '8. A suculência da carne é o segredo do meu sabor ideal.',
       '9. O molho especial é o diferencial que cada rede ou chef ostenta.',
-      '10. O hambúrguer de vegetais (vegano) é a minha versão mais moderna.',
+      '10. Minha versão vegetal é uma das adaptações mais modernas.',
       '11. A chapa quente é o melhor lugar para me preparar com perfeição.',
-      '12. O hambúrguer artesanal valoriza cortes nobres de carne e queijos maturados.',
+      '12. Minha versão artesanal valoriza cortes nobres e queijos maturados.',
       '13. Comer com as mãos é a forma correta de me saborear.',
       '14. As batatas fritas são o meu par inseparável em qualquer menu.',
       '15. A montagem exige uma ordem que mantém a estrutura do lanche.',
       '16. Fui a primeira comida a ser vendida em escala industrial na rua.',
-      '17. O sucesso do hambúrguer está na simplicidade e no conforto.',
+      '17. Meu sucesso está na simplicidade e na sensação de conforto.',
       '18. O meu tamanho varia de mini para degustação até gigantes que desafiam o apetite.',
       '19. Sou a prova de que a mistura certa de ingredientes cria um sucesso.',
-      '20. O hambúrguer é o rei do conforto alimentar moderno.',
+      '20. Sou tratado como o rei do conforto alimentar moderno.',
     ],
   },
   {
@@ -2899,7 +2896,7 @@ const RAW_PRELOADED_CARDS = [
     clues: [
       '1. Fui o cofundador da empresa que mudou a tecnologia do século XXI.',
       '2. A Apple é o meu maior legado e a marca que reconstruí.',
-      'início da minha garagem, onde tudo começou com tecnologia de ponta.',
+      '3. início da minha garagem, onde tudo começou com tecnologia de ponta.',
       '4. O iPhone foi a minha maior aposta, transformando o celular em computador.',
       '5. Fui um perfeccionista obsessivo pelo design e pela usabilidade.',
       '6. A minha apresentação de produtos tornou-se um evento global.',
@@ -2916,7 +2913,7 @@ const RAW_PRELOADED_CARDS = [
       '17. O mundo tecnológico moderno é, em grande parte, desenhado pela minha visão.',
       '18. A minha biografia é uma das mais vendidas do mundo corporativo.',
       '19. Fui um líder difícil e inspirador, mas sempre focado no futuro.',
-      '20. O meu lema "Stay Hungry, Stay Foolish" ainda guia muitos empreendedores.',
+      '20. Uma frase que popularizei em um discurso universitário veio da última edição de uma publicação contracultural.',
     ],
   },
   {
@@ -2936,14 +2933,14 @@ const RAW_PRELOADED_CARDS = [
       '10. A enterrada (dunk) é o movimento mais plástico e plástico do jogo.',
       '11. A rapidez do jogo exige condicionamento físico de atleta de elite.',
       '12. O tempo de ataque é limitado, forçando um ritmo ágil.',
-      '13. O basquete de rua (streetball) é a base cultural da minha prática moderna.',
+      '13. Minha versão de rua, chamada streetball, é uma base cultural da prática moderna.',
       '14. Fui um esporte olímpico que ganhou força no cenário mundial.',
       '15. A defesa é tão importante quanto o ataque para conquistar títulos.',
-      '16. Os tênis personalizados são parte da cultura do basquete desde os anos 80.',
+      '16. Tênis personalizados fazem parte da minha cultura desde os anos 80.',
       '17. O jogo coletivo é fundamental, mas o talento individual decide momentos.',
       '18. A buzzer-beater é a cesta feita no último segundo, definindo vitórias épicas.',
       '19. A torcida vive cada arremesso como se fosse o último.',
-      '20. O basquete é um jogo de altura, velocidade e precisão total.',
+      '20. Sou um jogo de altura, velocidade e precisão.',
     ],
   },
   {
@@ -2982,7 +2979,7 @@ const RAW_PRELOADED_CARDS = [
       '2. Sou o inventor creditado com a criação do primeiro telefone funcional.',
       '3. A minha invenção revolucionou a comunicação humana para sempre.',
       '4. O interesse pela fala e pela surdez veio da minha família.',
-      '5. O "Sr. Watson, venha aqui, preciso de você" foi a primeira frase que transmiti.',
+      '5. Em um teste inicial, chamei um assistente que trabalhava em uma sala próxima.',
       '6. A transmissão da voz humana através de fios foi a minha grande conquista.',
       '7. A minha invenção criou uma rede que conectou o mundo todo.',
       '8. Fui um professor dedicado a ensinar surdos a falar.',
@@ -3086,17 +3083,17 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Poseidon',
     clues: [
-      '1. Sou o deus dos mares e dos oceanos na mitologia grega.',
-      '2. O meu tridente é a arma com a qual controlo as águas.',
-      '3. Irmão de Zeus, recebi o mar como meu domínio na divisão do mundo.',
-      '4. As tempestades marinhas e os terremotos são causados pelo meu humor.',
-      '5. Sou conhecido como o "Agitador da Terra".',
-      '6. A minha carruagem é puxada por cavalos marinhos.',
+      '1. Na partilha do cosmos entre três irmãos, recebi um domínio instável e sem fronteiras fixas.',
+      '2. Meu principal atributo aparece em moedas antigas e também foi associado ao poder de provocar terremotos.',
+      '3. Depois da guerra contra a geração anterior de deuses, participei de um sorteio para dividir o cosmos.',
+      '4. Os antigos ligavam meu temperamento tanto ao movimento do solo quanto a mudanças violentas na natureza.',
+      '5. Um epíteto homérico meu pode ser traduzido como aquele que sacode o chão.',
+      '6. Em cortejos artísticos, desloco-me acompanhado por seres híbridos chamados hipocampos.',
       '7. Criei o cavalo, um dos animais que mais prezo.',
       '8. A minha ira é temida por todos os marinheiros.',
       '9. O palácio subaquático é a minha morada, cercada por criaturas marinhas.',
       '10. Tive muitos filhos, incluindo monstros e semideuses.',
-      '11. O nome romano pelo qual sou conhecido é Netuno.',
+      '11. Minha contraparte em outra tradição ganhou festivais celebrados durante o auge do verão.',
       '12. Protejo os pescadores e os navegantes que me respeitam.',
       '13. Fui um dos deuses que participou da luta contra os Titãs.',
       '14. A minha relação com Atenas foi marcada por uma disputa pelo padroado da cidade.',
@@ -3104,8 +3101,8 @@ const RAW_PRELOADED_CARDS = [
       '16. As minhas águas escondem monstros e tesouros de eras passadas.',
       '17. O poder da água é a minha essência, ora calma, ora destrutiva.',
       '18. Fui uma presença constante nas viagens de Ulisses e outros heróis.',
-      '19. O tridente é o símbolo do meu domínio absoluto sobre os mares.',
-      '20. Sou o guardião das profundezas e o senhor das tempestades.',
+      '19. Em uma disputa por uma cidade, meu presente aos habitantes foi uma fonte de água salgada.',
+      '20. Meu culto teve importância especial em cidades dependentes de viagens e comércio por água.',
     ],
   },
   {
@@ -3221,11 +3218,11 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Hidra de Lerna',
     clues: [
-      '1. Na mitologia grega, sou um monstro terrível de muitas cabeças.',
+      '1. Eu habitava uma região pantanosa da Argólida associada a uma entrada para o mundo subterrâneo.',
       '2. Habitava um pântano sombrio, aterrorizando a região.',
-      '3. A cada cabeça que era cortada, duas nasciam no mesmo lugar.',
+      '3. O método intuitivo de me atacar tornava o problema maior, exigindo uma segunda estratégia.',
       '4. O hálito da minha respiração era tóxico e venenoso.',
-      '5. O herói Hércules foi o enviado para me enfrentar em um dos seus trabalhos.',
+      '5. Minha derrota não foi aceita integralmente pelo rei porque o herói recebeu ajuda.',
       '6. Hércules precisou da ajuda do seu sobrinho Iolau para me vencer.',
       '7. O fogo foi a única forma de cauterizar os pescoços e impedir o renascimento.',
       '8. O sangue que eu derramava era carregado de veneno mortal.',
@@ -3243,7 +3240,6 @@ const RAW_PRELOADED_CARDS = [
       '20. Sou a besta serpentina mítica que só é derrotada se os tocos dos meus pescoços forem cauterizados.',
     ],
   },
-
   {
     id: 'card_121',
     category: 'Pessoa',
@@ -3276,7 +3272,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Geografia',
     answer: 'Rio de Janeiro',
     clues: [
-      '1. Sou conhecida mundialmente como a "Cidade Maravilhosa".',
+      '1. Um cronista brasileiro ajudou a popularizar no início do século XX um apelido elogioso ligado à minha paisagem.',
       '2. Fui capital do Brasil por muito tempo e sou um centro cultural pulsante.',
       '3. O Cristo Redentor, no alto do Corcovado, é o meu cartão-postal sagrado.',
       '4. O Pão de Açúcar oferece uma das vistas mais icônicas do mundo.',
@@ -3316,7 +3312,7 @@ const RAW_PRELOADED_CARDS = [
       '11. Sou a aliada número um na luta contra as mudanças climáticas.',
       '12. A eficiência dos meus painéis aumenta a cada ano com novas pesquisas.',
       '13. Posso alimentar desde um pequeno relógio até uma cidade inteira.',
-      '14. A energia solar térmica aquece água diretamente pelo calor do sol.',
+      '14. Minha modalidade térmica aquece água diretamente com o calor do sol.',
       '15. Sou a solução para levar eletricidade a locais remotos e sem rede elétrica.',
       '16. O meu impacto ambiental é quase zero comparado aos combustíveis fósseis.',
       '17. O sol entrega em uma hora mais energia do que o mundo consome em um ano.',
@@ -3357,15 +3353,15 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Atena',
     clues: [
-      '1. Sou a deusa grega da sabedoria e da guerra justa.',
-      '2. Nasci já adulta, armada e pronta para o combate, da cabeça de Zeus.',
-      '3. A coruja é o animal que me acompanha e simboliza o meu saber.',
+      '1. Ao contrário de outra divindade guerreira, represento planejamento, disciplina e defesa da cidade.',
+      '2. Meu nascimento exigiu que Hefesto abrisse o crânio de meu pai.',
+      '3. Uma pequena ave noturna aparece com frequência nas moedas da cidade sob minha proteção.',
       '4. Protejo heróis e cidades, sendo uma urbe grega específica a minha favorita.',
       '5. O escudo (Egide) e a lança são os meus acessórios de defesa e ataque.',
       '6. Diferente de Ares, eu prefiro a estratégia e a disciplina na guerra.',
       '7. O olival é o meu presente para a humanidade, símbolo de paz e alimento.',
       '8. Sou patrona das artes, do artesanato e da tecelagem.',
-      '9. O Partenon, no topo da Acrópole, foi construído em minha honra.',
+      '9. Fídias produziu para meu principal templo uma enorme imagem revestida de ouro e marfim.',
       '10. A minha inteligência é fria, calculista e sempre estratégica.',
       '11. Ajudei Ulisses a retornar para casa e Teseu a vencer o Minotauro.',
       '12. Fui homenageada dando o meu nome à principal cidade-estado da Grécia Antiga.',
@@ -3395,15 +3391,15 @@ const RAW_PRELOADED_CARDS = [
       '9. A taça de cristal é o melhor recipiente para revelar o meu buquê.',
       '10. A temperatura correta é essencial para apreciar os meus aromas.',
       '11. Já fui considerado "o sangue da terra" em culturas antigas.',
-      '12. O vinho de mesa é para o cotidiano, o reserva é para grandes eventos.',
+      '12. Minha versão de mesa acompanha o cotidiano; a reserva costuma marcar grandes eventos.',
       '13. A colheita da uva (vindima) é uma festa que une famílias inteiras.',
       '14. O tanino é o que dá a sensação de adstringência na boca.',
       '15. A França, Itália e Espanha são os meus maiores produtores clássicos.',
-      '16. O vinho envelhecido ganha notas complexas e valor com o tempo.',
+      '16. Quando envelheço, ganho notas complexas e valor com o tempo.',
       '17. Sou presença obrigatória em qualquer jantar sofisticado.',
       '18. A rolha é o selo que protege a minha integridade ao longo dos anos.',
       '19. Sou a bebida que celebra a vida e a paciência com o tempo.',
-      '20. Degustar um bom vinho é uma experiência que envolve história e sentidos.',
+      '20. Minha degustação envolve história, memória e vários sentidos.',
     ],
   },
   {
@@ -3422,7 +3418,7 @@ const RAW_PRELOADED_CARDS = [
       '9. A bolsa com alça de corrente mudou a forma como as mulheres carregam seus itens.',
       '10. Fui muito mais que uma estilista, fui uma pensadora da estética.',
       '11. A minha marca tornou-se o sinônimo de luxo sofisticado e minimalista.',
-      '12. O logotipo com dois "C"s entrelaçados é mundialmente reconhecido.',
+      '12. Meu nome virou uma das casas mais reconhecidas do luxo, décadas após minha primeira chapelaria.',
       '13. O meu estilo resistiu a todas as décadas e continua sendo moderno.',
       '14. Liberdade de movimento era o que eu buscava para a mulher moderna.',
       '15. Fui uma figura central na alta costura parisiense.',
@@ -3438,8 +3434,8 @@ const RAW_PRELOADED_CARDS = [
     category: 'Geografia',
     answer: 'França',
     clues: [
-      '1. Sou o país da Torre Eiffel e um dos berços da civilização ocidental.',
-      '2. Paris é a minha capital e o destino mais visitado do mundo.',
+      '1. Minha organização territorial inclui regiões continentais e outras espalhadas por diferentes oceanos.',
+      '2. Faço fronteira terrestre com o Brasil por meio de um território ultramarino na América do Sul.',
       '3. Minha revolução em 1789 foi um marco histórico que mudou o pensamento global.',
       '4. Gastronomia, vinhos e queijos são os meus tesouros nacionais.',
       '5. Fico no coração da Europa ocidental, com costas no Mediterrâneo e no Atlântico.',
@@ -3509,7 +3505,7 @@ const RAW_PRELOADED_CARDS = [
       '15. Ajudo em missões de resgate em locais de desastres naturais.',
       '16. A segurança da aviação é a minha preocupação constante para evitar colisões.',
       '17. Sou a evolução moderna da fotografia aérea.',
-      '18. O uso recreativo de drones explodiu nos últimos anos.',
+      '18. Meu uso recreativo cresceu muito nos últimos anos.',
       '19. O meu potencial de inspeção de pontes, linhas elétricas e prédios é enorme.',
       '20. O drone é a prova de que a tecnologia de voo democratizou os céus.',
     ],
@@ -3561,7 +3557,7 @@ const RAW_PRELOADED_CARDS = [
       '13. O meu sino original foi removido por segurança.',
       '14. Sou o destino principal de quem viaja pela região da Toscana.',
       '15. O meu desvio do eixo vertical é constante e controlado por sensores.',
-      '16. A inclinação é um erro de engenharia que virou uma marca registrada.',
+      '16. O solo sob minhas fundações começou a ceder quando apenas poucos andares estavam prontos.',
       '17. Subir a minha escadaria íngreme é um desafio para os visitantes.',
       '18. Sou parte de um complexo religioso que inclui a catedral e o batistério.',
       '19. O meu charme reside na minha imperfeição estrutural.',
@@ -3580,14 +3576,14 @@ const RAW_PRELOADED_CARDS = [
       '5. Sou essencial na alfaiataria, na cozinha e nas artes plásticas.',
       '6. Existem versões para destros e para canhotos.',
       '7. Já fui um item artesanal de luxo, hoje sou encontrada em qualquer casa.',
-      '8. O uso da tesoura requer destreza e coordenação motora fina.',
+      '8. Meu uso requer destreza e coordenação motora fina.',
       '9. Já fui usada até para cortar cabelos em barbearias clássicas.',
       '10. A minha lâmina precisa estar sempre afiada para não "mastigar" o material.',
       '11. Fui fundamental para o desenvolvimento da moda e da produção de roupas.',
-      '12. Existem tesouras para cada uso: de unha, de poda, cirúrgicas e para papel.',
+      '12. Existem versões para cada uso: de unha, de poda, cirúrgicas e para papel.',
       '13. O design ergonômico é uma evolução moderna para facilitar o meu manuseio.',
       '14. Sou um objeto simples, mas sem o qual a produção têxtil seria impossível.',
-      '15. Crianças usam tesouras sem ponta para aprender a cortar com segurança.',
+      '15. Crianças usam versões sem ponta para aprender a cortar com segurança.',
       '16. O "clique-clique" das lâminas é o meu som característico.',
       '17. Cortar papel, tecido ou fios é a minha missão de vida.',
       '18. Fui um dos primeiros objetos que o ser humano criou para separar materiais.',
@@ -3600,7 +3596,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Pessoa',
     answer: 'Abraham Lincoln',
     clues: [
-      '1. Fui o 16º presidente dos Estados Unidos.',
+      '1. Minha primeira eleição ocorreu com menos de 40% do voto popular em uma disputa com quatro candidatos.',
       '2. Liderei o meu país durante o período mais sangrento de sua história.',
       '3. A Guerra Civil Americana foi o desafio que definiu o meu mandato.',
       '4. O meu principal objetivo era preservar a união do país.',
@@ -3627,7 +3623,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Lugar',
     answer: 'Grande Pirâmide de Gizé',
     clues: [
-      '1. Sou a única das Sete Maravilhas do Mundo Antigo que ainda está de pé.',
+      '1. Minha orientação para os pontos cardeais apresenta uma precisão impressionante para a época.',
       '2. Fui construída como tumba para o faraó Quéops.',
       '3. Fico no Egito, situada em um famoso planalto nos arredores do Cairo.',
       '4. A minha precisão matemática alinhada aos pontos cardeais é um mistério.',
@@ -3667,11 +3663,11 @@ const RAW_PRELOADED_CARDS = [
       '11. O montanhista depende de mim para carregar suprimentos para dias de trilha.',
       '12. Fui adotada por ciclistas, viajantes e nômades digitais.',
       '13. A minha versatilidade é o que me mantém relevante em qualquer época.',
-      '14. Algumas mochilas possuem proteção contra chuva e capas impermeáveis.',
+      '14. Alguns modelos possuem proteção contra chuva e capas impermeáveis.',
       '15. O símbolo da liberdade de quem quer explorar o mundo.',
       '16. Carregar-me é um gesto de quem está pronto para o caminho.',
       '17. Já fui motivo de dor nas costas por uso errado, hoje sou mais ajustável.',
-      '18. A mochila é a representação da autonomia de poder ir e vir.',
+      '18. Represento a autonomia de carregar o necessário para ir e vir.',
       '19. O design moderno prioriza o peso zero e a durabilidade.',
       '20. Você me coloca nas costas e o mundo vira o seu quintal.',
     ],
@@ -3681,12 +3677,12 @@ const RAW_PRELOADED_CARDS = [
     category: 'Tecnologia',
     answer: 'Energia Eólica',
     clues: [
-      '1. Sou a energia gerada pela força do vento.',
+      '1. Sou gerada pelo movimento do ar.',
       '2. Turbinas gigantes giram sob o comando das correntes de ar.',
       '3. A minha origem é ancestral, usada nos antigos moinhos.',
       '4. Hoje, sou uma das maiores fontes de geração renovável no mundo.',
       '5. O impacto ambiental é baixo, tornando-me muito sustentável.',
-      '16. O barulho das pás cortando o ar é o meu som característico.',
+      '6. O barulho das pás cortando o ar é o meu som característico.',
       '7. O local onde sou instalada depende de estudos de ventos intensos e constantes.',
       '8. O mar é a nova fronteira para colocar turbinas ainda maiores.',
       '9. Sou uma solução vital para reduzir os gases de efeito estufa.',
@@ -3708,20 +3704,20 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Sereia',
     clues: [
-      '1. Sou uma criatura lendária com torso de mulher e cauda de peixe.',
-      '2. O meu canto é a minha arma mais perigosa para os navegantes.',
-      '3. A minha beleza e voz atraem marinheiros para o naufrágio.',
+      '1. Minha aparência moderna mistura tradições marítimas que originalmente descreviam criaturas diferentes.',
+      '2. Em um poema épico, um viajante precisou ser imobilizado para atravessar meu território.',
+      '3. Minha ameaça representa a sedução por um conhecimento ou desejo que cobra um preço fatal.',
       '4. Nas lendas gregas, vivia em rochedos perigosos.',
       '5. Ulisses foi um dos poucos a resistir ao meu canto, amarrando-se ao mastro.',
       '6. Represento o perigo do desejo e o desconhecido do mar.',
       '7. Em outras culturas, posso ser vista como deusa das águas e protetora.',
       '8. O meu habitat é o oceano, entre ondas e mistérios.',
-      '9. A lenda da sereia inspirou contos como "A Pequena Sereia".',
+      '9. Minha lenda inspirou contos famosos sobre criaturas marinhas.',
       '10. A minha existência sempre foi o limite entre a humanidade e a fera marinha.',
       '11. Muitos exploradores juraram ter visto o meu rabo brilhando nas ondas.',
       '12. Represento a dualidade entre a atração e a morte no mar.',
       '13. A minha imagem está em quase todos os folclores de povos marítimos.',
-      '14. O canto das sereias é um metáfora para as distrações fatais.',
+      '14. Meu canto virou metáfora para distrações fatais.',
       '15. Fui retratada como sedutora e cruel nas lendas mais antigas.',
       '16. O mar guarda os segredos que eu protejo nas profundezas.',
       '17. O mundo moderno suavizou o meu mito com histórias infantis.',
@@ -3739,7 +3735,7 @@ const RAW_PRELOADED_CARDS = [
       '2. Minha base é leite, creme e açúcar, batidos até ganhar cremosidade.',
       '3. O congelamento rápido é o que me mantém com a textura perfeita.',
       '4. A invenção da refrigeração industrial me tornou popular globalmente.',
-      '5. O sorvete de massa, o picolé e o gelato são as minhas variações.',
+      '5. Minhas variações incluem versões de massa, picolés e gelatos.',
       '6. O gelato italiano é conhecido por ser mais denso e menos gorduroso.',
       '7. Sabores infinitos: frutas, chocolate, baunilha e até ingredientes salgados.',
       '8. A casquinha crocante é o meu par perfeito.',
@@ -3751,10 +3747,10 @@ const RAW_PRELOADED_CARDS = [
       '14. Sou o prazer simples de uma colherada gelada.',
       '15. O picolé de fruta é a minha versão mais leve e refrescante.',
       '16. A criatividade na cozinha permite misturas inusitadas.',
-      '17. O consumo de sorvete é um momento de alegria e pausa.',
+      '17. Meu consumo costuma ser associado a momentos de alegria e pausa.',
       '18. A temperatura ideal é um desafio para manter a cremosidade.',
       '19. O mundo inteiro tem a sua própria receita de um doce gelado.',
-      '20. O sorvete é o sabor do verão engarrafado em uma bola.',
+      '20. Sou descrito como o sabor do verão servido em uma bola.',
     ],
   },
   {
@@ -3762,26 +3758,26 @@ const RAW_PRELOADED_CARDS = [
     category: 'Geografia',
     answer: 'Islândia',
     clues: [
-      '1. Sou o país do fogo e do gelo.',
-      '2. Fico isolada no norte do Oceano Atlântico.',
-      '3. A minha terra é formada por vulcões ativos e geleiras imensas.',
-      '4. Minha capital, Reykjavik, é uma das cidades mais limpas do mundo.',
-      '5. A energia que uso vem quase toda de fontes geotérmicas e hidrelétricas.',
-      '6. A Aurora Boreal ilumina os meus céus durante o inverno.',
-      '7. A colonização nórdica (Vikings) definiu a minha cultura e idioma.',
-      '8. A minha língua quase não mudou em mil anos.',
-      '9. Tenho banhos termais que atraem pessoas para relaxar no meio do frio.',
-      '10. Sou um dos países mais seguros e tranquilos do mundo.',
-      '11. Minhas paisagens nórdicas parecem ter saído de filmes de fantasia.',
-      '12. O choque entre placas tectônicas é visível na minha geografia.',
-      '13. Fui um lugar de mistério para os antigos navegadores.',
-      '14. A água potável aqui é pura e vem diretamente do degelo glacial.',
-      '15. As cascatas poderosas são a minha marca registrada ao longo das estradas.',
-      '16. O sol da meia-noite é um fenômeno que altera todo o nosso ritmo de vida.',
-      '17. A economia depende fortemente da pesca e do turismo sustentável.',
-      '18. Fui cenário de filmagens famosas por causa da minha natureza bruta.',
-      '19. Minha população de origem viking valoriza a leitura e a escrita acima de tudo.',
-      '20. Sou a nação insular europeia conhecida como a terra do gelo e do fogo.',
+      '1. Fico isolada no norte do Oceano Atlântico.',
+      '2. A minha terra é formada por vulcões ativos e geleiras imensas.',
+      '3. Minha capital, Reykjavik, é uma das cidades mais limpas do mundo.',
+      '4. A energia que uso vem quase toda de fontes geotérmicas e hidrelétricas.',
+      '5. A Aurora Boreal ilumina os meus céus durante o inverno.',
+      '6. A colonização nórdica (Vikings) definiu a minha cultura e idioma.',
+      '7. A minha língua quase não mudou em mil anos.',
+      '8. Tenho banhos termais que atraem pessoas para relaxar no meio do frio.',
+      '9. Sou um dos países mais seguros e tranquilos do mundo.',
+      '10. Minhas paisagens nórdicas parecem ter saído de filmes de fantasia.',
+      '11. O choque entre placas tectônicas é visível na minha geografia.',
+      '12. Fui um lugar de mistério para os antigos navegadores.',
+      '13. A água potável aqui é pura e vem diretamente do degelo glacial.',
+      '14. As cascatas poderosas são a minha marca registrada ao longo das estradas.',
+      '15. O sol da meia-noite é um fenômeno que altera todo o nosso ritmo de vida.',
+      '16. A economia depende fortemente da pesca e do turismo sustentável.',
+      '17. Fui cenário de filmagens famosas por causa da minha natureza bruta.',
+      '18. Minha população de origem viking valoriza a leitura e a escrita acima de tudo.',
+      '19. Sou a nação insular europeia conhecida como a terra do gelo e do fogo.',
+      '20. Contando apenas letras, o nome procurado tem tamanho 8.',
     ],
   },
   {
@@ -3845,9 +3841,9 @@ const RAW_PRELOADED_CARDS = [
     clues: [
       '1. Fui desenvolvida na década de 1990.',
       '2. Meu foco inicial eram decodificadores e aparelhos domésticos.',
-      '3. Meu logotipo homenageia uma bebida quente.',
+      '3. Antes do lançamento, fui chamada de Oak e depois Green durante meu desenvolvimento.',
       '4. Fui desenhada para ser independente do hardware.',
-      '5. Meu lema é "Escreva uma vez, rode em qualquer lugar".',
+      '5. Minha proposta original priorizava executar o mesmo programa em arquiteturas diferentes.',
       '6. Dependo de uma máquina virtual (VM) para funcionar.',
       '7. A Orientação a Objetos molda toda a minha estrutura.',
       '8. Possuo gestão automática de memória via Coletor de Lixo.',
@@ -4022,7 +4018,7 @@ const RAW_PRELOADED_CARDS = [
       '15. Na literatura, grasno de cima de um busto grego em um quarto.',
       '16. Pertenço à inteligente família dos corvídeos.',
       '17. No poema clássico, minha fala dita o desespero do protagonista.',
-      '18. Sou famoso por repetir a frase "Nunca mais".',
+      '18. Uma obra publicada em 1845 consolidou minha presença sombria na literatura.',
       '19. Sou o pássaro negro associado ao mistério e à melancolia.',
       '20. Sou a ave escura frequentemente ligada a bruxas e cemitérios.',
     ],
@@ -4293,7 +4289,7 @@ const RAW_PRELOADED_CARDS = [
       '16. Grandes corporações hoje investem no meu desenvolvimento diário.',
       '17. Sou a principal alternativa livre e gratuita ao sistema Windows.',
       '18. Meu mascote oficial é um animal de clima gelado.',
-      '19. Esse mascote é amigável e se chama Tux.',
+      '19. A escolha do meu mascote nasceu de uma competição realizada em 1996.',
       '20. Sou o famoso sistema operacional aberto simbolizado por um pinguim.',
     ],
   },
@@ -4302,7 +4298,7 @@ const RAW_PRELOADED_CARDS = [
     category: 'Mitologia',
     answer: 'Hércules',
     clues: [
-      '1. Sou o maior símbolo de força física do mundo clássico.',
+      '1. Meu culto reunia a condição de herói mortal e a de divindade após a morte.',
       '2. Sou um semideus, filho do deus supremo do Olimpo.',
       '3. Fui perseguido desde o berço por uma deusa traída.',
       '4. Estrangulei duas serpentes venenosas quando ainda era bebê.',
@@ -4318,10 +4314,10 @@ const RAW_PRELOADED_CARDS = [
       '14. Uma clava de madeira rústica era minha arma principal.',
       '15. Originalmente, minha penitência exigia dez trabalhos, mas dois foram adicionados.',
       '16. Após a morte, ascendi aos céus e ganhei a imortalidade.',
-      '17. Meu mito baseia-se na famosa saga dos "Doze Trabalhos".',
-      '18. Os gregos me conhecem pelo nome de Héracles.',
+      '17. Duas tarefas da minha penitência foram invalidadas e substituídas por outras.',
+      '18. O nome usado pelos gregos homenageava ironicamente a deusa que mais me perseguiu.',
       '19. O mundo ocidental adotou minha versão e nome romanos.',
-      '20. Sou o lendário e musculoso semideus grego da superforça.',
+      '20. Após a morte, fui recebido no Olimpo e me casei com Hebe.',
     ],
   },
   {
@@ -4507,10 +4503,10 @@ const RAW_PRELOADED_CARDS = [
       '14. Quase oitenta por cento da web global ainda roda presa a mim.',
       '15. Fui a linguagem base para a construção livre do WordPress.',
       '16. Permito ser misturado livremente nas tags estáticas de HTML.',
-      '17. O elefante gordo e azul (elePHPant) é meu mascote e pelúcia.',
+      '17. Meu mascote surgiu de um trocadilho visual com as letras centrais do meu nome.',
       '18. Sou amado e odiado com intensidades extremas pelos programadores.',
       '19. Sou a clássica linguagem livre do servidor interpretada na nuvem.',
-      '20. Sou a linguagem back-end popular com logotipo de letras ovais azuis.',
+      '20. Comecei como um pequeno conjunto de ferramentas pessoais para manter uma página na web.',
     ],
   },
   {
@@ -4540,425 +4536,871 @@ const RAW_PRELOADED_CARDS = [
       '20. Sou o termo usado para residências automatizadas por redes virtuais.',
     ],
   },
+  {
+    id: 'card_141',
+    category: 'Pessoa',
+    answer: 'Katherine Johnson',
+    clues: [
+      '1. Nasci em 1918 no estado americano da Virgínia Ocidental.',
+      '2. Entrei na universidade aos 15 anos de idade.',
+      '3. Estudei matemática e francês antes de iniciar minha carreira.',
+      '4. Fui uma das primeiras estudantes negras em um programa de pós-graduação do meu estado.',
+      '5. Trabalhei inicialmente como professora em escolas públicas.',
+      '6. Comecei minha trajetória federal em uma equipe segregada de calculistas.',
+      '7. Fazia à mão operações que depois seriam confiadas a computadores eletrônicos.',
+      '8. Minha precisão ajudou a transformar trajetórias teóricas em viagens reais.',
+      '9. Calculei a janela de lançamento de uma missão tripulada pioneira dos Estados Unidos.',
+      '10. Um astronauta pediu que eu conferisse pessoalmente os números produzidos por uma máquina.',
+      '11. Trabalhei com geometria analítica aplicada a órbitas e reentrada atmosférica.',
+      '12. Meus cálculos contribuíram para a primeira viagem americana ao redor da Terra.',
+      '13. Também participei do programa que levou seres humanos à Lua.',
+      '14. Ajudei posteriormente nos planos iniciais do ônibus espacial.',
+      '15. Minha carreira em uma agência espacial durou mais de três décadas.',
+      '16. Recebi a Medalha Presidencial da Liberdade em 2015.',
+      '17. Minha história ganhou destaque no livro e no filme "Estrelas Além do Tempo".',
+      '18. Um centro de pesquisa computacional recebeu meu nome.',
+      '19. A resposta é formada por um nome e um sobrenome.',
+      '20. Fiquei conhecida como a matemática que conferiu as rotas do programa espacial americano.',
+    ],
+  },
+  {
+    id: 'card_142',
+    category: 'Pessoa',
+    answer: 'Freddie Mercury',
+    clues: [
+      '1. Nasci em 1946 em uma ilha africana então administrada pelos britânicos.',
+      '2. Minha família pertencia à comunidade parse e seguia o zoroastrismo.',
+      '3. Passei parte da infância em um internato na Índia.',
+      '4. Meu nome de nascimento era Farrokh Bulsara.',
+      '5. Estudei arte e design gráfico antes da fama musical.',
+      '6. Criei pessoalmente um brasão inspirado nos signos dos integrantes da minha banda.',
+      '7. Minha extensão vocal e meu controle de palco chamavam tanta atenção quanto minhas composições.',
+      '8. Gostava de combinar rock com ópera, gospel, disco e teatralidade.',
+      '9. Escrevi uma canção longa e fragmentada que contrariava o formato comum das rádios.',
+      '10. Um videoclipe com quatro rostos iluminados tornou-se uma imagem marcante da música.',
+      '11. Conduzi uma plateia gigantesca em exercícios vocais durante um evento beneficente em 1985.',
+      '12. Tocava piano em muitas das minhas composições.',
+      '13. Gravei um álbum e uma faixa de grande alcance com a soprano Montserrat Caballé.',
+      '14. A cidade homenageada nessa parceria sediaria os Jogos Olímpicos de 1992.',
+      '15. Mantive minha vida privada longe do público durante boa parte da carreira.',
+      '16. Minha última apresentação ao vivo com o grupo ocorreu em 1986.',
+      '17. Morri em Londres em 1991, aos 45 anos.',
+      '18. Um concerto em minha memória reuniu grandes nomes no estádio de Wembley.',
+      '19. Fui vocalista de uma banda britânica cujo nome remete à realeza.',
+      '20. Minha presença de palco ajudou a transformar "We Are the Champions" em hino de arenas.',
+    ],
+  },
+  {
+    id: 'card_143',
+    category: 'Pessoa',
+    answer: 'Malala Yousafzai',
+    clues: [
+      '1. Nasci em 1997 em uma região montanhosa do sul da Ásia.',
+      '2. Meu pai era professor e administrava uma escola.',
+      '3. Cresci no vale do Swat, no Paquistão.',
+      '4. Ainda criança, escrevi anonimamente sobre a vida sob um regime extremista.',
+      '5. Usei um pseudônimo inspirado em uma heroína do folclore local.',
+      '6. Defendi publicamente que meninas deveriam frequentar a escola.',
+      '7. Fui atacada dentro de um ônibus escolar em 2012.',
+      '8. Recebi tratamento médico primeiro em meu país e depois no Reino Unido.',
+      '9. Sobrevivi e transformei a violência sofrida em uma campanha internacional.',
+      '10. Discursar nas Nações Unidas no meu aniversário tornou-se um marco da minha atuação.',
+      '11. Criei com meu pai um fundo dedicado à educação feminina.',
+      '12. Publiquei uma autobiografia ainda adolescente.',
+      '13. Dividi uma importante premiação internacional com Kailash Satyarthi.',
+      '14. Tornei-me a pessoa mais jovem a receber o Nobel da Paz.',
+      '15. Continuei meus estudos em uma universidade britânica tradicional.',
+      '16. Concluí uma graduação em Filosofia, Política e Economia.',
+      '17. Minha atuação conecta educação, direitos humanos e igualdade de gênero.',
+      '18. Viajei a campos de refugiados e regiões de conflito para ouvir estudantes.',
+      '19. Meu primeiro nome tem seis letras.',
+      '20. Minha frase mais conhecida associa uma criança, um professor, um livro e uma caneta à mudança do mundo.',
+    ],
+  },
+  {
+    id: 'card_144',
+    category: 'Pessoa',
+    answer: 'Salvador Dalí',
+    clues: [
+      '1. Nasci em 1904 na Catalunha.',
+      '2. Recebi o mesmo nome de um irmão que morreu antes do meu nascimento.',
+      '3. Estudei em Madri e fui expulso de uma academia de belas-artes.',
+      '4. Convivi com Federico García Lorca e Luis Buñuel na juventude.',
+      '5. Colaborei com o cinema experimental no fim da década de 1920.',
+      '6. Desenvolvi um método criativo que chamei de paranoico-crítico.',
+      '7. Minhas paisagens frequentemente lembram a região costeira onde cresci.',
+      '8. Misturei técnica acadêmica detalhada com cenas impossíveis e oníricas.',
+      '9. Relógios deformados aparecem em uma de minhas telas mais conhecidas.',
+      '10. Formigas, gavetas e muletas reaparecem como elementos simbólicos em minha obra.',
+      '11. Minha companheira Gala foi também empresária, modelo e musa.',
+      '12. Fui afastado formalmente de um movimento artístico por divergências políticas e pessoais.',
+      '13. Trabalhei com fotografia, cinema, escultura, joias e publicidade.',
+      '14. Desenhei um logotipo ainda utilizado por uma marca de pirulitos.',
+      '15. Participei de uma sequência de sonho em um filme de Alfred Hitchcock.',
+      '16. Cultivei uma imagem pública excêntrica como parte de minha obra.',
+      '17. Meu bigode fino e voltado para cima tornou-se imediatamente reconhecível.',
+      '18. Um museu-teatro dedicado a mim ocupa um antigo teatro de minha cidade natal.',
+      '19. Fui um dos nomes mais famosos do surrealismo.',
+      '20. "A Persistência da Memória" é uma de minhas pinturas mais reproduzidas.',
+    ],
+  },
+  {
+    id: 'card_145',
+    category: 'Lugar',
+    answer: 'Angkor Wat',
+    clues: [
+      '1. Minha construção começou no início do século XII.',
+      '2. Fui erguido durante o reinado de Suryavarman II.',
+      '3. Originalmente fui dedicado a Vishnu, algo incomum no contexto local da época.',
+      '4. Minha orientação principal para o oeste também foge ao padrão de muitos templos vizinhos.',
+      '5. Faço parte da antiga capital de um poderoso império do sudeste asiático.',
+      '6. Um amplo fosso retangular cerca meu complexo central.',
+      '7. Minhas galerias guardam longos baixos-relevos narrativos.',
+      '8. Cenas do Ramayana e do Mahabharata aparecem em minhas paredes.',
+      '9. Uma representação da agitação do oceano de leite ocupa um de meus painéis célebres.',
+      '10. Minhas torres centrais foram planejadas para evocar o monte Meru.',
+      '11. Passei gradualmente do culto hindu para o budista.',
+      '12. Nunca fui totalmente abandonado como espaço religioso.',
+      '13. A vegetação tropical cerca uma área arqueológica muito maior que meu núcleo.',
+      '14. Monges ainda frequentam partes de meu conjunto.',
+      '15. Sou o principal monumento de um parque reconhecido pela UNESCO.',
+      '16. Minha silhueta aparece no centro de uma bandeira nacional.',
+      '17. Fico próximo à cidade de Siem Reap.',
+      '18. Sou uma das maiores estruturas religiosas já construídas.',
+      '19. Estou localizado no Camboja.',
+      '20. Meu nome pode ser entendido como "cidade dos templos".',
+    ],
+  },
+  {
+    id: 'card_146',
+    category: 'Lugar',
+    answer: 'Salar de Uyuni',
+    clues: [
+      '1. Sou resultado da transformação de antigos lagos pré-históricos.',
+      '2. Ocupo uma depressão elevada do Altiplano sul-americano.',
+      '3. Minha altitude supera 3.600 metros acima do nível do mar.',
+      '4. Uma crosta mineral cobre uma enorme reserva subterrânea de salmoura.',
+      '5. Tenho formato excepcionalmente plano em grande parte da extensão.',
+      '6. Minha superfície ajuda na calibração de instrumentos de observação terrestre.',
+      '7. Durante a estação seca, formo polígonos naturais no chão.',
+      '8. Na estação chuvosa, uma lâmina rasa transforma minha aparência.',
+      '9. Céu e solo parecem se fundir quando fico coberto por água.',
+      '10. Ilhas rochosas com cactos gigantes interrompem minha planície.',
+      '11. Incahuasi é uma das elevações mais visitadas em meu interior.',
+      '12. Hotéis da região já foram construídos usando blocos retirados de minha crosta.',
+      '13. Trilhas de veículos atravessam meu horizonte praticamente sem referências.',
+      '14. Flamingos visitam lagoas próximas em determinadas épocas.',
+      '15. A extração de lítio gera interesse econômico e debates ambientais ao meu redor.',
+      '16. Minha área ultrapassa dez mil quilômetros quadrados.',
+      '17. Sou considerado a maior planície salgada contínua do planeta.',
+      '18. Fico no departamento de Potosí.',
+      '19. Estou localizado na Bolívia.',
+      '20. Sou famoso pelo gigantesco efeito de espelho natural.',
+    ],
+  },
+  {
+    id: 'card_147',
+    category: 'Lugar',
+    answer: 'Capadócia',
+    clues: [
+      '1. Minha paisagem nasceu de camadas vulcânicas erodidas durante milhões de anos.',
+      '2. Povos antigos escavaram a rocha macia em vez de apenas construir sobre ela.',
+      '3. Fui atravessada por hititas, persas, romanos e bizantinos.',
+      '4. Meu nome histórico designava uma região mais ampla que a área turística atual.',
+      '5. Comunidades cristãs deixaram capelas e afrescos em minhas paredes.',
+      '6. Göreme abriga um importante conjunto de igrejas rupestres.',
+      '7. Algumas de minhas moradias subterrâneas alcançam vários níveis.',
+      '8. Derinkuyu podia abrigar milhares de pessoas em períodos de ameaça.',
+      '9. Túneis estreitos e grandes pedras circulares ajudavam na defesa.',
+      '10. Formações chamadas "chaminés de fada" dominam partes de minha paisagem.',
+      '11. Pombais foram talhados nas encostas para coletar fertilizante.',
+      '12. A diferença de temperatura entre o dia e a noite influencia as visitas.',
+      '13. Cerâmica e tapetes fazem parte da produção tradicional regional.',
+      '14. Meu terreno aparece em tons de creme, rosa e avermelhado.',
+      '15. Passeios ao amanhecer exploram correntes de ar acima dos vales.',
+      '16. Centenas de balões coloridos costumam ocupar meu céu.',
+      '17. Fico na região central da Anatólia.',
+      '18. Faço parte do território da Turquia.',
+      '19. Reúno cidades subterrâneas, vales erodidos e arquitetura escavada.',
+      '20. Sou um dos destinos de balonismo mais fotografados do mundo.',
+    ],
+  },
+  {
+    id: 'card_148',
+    category: 'Lugar',
+    answer: 'Pompeia',
+    clues: [
+      '1. Minha origem urbana antecede o domínio romano.',
+      '2. Oscos, gregos, etruscos e samnitas deixaram marcas em minha região.',
+      '3. Tornei-me colônia romana no século I antes de Cristo.',
+      '4. Um terremoto causou grandes danos poucos anos antes de minha ruína definitiva.',
+      '5. Ruas pavimentadas e pedras elevadas permitiam atravessar áreas com água e resíduos.',
+      '6. Inscrições eleitorais ainda podem ser lidas em algumas de minhas paredes.',
+      '7. Padarias, termas, tavernas e casas revelam detalhes da vida cotidiana.',
+      '8. Afrescos preservam cores e cenas de diferentes estilos artísticos.',
+      '9. Um edifício conhecido como Casa do Fauno ocupa um quarteirão inteiro.',
+      '10. A Vila dos Mistérios guarda um ciclo pictórico de interpretação debatida.',
+      '11. Minha população não conseguiu escapar completamente de um desastre repentino.',
+      '12. Cinzas e fragmentos vulcânicos cobriram ruas e construções.',
+      '13. Moldes de vítimas foram produzidos preenchendo vazios encontrados nas escavações.',
+      '14. Fiquei escondida por muitos séculos antes de escavações sistemáticas.',
+      '15. Minha redescoberta influenciou fortemente o gosto neoclássico europeu.',
+      '16. O vulcão responsável ainda domina o horizonte da região.',
+      '17. Fico próxima à atual cidade de Nápoles.',
+      '18. Minha destruição ocorreu durante uma erupção do Vesúvio.',
+      '19. Sou um dos sítios arqueológicos romanos mais visitados.',
+      '20. O ano 79 ficou associado ao fim abrupto de minha vida urbana.',
+    ],
+  },
+  {
+    id: 'card_149',
+    category: 'Objeto',
+    answer: 'Máquina de Escrever',
+    clues: [
+      '1. Vários inventores tentaram resolver o mesmo problema antes de meu formato se consolidar.',
+      '2. Um modelo comercial importante surgiu nos Estados Unidos no século XIX.',
+      '3. Minha disposição de letras ajudou a popularizar o padrão QWERTY.',
+      '4. Alavancas internas podiam se chocar quando certas combinações eram usadas rapidamente.',
+      '5. Exijo força mecânica para transferir pigmento ao suporte.',
+      '6. Uma fita impregnada fica entre meus tipos e o papel.',
+      '7. Meus modelos antigos produziam cópias usando papel-carbono.',
+      '8. Um sino avisa quando o usuário se aproxima do fim da linha.',
+      '9. Uma alavanca desloca o papel e reposiciona o mecanismo para continuar o texto.',
+      '10. Corrigir um erro já exigiu borracha abrasiva, fita branca ou recomeço.',
+      '11. Meu uso profissional abriu oportunidades de trabalho em escritórios.',
+      '12. Versões portáteis acompanharam jornalistas e escritores em viagens.',
+      '13. Modelos elétricos reduziram o esforço necessário para registrar caracteres.',
+      '14. Uma esfera substituiu o conjunto de hastes em uma linha famosa da IBM.',
+      '15. Meu som combina impactos ritmados, avanço do carro e campainha.',
+      '16. Não preciso de tela para mostrar o que acabou de ser produzido.',
+      '17. Cada toque deixa uma marca física quase imediata.',
+      '18. Fui presença comum em redações e repartições antes dos computadores pessoais.',
+      '19. Tenho teclado, mas originalmente não dependia de eletricidade.',
+      '20. Transformo pressão dos dedos em texto impresso diretamente no papel.',
+    ],
+  },
+  {
+    id: 'card_178',
+    category: 'Objeto',
+    answer: 'Ampulheta',
+    clues: [
+      '1. Meu funcionamento depende de partículas com tamanho relativamente uniforme.',
+      '2. Um material granular passa por uma abertura estreita sob ação da gravidade.',
+      '3. Umidade e eletricidade estática podem prejudicar minha precisão.',
+      '4. Não fui o primeiro instrumento humano a medir intervalos sem observar o céu.',
+      '5. Tornei-me prática a bordo de embarcações por não depender de uma superfície perfeitamente estável.',
+      '6. Marinheiros já me usaram para marcar períodos de vigia.',
+      '7. Versões pequenas controlavam o tempo de sermões, jogos e tarefas domésticas.',
+      '8. Meu intervalo é definido pelo volume interno e pela passagem central.',
+      '9. Não indico necessariamente uma hora do dia.',
+      '10. Preciso ser invertida para iniciar uma nova contagem.',
+      '11. Dois recipientes transparentes formam meu corpo clássico.',
+      '12. A quantidade visível muda continuamente, embora o total permaneça igual.',
+      '13. Não possuo ponteiros, números ou mecanismo de corda.',
+      '14. Posso medir de segundos a muitas horas, dependendo do projeto.',
+      '15. Minha silhueta inspirou um ícone comum em interfaces digitais.',
+      '16. Esse ícone normalmente informa que é preciso esperar.',
+      '17. Sou associada à passagem inevitável do tempo.',
+      '18. Em representações antigas da morte, apareço como lembrete da brevidade da vida.',
+      '19. Minha substância interna costuma ser chamada de areia, embora outros pós possam ser usados.',
+      '20. Meço um intervalo pela queda de grãos entre duas câmaras.',
+    ],
+  },
+  {
+    id: 'card_179',
+    category: 'Objeto',
+    answer: 'Guarda-chuva',
+    clues: [
+      '1. Meus ancestrais serviam mais como proteção solar e símbolo de posição social.',
+      '2. Há registros de objetos semelhantes no Egito, na China e na Mesopotâmia antigas.',
+      '3. Meu nome em vários idiomas deriva de uma raiz ligada à sombra.',
+      '4. Fui durante muito tempo associado principalmente ao vestuário feminino na Europa.',
+      '5. Jonas Hanway ajudou a normalizar meu uso masculino na Inglaterra do século XVIII.',
+      '6. Minhas hastes precisam combinar flexibilidade e resistência ao vento.',
+      '7. Um eixo central conduz o movimento de abertura.',
+      '8. Modelos automáticos usam uma mola acionada por botão.',
+      '9. Posso virar ao contrário durante uma rajada forte.',
+      '10. Versões transparentes ampliam a visão de quem caminha sob mim.',
+      '11. Minha cobertura já foi feita de seda oleada, algodão e materiais sintéticos.',
+      '12. Quando molhado, torno-me inconveniente em entradas de prédios e transportes.',
+      '13. Capas descartáveis e suportes surgiram para lidar com esse problema.',
+      '14. Versões compactas sacrificam área por facilidade de transporte.',
+      '15. Costumo ser esquecido em táxis, restaurantes e repartições.',
+      '16. Meu formato aberto lembra uma cúpula segmentada.',
+      '17. Protejo uma pessoa, mas não necessariamente seus pés.',
+      '18. Não impeço a precipitação; apenas desvio parte dela.',
+      '19. Sou carregado por uma alça e aberto acima da cabeça.',
+      '20. Minha principal função moderna é reduzir o contato com a chuva.',
+    ],
+  },
+  {
+    id: 'card_180',
+    category: 'Objeto',
+    answer: 'Termômetro',
+    clues: [
+      '1. Meus primeiros ancestrais indicavam variações, mas não possuíam uma escala padronizada.',
+      '2. Galileu é associado a um instrumento precursor chamado termoscópio.',
+      '3. Diferentes cientistas propuseram referências numéricas incompatíveis entre si.',
+      '4. Uma escala comum fixa pontos relacionados ao congelamento e à ebulição da água.',
+      '5. Outra escala ainda aparece com frequência nos Estados Unidos.',
+      '6. A escala absoluta evita valores abaixo de zero em condições físicas comuns.',
+      '7. Modelos tradicionais dependem da expansão de uma substância dentro de um tubo estreito.',
+      '8. Mercúrio foi muito utilizado, mas apresenta riscos ambientais e à saúde.',
+      '9. Álcool colorido é uma alternativa para determinadas faixas de medição.',
+      '10. Versões clínicas antigas precisavam ser agitadas antes de novo uso.',
+      '11. Sensores eletrônicos podem transformar resistência elétrica em leitura.',
+      '12. Infravermelho permite medir sem contato direto.',
+      '13. A posição e o método de uso influenciam resultados no corpo humano.',
+      '14. Meteorologistas me protegem da radiação direta para medir o ar corretamente.',
+      '15. Cozinheiros usam versões próprias para carnes, caldas e óleos.',
+      '16. Laboratórios precisam considerar calibração e incerteza em minhas leituras.',
+      '17. Posso registrar máximas e mínimas ao longo de um período.',
+      '18. Minha unidade varia conforme o país e a aplicação.',
+      '19. Não meço calor diretamente, mas uma propriedade relacionada ao estado térmico.',
+      '20. Sirvo para determinar a temperatura de corpos, ambientes e substâncias.',
+    ],
+  },
+  {
+    id: 'card_181',
+    category: 'Animal',
+    answer: 'Polvo',
+    clues: [
+      '1. Pertenço ao grupo dos moluscos, apesar de não possuir concha externa na fase adulta.',
+      '2. Meu corpo mole permite atravessar aberturas pouco maiores que uma parte rígida central.',
+      '3. Tenho três corações e um sistema circulatório fechado.',
+      '4. Minha proteína respiratória usa cobre e dá tonalidade azulada ao sangue.',
+      '5. Grande parte dos meus neurônios fica distribuída pelos membros.',
+      '6. Cada um deles pode executar movimentos complexos com certa autonomia.',
+      '7. Ventosas detectam substâncias químicas e ajudam a explorar objetos.',
+      '8. Consigo alterar rapidamente cor, padrão e textura da pele.',
+      '9. Células chamadas cromatóforos participam dessa transformação visual.',
+      '10. Algumas espécies imitam outros animais para afastar predadores.',
+      '11. Posso expelir uma nuvem escura para confundir uma ameaça.',
+      '12. Minha locomoção rápida usa propulsão por jato.',
+      '13. Demonstro capacidade de abrir recipientes e resolver problemas.',
+      '14. Já fui observado carregando objetos para usar como abrigo.',
+      '15. Minha boca possui uma estrutura rígida semelhante a um bico.',
+      '16. Regenero partes perdidas dos membros.',
+      '17. Muitas espécies têm vida relativamente curta e reproduzem-se apenas uma vez.',
+      '18. A fêmea costuma proteger os ovos e pode parar de se alimentar nesse período.',
+      '19. Tenho oito braços, não tentáculos no sentido zoológico estrito.',
+      '20. Sou um cefalópode marinho conhecido por inteligência e camuflagem.',
+    ],
+  },
+  {
+    id: 'card_182',
+    category: 'Animal',
+    answer: 'Axolote',
+    clues: [
+      '1. Sou um anfíbio cuja forma adulta conserva características juvenis.',
+      '2. Esse fenômeno de desenvolvimento é chamado neotenia.',
+      '3. Normalmente permaneço aquático durante toda a vida.',
+      '4. Minhas brânquias externas formam estruturas ramificadas atrás da cabeça.',
+      '5. Também possuo pulmões e posso realizar trocas gasosas pela pele.',
+      '6. Minha capacidade regenerativa interessa a pesquisas biomédicas.',
+      '7. Posso reconstruir membros, partes da medula e outros tecidos com pouca cicatrização.',
+      '8. Minha coloração selvagem é geralmente escura e mosqueada.',
+      '9. Indivíduos claros e rosados são comuns em cativeiro, mas não representam a aparência típica na natureza.',
+      '10. Minha alimentação inclui pequenos invertebrados, crustáceos e peixes.',
+      '11. Detecto movimentos na água e sugo rapidamente a presa.',
+      '12. Sou parente das salamandras-tigre.',
+      '13. Em condições específicas, posso sofrer metamorfose, embora isso não seja o padrão.',
+      '14. A poluição e espécies invasoras ameaçam minha população natural.',
+      '15. Meu habitat original foi drasticamente reduzido pela urbanização.',
+      '16. Barcos de fundo plano ainda percorrem canais na região onde sobrevivo.',
+      '17. Estou criticamente ameaçado na natureza.',
+      '18. Sou nativo de um sistema de lagos associado à Cidade do México.',
+      '19. Xochimilco abriga minha população selvagem remanescente.',
+      '20. Meu nome deriva de uma divindade asteca ligada a transformações.',
+    ],
+  },
+  {
+    id: 'card_183',
+    category: 'Animal',
+    answer: 'Ornitorrinco',
+    clues: [
+      '1. Minha existência pareceu tão improvável que um exemplar enviado à Europa foi considerado fraude.',
+      '2. Pertenço a uma linhagem de mamíferos chamada monotremados.',
+      '3. Em vez de dar à luz filhotes vivos, deposito ovos.',
+      '4. A fêmea produz leite, mas não possui mamilos.',
+      '5. O alimento dos filhotes é liberado pela pele e recolhido em sulcos.',
+      '6. O macho possui um esporão ligado a glândulas de veneno nas patas traseiras.',
+      '7. Esse veneno pode causar dor intensa em seres humanos.',
+      '8. Meu bico flexível contém receptores capazes de perceber campos elétricos.',
+      '9. Fecho olhos, ouvidos e narinas enquanto procuro alimento debaixo d’água.',
+      '10. Localizo presas principalmente pelos sinais produzidos por seus músculos.',
+      '11. Minhas patas dianteiras possuem membranas eficientes para natação.',
+      '12. Em terra, recolho parte dessas membranas para expor as garras.',
+      '13. Minha cauda armazena gordura e ajuda na locomoção aquática.',
+      '14. Escavo tocas nas margens de rios e córregos.',
+      '15. Alimento-me de larvas, vermes e pequenos crustáceos.',
+      '16. Minha pelagem densa retém uma camada isolante de ar.',
+      '17. Sou encontrado em ambientes de água doce.',
+      '18. Vivo naturalmente no leste da Austrália e na Tasmânia.',
+      '19. Reúno traços que lembram diferentes animais sem ser mistura de nenhum deles.',
+      '20. Sou um mamífero semiaquático que põe ovos e detecta eletricidade.',
+    ],
+  },
+  {
+    id: 'card_184',
+    category: 'Animal',
+    answer: 'Tardígrado',
+    clues: [
+      '1. Sou um animal microscópico segmentado pertencente a um filo próprio.',
+      '2. Meu corpo geralmente mede menos de um milímetro.',
+      '3. Possuo quatro pares de pernas curtas terminadas em garras ou discos.',
+      '4. Fui descrito cientificamente no século XVIII.',
+      '5. Meu nome popular compara meu formato a um mamífero robusto.',
+      '6. Habito musgos, líquens, sedimentos, oceanos e ambientes de água doce.',
+      '7. Preciso de uma película de água ao redor do corpo para permanecer ativo.',
+      '8. Quando o ambiente seca, posso retrair o corpo e formar um estado chamado tun.',
+      '9. Nesse estado, meu metabolismo cai drasticamente.',
+      '10. Algumas espécies suportam longos períodos de dessecação.',
+      '11. Proteínas especiais ajudam a preservar estruturas celulares durante condições extremas.',
+      '12. Certos indivíduos toleram temperaturas e pressões que seriam fatais para muitos animais.',
+      '13. Minha resistência varia muito conforme a espécie e o estado fisiológico.',
+      '14. Não sou invulnerável e posso morrer por exposição extrema ou prolongada.',
+      '15. Experimentos já me expuseram ao vácuo e à radiação fora da atmosfera.',
+      '16. Sobreviver a um teste não significa viver normalmente naquele ambiente.',
+      '17. Alimento-me perfurando células vegetais, algas ou pequenos organismos.',
+      '18. Minha boca contém estruturas perfurantes chamadas estiletes.',
+      '19. Sou conhecido informalmente como urso-d’água.',
+      '20. Minha fama vem da criptobiose e da resistência em estado desidratado.',
+    ],
+  },
+  {
+    id: 'card_185',
+    category: 'Mitologia',
+    answer: 'Loki',
+    clues: [
+      '1. Minha origem familiar varia entre as fontes preservadas.',
+      '2. Não pertenço originalmente ao mesmo grupo das principais divindades com quem convivo.',
+      '3. Sou ligado por juramento de sangue ao chefe do panteão.',
+      '4. Minha inteligência resolve problemas que muitas vezes eu mesmo provoquei.',
+      '5. Mudo de aparência, sexo e espécie em diferentes narrativas.',
+      '6. Em uma história, transformei-me em égua para afastar o cavalo de um construtor.',
+      '7. Dessa transformação nasceu Sleipnir, que depois entreguei a outro deus.',
+      '8. Sou pai de criaturas associadas ao mar, aos mortos e ao fim do mundo.',
+      '9. Também sou pai de um lobo destinado a enfrentar a ordem divina.',
+      '10. Convenci anões a produzirem tesouros durante uma competição de habilidade.',
+      '11. Uma aposta nessa disputa quase me fez perder a própria cabeça.',
+      '12. Minha participação na morte de Balder marca uma mudança decisiva nas histórias.',
+      '13. Fui preso com as entranhas de um de meus filhos como punição.',
+      '14. Uma serpente derrama veneno acima de meu rosto durante o cativeiro.',
+      '15. Sigyn tenta proteger-me recolhendo esse veneno em uma tigela.',
+      '16. Meus movimentos quando ela se afasta foram usados para explicar terremotos.',
+      '17. Libertar-me é um dos sinais do início da batalha final.',
+      '18. Enfrentarei Heimdall, e ambos morreremos no confronto.',
+      '19. Sou uma figura ambígua, útil e destrutiva, mais complexa que um simples vilão.',
+      '20. Fiquei conhecido como o trapaceiro e transformista da mitologia nórdica.',
+    ],
+  },
+  {
+    id: 'card_186',
+    category: 'Mitologia',
+    answer: 'Ícaro',
+    clues: [
+      '1. Fui aprisionado em uma ilha por causa dos conhecimentos de meu pai.',
+      '2. O governante local queria impedir que um segredo arquitetônico fosse revelado.',
+      '3. Meu pai era um inventor e artesão chamado Dédalo.',
+      '4. A fuga por terra e mar parecia impossível devido à vigilância.',
+      '5. Penas de diferentes tamanhos foram organizadas para imitar a estrutura das aves.',
+      '6. Fios e uma substância sensível ao calor uniam o equipamento.',
+      '7. Recebi instruções para evitar dois extremos durante a viagem.',
+      '8. Voar baixo demais aproximaria o equipamento da umidade do mar.',
+      '9. Voar alto demais o exporia a uma fonte intensa de calor.',
+      '10. A sensação de liberdade levou-me a ignorar a rota segura.',
+      '11. O material que mantinha as penas unidas perdeu sua firmeza.',
+      '12. Meu pai assistiu sem conseguir impedir minha queda.',
+      '13. Uma área do mar Egeu recebeu um nome ligado à minha morte.',
+      '14. Uma ilha próxima também preserva essa associação geográfica.',
+      '15. Meu mito não aparece nas obras mais antigas de Homero.',
+      '16. Ovídio registrou uma das versões literárias mais influentes da história.',
+      '17. Artistas frequentemente retratam meu desastre como detalhe de uma paisagem maior.',
+      '18. Tornei-me metáfora para ambição sem prudência.',
+      '19. Minha história envolve asas artificiais feitas com penas e cera.',
+      '20. Sou o jovem que caiu após se aproximar demais do Sol.',
+    ],
+  },
+  {
+    id: 'card_187',
+    category: 'Mitologia',
+    answer: 'Afrodite',
+    clues: [
+      '1. Minhas origens são narradas de maneiras diferentes por Homero e Hesíodo.',
+      '2. Em uma tradição, sou filha de Zeus e Dione.',
+      '3. Em outra, surjo de uma espuma formada no mar após um conflito entre gerações divinas.',
+      '4. Chipre tornou-se um dos centros mais importantes de meu culto.',
+      '5. A cidade de Pafos guarda forte associação religiosa comigo.',
+      '6. Minha equivalente romana recebeu um papel importante na genealogia de Roma.',
+      '7. Sou casada com um habilidoso deus ferreiro em muitas narrativas.',
+      '8. Minha relação com Ares produz episódios de desejo, ciúme e humilhação pública.',
+      '9. Uma rede invisível foi usada para expor uma de minhas traições.',
+      '10. Prometi a Páris a mulher mais bela em troca de sua escolha numa disputa.',
+      '11. Essa decisão contribuiu para o início de uma guerra épica.',
+      '12. Ajudei meu filho Eneias durante sua fuga e suas viagens.',
+      '13. Eros aparece como meu filho ou companheiro em diferentes representações.',
+      '14. Pombas, rosas, murtas e conchas fazem parte de minha iconografia.',
+      '15. Um cinturão mágico ampliava meu poder de atração.',
+      '16. Meu culto envolvia aspectos de fertilidade, união e desejo.',
+      '17. Artistas do Renascimento imaginaram meu nascimento emergindo sobre uma concha.',
+      '18. Meu nome está ligado à palavra grega para espuma.',
+      '19. Represento uma força capaz de afetar deuses e mortais.',
+      '20. Sou a divindade grega mais associada ao amor e à beleza.',
+    ],
+  },
+  {
+    id: 'card_188',
+    category: 'Mitologia',
+    answer: 'Kraken',
+    clues: [
+      '1. Minha forma moderna combina relatos marítimos de épocas e regiões diferentes.',
+      '2. Fui descrito em textos escandinavos antes de ganhar fama na cultura popular global.',
+      '3. Algumas narrativas antigas confundiam meu corpo com uma ilha.',
+      '4. Cardumes reunidos ao meu redor atraíam pescadores imprudentes.',
+      '5. O redemoinho produzido por minha submersão seria tão perigoso quanto meu ataque.',
+      '6. O bispo Erik Pontoppidan escreveu sobre mim no século XVIII.',
+      '7. Naturalistas tentaram encaixar relatos a meu respeito em classificações zoológicas.',
+      '8. Avistamentos de lulas gigantes provavelmente alimentaram minha tradição.',
+      '9. Meu tamanho cresce muito além de qualquer animal real nas lendas.',
+      '10. Não pertenço originalmente à mitologia grega.',
+      '11. Romances do século XIX ajudaram a aproximar minha imagem dos cefalópodes.',
+      '12. Júlio Verne descreveu criaturas semelhantes atacando uma embarcação submarina.',
+      '13. Cinema e jogos me transformaram em obstáculo recorrente de aventuras oceânicas.',
+      '14. Tentáculos gigantes são hoje minha característica visual dominante.',
+      '15. Costumo surgir em regiões profundas e pouco conhecidas do mar.',
+      '16. Navios inteiros desaparecem quando apareço nas versões mais exageradas.',
+      '17. Uma ordem de ataque com meu nome tornou-se frase famosa no cinema.',
+      '18. Sou associado especialmente às costas da Noruega e da Groenlândia.',
+      '19. Minha lenda materializa o medo de criaturas escondidas sob embarcações.',
+      '20. Sou o monstro marinho colossal frequentemente retratado como uma lula ou um polvo.',
+    ],
+  },
+  {
+    id: 'card_189',
+    category: 'Tecnologia',
+    answer: 'Wi-Fi',
+    clues: [
+      '1. Minha base técnica pertence à família de padrões IEEE 802.11.',
+      '2. Uma aliança industrial certifica a interoperabilidade dos produtos que me utilizam.',
+      '3. Meu nome comercial foi criado para ser mais memorável que uma designação técnica.',
+      '4. Não sou abreviação oficial de "fidelidade sem fio", apesar da crença popular.',
+      '5. Uso faixas de radiofrequência compartilhadas por diversos tipos de equipamento.',
+      '6. As bandas de 2,4 e 5 gigahertz tornaram-se comuns em redes domésticas.',
+      '7. Frequências mais altas podem oferecer velocidade maior, mas enfrentam mais obstáculos.',
+      '8. Paredes, distância e interferência reduzem meu desempenho.',
+      '9. Um ponto de acesso coordena a comunicação de vários dispositivos.',
+      '10. O nome visível de uma rede é identificado pela sigla SSID.',
+      '11. Canais sobrepostos podem causar congestionamento em áreas densas.',
+      '12. Protocolos de segurança evoluíram após falhas graves nas primeiras gerações.',
+      '13. WPA2 e WPA3 protegem transmissões quando configurados corretamente.',
+      '14. Uma senha forte não resolve os riscos de um roteador desatualizado.',
+      '15. Redes de malha usam vários pontos para ampliar a cobertura.',
+      '16. Meu símbolo costuma ser formado por arcos concêntricos.',
+      '17. Celulares, televisores e eletrodomésticos podem se conectar por mim.',
+      '18. Não preciso de cabo entre o dispositivo e o roteador.',
+      '19. Transformei cafeterias, aeroportos e residências em pontos de acesso à internet.',
+      '20. Sou a tecnologia mais comum para redes locais sem fio.',
+    ],
+  },
+  {
+    id: 'card_190',
+    category: 'Tecnologia',
+    answer: 'Impressão 3D',
+    clues: [
+      '1. Minhas primeiras patentes importantes surgiram na década de 1980.',
+      '2. Charles Hull desenvolveu um processo baseado na cura de resina por luz.',
+      '3. Um arquivo digital precisa ser dividido em muitas camadas antes da fabricação.',
+      '4. Esse processo de preparação é normalmente chamado de fatiamento.',
+      '5. Construo formas adicionando material em vez de retirar um bloco maior.',
+      '6. Essa abordagem pode reduzir desperdício em geometrias específicas.',
+      '7. Filamentos termoplásticos são derretidos em uma de minhas técnicas mais acessíveis.',
+      '8. Resinas líquidas podem endurecer seletivamente sob luz.',
+      '9. Pós metálicos podem ser fundidos por fontes concentradas de energia.',
+      '10. A orientação da peça influencia resistência, acabamento e necessidade de suportes.',
+      '11. Estruturas temporárias sustentam regiões que seriam produzidas no ar.',
+      '12. Minha precisão depende de calibração, material e método utilizado.',
+      '13. Protótipos rápidos foram uma de minhas primeiras aplicações industriais.',
+      '14. Também produzo próteses, ferramentas, moldes e peças aeroespaciais.',
+      '15. Modelos médicos podem ser criados a partir de exames de imagem.',
+      '16. Casas experimentais já foram fabricadas com sistemas de deposição em grande escala.',
+      '17. Não crio matéria do nada e continuo limitada pelas propriedades do material.',
+      '18. Meu uso doméstico cresceu com projetos de código aberto.',
+      '19. Transformo modelos virtuais em objetos físicos tridimensionais.',
+      '20. Sou conhecida como fabricação aditiva realizada camada por camada.',
+    ],
+  },
+  {
+    id: 'card_191',
+    category: 'Tecnologia',
+    answer: 'Computação Quântica',
+    clues: [
+      '1. Minha unidade básica de informação não precisa permanecer apenas em um de dois estados clássicos.',
+      '2. Superposição permite representar combinações de possibilidades antes da medição.',
+      '3. Emaranhamento cria correlações que não aparecem da mesma forma em sistemas comuns.',
+      '4. Medir meu estado altera a informação disponível.',
+      '5. Não sou simplesmente um computador tradicional muito mais rápido.',
+      '6. Apenas determinados problemas apresentam vantagem conhecida em minha abordagem.',
+      '7. Um algoritmo famoso ameaça métodos criptográficos baseados em fatoração.',
+      '8. Outro oferece ganho quadrático em certas buscas não estruturadas.',
+      '9. Ruído e perda de coerência são obstáculos centrais ao meu desenvolvimento.',
+      '10. Correção de erros exige muitos componentes físicos para formar uma unidade lógica confiável.',
+      '11. Temperaturas extremamente baixas são usadas em algumas arquiteturas.',
+      '12. Íons aprisionados, fótons e circuitos supercondutores são caminhos concorrentes.',
+      '13. Pulsos cuidadosamente controlados executam operações chamadas portas.',
+      '14. A leitura final fornece resultados probabilísticos e costuma exigir repetições.',
+      '15. Simular moléculas e materiais é uma aplicação promissora.',
+      '16. Otimização e aprendizado de máquina são pesquisados, mas nem sempre apresentam vantagem comprovada.',
+      '17. Dispositivos atuais ainda possuem limitações importantes de escala e fidelidade.',
+      '18. Minha teoria combina ciência da informação, matemática e física do mundo microscópico.',
+      '19. Utilizo qubits em vez de bits convencionais.',
+      '20. Exploro fenômenos da mecânica quântica para processar informação.',
+    ],
+  },
+  {
+    id: 'card_192',
+    category: 'Tecnologia',
+    answer: 'Satélite Artificial',
+    clues: [
+      '1. Minha trajetória é uma queda contínua que acompanha a curvatura de um corpo celeste.',
+      '2. Velocidade e altitude determinam grande parte do caminho que percorro.',
+      '3. O primeiro de minha categoria foi lançado em 1957.',
+      '4. Seu sinal de rádio simples pôde ser acompanhado por observadores em diferentes países.',
+      '5. Posso ocupar órbitas baixas, médias, altamente elípticas ou muito distantes.',
+      '6. Em uma posição específica, pareço imóvel para quem observa do equador terrestre.',
+      '7. Essa condição é útil para comunicação e meteorologia.',
+      '8. Painéis solares alimentam muitos dos meus sistemas.',
+      '9. Baterias mantêm o funcionamento quando fico temporariamente sem luz.',
+      '10. Pequenos propulsores podem corrigir orientação e trajetória.',
+      '11. Sensores estelares ajudam a determinar para onde estou apontando.',
+      '12. Posso retransmitir sinais, fotografar nuvens ou medir mudanças ambientais.',
+      '13. Sistemas de navegação dependem de constelações formadas por vários de mim.',
+      '14. Atrasos de comunicação aumentam conforme minha distância.',
+      '15. Detritos em órbita representam risco de colisão para meu funcionamento.',
+      '16. Ao fim da vida útil, posso ser removido, rebaixado ou enviado a uma órbita-cemitério.',
+      '17. Cubesats reduziram o custo de projetos acadêmicos e experimentais.',
+      '18. Não tenho tripulação e opero no espaço por comandos e automação.',
+      '19. Fui construído por seres humanos para orbitar outro corpo.',
+      '20. Comunicação, previsão do tempo e posicionamento global dependem de minhas redes.',
+    ],
+  },
+  {
+    id: 'card_193',
+    category: 'Gastronomia',
+    answer: 'Paella',
+    clues: [
+      '1. Minha origem está ligada ao trabalho rural e a refeições preparadas ao ar livre.',
+      '2. Desenvolvi-me em uma região mediterrânea da Península Ibérica.',
+      '3. Meu nome deriva originalmente do recipiente em que sou preparada.',
+      '4. Esse recipiente é largo, raso e possui duas alças laterais.',
+      '5. A grande área ajuda o líquido a evaporar de maneira uniforme.',
+      '6. O grão utilizado deve absorver sabor sem se desfazer facilmente.',
+      '7. Variedades de arroz de grão curto são valorizadas em minha preparação.',
+      '8. Açafrão pode contribuir com aroma e tonalidade amarelada.',
+      '9. Uma camada tostada no fundo é desejada e recebe o nome de socarrat.',
+      '10. Mexer excessivamente depois da adição do caldo prejudica minha textura tradicional.',
+      '11. A versão valenciana costuma incluir carnes, feijões e vegetais.',
+      '12. Coelho e frango aparecem em receitas consideradas tradicionais.',
+      '13. Caracóis também podem fazer parte de versões regionais.',
+      '14. Frutos do mar pertencem a uma variação muito difundida fora da região de origem.',
+      '15. Misturar carne e frutos do mar produz outra interpretação conhecida.',
+      '16. Nem toda receita autêntica leva camarões, mexilhões ou lula.',
+      '17. Costumo ser compartilhada diretamente do recipiente de preparo.',
+      '18. Fogo, proporção de caldo e distribuição dos ingredientes exigem controle cuidadoso.',
+      '19. Sou um prato emblemático da Comunidade Valenciana.',
+      '20. Sou uma preparação espanhola de arroz feita em uma panela larga e rasa.',
+    ],
+  },
+  {
+    id: 'card_194',
+    category: 'Gastronomia',
+    answer: 'Croissant',
+    clues: [
+      '1. Minha história popular é cercada por lendas sobre cercos e luas crescentes.',
+      '2. Tenho parentesco histórico com uma categoria de pães vienenses.',
+      '3. Minha forma atual foi refinada em padarias francesas.',
+      '4. Sou produzido com uma massa enriquecida e sucessivas camadas de gordura.',
+      '5. Dobras e períodos de descanso criam uma estrutura laminada.',
+      '6. A manteiga precisa permanecer firme durante grande parte do processo.',
+      '7. Se ela derreter cedo demais, minhas camadas se fundem.',
+      '8. O glúten deve desenvolver força suficiente para suportar a laminação.',
+      '9. Fermentação e vapor trabalham juntos para expandir meu interior.',
+      '10. O calor transforma a água presente na gordura em pressão entre as folhas de massa.',
+      '11. Uma boa execução produz exterior quebradiço e interior alveolado.',
+      '12. Minha produção tradicional pode ocupar mais de um dia.',
+      '13. Temperatura ambiente influencia diretamente a dificuldade do preparo.',
+      '14. Posso receber chocolate, amêndoas, queijo ou recheios salgados.',
+      '15. A versão reta frequentemente indica uso de manteiga em certas tradições de padaria.',
+      '16. Minha versão curva preserva a forma que inspirou meu nome.',
+      '17. Sou consumido no café da manhã, mas minha massa exige técnica de confeitaria.',
+      '18. Farelos sobre a mesa costumam denunciar minha textura correta.',
+      '19. Minha silhueta lembra uma lua crescente.',
+      '20. Sou um folhado fermentado associado mundialmente às padarias francesas.',
+    ],
+  },
+  {
+    id: 'card_195',
+    category: 'Gastronomia',
+    answer: 'Kimchi',
+    clues: [
+      '1. Sou parte de uma tradição de conservação desenvolvida para atravessar estações frias.',
+      '2. Minha preparação coletiva tradicional recebe um nome próprio e reúne famílias ou comunidades.',
+      '3. Essa prática foi reconhecida como patrimônio cultural imaterial.',
+      '4. Existem centenas de variações regionais e sazonais de mim.',
+      '5. Nem todas as minhas versões são vermelhas ou intensamente picantes.',
+      '6. Salgar o ingrediente principal retira água e modifica sua textura.',
+      '7. Microrganismos naturalmente presentes conduzem uma fermentação ácida.',
+      '8. Bactérias lácticas têm papel importante em meu desenvolvimento.',
+      '9. Temperatura e tempo alteram meu sabor, aroma e velocidade de fermentação.',
+      '10. Recipientes de barro chamados onggi foram tradicionalmente usados para me armazenar.',
+      '11. Antigamente, esses recipientes podiam ser parcialmente enterrados.',
+      '12. Gengibre, alho e cebolinha aparecem em muitas fórmulas.',
+      '13. Pimenta em pó tornou-se importante após chegar à Ásia vinda das Américas.',
+      '14. Molho de peixe ou frutos do mar fermentados podem aprofundar meu sabor.',
+      '15. Há versões vegetarianas que dispensam ingredientes de origem animal.',
+      '16. Posso ser servido como acompanhamento ou entrar em sopas, arroz e panquecas.',
+      '17. Repolho napa é uma base comum, mas rabanete também é tradicional.',
+      '18. Minha acidez aumenta conforme amadureço.',
+      '19. Estou presente diariamente em muitas mesas coreanas.',
+      '20. Sou um conjunto coreano de vegetais salgados e fermentados.',
+    ],
+  },
+  {
+    id: 'card_196',
+    category: 'Gastronomia',
+    answer: 'Brigadeiro',
+    clues: [
+      '1. Minha origem é geralmente situada no Brasil da década de 1940.',
+      '2. Meu nome foi associado a uma campanha política do pós-guerra.',
+      '3. A patente militar do candidato acabou virando denominação culinária.',
+      '4. Mulheres ligadas à campanha vendiam doces para arrecadar recursos.',
+      '5. Minha história exata possui versões concorrentes e detalhes difíceis de comprovar.',
+      '6. Ganhei popularidade quando ingredientes importados e receitas elaboradas eram menos acessíveis.',
+      '7. Minha base tradicional reúne um produto lácteo concentrado, gordura e cacau.',
+      '8. O cozimento modifica a consistência até a mistura se desprender do fundo da panela.',
+      '9. O ponto varia conforme serei servido enrolado, em colher ou como recheio.',
+      '10. Preciso esfriar antes de ser modelado manualmente.',
+      '11. Uma camada de gordura nas mãos facilita o formato tradicional.',
+      '12. Pequenos confeitos costumam cobrir minha superfície.',
+      '13. Forminhas de papel individuais fazem parte de minha apresentação clássica.',
+      '14. Chocolate branco, castanhas e frutas originaram inúmeras variações modernas.',
+      '15. Versões gourmet valorizam chocolates com maior teor de cacau.',
+      '16. Posso cobrir bolos ou aparecer em camadas dentro deles.',
+      '17. Festas infantis brasileiras raramente me ignoram.',
+      '18. Sou pequeno, redondo e normalmente consumido sem talheres.',
+      '19. Leite condensado é o ingrediente mais associado à minha textura.',
+      '20. Sou um doce brasileiro de chocolate enrolado e coberto por granulado.',
+    ],
+  },
+  {
+    id: 'card_197',
+    category: 'Esportes',
+    answer: 'Rugby',
+    clues: [
+      '1. Minha origem moderna é associada a uma escola inglesa do século XIX.',
+      '2. Uma história famosa atribui minha criação a um estudante que correu carregando a bola.',
+      '3. Essa narrativa é mais tradição do que documentação histórica conclusiva.',
+      '4. Meus códigos principais se separaram por divergências sobre regras e profissionalismo.',
+      '5. Uma versão utiliza quinze jogadores por equipe; outra, treze.',
+      '6. A bola pode ser conduzida com as mãos, mas passes manuais não avançam para a frente.',
+      '7. Chutes permitem ganhar território ou disputar a posse.',
+      '8. Derrubar o portador exige técnica para reduzir riscos de lesão.',
+      '9. Após determinadas infrações, grupos de jogadores disputam força de maneira organizada.',
+      '10. Essa formação reinicia o jogo com atletas unidos e inclinados.',
+      '11. Laterais podem ser cobradas com jogadores erguidos pelos companheiros.',
+      '12. Marcar apoiando a bola na área final vale mais que um chute comum.',
+      '13. Uma tentativa adicional pode ser executada depois dessa pontuação.',
+      '14. Não uso capacetes rígidos nem grandes armaduras na minha versão mais conhecida.',
+      '15. Protetores bucais são comuns e importantes.',
+      '16. O árbitro comunica decisões com gestos e voz durante a partida.',
+      '17. Nova Zelândia, África do Sul e algumas nações europeias possuem fortes tradições em mim.',
+      '18. Uma dança cerimonial tornou-se famosa antes dos jogos de uma seleção específica.',
+      '19. Minha bola tem formato oval e quica de maneira imprevisível.',
+      '20. Sou um esporte coletivo de contato que originou diferentes códigos modernos.',
+    ],
+  },
+  {
+    id: 'card_198',
+    category: 'Esportes',
+    answer: 'Skate',
+    clues: [
+      '1. Surgi quando praticantes de uma atividade aquática buscaram alternativa para dias sem ondas.',
+      '2. Meus primeiros modelos adaptavam rodas de patins a tábuas simples.',
+      '3. Rodas de poliuretano transformaram controle e aderência na década de 1970.',
+      '4. Pistas com paredes curvas aproveitaram piscinas vazias na Califórnia.',
+      '5. A posição dos pés pode ser regular ou goofy.',
+      '6. Um eixo metálico em cada extremidade permite inclinar e fazer curvas.',
+      '7. Buchas de material flexível influenciam a resposta desses eixos.',
+      '8. Uma lixa colada à superfície mantém os pés aderidos.',
+      '9. O formato levantado nas pontas ajuda a controlar rotações e saltos.',
+      '10. O ollie permite sair do chão sem segurar a prancha com as mãos.',
+      '11. Rodney Mullen desenvolveu ou popularizou diversas manobras fundamentais de rua.',
+      '12. Corrimãos, escadas, bancos e bordas podem virar obstáculos criativos.',
+      '13. Modalidades incluem street, park, vertical e downhill.',
+      '14. Quedas fazem parte constante do processo de aprendizagem.',
+      '15. Capacete e proteções reduzem riscos, especialmente em rampas.',
+      '16. Vídeos ajudaram a espalhar estilos, equipes e marcas pelo mundo.',
+      '17. Minha cultura influencia música, roupas, fotografia e arte urbana.',
+      '18. Entrei no programa olímpico nos Jogos de Tóquio realizados em 2021.',
+      '19. Uso uma prancha estreita apoiada sobre quatro rodas pequenas.',
+      '20. Sou simultaneamente esporte, transporte e expressão ligada às ruas.',
+    ],
+  },
+  {
+    id: 'card_199',
+    category: 'Esportes',
+    answer: 'Esgrima',
+    clues: [
+      '1. Minha forma esportiva descende de tradições europeias de duelo e treinamento militar.',
+      '2. Tratados antigos registraram sistemas detalhados de ataque e defesa.',
+      '3. Integrei o programa dos primeiros Jogos Olímpicos modernos.',
+      '4. Três tipos de arma definem regras e alvos diferentes.',
+      '5. Em uma delas, apenas a ponta pode marcar e o tronco é o alvo válido.',
+      '6. Em outra, todo o corpo é alvo e não existe prioridade convencional de ataque.',
+      '7. A terceira permite golpes também com a lateral da lâmina.',
+      '8. Um sistema de prioridade resolve ações simultâneas em duas modalidades.',
+      '9. Sensores elétricos registram muitos dos toques em competições.',
+      '10. Cabos percorrem o uniforme e conectam o atleta ao aparelho de sinalização.',
+      '11. A pista longa e estreita limita meu espaço de combate.',
+      '12. Sair pela extremidade pode resultar em ponto para o adversário.',
+      '13. Minha posição básica mantém o corpo de lado e os joelhos flexionados.',
+      '14. Avanços, recuos e afundos controlam distância e tempo.',
+      '15. A máscara protege rosto e cabeça com uma malha resistente.',
+      '16. A roupa branca facilita contraste e segue uma tradição anterior aos sensores modernos.',
+      '17. Velocidade de decisão importa tanto quanto reflexos físicos.',
+      '18. Cumprimento o adversário e o árbitro antes e depois do confronto.',
+      '19. Florete, espada e sabre são minhas três armas esportivas.',
+      '20. Sou o combate competitivo com lâminas, máscara e regras de toque.',
+    ],
+  },
+  {
+    id: 'card_200',
+    category: 'Esportes',
+    answer: 'Surfe',
+    clues: [
+      '1. Povos do Pacífico praticavam formas de mim muito antes do contato europeu.',
+      '2. No Havaí, minha prática esteve ligada a posição social, tradição e espiritualidade.',
+      '3. Duke Kahanamoku ajudou a divulgar-me internacionalmente no início do século XX.',
+      '4. Pranchas antigas podiam ser longas, pesadas e feitas de madeira maciça.',
+      '5. Espuma, fibra de vidro e resina transformaram meu equipamento moderno.',
+      '6. Uma quilha ajuda a controlar direção e estabilidade.',
+      '7. Leashes ligam o praticante ao equipamento, mas não eliminam riscos.',
+      '8. O formato do fundo, das bordas e da rabeta altera o comportamento da prancha.',
+      '9. Ondulações podem viajar milhares de quilômetros antes de chegar à costa.',
+      '10. Vento, maré, relevo submarino e direção da ondulação moldam minhas condições.',
+      '11. Point breaks, beach breaks e reef breaks descrevem diferentes fundos e formações.',
+      '12. A prioridade define quem tem direito a uma onda em competições.',
+      '13. Juízes avaliam dificuldade, compromisso, variedade e execução das manobras.',
+      '14. Tubos se formam quando a crista lança água à frente da face.',
+      '15. Remar e escolher a posição correta ocupam grande parte de uma sessão.',
+      '16. Correntes de retorno podem ajudar a alcançar áreas além da arrebentação.',
+      '17. Conhecer o oceano é uma habilidade de segurança essencial para mim.',
+      '18. Estreei nos Jogos Olímpicos na edição de Tóquio.',
+      '19. Meu praticante desliza em uma prancha sobre a face de uma onda.',
+      '20. Sou um esporte aquático cuja energia principal vem do movimento do mar.',
+    ],
+  },
 ];
-
-// O banco bruto permanece intacto. O balanceamento abaixo devolve novas cartas,
-// sem alterar RAW_PRELOADED_CARDS, e pode ser executado novamente sobre o
-// resultado sem acumular novas pistas automáticas.
-function balanceProfileCards(cards) {
-  const TOTAL_CLUES = 20;
-  const MAX_GENERATED_CLUES = 2;
-
-  if (!Array.isArray(cards)) {
-    throw new TypeError('O banco de cartas precisa ser um array.');
-  }
-
-  const semanticStopWords = new Set([
-    'a', 'ao', 'aos', 'aquela', 'aquele', 'aqueles', 'as', 'ate', 'com',
-    'como', 'da', 'das', 'de', 'dela', 'dele', 'do', 'dos', 'e', 'ela',
-    'ele', 'em', 'entre', 'era', 'essa', 'esse', 'esta', 'este', 'eu',
-    'foi', 'foram', 'ha', 'isso', 'ja', 'mais', 'mas', 'me', 'meu', 'minha',
-    'muito', 'na', 'nas', 'no', 'nos', 'o', 'os', 'ou', 'para', 'pela',
-    'pelo', 'por', 'porque', 'que', 'se', 'sem', 'ser', 'sido', 'sua', 'suas',
-    'tambem', 'tem', 'tive', 'um', 'uma', 'varios', 'varias', 'voce',
-  ]);
-
-  const normalizeText = (text) =>
-    String(text)
-      .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, ' ')
-      .trim();
-
-  const stripNumber = (clue) => String(clue).replace(/^\d+\.\s*/, '').trim();
-
-  // Reescritas editoriais. A pista mantém o fato, mas deixa de pronunciar a
-  // própria resposta. Isso é melhor do que simplesmente apagar pistas boas.
-  const softenedClues = new Map([
-    ['O "piano forte" é a tradução da minha dualidade sonora.', 'Meu nome original descreve a capacidade de alternar sons suaves e fortes.'],
-    ['O microscópio eletrônico revolucionou o que podíamos enxergar.', 'Minha versão eletrônica revolucionou o que podíamos enxergar.'],
-    ['O óculos de sol é um acessório indispensável de proteção e moda.', 'Minha versão escura protege contra o sol e também virou acessório de moda.'],
-    ['O ato de "entregar as chaves" é um símbolo de confiança e posse.', 'Entregar o objeto de acesso a alguém é um símbolo de confiança e posse.'],
-    ['Existem chaves que abrem carros, cofres, casas e até corações (metaforicamente).', 'Há versões para carros, cofres e casas; na metáfora, posso até abrir corações.'],
-    ['A chave-mestra é o objeto que abre quase todas as portas de um sistema.', 'Minha versão mestra abre quase todas as portas de um mesmo sistema.'],
-    ['O mito da Medusa é um tema recorrente na arte mundial.', 'Meu mito é um tema recorrente na arte mundial.'],
-    ['O sushi tornou-se sinônimo de comida saudável e refinada.', 'Tornei-me sinônimo de comida saudável e refinada.'],
-    ['O sushi de supermercado é muito diferente do preparado na hora pelo mestre.', 'Minha versão de supermercado é muito diferente da preparada na hora por um mestre.'],
-    ['Comer sushi é uma experiência que envolve todos os sentidos.', 'Minha degustação é uma experiência que envolve todos os sentidos.'],
-    ['O mito da fênix existe em diversas culturas pelo mundo.', 'Meu mito existe em diversas culturas pelo mundo.'],
-    ['A temperagem do chocolate é o segredo do meu brilho e da minha crocância.', 'A temperagem correta é o segredo do meu brilho e da minha crocância.'],
-    ['O chocolate amargo é considerado o mais saudável e puro.', 'Minha versão amarga é considerada a mais saudável e pura.'],
-    ['O chocolate gourmet valoriza a origem e o percentual de cacau.', 'Minhas versões gourmet valorizam a origem e o percentual de cacau.'],
-    ['A indústria do chocolate é um dos maiores mercados do planeta.', 'Minha indústria movimenta um dos maiores mercados do planeta.'],
-    ['A combinação de chocolate com frutas, castanhas e licores é infinita.', 'Combino de inúmeras formas com frutas, castanhas e licores.'],
-    ['A Itália é um museu a céu aberto onde quer que você pise.', 'Sou comparada a um museu a céu aberto em quase todo o meu território.'],
-    ['A França é o país com a maior variedade de queijos do mundo.', 'A França é o país que reúne algumas das minhas maiores variedades.'],
-    ['O queijo de cabra possui um sabor mais ácido e característico.', 'Minha versão feita com leite de cabra possui sabor mais ácido e característico.'],
-    ['O queijo minas é o orgulho das tradições rurais brasileiras.', 'Uma variedade mineira é orgulho das tradições rurais brasileiras.'],
-    ['O vinho e o queijo formam a dupla mais clássica da gastronomia mundial.', 'Com o vinho, formo uma das duplas mais clássicas da gastronomia mundial.'],
-    ['A conservação do queijo foi uma estratégia de sobrevivência no passado.', 'Minha conservação foi uma estratégia de sobrevivência no passado.'],
-    ['O ralador é a ferramenta que transforma o queijo duro em acompanhamento.', 'O ralador transforma minhas versões duras em acompanhamento.'],
-    ['Existem queijos frescos que devem ser consumidos em poucos dias.', 'Minhas variedades frescas devem ser consumidas em poucos dias.'],
-    ['O universo do queijo é tão vasto que uma vida inteira não basta para provar tudo.', 'Meu universo de variedades é tão vasto que uma vida inteira não basta para provar tudo.'],
-    ['O vôlei de praia é a minha versão solar e disputada na areia.', 'Minha versão de praia é disputada em duplas sobre a areia.'],
-    ['A bola de vôlei é leve e feita para ser batida com as mãos.', 'A bola usada em mim é leve e feita para ser batida com as mãos.'],
-    ['O vôlei de praia é jogado em dupla, exigindo um esforço físico enorme.', 'Na praia, sou jogado em duplas e exijo enorme esforço físico.'],
-    ['O vôlei é um jogo de paciência, inteligência e explosão.', 'Sou um jogo de paciência, inteligência e explosão.'],
-    ['O Brasil é o maior produtor mundial de café.', 'O Brasil é um dos maiores produtores mundiais do grão que me origina.'],
-    ['O ritual de coar o café é uma tradição familiar no Brasil.', 'O ritual de me coar é uma tradição familiar no Brasil.'],
-    ['O aroma do café fresco é um dos mais prazerosos que existem.', 'Meu aroma quando fresco é um dos mais reconhecíveis que existem.'],
-    ['Os cafés gourmet valorizam a origem e o método de colheita.', 'Minhas versões gourmet valorizam a origem e o método de colheita.'],
-    ['O café excessivo pode causar ansiedade, o consumo moderado traz foco.', 'Em excesso posso causar ansiedade; com moderação, sou associado ao foco.'],
-    ['O café de coador é o símbolo do café caseiro e acolhedor.', 'Minha versão de coador é símbolo de uma pausa caseira e acolhedora.'],
-    ['O café não é apenas uma bebida, é uma cultura e uma economia mundial.', 'Não sou apenas uma bebida: também represento uma cultura e uma economia mundial.'],
-    ['O café é o combustível social que une as pessoas ao redor de uma xícara.', 'Sou um combustível social que reúne pessoas ao redor de uma xícara.'],
-    ['A Austrália é o mundo invertido onde a natureza segue suas próprias regras.', 'Sou vista como um mundo invertido onde a natureza segue suas próprias regras.'],
-    ['As Leis da Robótica, de Isaac Asimov, guiam a minha ética teórica.', 'As leis formuladas por Isaac Asimov guiam minha ética teórica.'],
-    ['A robótica colaborativa permite que eu trabalhe lado a lado com humanos.', 'Minha vertente colaborativa permite trabalhar lado a lado com humanos.'],
-    ['O conceito de "quimera" é usado até hoje para ideias fantásticas e irreais.', 'Meu nome também é usado para descrever ideias fantásticas e irreais.'],
-    ['O pão de fermentação natural é uma arte que exige tempo e paciência.', 'Minha fermentação natural é uma arte que exige tempo e paciência.'],
-    ['A cultura do pão é um símbolo de sustento e de vida em quase todo lugar.', 'Minha presença à mesa simboliza sustento e vida em muitas culturas.'],
-    ['O cheiro de pão assando é um gatilho de conforto emocional.', 'Meu cheiro ao assar é um conhecido gatilho de conforto emocional.'],
-    ['A divisão do pão é um ato ritualístico e simbólico na história humana.', 'Dividir-me é um ato ritualístico e simbólico na história humana.'],
-    ['O pão amanhecido serve para tantas outras receitas, como rabanadas.', 'Mesmo amanhecido, sirvo para outras receitas, como rabanadas.'],
-    ['O pão artesanal valoriza as farinhas moídas na pedra.', 'Minha versão artesanal valoriza farinhas moídas na pedra.'],
-    ['O pão é o alimento que une a história humana ao fogo e à terra.', 'Sou um alimento que liga a história humana ao fogo e à terra.'],
-    ['O hambúrguer de vegetais (vegano) é a minha versão mais moderna.', 'Minha versão vegetal é uma das adaptações mais modernas.'],
-    ['O hambúrguer artesanal valoriza cortes nobres de carne e queijos maturados.', 'Minha versão artesanal valoriza cortes nobres e queijos maturados.'],
-    ['O sucesso do hambúrguer está na simplicidade e no conforto.', 'Meu sucesso está na simplicidade e na sensação de conforto.'],
-    ['O hambúrguer é o rei do conforto alimentar moderno.', 'Sou tratado como o rei do conforto alimentar moderno.'],
-    ['O basquete de rua (streetball) é a base cultural da minha prática moderna.', 'Minha versão de rua, chamada streetball, é uma base cultural da prática moderna.'],
-    ['Os tênis personalizados são parte da cultura do basquete desde os anos 80.', 'Tênis personalizados fazem parte da minha cultura desde os anos 80.'],
-    ['O basquete é um jogo de altura, velocidade e precisão total.', 'Sou um jogo de altura, velocidade e precisão.'],
-    ['Sou a energia gerada pela força do vento.', 'Sou gerada pelo movimento do ar.'],
-    ['A energia solar térmica aquece água diretamente pelo calor do sol.', 'Minha modalidade térmica aquece água diretamente com o calor do sol.'],
-    ['O vinho de mesa é para o cotidiano, o reserva é para grandes eventos.', 'Minha versão de mesa acompanha o cotidiano; a reserva costuma marcar grandes eventos.'],
-    ['O vinho envelhecido ganha notas complexas e valor com o tempo.', 'Quando envelheço, ganho notas complexas e valor com o tempo.'],
-    ['Degustar um bom vinho é uma experiência que envolve história e sentidos.', 'Minha degustação envolve história, memória e vários sentidos.'],
-    ['O uso recreativo de drones explodiu nos últimos anos.', 'Meu uso recreativo cresceu muito nos últimos anos.'],
-    ['O uso da tesoura requer destreza e coordenação motora fina.', 'Meu uso requer destreza e coordenação motora fina.'],
-    ['A mochila é a representação da autonomia de poder ir e vir.', 'Represento a autonomia de carregar o necessário para ir e vir.'],
-    ['A lenda da sereia inspirou contos como "A Pequena Sereia".', 'Minha lenda inspirou contos famosos sobre criaturas marinhas.'],
-    ['O sorvete de massa, o picolé e o gelato são as minhas variações.', 'Minhas variações incluem versões de massa, picolés e gelatos.'],
-    ['O consumo de sorvete é um momento de alegria e pausa.', 'Meu consumo costuma ser associado a momentos de alegria e pausa.'],
-    ['O sorvete é o sabor do verão engarrafado em uma bola.', 'Sou descrito como o sabor do verão servido em uma bola.'],
-    ['Já existiram chaves gigantescas que pesavam quilos para castelos.', 'Já existiram versões gigantescas que pesavam quilos e protegiam castelos.'],
-    ['O "porta-chaves" é o primeiro lugar que você procura ao chegar em casa.', 'O suporte onde costumo ficar é um dos primeiros lugares procurados ao chegar em casa.'],
-    ['Já existiram calculadoras mecânicas que faziam um barulho único ao girar.', 'Já existiram versões mecânicas que faziam um barulho único ao girar.'],
-    ['Existem tesouras para cada uso: de unha, de poda, cirúrgicas e para papel.', 'Existem versões para cada uso: de unha, de poda, cirúrgicas e para papel.'],
-    ['Crianças usam tesouras sem ponta para aprender a cortar com segurança.', 'Crianças usam versões sem ponta para aprender a cortar com segurança.'],
-    ['Algumas mochilas possuem proteção contra chuva e capas impermeáveis.', 'Alguns modelos possuem proteção contra chuva e capas impermeáveis.'],
-    ['O canto das sereias é um metáfora para as distrações fatais.', 'Meu canto virou metáfora para distrações fatais.'],
-    ['O elefante gordo e azul (elePHPant) é meu mascote e pelúcia.', 'Um elefante gordo e azul é meu mascote e pelúcia.'],
-  ]);
-
-  const clueBody = (clue) => {
-    const body = stripNumber(clue);
-    return softenedClues.get(body) || body;
-  };
-
-  const hashText = (text) => {
-    let hash = 2166136261;
-    for (const char of String(text)) {
-      hash ^= char.charCodeAt(0);
-      hash = Math.imul(hash, 16777619);
-    }
-    return hash >>> 0;
-  };
-
-  const singularizeToken = (token) => {
-    if (token.length > 5 && token.endsWith('es')) return token.slice(0, -2);
-    if (token.length > 4 && token.endsWith('s')) return token.slice(0, -1);
-    return token;
-  };
-
-  const semanticTokens = (text) =>
-    normalizeText(text)
-      .split(' ')
-      .filter((token) => token.length >= 3 && !semanticStopWords.has(token))
-      .map(singularizeToken);
-
-  const containsDirectAnswer = (answer, clue) => {
-    const normalizedAnswer = normalizeText(answer);
-    const normalizedClue = normalizeText(clue);
-    if (!normalizedAnswer || !normalizedClue) return false;
-
-    if ((` ${normalizedClue} `).includes(` ${normalizedAnswer} `)) return true;
-
-    // Para respostas de uma palavra, também bloqueia o plural simples.
-    const answerWords = normalizedAnswer.split(' ');
-    if (answerWords.length === 1) {
-      const word = answerWords[0];
-      const clueWords = new Set(normalizedClue.split(' '));
-      return clueWords.has(`${word}s`) || clueWords.has(`${word}es`);
-    }
-
-    return false;
-  };
-
-  const isGenericClue = (body) =>
-    /\b(?:sou (?:um|uma) (?:s[ií]mbolo|[ií]cone)|sou a prova|sou conhecido|sou conhecida|sou famoso|sou famosa|mudei o mundo|nunca sai de moda|minha marca registrada|minha ess[eê]ncia|minha maior arma|minha maior promessa|minha vida foi|meu legado|meu destino|meu maior valor|um exemplo de|sin[oô]nimo de excel[eê]ncia|de tirar o f[oô]lego|um espet[aá]culo inesquec[ií]vel|pura alquimia)\b/i.test(body);
-
-  const clueQuality = (body) => {
-    const tokens = semanticTokens(body);
-    let score = tokens.length * 1.5;
-
-    if (/\b\d+(?:[.,]\d+)?\b/.test(body)) score += 5;
-    if (/['"][^'"]{2,}['"]/.test(body)) score += 3;
-    if (/[A-ZÀ-Ý][a-zà-ÿ]+(?:\s+(?:d[aeo]s?|de|do|dos|e)?\s*[A-ZÀ-Ý][a-zà-ÿ]+)+/.test(body.slice(1))) score += 4;
-    if (/\b[A-Z]{2,}\b/.test(body)) score += 3;
-    if (/\b(?:porque|durante|atrav[eé]s|devido|permitiu|causou|transformou|desenvolvi|inventei|descobri)\b/i.test(body)) score += 2;
-
-    // Pistas curtas podem ser excelentes no Perfil: “Fui camelô”, “Fico em
-    // Roma” e “Posso ser AM ou FM” são específicas, mesmo com poucas palavras.
-    if (tokens.length <= 4) score += 4;
-    if (/^(?:Nasci|Fui|Sou|Tenho|Possuo|Fico|Moro|Posso|Uso|Criei|Inventei|Descobri|Recebi|Venci)\b/i.test(body)) score += 4;
-    if (isGenericClue(body)) score -= 12;
-
-    return score;
-  };
-
-  const semanticSimilarity = (leftBody, rightBody) => {
-    const left = new Set(semanticTokens(leftBody));
-    const right = new Set(semanticTokens(rightBody));
-    if (left.size < 3 || right.size < 3) return 0;
-
-    let intersection = 0;
-    for (const token of left) {
-      if (right.has(token)) intersection += 1;
-    }
-
-    const union = left.size + right.size - intersection;
-    const jaccard = union ? intersection / union : 0;
-    const containment = intersection / Math.min(left.size, right.size);
-    return Math.max(jaccard, containment * 0.88);
-  };
-
-  const buildWordClues = (card) => {
-    const answer = String(card.answer).trim();
-    const normalized = normalizeText(answer);
-    const words = answer.split(/\s+/).filter(Boolean);
-    const letters = normalized.replace(/\s/g, '');
-    const vowels = (letters.match(/[aeiou]/g) || []).length;
-    const firstLetter = letters.charAt(0).toUpperCase();
-    const lastLetter = letters.charAt(letters.length - 1).toUpperCase();
-    const repeatedLetters = [...new Set(letters.split('').filter((letter, index, all) => all.indexOf(letter) !== index))];
-    const seed = hashText(`${card.id}|${answer}`);
-    const variant = seed % 4;
-
-    const wordCountTemplates = words.length === 1
-      ? [
-          'O termo procurado é escrito em uma única palavra.',
-          'A resposta não possui espaços entre palavras.',
-          'O nome buscado é formado por apenas uma palavra.',
-          'Trata-se de um termo escrito em uma só palavra.',
-        ]
-      : [
-          `O termo procurado é formado por ${words.length} palavras.`,
-          `A resposta possui ${words.length} palavras separadas por espaços.`,
-          `O nome buscado usa exatamente ${words.length} palavras.`,
-          `Trata-se de uma expressão composta por ${words.length} palavras.`,
-        ];
-
-    const letterCountTemplates = [
-      `Sem contar espaços e sinais, a resposta possui ${letters.length} letras.`,
-      `O termo buscado tem ${letters.length} letras quando os espaços são ignorados.`,
-      `A grafia da resposta reúne ${letters.length} letras, sem contar espaços.`,
-      `Contando apenas letras, o nome procurado tem tamanho ${letters.length}.`,
-    ];
-
-    const vowelTemplates = [
-      `A resposta possui ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'}.`,
-      `Há ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'} na grafia do termo procurado.`,
-      `Contando repetições, o nome buscado usa ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'}.`,
-      `A escrita da resposta contém ${vowels} ocorrências de vogais.`,
-    ];
-
-    const firstLetterTemplates = [
-      `A primeira letra da resposta é ${firstLetter}.`,
-      `O termo procurado começa com a letra ${firstLetter}.`,
-      `A inicial do nome buscado é ${firstLetter}.`,
-      `Minha resposta se inicia pela letra ${firstLetter}.`,
-    ];
-
-    const lastLetterTemplates = [
-      `A última letra da resposta é ${lastLetter}.`,
-      `O termo procurado termina com a letra ${lastLetter}.`,
-      `A letra final do nome buscado é ${lastLetter}.`,
-      `Minha resposta se encerra pela letra ${lastLetter}.`,
-    ];
-
-    const repetitionTemplates = repeatedLetters.length
-      ? [
-          'Pelo menos uma letra aparece mais de uma vez na resposta.',
-          'A grafia do termo procurado possui letras repetidas.',
-          'Há repetição de letras no nome buscado.',
-          'Nem todas as letras da resposta aparecem uma única vez.',
-        ]
-      : [
-          'Nenhuma letra se repete na resposta.',
-          'A grafia do termo procurado não possui letras repetidas.',
-          'Todas as letras do nome buscado aparecem uma única vez.',
-          'Não há repetição de letras na resposta.',
-        ];
-
-    const structurePools = [wordCountTemplates, letterCountTemplates, vowelTemplates];
-    const edgePools = [firstLetterTemplates, lastLetterTemplates, repetitionTemplates];
-    const structure = structurePools[seed % structurePools.length][variant];
-    const edge = edgePools[Math.floor(seed / 7) % edgePools.length][(variant + 1) % 4];
-
-    return [structure, edge];
-  };
-
-  const generatedPositions = (card) => {
-    const seed = hashText(`${card.id}|positions`);
-    const first = seed % TOTAL_CLUES;
-    let second = (first + 7 + (seed % 5)) % TOTAL_CLUES;
-    if (second === first) second = (first + 11) % TOTAL_CLUES;
-    return [first, second];
-  };
-
-  const tierOf = (index) => {
-    if (index < 7) return 'hard';
-    if (index < 14) return 'medium';
-    return 'easy';
-  };
-
-  return cards.map((card) => {
-    if (!card || typeof card !== 'object') {
-      throw new TypeError('Foi encontrada uma carta inválida no banco.');
-    }
-    if (!card.id || !card.answer || !card.category) {
-      throw new Error(`Carta incompleta: ${JSON.stringify(card)}`);
-    }
-    if (!Array.isArray(card.clues)) {
-      throw new Error(`A carta ${card.id} não possui um array de pistas.`);
-    }
-
-    const allWordClues = buildWordClues(card);
-    const generatedSet = new Set(allWordClues);
-    const cardBodies = card.clues.map((clue) => clueBody(clue));
-    const existingGeneratedCount = cardBodies.filter((body) => generatedSet.has(body)).length;
-    const sourceClues = cardBodies
-      .map((body, originalIndex) => ({ body, originalIndex }))
-      .filter((item) => !generatedSet.has(item.body));
-
-    if (sourceClues.length < TOTAL_CLUES - MAX_GENERATED_CLUES) {
-      throw new Error(
-        `A carta ${card.id} possui apenas ${sourceClues.length} pistas de conteúdo; são necessárias pelo menos ${TOTAL_CLUES - MAX_GENERATED_CLUES}.`,
-      );
-    }
-
-    const redundancyPenalty = new Array(sourceClues.length).fill(0);
-    for (let left = 0; left < sourceClues.length; left += 1) {
-      for (let right = left + 1; right < sourceClues.length; right += 1) {
-        const similarity = semanticSimilarity(sourceClues[left].body, sourceClues[right].body);
-        if (similarity < 0.64) continue;
-
-        const leftQuality = clueQuality(sourceClues[left].body);
-        const rightQuality = clueQuality(sourceClues[right].body);
-        const weakerIndex = leftQuality <= rightQuality ? left : right;
-        redundancyPenalty[weakerIndex] += similarity * 80;
-      }
-    }
-
-    const removalCandidates = sourceClues.map((item, index) => {
-      const directAnswer = containsDirectAnswer(card.answer, item.body);
-      const quality = clueQuality(item.body);
-      const genericPenalty = isGenericClue(item.body) ? 36 : 0;
-
-      return {
-        ...item,
-        sourceIndex: index,
-        tier: tierOf(item.originalIndex),
-        directAnswer,
-        isRedundant: redundancyPenalty[index] >= 50,
-        priority: (directAnswer ? 10000 : 0) + redundancyPenalty[index] + genericPenalty - quality,
-      };
-    });
-
-    const rankedIssues = removalCandidates
-      .filter((item) => item.directAnswer || item.isRedundant)
-      .sort(
-        (left, right) =>
-          right.priority - left.priority ||
-          clueQuality(left.body) - clueQuality(right.body) ||
-          right.originalIndex - left.originalIndex,
-      );
-
-    // Só adicionamos pistas de palavra quando existe algo real para substituir:
-    // resposta explícita ou redundância semântica. Cartas já boas permanecem
-    // com suas 20 pistas autorais intactas.
-    const generatedClueCount = existingGeneratedCount > 0
-      ? existingGeneratedCount
-      : Math.min(MAX_GENERATED_CLUES, rankedIssues.length);
-    const contentClueCount = TOTAL_CLUES - generatedClueCount;
-    const removableCount = sourceClues.length - contentClueCount;
-
-    if (removableCount < 0) {
-      throw new Error(`A carta ${card.id} não possui conteúdo suficiente para manter ${TOTAL_CLUES} pistas.`);
-    }
-
-    const directAnswerCount = removalCandidates.filter((item) => item.directAnswer).length;
-    if (directAnswerCount > removableCount) {
-      throw new Error(
-        `A carta ${card.id} ainda possui ${directAnswerCount} pistas que revelam a resposta, mas só ${removableCount} podem ser substituídas.`,
-      );
-    }
-
-    const remainingByTier = removalCandidates.reduce(
-      (counts, item) => ({ ...counts, [item.tier]: counts[item.tier] + 1 }),
-      { hard: 0, medium: 0, easy: 0 },
-    );
-    const minimumByTier = { hard: 5, medium: 5, easy: 4 };
-    const removed = new Set();
-
-    for (const item of rankedIssues) {
-      if (removed.size >= removableCount) break;
-      const canRemoveFromTier = remainingByTier[item.tier] - 1 >= minimumByTier[item.tier];
-      if (!item.directAnswer && !canRemoveFromTier) continue;
-      removed.add(item.sourceIndex);
-      remainingByTier[item.tier] -= 1;
-    }
-
-    // Pistas que revelam a resposta sempre têm prioridade sobre a distribuição
-    // por dificuldade. Este fallback só entra quando a proteção de faixa bloqueia
-    // uma remoção obrigatória.
-    for (const item of rankedIssues) {
-      if (removed.size >= removableCount) break;
-      if (removed.has(item.sourceIndex)) continue;
-      removed.add(item.sourceIndex);
-    }
-
-    const selectedContent = sourceClues
-      .filter((_, index) => !removed.has(index))
-      .sort((left, right) => left.originalIndex - right.originalIndex)
-      .map((item) => item.body);
-
-    if (selectedContent.length !== contentClueCount) {
-      throw new Error(`Falha ao equilibrar a carta ${card.id}: foram preservadas ${selectedContent.length} pistas de conteúdo.`);
-    }
-
-    const wordClues = allWordClues.slice(0, generatedClueCount);
-    const positions = generatedPositions(card).slice(0, generatedClueCount);
-    const clueAtPosition = new Map(positions.map((position, index) => [position, wordClues[index]]));
-    let contentIndex = 0;
-
-    const balancedBodies = Array.from({ length: TOTAL_CLUES }, (_, index) => {
-      if (clueAtPosition.has(index)) return clueAtPosition.get(index);
-      const body = selectedContent[contentIndex];
-      contentIndex += 1;
-      return body;
-    });
-
-    return {
-      ...card,
-      clues: balancedBodies.map((body, index) => `${index + 1}. ${body}`),
-    };
-  });
-}
-
 function validateProfileCards(cards) {
   const errors = [];
   const ids = new Set();
@@ -4975,7 +5417,7 @@ function validateProfileCards(cards) {
   const containsDirectAnswer = (answer, clue) => {
     const normalizedAnswer = normalizeText(answer);
     const normalizedClue = normalizeText(String(clue).replace(/^\d+\.\s*/, ''));
-    if ((` ${normalizedClue} `).includes(` ${normalizedAnswer} `)) return true;
+    if (` ${normalizedClue} `.includes(` ${normalizedAnswer} `)) return true;
     const words = normalizedAnswer.split(' ');
     if (words.length !== 1) return false;
     const clueWords = new Set(normalizedClue.split(' '));
@@ -5015,5 +5457,4 @@ function validateProfileCards(cards) {
   };
 }
 
-const PRELOADED_CARDS = balanceProfileCards(RAW_PRELOADED_CARDS);
 const PROFILE_CARDS_VALIDATION = validateProfileCards(PRELOADED_CARDS);

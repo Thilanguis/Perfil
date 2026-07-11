@@ -412,6 +412,68 @@ function formatPixCurrency(value) {
   });
 }
 
+const PROFILE_CATEGORY_THEMES = {
+  Anatomia: { color: '#d94b63', rgb: '217, 75, 99' },
+  Animal: { color: '#e07a35', rgb: '224, 122, 53' },
+  Astronomia: { color: '#5967d8', rgb: '89, 103, 216' },
+  Botânica: { color: '#6f9f3d', rgb: '111, 159, 61' },
+  'Cultura Pop': { color: '#d4589c', rgb: '212, 88, 156' },
+  Esportes: { color: '#2b9b88', rgb: '43, 155, 136' },
+  Gastronomia: { color: '#c74f43', rgb: '199, 79, 67' },
+  Geografia: { color: '#168b68', rgb: '22, 139, 104' },
+  História: { color: '#b16d3d', rgb: '177, 109, 61' },
+  Jogo: { color: '#8b5bc7', rgb: '139, 91, 199' },
+  Lugar: { color: '#138f72', rgb: '19, 143, 114' },
+  Mitologia: { color: '#7654c8', rgb: '118, 84, 200' },
+  Objeto: { color: '#2f78c4', rgb: '47, 120, 196' },
+  Pessoa: { color: '#d5a93d', rgb: '213, 169, 61' },
+  Tecnologia: { color: '#238fa8', rgb: '35, 143, 168' },
+  Veículo: { color: '#667d96', rgb: '102, 125, 150' },
+};
+
+const DOMINATION_COPY = {
+  trap: [
+    'ARMADILHA! Seu verme... Acaba de perder dinheiro à toa! Idiota.',
+    'Caiu na armadilha, seu otário. Pagou por nada e ainda fez exatamente o que eu queria.',
+    'Que capacho previsível... Comprou uma mentira e aumentou a própria dívida.',
+    'Parabéns, imbecil: você acabou de pagar por uma dica falsa.',
+    'Mais dinheiro desperdiçado, seu inútil. Essa armadilha foi feita para gente como você.',
+  ],
+  roulette: [
+    'ROLETA, seu lixo! Vamos ver o seu castigo... Gira!',
+    'Chegou a hora da roleta, verme. Gire e descubra quanto vai me dever.',
+    'A roleta escolheu você, capacho. Agora aceite o castigo sem reclamar.',
+    'Gire, seu otário. Sua carteira vai pagar pela sua falta de sorte.',
+    'Roleta! Vamos transformar sua incompetência em mais tributo para mim.',
+  ],
+  correct: [
+    'Sua mente serviu bem à Mistress.',
+    'Até que enfim fez o mínimo esperado de você, capacho.',
+    'Acertou, seu verme. Não confunda obrigação com mérito.',
+    'Por um instante você conseguiu não ser completamente inútil.',
+    'Boa resposta. Talvez ainda exista alguma utilidade nesse cérebro minúsculo.',
+  ],
+  wrong: [
+    'Aguarde a liberação da próxima rodada que certamente você será huimilhado.',
+    'Errou, seu inútil. A sua ignorância acaba de ficar mais cara.',
+    'Resposta patética. Pelo menos sua incompetência continua rendendo dinheiro.',
+    'Que vergonha, capacho. Você erra e ainda paga pelo privilégio.',
+    'Mais um erro para provar que sua carteira pensa melhor do que você.',
+  ],
+};
+
+function stableDominationLine(lines, ...parts) {
+  const seed = parts.join('|');
+  let hash = 0;
+  for (let index = 0; index < seed.length; index += 1) hash = (hash * 31 + seed.charCodeAt(index)) | 0;
+  return lines[Math.abs(hash) % lines.length];
+}
+
+function profileCategoryStyle(category) {
+  const theme = PROFILE_CATEGORY_THEMES[category] || { color: '#d5a93d', rgb: '213, 169, 61' };
+  return `--profile-accent: ${theme.color}; --profile-accent-rgb: ${theme.rgb};`;
+}
+
 function hidePixChargeModal(dismissCurrent = false) {
   const modal = document.getElementById('pix-charge-modal');
   if (!modal) return;
@@ -659,8 +721,6 @@ gameRef.onSnapshot((doc) => {
       }
     }
 
-    const editClue = document.getElementById('admin-edit-clue');
-    const editPenalty = document.getElementById('admin-edit-penalty');
     const cardSelect = document.getElementById('admin-card-select');
     const startRoundBtn = document.getElementById('btn-start-round');
     const roundProgress = document.getElementById('admin-round-progress');
@@ -684,15 +744,6 @@ gameRef.onSnapshot((doc) => {
       playerRoundProgress.classList.toggle('complete', isSessionFinished);
     }
 
-    if (editClue) {
-      editClue.disabled = false;
-      editClue.style.opacity = '1';
-    }
-    if (editPenalty) {
-      editPenalty.disabled = false;
-      editPenalty.style.opacity = '1';
-    }
-
     if (startRoundBtn) {
       startRoundBtn.style.opacity = isPlaying || isSessionFinished ? '0.5' : '1';
       startRoundBtn.textContent = isSessionFinished ? 'Partida encerrada' : 'Lançar Charada';
@@ -711,7 +762,6 @@ gameRef.onSnapshot((doc) => {
         document.getElementById('final-wrong-rounds').textContent = wrongRounds;
         document.getElementById('final-clues-used').textContent = cluesUsed;
         document.getElementById('final-total-debt').textContent = formatPixCurrency(currentDebt);
-
       }
     }
 
@@ -928,7 +978,7 @@ gameRef.onSnapshot((doc) => {
             historyBox.parentNode.insertBefore(previewContainer, historyBox);
           }
 
-          if (data.trapsReady || data.status !== 'playing' || !data.clues || data.clues.length === 0) {
+          if (data.status !== 'playing' || !data.clues || data.clues.length === 0) {
             previewContainer.innerHTML = '';
           } else {
             const traps = data.trapIndices || [];
@@ -937,113 +987,54 @@ gameRef.onSnapshot((doc) => {
 
             const trapsCount = traps.length;
 
-            let instrucaoStyle = 'color: var(--gold); font-weight: bold;';
+            let instructionClass = 'setup';
             let instrucaoTexto = '';
 
-            if (trapsCount < 3) {
+            if (data.trapsReady) {
+              instrucaoTexto = '🔒 CARTA PRIVADA · marcações visíveis apenas para o dominador';
+              instructionClass = 'locked';
+            } else if (trapsCount < 3) {
               instrucaoTexto = `⚠️ CLIQUE NA GRADE PARA CRIAR 3 ARMADILHAS (${trapsCount}/3) E 1 ROLETA`;
             } else if (!hasRoulette) {
               instrucaoTexto = `🎰 FALTA 1 ROLETA! CLIQUE NUMA DICA VAZIA PARA ADICIONAR.`;
-              instrucaoStyle = 'color: #b538ff; font-weight: bold; text-shadow: 0 0 5px rgba(181, 56, 255, 0.4);';
+              instructionClass = 'roulette';
             } else {
               instrucaoTexto = '✅ MESA MONTADA! LIBERE O JOGO NO BOTÃO ACIMA.';
-              instrucaoStyle = 'color: var(--green);';
+              instructionClass = 'ready';
             }
 
             let previewHTML = `
-              <h4 style="margin: 0 0 5px 0; color: var(--gold); text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;">
-                🕵️ Prévias das Dicas (Fase de Preparação)
-              </h4>
-              <p style="margin: 0 0 15px 0; font-size: 0.75rem; text-transform: uppercase; ${instrucaoStyle}">
-                ${instrucaoTexto}
-              </p>
-              <div style="max-height: 250px; overflow-y: auto; padding-right: 4px;">
+              <section class="profile-card-sheet admin-profile-card" style="${profileCategoryStyle(data.category)}">
+                <header class="profile-card-header">
+                  <div>
+                    <span class="profile-card-eyebrow">CARTA DA RODADA</span>
+                    <strong>${data.category || 'Perfil'}</strong>
+                  </div>
+                  <span class="profile-card-answer">${data.answer || ''}</span>
+                </header>
+                <p class="profile-card-instruction ${instructionClass}">${instrucaoTexto}</p>
+                <div class="profile-card-clues">
             `;
 
             cluesList.forEach((clueText, index) => {
               const isTrap = traps.includes(index);
               const isRouletteClue = data.rouletteIndex === index;
-
-              let borderColor = 'var(--border)';
-              let bg = 'var(--black)';
-              let badgeBg = '#333';
-              let extraTag = '';
-
-              if (isTrap) {
-                borderColor = 'var(--red)';
-                bg = 'rgba(215, 38, 56, 0.05)';
-                badgeBg = 'var(--red)';
-                extraTag = '<span style="color: var(--red); font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">ARMADILHA</span>';
-              } else if (isRouletteClue) {
-                borderColor = '#b538ff';
-                bg = 'rgba(181, 56, 255, 0.1)';
-                badgeBg = '#b538ff';
-                extraTag = '<span style="color: #b538ff; font-weight: bold; font-size: 0.7rem; letter-spacing: 0.5px;">🎰 ROLETA</span>';
-              }
+              const isRevealed = revealedIds.includes(index);
+              const stateClass = isTrap ? 'trap' : isRouletteClue ? 'roulette' : isRevealed ? 'revealed' : '';
+              const extraTag = isTrap ? '<span class="profile-card-tag">ARMADILHA</span>' : isRouletteClue ? '<span class="profile-card-tag">ROLETA</span>' : '';
+              const cleanText = String(clueText).replace(/^\d+\.\s*/, '');
 
               previewHTML += `
-                <div style="background: ${bg}; border: 1px solid ${borderColor}; padding: 10px; border-radius: 6px; margin-bottom: 6px; font-size: 0.85rem; display: flex; align-items: center;">
-                  <span style="background: ${badgeBg}; color: #fff; font-weight: bold; padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; margin-right: 10px;">
-                    ${String(index + 1).padStart(2, '0')}
-                  </span>
-                  <span style="color: #fff; flex: 1;">${clueText}</span>
+                <div class="profile-card-clue ${stateClass}">
+                  <span class="profile-card-number">${String(index + 1).padStart(2, '0')}</span>
+                  <span class="profile-card-clue-text">${cleanText}</span>
                   ${extraTag}
                 </div>
               `;
             });
 
-            previewHTML += `</div>`;
+            previewHTML += `</div></section>`;
             previewContainer.innerHTML = previewHTML;
-          }
-        }
-
-        const adminTextContainer = document.getElementById('admin-text-clues-container');
-        const isActiveAdmin = document.getElementById('view-controller') && document.getElementById('view-controller').classList.contains('active');
-
-        if (adminTextContainer && isActiveAdmin) {
-          if (revealedIndexes.length > 0) {
-            const emptyMsg = adminTextContainer.querySelector('p');
-            if (emptyMsg) emptyMsg.remove();
-
-            const sortedRevealed = [...revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
-            const trapList = data.trapIndices || [];
-
-            const activeAdminIds = sortedRevealed.map((item) => `admin-clue-box-${item.index}`);
-            Array.from(adminTextContainer.children).forEach((child) => {
-              if (child.id && !activeAdminIds.includes(child.id)) child.remove();
-            });
-
-            sortedRevealed.forEach((item) => {
-              const divId = `admin-clue-box-${item.index}`;
-              let div = document.getElementById(divId);
-
-              if (!div) {
-                const isTrap = trapList.includes(item.index);
-                const isRoulette = data.rouletteIndex === item.index;
-
-                let clueText = data.clues[item.index];
-                if (isTrap) {
-                  clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa... idiota.</span>';
-                } else if (isRoulette) {
-                  clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
-                }
-
-                div = document.createElement('div');
-                div.id = divId;
-                div.className = 'admin-clue-box';
-
-                div.innerHTML = `
-                  <span style="color: var(--gold); font-weight: bold;">DICA #${String(item.index + 1).padStart(2, '0')}:</span> 
-                  <span class="admin-typewriter-target" style="color: #a6a6c0;"></span>
-                `;
-                adminTextContainer.appendChild(div);
-
-                const adminTextTarget = div.querySelector('.admin-typewriter-target');
-                typeWriterEffect(adminTextTarget, clueText, 75);
-              }
-            });
-          } else {
-            adminTextContainer.innerHTML = '<p style="color: #555; text-align: center; font-size: 0.9rem;">Nenhuma dica comprada ainda.</p>';
           }
         }
 
@@ -1153,79 +1144,204 @@ gameRef.onSnapshot((doc) => {
 
       progressFill.style.width = `${percentage}%`;
 
-      if (currentDebt < 20) {
-        progressFill.style.backgroundColor = 'var(--green)';
-      } else if (currentDebt < 50) {
-        progressFill.style.backgroundColor = '#f8d26a';
-      } else if (currentDebt < 80) {
-        progressFill.style.backgroundColor = '#ff8c00';
-      } else {
-        progressFill.style.backgroundColor = 'var(--red)';
-      }
+      if (currentDebt < 20) progressFill.style.backgroundColor = '#8f1d2b';
+      else if (currentDebt < 50) progressFill.style.backgroundColor = '#bd2437';
+      else if (currentDebt < 80) progressFill.style.backgroundColor = 'var(--red)';
+      else progressFill.style.backgroundColor = '#ff4258';
     }
 
     const cluesContainer = document.getElementById('revealed-clues');
+
     const isActivePlayer = document.getElementById('view-player') && document.getElementById('view-player').classList.contains('active');
 
     if (cluesContainer && isActivePlayer) {
-      if (data.revealedIndexes && data.revealedIndexes.length > 0) {
-        const emptyMsg = cluesContainer.querySelector('p');
-        if (emptyMsg) emptyMsg.remove();
+      if (Array.isArray(data.clues) && data.clues.length === 20) {
+        const revealedItems = Array.isArray(data.revealedIndexes) ? data.revealedIndexes : [];
 
-        const sortedRevealed = [...data.revealedIndexes].sort((a, b) => b.timestamp - a.timestamp);
+        const revealedSet = new Set(revealedItems.map((item) => (typeof item === 'object' ? item.index : item)));
+
         const trapList = data.trapIndices || [];
 
-        const activeIds = sortedRevealed.map((item) => `player-clue-box-${item.index}`);
-        Array.from(cluesContainer.children).forEach((child) => {
-          if (child.id && !activeIds.includes(child.id)) child.remove();
+        const previousSet = window.playerProfileCardRevealed || new Set();
+
+        const newlyRevealed = [...revealedSet].filter((index) => !previousSet.has(index));
+
+        const canBuyClues = data.status === 'playing' && data.trapsReady;
+
+        const actualClueCost = (Number(data.clueCost) || 0) * (Number(data.inflationMultiplier) || 1);
+
+        const formattedClueCost = actualClueCost.toFixed(2).replace('.', ',');
+
+        const cardHint = canBuyClues
+          ? `<span>💎 Clique em qualquer dica lacrada</span><strong>R$ ${formattedClueCost} cada</strong>`
+          : data.status === 'finished'
+            ? '<span>Rodada encerrada</span><strong>Confira o resultado acima</strong>'
+            : '<span>Aguardando liberação da carta</span><strong>20 dicas</strong>';
+
+        let playerCardHTML = `
+      <section class="profile-card-sheet player-profile-card" style="${profileCategoryStyle(data.category)}">
+        <header class="profile-card-header">
+          <div>
+            <span class="profile-card-eyebrow">CARTA DA RODADA</span>
+            <strong>${data.category || 'Perfil'}</strong>
+          </div>
+          <span class="profile-card-counter">${revealedSet.size}/20 reveladas</span>
+        </header>
+
+        <p class="profile-card-buy-hint">
+          ${cardHint}
+        </p>
+
+        <div class="profile-card-clues">
+    `;
+
+        data.clues.forEach((rawClue, index) => {
+          const isRevealed = revealedSet.has(index);
+
+          const isTrap = isRevealed && trapList.includes(index);
+
+          const isRoulette = isRevealed && data.rouletteIndex === index;
+
+          const stateClass = isTrap ? 'trap revealed' : isRoulette ? 'roulette revealed' : isRevealed ? 'revealed' : canBuyClues ? 'sealed is-clickable' : 'sealed';
+
+          let clueText = String(rawClue).replace(/^\d+\.\s*/, '');
+
+          let interactionAttributes = '';
+          let buyBadge = '';
+
+          if (!isRevealed) {
+            clueText = '<span class="profile-card-seal">DICA LACRADA</span>';
+
+            if (canBuyClues) {
+              interactionAttributes = `data-clue-index="${index}" ` + `role="button" ` + `tabindex="0" ` + `aria-label="Comprar dica ${index + 1} por R$ ${formattedClueCost}"`;
+
+              buyBadge = `
+              <span class="profile-card-buy-badge">
+                <span aria-hidden="true">💎</span>
+                R$ ${formattedClueCost}
+              </span>
+            `;
+            }
+          } else if (isTrap) {
+            const trapText = stableDominationLine(DOMINATION_COPY.trap, data.answer, data.currentRound, index);
+            clueText = `<span class="profile-card-penalty">${trapText}</span>`;
+          } else if (isRoulette) {
+            const rouletteText = stableDominationLine(DOMINATION_COPY.roulette, data.answer, data.currentRound, index);
+            clueText = `<span class="profile-card-roulette-text">${rouletteText}</span>`;
+          }
+
+          playerCardHTML += `
+          <div
+            id="player-card-clue-${index}"
+            class="profile-card-clue ${stateClass}"
+            ${interactionAttributes}
+          >
+            <span class="profile-card-number">
+              ${String(index + 1).padStart(2, '0')}
+            </span>
+
+            <span class="profile-card-clue-text">
+              ${clueText}
+            </span>
+
+            ${buyBadge}
+          </div>
+        `;
         });
 
-        sortedRevealed.forEach((item) => {
-          const divId = `player-clue-box-${item.index}`;
-          let div = document.getElementById(divId);
+        playerCardHTML += '</div></section>';
 
-          if (!div) {
-            const isTrap = trapList.includes(item.index);
-            const isRoulette = data.rouletteIndex === item.index;
+        cluesContainer.innerHTML = playerCardHTML;
 
-            let clueText = data.clues[item.index];
-            let borderColor = 'var(--gold-dark)';
+        if (window.playerProfileCardInitialized) {
+          newlyRevealed.forEach((index) => {
+            const textTarget = document.querySelector(`#player-card-clue-${index} .profile-card-clue-text`);
+
+            if (!textTarget) return;
+
+            const isTrap = trapList.includes(index);
+
+            const isRoulette = data.rouletteIndex === index;
+
+            let spokenText = String(data.clues[index]).replace(/^\d+\.\s*/, '');
 
             if (isTrap) {
-              clueText = '<span style="color: var(--red); font-weight: bold;">ARMADILHA! Seu verme... . Acaba de perder dinheiro à toa! idiota.</span>';
-              borderColor = 'var(--red)';
+              spokenText = `<span>${stableDominationLine(DOMINATION_COPY.trap, data.answer, data.currentRound, index)}</span>`;
             } else if (isRoulette) {
-              clueText = '<span style="color: #b538ff; font-weight: bold;">ROLETA!, seu lixo! Vamos ver o seu castigo... Gira!</span>';
-              borderColor = '#b538ff';
+              spokenText = `<span>${stableDominationLine(DOMINATION_COPY.roulette, data.answer, data.currentRound, index)}</span>`;
             }
 
-            div = document.createElement('div');
-            div.id = divId;
-            div.style.background = 'var(--black)';
-            div.style.border = `1px solid ${borderColor}`;
-            div.style.padding = '12px';
-            div.style.borderRadius = '6px';
-            div.style.marginBottom = '10px';
+            typeWriterEffect(textTarget, spokenText, 55);
+          });
+        }
 
-            div.innerHTML = `
-              <div style="color: var(--gold); font-size: 0.8rem; font-weight: bold; margin-bottom: 5px;">DICA #${String(item.index + 1).padStart(2, '0')}</div>
-              <div class="typewriter-text" style="color: var(--text); min-height: 20px;"></div>
-            `;
+        window.playerProfileCardInitialized = true;
 
-            cluesContainer.appendChild(div);
-
-            const textTarget = div.querySelector('.typewriter-text');
-            typeWriterEffect(textTarget, clueText, 75);
-          }
-        });
+        window.playerProfileCardRevealed = revealedSet;
       } else {
-        cluesContainer.innerHTML = '<p style="color: #555; text-align: center;">Nenhuma dica comprada.</p>';
+        cluesContainer.innerHTML = '<p class="profile-card-empty">A carta aparecerá quando a rodada começar.</p>';
+
+        window.playerProfileCardInitialized = false;
+
+        window.playerProfileCardRevealed = new Set();
       }
     }
 
     const playerBlocker = document.getElementById('player-blocker');
+    let playerRoundResult = document.getElementById('player-round-result');
+
+    if (!playerRoundResult && playerBlocker) {
+      playerRoundResult = document.createElement('div');
+      playerRoundResult.id = 'player-round-result';
+      playerRoundResult.hidden = true;
+
+      const categoryTitle = document.getElementById('player-category')?.closest('h3');
+      if (categoryTitle) categoryTitle.insertAdjacentElement('afterend', playerRoundResult);
+      else playerBlocker.insertAdjacentElement('afterend', playerRoundResult);
+    }
+
+    const isRoundResult = data.status === 'finished' && (data.roundResult === 'correct' || data.roundResult === 'wrong');
+
+    if (playerRoundResult) {
+      playerRoundResult.hidden = !isRoundResult;
+
+      if (isRoundResult) {
+        const history = Array.isArray(data.history) ? data.history : [];
+        const lastRound = history[history.length - 1] || {};
+        const cluesUsed = Number(lastRound.cluesUsed ?? data.revealedIndexes?.length ?? 0) || 0;
+        const roundCost = Number(lastRound.cost) || 0;
+        const isCorrect = data.roundResult === 'correct';
+        const resultTreatment = stableDominationLine(isCorrect ? DOMINATION_COPY.correct : DOMINATION_COPY.wrong, data.answer, history.length, data.roundResult);
+
+        playerRoundResult.innerHTML = `
+          <section class="round-result-banner ${isCorrect ? 'correct' : 'wrong'}" style="${profileCategoryStyle(data.category)}">
+            <div class="round-result-icon" aria-hidden="true">${isCorrect ? '✓' : '×'}</div>
+
+            <div class="round-result-copy">
+              <span class="round-result-kicker">RESULTADO DA RODADA</span>
+              <h2>${isCorrect ? 'Você acertou!' : 'Palpite errado!'}</h2>
+              <p>${resultTreatment} Resposta: <strong>${data.answer || 'não informada'}</strong></p>
+            </div>
+
+            <div class="round-result-metrics" aria-label="Resumo da rodada">
+              <span>
+                <strong>${cluesUsed}</strong>
+                <small>Dicas</small>
+              </span>
+              <span>
+                <strong>R$ ${roundCost.toFixed(2).replace('.', ',')}</strong>
+                <small>Dano</small>
+              </span>
+            </div>
+          </section>
+        `;
+      } else {
+        playerRoundResult.innerHTML = '';
+      }
+    }
+
     if (playerBlocker) {
-      if (data.status === 'playing' && data.trapsReady) {
+      if (isRoundResult || (data.status === 'playing' && data.trapsReady)) {
         playerBlocker.style.display = 'none';
       } else {
         playerBlocker.style.display = 'flex';
@@ -1257,24 +1373,6 @@ gameRef.onSnapshot((doc) => {
           `;
           playerBlocker.style.background = 'rgba(9, 9, 9, 0.9)';
           playerBlocker.style.borderColor = 'var(--gold-dark)';
-          // CORREÇÃO AQUI: Só mostra acerto ou erro se o status do banco for 'finished'
-        } else if (data.status === 'finished' && data.roundResult === 'correct') {
-          playerBlocker.innerHTML = `
-            <div style="font-size: 5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--green));">👑</div>
-            <h2 style="color: var(--green); margin: 0; text-transform: uppercase; font-size: 2rem; letter-spacing: 2px;">Você Acertou!</h2>
-            <p style="color: #aaa; margin-top: 10px;">Sua mente serviu bem à Mistress. Aguarde a próxima charada.</p>
-          `;
-          playerBlocker.style.background = 'rgba(9, 35, 15, 0.95)';
-          playerBlocker.style.borderColor = 'var(--green)';
-        } else if (data.status === 'finished' && data.roundResult === 'wrong') {
-          playerBlocker.innerHTML = `
-            <div style="font-size: 5rem; margin-bottom: 10px; filter: drop-shadow(0 0 15px var(--red));">💸</div>
-            <h2 style="color: var(--red); margin: 0; text-transform: uppercase; font-size: 2rem; letter-spacing: 2px;">Palpite Errado!</h2>
-            <h3 style="color: var(--gold); margin: 5px 0 0 0;">Multa aplicada com sucesso</h3>
-            <p style="color: #aaa; margin-top: 10px;">Aguarde a liberação da próxima humilhação.</p>
-          `;
-          playerBlocker.style.background = 'rgba(35, 9, 9, 0.95)';
-          playerBlocker.style.borderColor = 'var(--red)';
         } else if (data.status === 'session_finished') {
           const finalHistory = Array.isArray(data.history) ? data.history : [];
           const correctRounds = finalHistory.filter((item) => item.result === 'correct').length;
@@ -1290,13 +1388,12 @@ gameRef.onSnapshot((doc) => {
               <span><strong>${wrongRounds}</strong> Erros</span>
               <span><strong>${cluesUsed}</strong> Dicas</span>
             </div>
-            <h3 style="color: var(--green); margin: 15px 0 5px;">Tributo final: R$ ${(Number(data.debt) || 0).toFixed(2).replace('.', ',')}</h3>
+            <h3 style="color: var(--red); margin: 15px 0 5px; text-shadow: 0 0 18px rgba(230, 34, 54, 0.28);">Tributo final: R$ ${(Number(data.debt) || 0).toFixed(2).replace('.', ',')}</h3>
             <p style="color: ${data.pixCharge?.active ? 'var(--gold)' : '#888'}; margin: 0; font-size: 0.85rem;">${paymentMessage}</p>
           `;
           playerBlocker.style.background = 'rgba(20, 17, 7, 0.96)';
           playerBlocker.style.borderColor = 'var(--gold)';
         } else {
-          // Se for "waiting" ou recém-criada, cai aqui e exibe Mesa Trancada
           playerBlocker.innerHTML = `
             <div style="font-size: 4rem; margin-bottom: 10px;">🔒</div>
             <h2 style="color: var(--gold); margin: 0; text-transform: uppercase;">Mesa Trancada</h2>
@@ -1383,6 +1480,11 @@ gameRef.onSnapshot((doc) => {
             'Até que enfim usou esse cérebro minúsculo para alguma coisa! Acertou... mas não fez mais do que a sua obrigação, seu lixo.',
             'Acertou! Parabéns por fazer o mínimo, seu verme. Mas não ache que isso te salva da próxima humilhação.',
             'Olha só... o capacho sabe pensar! Acertou. Agora cala a boca e aguarde a próxima rodada.',
+            'Milagre: o inútil acertou. Aproveite esse raro momento antes de voltar a me decepcionar.',
+            'Resposta certa, seu otário. Não espere elogio por cumprir a sua obrigação.',
+            'Até um capacho acerta de vez em quando. Continue jogando e pagando.',
+            'Acertou, mas continua no seu lugar: abaixo de mim e esperando a próxima ordem.',
+            'Seu cérebro finalmente justificou alguns segundos da minha atenção. Não se acostume.',
           ];
           fraseJulgamento = frasesAcerto[Math.floor(Math.random() * frasesAcerto.length)];
         } else if (data.roundResult === 'wrong') {
@@ -1396,6 +1498,11 @@ gameRef.onSnapshot((doc) => {
             'Palpite errado! Como você é burro! Sinta o peso dessa multa afundando a sua conta... seu verme patético.',
             'Errou! Que mente fraca e inútil... Vai pagar muito caro por essa burrice, seu lixo.',
             'Errou miseravelmente! É maravilhoso ver você perdendo dinheiro... pela sua própria incompetência.',
+            'Que resposta ridícula, seu capacho. Abra a carteira e pague pela vergonha.',
+            'Errou de novo, imbecil. Sua burrice é uma fonte de renda maravilhosa.',
+            'Você pensa mal e paga bem. Pelo menos serve para alguma coisa, seu verme.',
+            'Palpite patético. Cada erro seu deixa a minha conta mais bonita.',
+            'Nem com todas essas dicas você consegue acertar, seu inútil. Pague a multa e cale a boca.',
           ];
           fraseJulgamento = frasesErro[Math.floor(Math.random() * frasesErro.length)];
         }

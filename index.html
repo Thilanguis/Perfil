@@ -46,9 +46,18 @@
       </div>
       <div class="devtools-content">
         <div class="devtools-metrics">
-          <span>Status <b id="devtools-status">—</b></span>
-          <span>Rodadas <b id="devtools-round">—</b></span>
-          <span>Dívida <b id="devtools-debt">—</b></span>
+          <span>
+            Status
+            <b id="devtools-status">—</b>
+          </span>
+          <span>
+            Rodadas
+            <b id="devtools-round">—</b>
+          </span>
+          <span>
+            Dívida
+            <b id="devtools-debt">—</b>
+          </span>
         </div>
         <div class="devtools-actions">
           <button type="button" data-dev-view="admin">Dominador</button>
@@ -198,7 +207,9 @@
             Categoria:
             <span id="player-category" style="color: var(--gold)">...</span>
           </h3>
-          <div id="clues-board"></div>
+          <div id="revealed-clues" class="player-round-card-slot">
+            <p class="profile-card-empty">A carta aparecerá quando a rodada começar.</p>
+          </div>
 
           <div style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px">
             <h3 style="margin-top: 0; color: var(--gold); text-align: center; letter-spacing: 2px">FAÇA SUA APOSTA</h3>
@@ -213,17 +224,11 @@
         <!-- Coluna Direita: Dívida e Histórico -->
         <div>
           <div class="debt-bar-container">
-            <h4 style="margin: 0 0 10px 0; color: #888; text-transform: uppercase; letter-spacing: 2px">Dívida Acumulada</h4>
-            <h1 id="player-debt" style="margin: 0; color: var(--gold); font-size: 2.5rem">R$ 0,00</h1>
+            <h4 class="player-debt-label">Dívida a pagar</h4>
+            <h1 id="player-debt">R$ 0,00</h1>
+            <p class="player-debt-caption">Cada dica e penalidade aumenta o seu tributo.</p>
             <div class="debt-bar">
               <div id="debt-progress" class="debt-fill"></div>
-            </div>
-          </div>
-
-          <div class="card" style="margin-top: 20px">
-            <h4 style="margin: 0 0 15px 0; color: var(--gold)">Dicas Reveladas</h4>
-            <div id="revealed-clues" style="min-height: 150px">
-              <p style="color: #555; text-align: center">Vazio...</p>
             </div>
           </div>
 
@@ -275,27 +280,28 @@
             <div id="admin-round-progress" class="round-progress">Rodada 1 de 6</div>
             <select id="admin-card-select" style="margin-bottom: 15px"></select>
 
-            <div style="display: flex; gap: 10px; margin-bottom: 15px; background: var(--black); padding: 10px; border-radius: 6px; border: 1px dashed var(--gold-dark)">
-              <div style="flex: 1">
-                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Custo Dica (R$)</label>
-                <input type="number" id="admin-edit-clue" value="2" style="padding: 8px" />
-              </div>
-              <div style="flex: 1">
-                <label style="font-size: 0.75rem; color: #888; text-transform: uppercase">Multa Erro (R$)</label>
-                <input type="number" id="admin-edit-penalty" value="10" style="padding: 8px" />
-              </div>
-            </div>
-
             <button id="btn-start-round" class="btn-primary" style="width: 100%">Lançar Charada</button>
 
             <section id="admin-final-summary" class="final-summary" hidden>
               <div class="final-summary-badge">PARTIDA ENCERRADA</div>
               <h3>Placar final</h3>
               <div class="final-summary-grid">
-                <div><strong id="final-total-rounds">0</strong><span>Rodadas</span></div>
-                <div><strong id="final-correct-rounds">0</strong><span>Acertos</span></div>
-                <div><strong id="final-wrong-rounds">0</strong><span>Erros</span></div>
-                <div><strong id="final-clues-used">0</strong><span>Dicas</span></div>
+                <div>
+                  <strong id="final-total-rounds">0</strong>
+                  <span>Rodadas</span>
+                </div>
+                <div>
+                  <strong id="final-correct-rounds">0</strong>
+                  <span>Acertos</span>
+                </div>
+                <div>
+                  <strong id="final-wrong-rounds">0</strong>
+                  <span>Erros</span>
+                </div>
+                <div>
+                  <strong id="final-clues-used">0</strong>
+                  <span>Dicas</span>
+                </div>
               </div>
               <p>Tributo final</p>
               <strong id="final-total-debt" class="final-summary-debt">R$ 0,00</strong>
@@ -341,11 +347,6 @@
             <div id="admin-mirror-board" style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 10px"></div>
 
             <button id="btn-unlock-board" class="btn-primary" style="width: 100%; margin-bottom: 20px; background: linear-gradient(135deg, var(--gold) 0%, #8a6d1c 100%); color: var(--black); font-weight: bold">🔓 Liberar Mesa</button>
-
-            <p style="margin: 0 0 10px 0; color: #888">Conteúdo das Dicas Liberadas:</p>
-            <div id="admin-text-clues-container" style="max-height: 200px; overflow-y: auto; margin-bottom: 25px; padding-right: 4px">
-              <p style="color: #555; text-align: center; font-size: 0.9rem">Nenhuma dica comprada ainda.</p>
-            </div>
 
             <div style="display: flex; gap: 10px">
               <button id="btn-mark-correct" class="btn-primary" style="flex: 1">Acertou</button>

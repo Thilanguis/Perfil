@@ -72,95 +72,155 @@ function drawRouletteWheel() {
 document.addEventListener('DOMContentLoaded', drawRouletteWheel);
 
 function generateClueButtons(revealedIndexes, clueCost) {
-  const board = document.getElementById('clues-board');
-  if (!board) return;
-  board.innerHTML = '';
+  const cardSlot = document.getElementById('revealed-clues');
 
-  const safeRevealed = revealedIndexes || [];
-  const revealedIds = safeRevealed.map((x) => (typeof x === 'object' ? x.index : x));
+  if (!cardSlot) return;
 
-  window.clickedTraps = window.clickedTraps || [];
+  // O valor é atualizado a cada mudança do Firebase.
+  window.currentPlayerClueCost = Number(clueCost) || 0;
 
-  // Retorna ao laço original travado rigidamente em 20 dicas
-  for (let i = 1; i <= 20; i++) {
-    const btn = document.createElement('button');
-    btn.className = 'btn-clue';
-    btn.innerHTML = `<span style="font-size: 1.2rem; display: block; margin-bottom: 4px;">💎</span>${String(i).padStart(2, '0')}`;
+  // Evita adicionar o mesmo evento várias vezes.
+  if (cardSlot.dataset.clueHandlerBound === 'true') {
+    return;
+  }
 
-    if (revealedIds.includes(i - 1) || window.clickedTraps.includes(i - 1)) {
-      btn.disabled = true;
-      if (window.clickedTraps.includes(i - 1)) {
-        btn.style.opacity = '0.3';
-        btn.style.cursor = 'not-allowed';
-        btn.style.border = '1px solid var(--red)';
-      }
+  cardSlot.dataset.clueHandlerBound = 'true';
+
+  const processClueClick = async (row) => {
+    if (!row || row.dataset.processing === 'true') {
+      return;
     }
 
-    btn.addEventListener('click', async () => {
-      btn.disabled = true;
-      btn.style.opacity = '0.3';
-      btn.style.cursor = 'not-allowed';
+    const clueIndex = Number(row.dataset.clueIndex);
 
-      try {
-        const doc = await gameRef.get();
-        const currentData = doc.data();
-        const isTrap = (currentData.trapIndices || []).includes(i - 1);
-        const isRoulette = currentData.rouletteIndex === i - 1;
+    if (!Number.isInteger(clueIndex) || clueIndex < 0 || clueIndex >= 20) {
+      return;
+    }
 
-        // Custo atualizado com a inflação cumulativa
-        const actualCost = clueCost * (currentData.inflationMultiplier || 1);
+    row.dataset.processing = 'true';
+    row.classList.add('is-processing');
+    row.setAttribute('aria-disabled', 'true');
 
-        if (isTrap) {
-          window.clickedTraps.push(i - 1);
-          btn.style.border = '1px solid var(--red)';
+    try {
+      const doc = await gameRef.get();
 
-          await gameRef.update({
-            debt: firebase.firestore.FieldValue.increment(actualCost),
-            revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
-              index: i - 1,
-              timestamp: Date.now(),
-            }),
-            // LOG: Grava a explosão da armadilha com o número da casa
-            roundPenalties: firebase.firestore.FieldValue.arrayUnion(`💥 Armadilha Ativada (Casa ${String(i).padStart(2, '0')})`),
-          });
-          showToast('⚠️ Que patético... Caiu na armadilha!', 'danger');
-        } else if (isRoulette) {
-          window.clickedTraps.push(i - 1);
-          btn.style.border = '1px solid #b538ff';
-
-          await gameRef.update({
-            debt: firebase.firestore.FieldValue.increment(actualCost),
-            revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
-              index: i - 1,
-              timestamp: Date.now(),
-            }),
-            rouletteData: { active: true, step: 'waiting_click' },
-            latestGuess: '🎰 Dominado na Roleta (Aguardando giro...)',
-            // LOG: Grava a ativação da roleta com o número da casa
-            roundPenalties: firebase.firestore.FieldValue.arrayUnion(`🎰 Roleta Acionada (Casa ${String(i).padStart(2, '0')})`),
-          });
-
-          showToast('🎰 Roleta ativada! A Mistress está assistindo.', 'gold');
-        } else {
-          await gameRef.update({
-            debt: firebase.firestore.FieldValue.increment(actualCost),
-            revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
-              index: i - 1,
-              timestamp: Date.now(),
-            }),
-          });
-        }
-      } catch (error) {
-        console.error('Erro ao processar clique:', error);
-        btn.disabled = false;
-        btn.style.opacity = '1';
-        btn.style.cursor = 'pointer';
-        showToast('Erro ao processar. Tente novamente.', 'danger');
+      if (!doc.exists) {
+        throw new Error('Sessão não encontrada.');
       }
-    });
 
-    board.appendChild(btn);
-  }
+      const currentData = doc.data();
+
+      if (currentData.status !== 'playing' || !currentData.trapsReady) {
+        throw new Error('A carta ainda não está liberada.');
+      }
+
+      const alreadyRevealed = (currentData.revealedIndexes || []).some((item) => {
+        const index = typeof item === 'object' ? item.index : item;
+
+        return index === clueIndex;
+      });
+
+      if (alreadyRevealed) {
+        row.dataset.processing = 'false';
+        row.classList.remove('is-processing');
+        row.removeAttribute('aria-disabled');
+        return;
+      }
+
+      const baseCost = Number(currentData.clueCost) || window.currentPlayerClueCost || 0;
+
+      const multiplier = Number(currentData.inflationMultiplier) || 1;
+
+      const actualCost = baseCost * multiplier;
+
+      const clueNumber = String(clueIndex + 1).padStart(2, '0');
+
+      const isTrap = (currentData.trapIndices || []).includes(clueIndex);
+
+      const isRoulette = currentData.rouletteIndex === clueIndex;
+
+      if (isTrap) {
+        await gameRef.update({
+          debt: firebase.firestore.FieldValue.increment(actualCost),
+
+          revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
+            index: clueIndex,
+            timestamp: Date.now(),
+          }),
+
+          roundPenalties: firebase.firestore.FieldValue.arrayUnion(`💥 Armadilha Ativada (Casa ${clueNumber})`),
+        });
+
+        showToast('⚠️ Que patético... Caiu na armadilha!', 'danger');
+      } else if (isRoulette) {
+        await gameRef.update({
+          debt: firebase.firestore.FieldValue.increment(actualCost),
+
+          revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
+            index: clueIndex,
+            timestamp: Date.now(),
+          }),
+
+          rouletteData: {
+            active: true,
+            step: 'waiting_click',
+          },
+
+          latestGuess: '🎰 Dominado na Roleta (Aguardando giro...)',
+
+          roundPenalties: firebase.firestore.FieldValue.arrayUnion(`🎰 Roleta Acionada (Casa ${clueNumber})`),
+        });
+
+        showToast('🎰 Roleta ativada! A Mistress está assistindo.', 'gold');
+      } else {
+        await gameRef.update({
+          debt: firebase.firestore.FieldValue.increment(actualCost),
+
+          revealedIndexes: firebase.firestore.FieldValue.arrayUnion({
+            index: clueIndex,
+            timestamp: Date.now(),
+          }),
+        });
+      }
+    } catch (error) {
+      console.error('Erro ao processar clique na carta:', error);
+
+      row.dataset.processing = 'false';
+      row.classList.remove('is-processing');
+      row.removeAttribute('aria-disabled');
+
+      const message = error?.message === 'A carta ainda não está liberada.' ? error.message : 'Erro ao processar. Tente novamente.';
+
+      showToast(message, 'danger');
+    }
+  };
+
+  const findClickableRow = (target) => {
+    const row = target.closest('.player-profile-card .profile-card-clue.sealed.is-clickable[data-clue-index]');
+
+    return row && cardSlot.contains(row) ? row : null;
+  };
+
+  cardSlot.addEventListener('click', (event) => {
+    const row = findClickableRow(event.target);
+
+    if (row) {
+      processClueClick(row);
+    }
+  });
+
+  cardSlot.addEventListener('keydown', (event) => {
+    if (event.key !== 'Enter' && event.key !== ' ') {
+      return;
+    }
+
+    const row = findClickableRow(event.target);
+
+    if (!row) return;
+
+    event.preventDefault();
+    processClueClick(row);
+  });
 }
 
 const guessInput = document.getElementById('player-guess-input');

@@ -91,29 +91,6 @@ function updateAdminDeckList() {
   });
 }
 
-// --- SINCRONIZAÇÃO INSTANTÂNEA LIMPA E SEM DUPLICATAS ---
-document.getElementById('admin-edit-clue').addEventListener('input', async (e) => {
-  const val = parseFloat(e.target.value);
-  if (!isNaN(val)) {
-    try {
-      await gameRef.update({ clueCost: val });
-    } catch (error) {
-      console.error('Erro ao atualizar Custo Dica:', error);
-    }
-  }
-});
-
-document.getElementById('admin-edit-penalty').addEventListener('input', async (e) => {
-  const val = parseFloat(e.target.value);
-  if (!isNaN(val)) {
-    try {
-      await gameRef.update({ mistakePenalty: val });
-    } catch (error) {
-      console.error('Erro ao atualizar Multa Erro:', error);
-    }
-  }
-});
-
 // Inicialização da Mesa pelo Dominador
 const roundsOptions = document.getElementById('setup-rounds-options');
 if (roundsOptions) {
@@ -302,11 +279,8 @@ document.getElementById('btn-start-round').addEventListener('click', async () =>
     cardData = filteredCards[randomIndex];
   }
 
-  const clueInput = document.getElementById('admin-edit-clue');
-  const penaltyInput = document.getElementById('admin-edit-penalty');
-
-  const newClueCost = clueInput ? parseFloat(clueInput.value) : 2;
-  const newPenalty = penaltyInput ? parseFloat(penaltyInput.value) : 10;
+  const newClueCost = Number(sessionData.clueCost) || 2;
+  const newPenalty = Number(sessionData.mistakePenalty) || 10;
 
   await gameRef.update({
     cardId: cardData.id,
