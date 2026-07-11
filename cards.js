@@ -1,5 +1,5 @@
 // Banco de Cartas Fixo do Sistema
-const PRELOADED_CARDS = [
+const RAW_PRELOADED_CARDS = [
   {
     id: 'card_001',
     category: 'Pessoa',
@@ -1137,7 +1137,7 @@ const PRELOADED_CARDS = [
   {
     id: 'card_043',
     category: 'Lugar',
-    answer: 'Grão-Canhão',
+    answer: 'Grand Canyon',
     clues: [
       '1. Sou uma das maravilhas naturais mais grandiosas da América.',
       '2. Fui esculpido pela força constante do rio Colorado.',
@@ -4541,3 +4541,479 @@ const PRELOADED_CARDS = [
     ],
   },
 ];
+
+// O banco bruto permanece intacto. O balanceamento abaixo devolve novas cartas,
+// sem alterar RAW_PRELOADED_CARDS, e pode ser executado novamente sobre o
+// resultado sem acumular novas pistas automáticas.
+function balanceProfileCards(cards) {
+  const TOTAL_CLUES = 20;
+  const MAX_GENERATED_CLUES = 2;
+
+  if (!Array.isArray(cards)) {
+    throw new TypeError('O banco de cartas precisa ser um array.');
+  }
+
+  const semanticStopWords = new Set([
+    'a', 'ao', 'aos', 'aquela', 'aquele', 'aqueles', 'as', 'ate', 'com',
+    'como', 'da', 'das', 'de', 'dela', 'dele', 'do', 'dos', 'e', 'ela',
+    'ele', 'em', 'entre', 'era', 'essa', 'esse', 'esta', 'este', 'eu',
+    'foi', 'foram', 'ha', 'isso', 'ja', 'mais', 'mas', 'me', 'meu', 'minha',
+    'muito', 'na', 'nas', 'no', 'nos', 'o', 'os', 'ou', 'para', 'pela',
+    'pelo', 'por', 'porque', 'que', 'se', 'sem', 'ser', 'sido', 'sua', 'suas',
+    'tambem', 'tem', 'tive', 'um', 'uma', 'varios', 'varias', 'voce',
+  ]);
+
+  const normalizeText = (text) =>
+    String(text)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+
+  const stripNumber = (clue) => String(clue).replace(/^\d+\.\s*/, '').trim();
+
+  // Reescritas editoriais. A pista mantém o fato, mas deixa de pronunciar a
+  // própria resposta. Isso é melhor do que simplesmente apagar pistas boas.
+  const softenedClues = new Map([
+    ['O "piano forte" é a tradução da minha dualidade sonora.', 'Meu nome original descreve a capacidade de alternar sons suaves e fortes.'],
+    ['O microscópio eletrônico revolucionou o que podíamos enxergar.', 'Minha versão eletrônica revolucionou o que podíamos enxergar.'],
+    ['O óculos de sol é um acessório indispensável de proteção e moda.', 'Minha versão escura protege contra o sol e também virou acessório de moda.'],
+    ['O ato de "entregar as chaves" é um símbolo de confiança e posse.', 'Entregar o objeto de acesso a alguém é um símbolo de confiança e posse.'],
+    ['Existem chaves que abrem carros, cofres, casas e até corações (metaforicamente).', 'Há versões para carros, cofres e casas; na metáfora, posso até abrir corações.'],
+    ['A chave-mestra é o objeto que abre quase todas as portas de um sistema.', 'Minha versão mestra abre quase todas as portas de um mesmo sistema.'],
+    ['O mito da Medusa é um tema recorrente na arte mundial.', 'Meu mito é um tema recorrente na arte mundial.'],
+    ['O sushi tornou-se sinônimo de comida saudável e refinada.', 'Tornei-me sinônimo de comida saudável e refinada.'],
+    ['O sushi de supermercado é muito diferente do preparado na hora pelo mestre.', 'Minha versão de supermercado é muito diferente da preparada na hora por um mestre.'],
+    ['Comer sushi é uma experiência que envolve todos os sentidos.', 'Minha degustação é uma experiência que envolve todos os sentidos.'],
+    ['O mito da fênix existe em diversas culturas pelo mundo.', 'Meu mito existe em diversas culturas pelo mundo.'],
+    ['A temperagem do chocolate é o segredo do meu brilho e da minha crocância.', 'A temperagem correta é o segredo do meu brilho e da minha crocância.'],
+    ['O chocolate amargo é considerado o mais saudável e puro.', 'Minha versão amarga é considerada a mais saudável e pura.'],
+    ['O chocolate gourmet valoriza a origem e o percentual de cacau.', 'Minhas versões gourmet valorizam a origem e o percentual de cacau.'],
+    ['A indústria do chocolate é um dos maiores mercados do planeta.', 'Minha indústria movimenta um dos maiores mercados do planeta.'],
+    ['A combinação de chocolate com frutas, castanhas e licores é infinita.', 'Combino de inúmeras formas com frutas, castanhas e licores.'],
+    ['A Itália é um museu a céu aberto onde quer que você pise.', 'Sou comparada a um museu a céu aberto em quase todo o meu território.'],
+    ['A França é o país com a maior variedade de queijos do mundo.', 'A França é o país que reúne algumas das minhas maiores variedades.'],
+    ['O queijo de cabra possui um sabor mais ácido e característico.', 'Minha versão feita com leite de cabra possui sabor mais ácido e característico.'],
+    ['O queijo minas é o orgulho das tradições rurais brasileiras.', 'Uma variedade mineira é orgulho das tradições rurais brasileiras.'],
+    ['O vinho e o queijo formam a dupla mais clássica da gastronomia mundial.', 'Com o vinho, formo uma das duplas mais clássicas da gastronomia mundial.'],
+    ['A conservação do queijo foi uma estratégia de sobrevivência no passado.', 'Minha conservação foi uma estratégia de sobrevivência no passado.'],
+    ['O ralador é a ferramenta que transforma o queijo duro em acompanhamento.', 'O ralador transforma minhas versões duras em acompanhamento.'],
+    ['Existem queijos frescos que devem ser consumidos em poucos dias.', 'Minhas variedades frescas devem ser consumidas em poucos dias.'],
+    ['O universo do queijo é tão vasto que uma vida inteira não basta para provar tudo.', 'Meu universo de variedades é tão vasto que uma vida inteira não basta para provar tudo.'],
+    ['O vôlei de praia é a minha versão solar e disputada na areia.', 'Minha versão de praia é disputada em duplas sobre a areia.'],
+    ['A bola de vôlei é leve e feita para ser batida com as mãos.', 'A bola usada em mim é leve e feita para ser batida com as mãos.'],
+    ['O vôlei de praia é jogado em dupla, exigindo um esforço físico enorme.', 'Na praia, sou jogado em duplas e exijo enorme esforço físico.'],
+    ['O vôlei é um jogo de paciência, inteligência e explosão.', 'Sou um jogo de paciência, inteligência e explosão.'],
+    ['O Brasil é o maior produtor mundial de café.', 'O Brasil é um dos maiores produtores mundiais do grão que me origina.'],
+    ['O ritual de coar o café é uma tradição familiar no Brasil.', 'O ritual de me coar é uma tradição familiar no Brasil.'],
+    ['O aroma do café fresco é um dos mais prazerosos que existem.', 'Meu aroma quando fresco é um dos mais reconhecíveis que existem.'],
+    ['Os cafés gourmet valorizam a origem e o método de colheita.', 'Minhas versões gourmet valorizam a origem e o método de colheita.'],
+    ['O café excessivo pode causar ansiedade, o consumo moderado traz foco.', 'Em excesso posso causar ansiedade; com moderação, sou associado ao foco.'],
+    ['O café de coador é o símbolo do café caseiro e acolhedor.', 'Minha versão de coador é símbolo de uma pausa caseira e acolhedora.'],
+    ['O café não é apenas uma bebida, é uma cultura e uma economia mundial.', 'Não sou apenas uma bebida: também represento uma cultura e uma economia mundial.'],
+    ['O café é o combustível social que une as pessoas ao redor de uma xícara.', 'Sou um combustível social que reúne pessoas ao redor de uma xícara.'],
+    ['A Austrália é o mundo invertido onde a natureza segue suas próprias regras.', 'Sou vista como um mundo invertido onde a natureza segue suas próprias regras.'],
+    ['As Leis da Robótica, de Isaac Asimov, guiam a minha ética teórica.', 'As leis formuladas por Isaac Asimov guiam minha ética teórica.'],
+    ['A robótica colaborativa permite que eu trabalhe lado a lado com humanos.', 'Minha vertente colaborativa permite trabalhar lado a lado com humanos.'],
+    ['O conceito de "quimera" é usado até hoje para ideias fantásticas e irreais.', 'Meu nome também é usado para descrever ideias fantásticas e irreais.'],
+    ['O pão de fermentação natural é uma arte que exige tempo e paciência.', 'Minha fermentação natural é uma arte que exige tempo e paciência.'],
+    ['A cultura do pão é um símbolo de sustento e de vida em quase todo lugar.', 'Minha presença à mesa simboliza sustento e vida em muitas culturas.'],
+    ['O cheiro de pão assando é um gatilho de conforto emocional.', 'Meu cheiro ao assar é um conhecido gatilho de conforto emocional.'],
+    ['A divisão do pão é um ato ritualístico e simbólico na história humana.', 'Dividir-me é um ato ritualístico e simbólico na história humana.'],
+    ['O pão amanhecido serve para tantas outras receitas, como rabanadas.', 'Mesmo amanhecido, sirvo para outras receitas, como rabanadas.'],
+    ['O pão artesanal valoriza as farinhas moídas na pedra.', 'Minha versão artesanal valoriza farinhas moídas na pedra.'],
+    ['O pão é o alimento que une a história humana ao fogo e à terra.', 'Sou um alimento que liga a história humana ao fogo e à terra.'],
+    ['O hambúrguer de vegetais (vegano) é a minha versão mais moderna.', 'Minha versão vegetal é uma das adaptações mais modernas.'],
+    ['O hambúrguer artesanal valoriza cortes nobres de carne e queijos maturados.', 'Minha versão artesanal valoriza cortes nobres e queijos maturados.'],
+    ['O sucesso do hambúrguer está na simplicidade e no conforto.', 'Meu sucesso está na simplicidade e na sensação de conforto.'],
+    ['O hambúrguer é o rei do conforto alimentar moderno.', 'Sou tratado como o rei do conforto alimentar moderno.'],
+    ['O basquete de rua (streetball) é a base cultural da minha prática moderna.', 'Minha versão de rua, chamada streetball, é uma base cultural da prática moderna.'],
+    ['Os tênis personalizados são parte da cultura do basquete desde os anos 80.', 'Tênis personalizados fazem parte da minha cultura desde os anos 80.'],
+    ['O basquete é um jogo de altura, velocidade e precisão total.', 'Sou um jogo de altura, velocidade e precisão.'],
+    ['Sou a energia gerada pela força do vento.', 'Sou gerada pelo movimento do ar.'],
+    ['A energia solar térmica aquece água diretamente pelo calor do sol.', 'Minha modalidade térmica aquece água diretamente com o calor do sol.'],
+    ['O vinho de mesa é para o cotidiano, o reserva é para grandes eventos.', 'Minha versão de mesa acompanha o cotidiano; a reserva costuma marcar grandes eventos.'],
+    ['O vinho envelhecido ganha notas complexas e valor com o tempo.', 'Quando envelheço, ganho notas complexas e valor com o tempo.'],
+    ['Degustar um bom vinho é uma experiência que envolve história e sentidos.', 'Minha degustação envolve história, memória e vários sentidos.'],
+    ['O uso recreativo de drones explodiu nos últimos anos.', 'Meu uso recreativo cresceu muito nos últimos anos.'],
+    ['O uso da tesoura requer destreza e coordenação motora fina.', 'Meu uso requer destreza e coordenação motora fina.'],
+    ['A mochila é a representação da autonomia de poder ir e vir.', 'Represento a autonomia de carregar o necessário para ir e vir.'],
+    ['A lenda da sereia inspirou contos como "A Pequena Sereia".', 'Minha lenda inspirou contos famosos sobre criaturas marinhas.'],
+    ['O sorvete de massa, o picolé e o gelato são as minhas variações.', 'Minhas variações incluem versões de massa, picolés e gelatos.'],
+    ['O consumo de sorvete é um momento de alegria e pausa.', 'Meu consumo costuma ser associado a momentos de alegria e pausa.'],
+    ['O sorvete é o sabor do verão engarrafado em uma bola.', 'Sou descrito como o sabor do verão servido em uma bola.'],
+    ['Já existiram chaves gigantescas que pesavam quilos para castelos.', 'Já existiram versões gigantescas que pesavam quilos e protegiam castelos.'],
+    ['O "porta-chaves" é o primeiro lugar que você procura ao chegar em casa.', 'O suporte onde costumo ficar é um dos primeiros lugares procurados ao chegar em casa.'],
+    ['Já existiram calculadoras mecânicas que faziam um barulho único ao girar.', 'Já existiram versões mecânicas que faziam um barulho único ao girar.'],
+    ['Existem tesouras para cada uso: de unha, de poda, cirúrgicas e para papel.', 'Existem versões para cada uso: de unha, de poda, cirúrgicas e para papel.'],
+    ['Crianças usam tesouras sem ponta para aprender a cortar com segurança.', 'Crianças usam versões sem ponta para aprender a cortar com segurança.'],
+    ['Algumas mochilas possuem proteção contra chuva e capas impermeáveis.', 'Alguns modelos possuem proteção contra chuva e capas impermeáveis.'],
+    ['O canto das sereias é um metáfora para as distrações fatais.', 'Meu canto virou metáfora para distrações fatais.'],
+    ['O elefante gordo e azul (elePHPant) é meu mascote e pelúcia.', 'Um elefante gordo e azul é meu mascote e pelúcia.'],
+  ]);
+
+  const clueBody = (clue) => {
+    const body = stripNumber(clue);
+    return softenedClues.get(body) || body;
+  };
+
+  const hashText = (text) => {
+    let hash = 2166136261;
+    for (const char of String(text)) {
+      hash ^= char.charCodeAt(0);
+      hash = Math.imul(hash, 16777619);
+    }
+    return hash >>> 0;
+  };
+
+  const singularizeToken = (token) => {
+    if (token.length > 5 && token.endsWith('es')) return token.slice(0, -2);
+    if (token.length > 4 && token.endsWith('s')) return token.slice(0, -1);
+    return token;
+  };
+
+  const semanticTokens = (text) =>
+    normalizeText(text)
+      .split(' ')
+      .filter((token) => token.length >= 3 && !semanticStopWords.has(token))
+      .map(singularizeToken);
+
+  const containsDirectAnswer = (answer, clue) => {
+    const normalizedAnswer = normalizeText(answer);
+    const normalizedClue = normalizeText(clue);
+    if (!normalizedAnswer || !normalizedClue) return false;
+
+    if ((` ${normalizedClue} `).includes(` ${normalizedAnswer} `)) return true;
+
+    // Para respostas de uma palavra, também bloqueia o plural simples.
+    const answerWords = normalizedAnswer.split(' ');
+    if (answerWords.length === 1) {
+      const word = answerWords[0];
+      const clueWords = new Set(normalizedClue.split(' '));
+      return clueWords.has(`${word}s`) || clueWords.has(`${word}es`);
+    }
+
+    return false;
+  };
+
+  const isGenericClue = (body) =>
+    /\b(?:sou (?:um|uma) (?:s[ií]mbolo|[ií]cone)|sou a prova|sou conhecido|sou conhecida|sou famoso|sou famosa|mudei o mundo|nunca sai de moda|minha marca registrada|minha ess[eê]ncia|minha maior arma|minha maior promessa|minha vida foi|meu legado|meu destino|meu maior valor|um exemplo de|sin[oô]nimo de excel[eê]ncia|de tirar o f[oô]lego|um espet[aá]culo inesquec[ií]vel|pura alquimia)\b/i.test(body);
+
+  const clueQuality = (body) => {
+    const tokens = semanticTokens(body);
+    let score = tokens.length * 1.5;
+
+    if (/\b\d+(?:[.,]\d+)?\b/.test(body)) score += 5;
+    if (/['"][^'"]{2,}['"]/.test(body)) score += 3;
+    if (/[A-ZÀ-Ý][a-zà-ÿ]+(?:\s+(?:d[aeo]s?|de|do|dos|e)?\s*[A-ZÀ-Ý][a-zà-ÿ]+)+/.test(body.slice(1))) score += 4;
+    if (/\b[A-Z]{2,}\b/.test(body)) score += 3;
+    if (/\b(?:porque|durante|atrav[eé]s|devido|permitiu|causou|transformou|desenvolvi|inventei|descobri)\b/i.test(body)) score += 2;
+
+    // Pistas curtas podem ser excelentes no Perfil: “Fui camelô”, “Fico em
+    // Roma” e “Posso ser AM ou FM” são específicas, mesmo com poucas palavras.
+    if (tokens.length <= 4) score += 4;
+    if (/^(?:Nasci|Fui|Sou|Tenho|Possuo|Fico|Moro|Posso|Uso|Criei|Inventei|Descobri|Recebi|Venci)\b/i.test(body)) score += 4;
+    if (isGenericClue(body)) score -= 12;
+
+    return score;
+  };
+
+  const semanticSimilarity = (leftBody, rightBody) => {
+    const left = new Set(semanticTokens(leftBody));
+    const right = new Set(semanticTokens(rightBody));
+    if (left.size < 3 || right.size < 3) return 0;
+
+    let intersection = 0;
+    for (const token of left) {
+      if (right.has(token)) intersection += 1;
+    }
+
+    const union = left.size + right.size - intersection;
+    const jaccard = union ? intersection / union : 0;
+    const containment = intersection / Math.min(left.size, right.size);
+    return Math.max(jaccard, containment * 0.88);
+  };
+
+  const buildWordClues = (card) => {
+    const answer = String(card.answer).trim();
+    const normalized = normalizeText(answer);
+    const words = answer.split(/\s+/).filter(Boolean);
+    const letters = normalized.replace(/\s/g, '');
+    const vowels = (letters.match(/[aeiou]/g) || []).length;
+    const firstLetter = letters.charAt(0).toUpperCase();
+    const lastLetter = letters.charAt(letters.length - 1).toUpperCase();
+    const repeatedLetters = [...new Set(letters.split('').filter((letter, index, all) => all.indexOf(letter) !== index))];
+    const seed = hashText(`${card.id}|${answer}`);
+    const variant = seed % 4;
+
+    const wordCountTemplates = words.length === 1
+      ? [
+          'O termo procurado é escrito em uma única palavra.',
+          'A resposta não possui espaços entre palavras.',
+          'O nome buscado é formado por apenas uma palavra.',
+          'Trata-se de um termo escrito em uma só palavra.',
+        ]
+      : [
+          `O termo procurado é formado por ${words.length} palavras.`,
+          `A resposta possui ${words.length} palavras separadas por espaços.`,
+          `O nome buscado usa exatamente ${words.length} palavras.`,
+          `Trata-se de uma expressão composta por ${words.length} palavras.`,
+        ];
+
+    const letterCountTemplates = [
+      `Sem contar espaços e sinais, a resposta possui ${letters.length} letras.`,
+      `O termo buscado tem ${letters.length} letras quando os espaços são ignorados.`,
+      `A grafia da resposta reúne ${letters.length} letras, sem contar espaços.`,
+      `Contando apenas letras, o nome procurado tem tamanho ${letters.length}.`,
+    ];
+
+    const vowelTemplates = [
+      `A resposta possui ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'}.`,
+      `Há ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'} na grafia do termo procurado.`,
+      `Contando repetições, o nome buscado usa ${vowels} ${vowels === 1 ? 'vogal' : 'vogais'}.`,
+      `A escrita da resposta contém ${vowels} ocorrências de vogais.`,
+    ];
+
+    const firstLetterTemplates = [
+      `A primeira letra da resposta é ${firstLetter}.`,
+      `O termo procurado começa com a letra ${firstLetter}.`,
+      `A inicial do nome buscado é ${firstLetter}.`,
+      `Minha resposta se inicia pela letra ${firstLetter}.`,
+    ];
+
+    const lastLetterTemplates = [
+      `A última letra da resposta é ${lastLetter}.`,
+      `O termo procurado termina com a letra ${lastLetter}.`,
+      `A letra final do nome buscado é ${lastLetter}.`,
+      `Minha resposta se encerra pela letra ${lastLetter}.`,
+    ];
+
+    const repetitionTemplates = repeatedLetters.length
+      ? [
+          'Pelo menos uma letra aparece mais de uma vez na resposta.',
+          'A grafia do termo procurado possui letras repetidas.',
+          'Há repetição de letras no nome buscado.',
+          'Nem todas as letras da resposta aparecem uma única vez.',
+        ]
+      : [
+          'Nenhuma letra se repete na resposta.',
+          'A grafia do termo procurado não possui letras repetidas.',
+          'Todas as letras do nome buscado aparecem uma única vez.',
+          'Não há repetição de letras na resposta.',
+        ];
+
+    const structurePools = [wordCountTemplates, letterCountTemplates, vowelTemplates];
+    const edgePools = [firstLetterTemplates, lastLetterTemplates, repetitionTemplates];
+    const structure = structurePools[seed % structurePools.length][variant];
+    const edge = edgePools[Math.floor(seed / 7) % edgePools.length][(variant + 1) % 4];
+
+    return [structure, edge];
+  };
+
+  const generatedPositions = (card) => {
+    const seed = hashText(`${card.id}|positions`);
+    const first = seed % TOTAL_CLUES;
+    let second = (first + 7 + (seed % 5)) % TOTAL_CLUES;
+    if (second === first) second = (first + 11) % TOTAL_CLUES;
+    return [first, second];
+  };
+
+  const tierOf = (index) => {
+    if (index < 7) return 'hard';
+    if (index < 14) return 'medium';
+    return 'easy';
+  };
+
+  return cards.map((card) => {
+    if (!card || typeof card !== 'object') {
+      throw new TypeError('Foi encontrada uma carta inválida no banco.');
+    }
+    if (!card.id || !card.answer || !card.category) {
+      throw new Error(`Carta incompleta: ${JSON.stringify(card)}`);
+    }
+    if (!Array.isArray(card.clues)) {
+      throw new Error(`A carta ${card.id} não possui um array de pistas.`);
+    }
+
+    const allWordClues = buildWordClues(card);
+    const generatedSet = new Set(allWordClues);
+    const cardBodies = card.clues.map((clue) => clueBody(clue));
+    const existingGeneratedCount = cardBodies.filter((body) => generatedSet.has(body)).length;
+    const sourceClues = cardBodies
+      .map((body, originalIndex) => ({ body, originalIndex }))
+      .filter((item) => !generatedSet.has(item.body));
+
+    if (sourceClues.length < TOTAL_CLUES - MAX_GENERATED_CLUES) {
+      throw new Error(
+        `A carta ${card.id} possui apenas ${sourceClues.length} pistas de conteúdo; são necessárias pelo menos ${TOTAL_CLUES - MAX_GENERATED_CLUES}.`,
+      );
+    }
+
+    const redundancyPenalty = new Array(sourceClues.length).fill(0);
+    for (let left = 0; left < sourceClues.length; left += 1) {
+      for (let right = left + 1; right < sourceClues.length; right += 1) {
+        const similarity = semanticSimilarity(sourceClues[left].body, sourceClues[right].body);
+        if (similarity < 0.64) continue;
+
+        const leftQuality = clueQuality(sourceClues[left].body);
+        const rightQuality = clueQuality(sourceClues[right].body);
+        const weakerIndex = leftQuality <= rightQuality ? left : right;
+        redundancyPenalty[weakerIndex] += similarity * 80;
+      }
+    }
+
+    const removalCandidates = sourceClues.map((item, index) => {
+      const directAnswer = containsDirectAnswer(card.answer, item.body);
+      const quality = clueQuality(item.body);
+      const genericPenalty = isGenericClue(item.body) ? 36 : 0;
+
+      return {
+        ...item,
+        sourceIndex: index,
+        tier: tierOf(item.originalIndex),
+        directAnswer,
+        isRedundant: redundancyPenalty[index] >= 50,
+        priority: (directAnswer ? 10000 : 0) + redundancyPenalty[index] + genericPenalty - quality,
+      };
+    });
+
+    const rankedIssues = removalCandidates
+      .filter((item) => item.directAnswer || item.isRedundant)
+      .sort(
+        (left, right) =>
+          right.priority - left.priority ||
+          clueQuality(left.body) - clueQuality(right.body) ||
+          right.originalIndex - left.originalIndex,
+      );
+
+    // Só adicionamos pistas de palavra quando existe algo real para substituir:
+    // resposta explícita ou redundância semântica. Cartas já boas permanecem
+    // com suas 20 pistas autorais intactas.
+    const generatedClueCount = existingGeneratedCount > 0
+      ? existingGeneratedCount
+      : Math.min(MAX_GENERATED_CLUES, rankedIssues.length);
+    const contentClueCount = TOTAL_CLUES - generatedClueCount;
+    const removableCount = sourceClues.length - contentClueCount;
+
+    if (removableCount < 0) {
+      throw new Error(`A carta ${card.id} não possui conteúdo suficiente para manter ${TOTAL_CLUES} pistas.`);
+    }
+
+    const directAnswerCount = removalCandidates.filter((item) => item.directAnswer).length;
+    if (directAnswerCount > removableCount) {
+      throw new Error(
+        `A carta ${card.id} ainda possui ${directAnswerCount} pistas que revelam a resposta, mas só ${removableCount} podem ser substituídas.`,
+      );
+    }
+
+    const remainingByTier = removalCandidates.reduce(
+      (counts, item) => ({ ...counts, [item.tier]: counts[item.tier] + 1 }),
+      { hard: 0, medium: 0, easy: 0 },
+    );
+    const minimumByTier = { hard: 5, medium: 5, easy: 4 };
+    const removed = new Set();
+
+    for (const item of rankedIssues) {
+      if (removed.size >= removableCount) break;
+      const canRemoveFromTier = remainingByTier[item.tier] - 1 >= minimumByTier[item.tier];
+      if (!item.directAnswer && !canRemoveFromTier) continue;
+      removed.add(item.sourceIndex);
+      remainingByTier[item.tier] -= 1;
+    }
+
+    // Pistas que revelam a resposta sempre têm prioridade sobre a distribuição
+    // por dificuldade. Este fallback só entra quando a proteção de faixa bloqueia
+    // uma remoção obrigatória.
+    for (const item of rankedIssues) {
+      if (removed.size >= removableCount) break;
+      if (removed.has(item.sourceIndex)) continue;
+      removed.add(item.sourceIndex);
+    }
+
+    const selectedContent = sourceClues
+      .filter((_, index) => !removed.has(index))
+      .sort((left, right) => left.originalIndex - right.originalIndex)
+      .map((item) => item.body);
+
+    if (selectedContent.length !== contentClueCount) {
+      throw new Error(`Falha ao equilibrar a carta ${card.id}: foram preservadas ${selectedContent.length} pistas de conteúdo.`);
+    }
+
+    const wordClues = allWordClues.slice(0, generatedClueCount);
+    const positions = generatedPositions(card).slice(0, generatedClueCount);
+    const clueAtPosition = new Map(positions.map((position, index) => [position, wordClues[index]]));
+    let contentIndex = 0;
+
+    const balancedBodies = Array.from({ length: TOTAL_CLUES }, (_, index) => {
+      if (clueAtPosition.has(index)) return clueAtPosition.get(index);
+      const body = selectedContent[contentIndex];
+      contentIndex += 1;
+      return body;
+    });
+
+    return {
+      ...card,
+      clues: balancedBodies.map((body, index) => `${index + 1}. ${body}`),
+    };
+  });
+}
+
+function validateProfileCards(cards) {
+  const errors = [];
+  const ids = new Set();
+  const answers = new Set();
+
+  const normalizeText = (text) =>
+    String(text)
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, ' ')
+      .trim();
+
+  const containsDirectAnswer = (answer, clue) => {
+    const normalizedAnswer = normalizeText(answer);
+    const normalizedClue = normalizeText(String(clue).replace(/^\d+\.\s*/, ''));
+    if ((` ${normalizedClue} `).includes(` ${normalizedAnswer} `)) return true;
+    const words = normalizedAnswer.split(' ');
+    if (words.length !== 1) return false;
+    const clueWords = new Set(normalizedClue.split(' '));
+    return clueWords.has(`${normalizedAnswer}s`) || clueWords.has(`${normalizedAnswer}es`);
+  };
+
+  cards.forEach((card, cardIndex) => {
+    if (ids.has(card.id)) errors.push(`ID duplicado: ${card.id}`);
+    ids.add(card.id);
+
+    const normalizedAnswer = normalizeText(card.answer);
+    if (answers.has(normalizedAnswer)) errors.push(`Resposta duplicada: ${card.answer}`);
+    answers.add(normalizedAnswer);
+
+    if (!Array.isArray(card.clues) || card.clues.length !== 20) {
+      errors.push(`A carta ${card.id || cardIndex} não possui exatamente 20 pistas.`);
+      return;
+    }
+
+    card.clues.forEach((clue, clueIndex) => {
+      if (!String(clue).startsWith(`${clueIndex + 1}. `)) {
+        errors.push(`Numeração inválida em ${card.id}, pista ${clueIndex + 1}.`);
+      }
+      if (containsDirectAnswer(card.answer, clue)) {
+        errors.push(`A carta ${card.id}, pista ${clueIndex + 1}, revela diretamente a resposta.`);
+      }
+    });
+  });
+
+  if (errors.length) {
+    throw new Error(`Falha na validação do banco de cartas:\n- ${errors.join('\n- ')}`);
+  }
+
+  return {
+    cards: cards.length,
+    clues: cards.reduce((total, card) => total + card.clues.length, 0),
+  };
+}
+
+const PRELOADED_CARDS = balanceProfileCards(RAW_PRELOADED_CARDS);
+const PROFILE_CARDS_VALIDATION = validateProfileCards(PRELOADED_CARDS);

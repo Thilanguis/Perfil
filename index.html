@@ -49,6 +49,10 @@
           <p style="color: #888; font-size: 0.9rem">Configure sua sessão e assuma o controle.</p>
           <input type="text" id="setup-admin-name" placeholder="Nome do Dominador / Mistress" value="Mistress Luana" style="margin-bottom: 12px" />
 
+          <label for="setup-admin-pix" style="font-size: 0.8rem; color: #888">Chave Pix para cobranças</label>
+          <input type="text" id="setup-admin-pix" placeholder="CPF, CNPJ, e-mail, +55... ou chave aleatória" autocomplete="off" spellcheck="false" style="margin-bottom: 7px" />
+          <p class="pix-key-help">Obrigatória para abrir a mesa. CPF e CNPJ podem ser digitados com ou sem pontuação.</p>
+
           <div style="display: flex; gap: 12px; margin-bottom: 20px">
             <div style="flex: 1">
               <label style="font-size: 0.8rem; color: #888">Custo da Dica (R$)</label>
@@ -238,6 +242,10 @@
             <div style="background: var(--black); padding: 20px; border-bottom: 1px solid var(--border); text-align: center">
               <p style="margin: 0; color: #888; text-transform: uppercase">Dívida Acumulada</p>
               <h1 id="admin-current-debt" style="margin: 5px 0 0 0; color: var(--green); font-size: 3rem">R$ 0,00</h1>
+              <button id="btn-generate-pix" class="btn-primary pix-generate-button" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Gerar cobrança Pix</button>
+              <button id="btn-cancel-pix" style="display: none; margin-top: 8px; width: 100%; font-size: 0.82rem; background: #25252f; color: #ddd">Retirar cobrança da tela</button>
+              <div id="admin-pix-charge-status" class="pix-charge-status" style="display: none"></div>
+              <p class="pix-admin-note">A confirmação do pagamento deve ser feita pelo dominador no aplicativo do banco.</p>
               <button id="btn-reset-debt" class="btn-danger" style="margin-top: 15px; width: 100%; font-size: 0.9rem">Zerar Dívida</button>
             </div>
           </div>
@@ -333,12 +341,31 @@
       </div>
     </div>
 
+    <!-- Cobrança Pix exibida somente na tela do dominado -->
+    <div id="pix-charge-modal" class="pix-charge-modal" aria-hidden="true">
+      <div class="pix-charge-card" role="dialog" aria-modal="true" aria-labelledby="pix-charge-title">
+        <div class="pix-charge-badge">COBRANÇA PIX</div>
+        <h2 id="pix-charge-title">Pagamento solicitado</h2>
+        <p class="pix-charge-subtitle">A Mistress gerou uma cobrança com a dívida acumulada.</p>
+        <div id="pix-charge-amount" class="pix-charge-amount">R$ 0,00</div>
+        <div class="pix-qr-frame">
+          <img id="pix-charge-qr" alt="QR Code da cobrança Pix" width="280" height="280" />
+        </div>
+        <p class="pix-key-label">Chave Pix</p>
+        <div id="pix-charge-key" class="pix-charge-key"></div>
+        <button id="btn-copy-pix-code" class="btn-primary" type="button">Copiar Pix Copia e Cola</button>
+        <button id="btn-copy-pix-key" class="pix-secondary-button" type="button">Copiar somente a chave</button>
+        <p class="pix-charge-warning">Confira o nome do recebedor e o valor no aplicativo do banco antes de confirmar.</p>
+      </div>
+    </div>
+
     <!-- Scripts do Firebase (Mantendo as versões do seu sistema principal) -->
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore-compat.js"></script>
 
     <!-- Scripts Locais Modulares -->
     <script src="cards.js"></script>
+    <script src="pix.js"></script>
     <script src="firebase-setup.js"></script>
     <script src="player.js"></script>
     <script src="admin.js"></script>

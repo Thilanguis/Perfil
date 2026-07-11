@@ -135,16 +135,34 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
 
     // Se a mesa estiver fechada, inicializa uma nova sessão do zero
     const adminNameEl = document.getElementById('setup-admin-name');
+    const pixKeyEl = document.getElementById('setup-admin-pix');
     const clueCostEl = document.getElementById('setup-clue-cost');
     const penaltyEl = document.getElementById('setup-penalty');
 
     const adminName = adminNameEl ? adminNameEl.value.trim() : 'Dominador';
+    const pixValidation = window.PixPayment.normalizeKey(pixKeyEl ? pixKeyEl.value : '');
     const cCost = clueCostEl ? parseFloat(clueCostEl.value) : 2.0;
     const pPenalty = penaltyEl ? parseFloat(penaltyEl.value) : 10.0;
+
+    if (!pixValidation.valid) {
+      if (pixKeyEl) {
+        pixKeyEl.focus();
+        pixKeyEl.style.borderColor = 'var(--red)';
+      }
+      showToast(pixValidation.error, 'danger');
+      return;
+    }
+
+    if (pixKeyEl) {
+      pixKeyEl.value = pixValidation.key;
+      pixKeyEl.style.borderColor = '';
+    }
 
     await gameRef.set(
       {
         adminName: adminName,
+        adminPixKey: pixValidation.key,
+        adminPixType: pixValidation.type,
         clueCost: cCost,
         mistakePenalty: pPenalty,
         status: 'waiting',
@@ -153,6 +171,7 @@ document.getElementById('btn-enter-controller').addEventListener('click', async 
         guessLocked: false,
         playerName: '',
         playerJoinedAt: 0,
+        pixCharge: null,
       },
       { merge: true },
     );
@@ -181,6 +200,63 @@ document.getElementById('btn-reset-debt').addEventListener('click', (e) => {
       showToast('Erro ao zerar a dívida.', 'danger');
     }
   });
+});
+
+// Gera uma cobrança Pix com o valor total acumulado no momento do clique.
+document.getElementById('btn-generate-pix').addEventListener('click', async () => {
+  try {
+    const doc = await gameRef.get();
+    if (!doc.exists) return;
+
+    const data = doc.data();
+    const amount = Number(data.debt || 0);
+    const pixValidation = window.PixPayment.normalizeKey(data.adminPixKey || '');
+
+    if (!pixValidation.valid) {
+      showToast('A chave Pix da mesa não está disponível. Reabra a mesa e informe uma chave válida.', 'danger');
+      return;
+    }
+
+    if (!Number.isFinite(amount) || amount <= 0) {
+      showToast('Ainda não existe dívida para cobrar.', 'danger');
+      return;
+    }
+
+    const roundedAmount = Number(amount.toFixed(2));
+    const payload = window.PixPayment.generatePayload({
+      key: pixValidation.key,
+      amount: roundedAmount,
+      merchantName: data.adminName || 'Perfil Tribute',
+      merchantCity: 'Brasil',
+    });
+
+    await gameRef.update({
+      pixCharge: {
+        id: `${Date.now()}`,
+        active: true,
+        amount: roundedAmount,
+        key: pixValidation.key,
+        keyType: pixValidation.type,
+        payload,
+        createdAt: Date.now(),
+      },
+    });
+
+    showToast(`Cobrança Pix de R$ ${roundedAmount.toFixed(2)} enviada ao dominado.`, 'success');
+  } catch (error) {
+    console.error('Erro ao gerar cobrança Pix:', error);
+    showToast(error.message || 'Não foi possível gerar a cobrança Pix.', 'danger');
+  }
+});
+
+document.getElementById('btn-cancel-pix').addEventListener('click', async () => {
+  try {
+    await gameRef.update({ pixCharge: null });
+    showToast('Cobrança retirada da tela do dominado.', 'gold');
+  } catch (error) {
+    console.error('Erro ao retirar cobrança Pix:', error);
+    showToast('Não foi possível retirar a cobrança.', 'danger');
+  }
 });
 
 // Lança a Charada para o Jogo
@@ -274,6 +350,9 @@ document.getElementById('btn-close-session').addEventListener('click', (e) => {
         guessLocked: false,
         history: [],
         playPrepMusic: false,
+        pixCharge: null,
+        adminPixKey: '',
+        adminPixType: '',
       });
       showToast('Sessão encerrada e submisso desconectado.', 'danger');
 

@@ -60,67 +60,74 @@ function typeWriterEffect(element, text, speed = 65) {
     element.innerHTML = '';
     let textToAnimate = text.includes('<span') ? new DOMParser().parseFromString(text, 'text/html').body.textContent : text;
 
-    const azureApiKey = '9oRvYr2ZRtQzGEJw2PDPkoti17tPtwaelJHaIizK5Z1Jh1mBhIjzJQQJ99CFACYeBjFXJ3w3AAAYACOGz2QH';
-    const azureRegion = 'eastus';
+    const voiceApiUrl = 'https://perfil-voz-api-gggedrdgf4e2c2hr.canadacentral-01.azurewebsites.net/api/sintetizarVoz';
+
     const voiceName = localStorage.getItem('selectedMistressVoice') || 'pt-BR-FranciscaNeural';
 
-    if (azureApiKey && azureRegion && azureApiKey !== 'SUA_CHAVE_AQUI') {
-      expectsAudio = true;
-      const ssml = `<speak version='1.0' xmlns='http://www.w3.org/2001/10/synthesis' xml:lang='pt-BR'>
-                  <voice name='${voiceName}'>
-                    <prosody rate='0.93' pitch='-2%'>
-                      ${textToAnimate}
-                    </prosody>
-                  </voice>
-                </speak>`;
+    expectsAudio = true;
 
-      fetch(`https://${azureRegion}.tts.speech.microsoft.com/cognitiveservices/v1`, {
-        method: 'POST',
-        headers: {
-          'Ocp-Apim-Subscription-Key': azureApiKey,
-          'Content-Type': 'application/ssml+xml',
-          'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
-          'User-Agent': 'TributeProfileSystem',
-        },
-        body: ssml,
+    fetch(voiceApiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: textToAnimate,
+        voice: voiceName,
+      }),
+    })
+      .then(async (response) => {
+        if (!response.ok) {
+          const detalhe = await response.text();
+          throw new Error(`Erro da API de voz: ${response.status} ${detalhe}`);
+        }
+
+        return response.blob();
       })
-        .then((response) => {
-          if (!response.ok) throw new Error(`Azure HTTP Error: ${response.status}`);
-          return response.blob();
-        })
-        .then((blob) => {
-          const audioUrl = URL.createObjectURL(blob);
-          const audio = new Audio(audioUrl);
+      .then((blob) => {
+        const audioUrl = URL.createObjectURL(blob);
+        const audio = new Audio(audioUrl);
 
-          if (window.currentAudio) {
-            window.currentAudio.pause();
+        if (window.currentAudio) {
+          window.currentAudio.pause();
+        }
+
+        window.currentAudio = audio;
+
+        const finalizarAudio = () => {
+          URL.revokeObjectURL(audioUrl);
+
+          document.querySelectorAll('.btn-voice-preview').forEach((botao) => {
+            botao.innerHTML = '▶️';
+          });
+
+          if (window.currentAudio === audio) {
+            window.currentAudio = null;
           }
 
-          window.currentAudio = audio;
+          azureDone = true;
+          checkCompletion();
+        };
 
-          audio.addEventListener('ended', () => {
-            document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
-            window.currentAudio = null;
-            azureDone = true;
-            checkCompletion(); // Áudio concluído com sucesso
-          });
-
-          audio.addEventListener('pause', () => {
-            document.querySelectorAll('.btn-voice-preview').forEach((b) => (b.innerHTML = '▶️'));
-          });
-
-          audio.play().catch((e) => {
-            console.log('Bloqueio de autoplay:', e);
-            azureDone = true;
-            checkCompletion(); // Destrava em caso de bloqueio do navegador
-          });
-        })
-        .catch((error) => {
-          console.error('Falha na API da Azure:', error);
-          expectsAudio = false;
-          checkCompletion(); // Fallback caso a API caia
+        audio.addEventListener('ended', finalizarAudio, {
+          once: true,
         });
-    }
+
+        audio.addEventListener('error', finalizarAudio, {
+          once: true,
+        });
+
+        audio.play().catch((error) => {
+          console.log('Bloqueio de autoplay:', error);
+          finalizarAudio();
+        });
+      })
+      .catch((error) => {
+        console.error('Falha na API de voz:', error);
+        expectsAudio = false;
+        azureDone = true;
+        checkCompletion();
+      });
 
     // --- EFEITO DE MÁQUINA DE ESCREVER (VISUAL) ---
     let i = 0;
@@ -394,6 +401,82 @@ function animateValue(element, start, end, duration) {
   window.requestAnimationFrame(step);
 }
 
+// --- COBRANÇA PIX SINCRONIZADA ---
+window.currentPixCharge = null;
+window.dismissedPixChargeId = null;
+
+function formatPixCurrency(value) {
+  return Number(value || 0).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+}
+
+function hidePixChargeModal(dismissCurrent = false) {
+  const modal = document.getElementById('pix-charge-modal');
+  if (!modal) return;
+
+  if (dismissCurrent && window.currentPixCharge) {
+    window.dismissedPixChargeId = window.currentPixCharge.id;
+  }
+
+  modal.classList.remove('show');
+  modal.setAttribute('aria-hidden', 'true');
+}
+
+function syncPixChargeModal(charge) {
+  const modal = document.getElementById('pix-charge-modal');
+  const playerView = document.getElementById('view-player');
+  if (!modal || !playerView) return;
+
+  const isPlayerActive = playerView.classList.contains('active');
+  const isValidCharge = charge && charge.active && charge.id && Number(charge.amount) > 0 && charge.payload && charge.key;
+
+  if (!isValidCharge) {
+    window.currentPixCharge = null;
+    window.dismissedPixChargeId = null;
+    hidePixChargeModal();
+    return;
+  }
+
+  window.currentPixCharge = charge;
+  if (!isPlayerActive || window.dismissedPixChargeId === charge.id) {
+    hidePixChargeModal();
+    return;
+  }
+
+  const amountEl = document.getElementById('pix-charge-amount');
+  const keyEl = document.getElementById('pix-charge-key');
+  const qrEl = document.getElementById('pix-charge-qr');
+
+  if (amountEl) amountEl.textContent = formatPixCurrency(charge.amount);
+  if (keyEl) keyEl.textContent = charge.key;
+  if (qrEl) qrEl.src = window.PixPayment.qrCodeUrl(charge.payload, 280);
+
+  modal.classList.add('show');
+  modal.setAttribute('aria-hidden', 'false');
+}
+
+async function copyPixText(value, successMessage) {
+  if (!value) return;
+
+  try {
+    await navigator.clipboard.writeText(value);
+    showToast(successMessage, 'success');
+  } catch (error) {
+    const helper = document.createElement('textarea');
+    helper.value = value;
+    helper.setAttribute('readonly', '');
+    helper.style.position = 'fixed';
+    helper.style.opacity = '0';
+    document.body.appendChild(helper);
+    helper.select();
+    const copied = document.execCommand('copy');
+    helper.remove();
+    showToast(copied ? successMessage : 'Não foi possível copiar automaticamente.', copied ? 'success' : 'danger');
+  }
+}
+
 // --- LISTENER EM TEMPO REAL (O CORAÇÃO DO JOGO) ---
 let localPlayerDebt = 0;
 let autoRouted = false;
@@ -417,6 +500,8 @@ gameRef.onSnapshot((doc) => {
         autoRouted = true;
       }
     }
+
+    syncPixChargeModal(data.pixCharge);
 
     if (data.playerJoinedAt && data.playerJoinedAt > localPlayerJoinedAt) {
       const savedRole = sessionStorage.getItem('gameRole');
@@ -600,6 +685,21 @@ gameRef.onSnapshot((doc) => {
     const adminStatusContainer = document.getElementById('controller-status-container');
     const adminFinancesCard = document.getElementById('admin-finances-card');
     const adminDashboardCard = document.getElementById('admin-dashboard-card');
+    const generatePixBtn = document.getElementById('btn-generate-pix');
+    const cancelPixBtn = document.getElementById('btn-cancel-pix');
+    const pixChargeStatus = document.getElementById('admin-pix-charge-status');
+
+    if (generatePixBtn) {
+      generatePixBtn.disabled = currentDebt <= 0 || !data.adminPixKey;
+      generatePixBtn.textContent = currentDebt > 0 ? `GERAR COBRANÇA DE ${formatPixCurrency(currentDebt)}` : 'GERAR COBRANÇA PIX';
+    }
+
+    const hasActivePixCharge = Boolean(data.pixCharge && data.pixCharge.active);
+    if (cancelPixBtn) cancelPixBtn.style.display = hasActivePixCharge ? 'block' : 'none';
+    if (pixChargeStatus) {
+      pixChargeStatus.style.display = hasActivePixCharge ? 'block' : 'none';
+      pixChargeStatus.textContent = hasActivePixCharge ? `Cobrança ativa na tela: ${formatPixCurrency(data.pixCharge.amount)}` : '';
+    }
 
     if (data.status && data.status !== 'closed') {
       if (adminStatusContainer) adminStatusContainer.style.display = 'none';
@@ -1582,4 +1682,19 @@ document.addEventListener('DOMContentLoaded', () => {
       typeWriterEffect(dummyElement, randomInsult, 0);
     });
   });
+
+  const copyPixCodeBtn = document.getElementById('btn-copy-pix-code');
+  const copyPixKeyBtn = document.getElementById('btn-copy-pix-key');
+
+  if (copyPixCodeBtn) {
+    copyPixCodeBtn.addEventListener('click', () => {
+      copyPixText(window.currentPixCharge?.payload, 'Pix Copia e Cola copiado.');
+    });
+  }
+
+  if (copyPixKeyBtn) {
+    copyPixKeyBtn.addEventListener('click', () => {
+      copyPixText(window.currentPixCharge?.key, 'Chave Pix copiada.');
+    });
+  }
 });
