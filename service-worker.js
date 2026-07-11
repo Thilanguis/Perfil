@@ -1,4 +1,4 @@
-const CACHE_NAME = 'tribute-profile-v23';
+const CACHE_NAME = 'tribute-profile-v24';
 const ASSETS_TO_CACHE = ['./', './index.html', './style.css', './firebase-setup.js', './player.js', './admin.js', './app.js', './devtools.js', './cards.js', './pix.js', './manifest.json', './icon-192.png', './icon-512.png', './video.mp4'];
 const IS_LOCAL_WORKER = ['localhost', '127.0.0.1', '0.0.0.0', '[::1]', '::1'].includes(self.location.hostname);
 

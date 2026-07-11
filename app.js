@@ -870,95 +870,8 @@ gameRef.onSnapshot((doc) => {
           }
         }
 
-        const mirrorBoard = document.getElementById('admin-mirror-board');
         const revealedIndexes = data.revealedIndexes || [];
         const revealedIds = revealedIndexes.map((x) => (typeof x === 'object' ? x.index : x));
-
-        if (mirrorBoard) {
-          mirrorBoard.innerHTML = '';
-          mirrorBoard.style.display = 'grid';
-          mirrorBoard.style.gridTemplateColumns = 'repeat(5, 1fr)';
-          mirrorBoard.style.gap = '6px';
-          mirrorBoard.style.maxHeight = 'none';
-          mirrorBoard.style.overflowY = 'visible';
-
-          const traps = data.trapIndices || [];
-
-          // Retorna a grade do Admin para renderizar sempre os 20 blocos fixos
-          for (let i = 1; i <= 20; i++) {
-            const block = document.createElement('div');
-            const isTrap = traps.includes(i - 1);
-            const isRevealed = revealedIds.includes(i - 1);
-
-            block.style.padding = '8px 0';
-            block.style.textAlign = 'center';
-            block.style.borderRadius = '4px';
-            block.style.fontSize = '0.8rem';
-            block.style.fontWeight = 'bold';
-            block.style.transition = 'all 0.2s';
-
-            const isRoulette = data.rouletteIndex === i - 1;
-            const maxTrapsReached = traps.length >= 3;
-            const rouletteReached = data.rouletteIndex !== -1 && data.rouletteIndex !== undefined;
-            const isLocked = data.trapsReady || (maxTrapsReached && rouletteReached && !isTrap && !isRoulette);
-
-            block.style.cursor = isRevealed || isLocked ? 'not-allowed' : 'pointer';
-
-            if (isRevealed) {
-              block.style.background = 'var(--gold-dark)';
-              block.style.color = 'var(--black)';
-              block.style.border = '1px solid transparent';
-            } else if (isRoulette) {
-              block.style.background = 'rgba(181, 56, 255, 0.2)';
-              block.style.color = '#fff';
-              block.style.border = '2px solid #b538ff';
-            } else if (isTrap) {
-              block.style.background = 'var(--red)';
-              block.style.color = '#fff';
-              block.style.border = '2px solid white';
-            } else {
-              block.style.background = 'var(--border)';
-              block.style.color = '#fff';
-              block.style.border = '1px solid transparent';
-            }
-
-            block.textContent = isRevealed ? `💎 ${String(i).padStart(2, '0')}` : String(i).padStart(2, '0');
-
-            block.addEventListener('click', async () => {
-              if (isRevealed) return;
-              if (data.trapsReady) {
-                showToast('A mesa já foi liberada! Não pode alterar as armadilhas.', 'danger');
-                return;
-              }
-
-              let newTraps = [...traps];
-              let newRoulette = data.rouletteIndex !== undefined ? data.rouletteIndex : -1;
-
-              if (isTrap) {
-                newTraps = newTraps.filter((t) => t !== i - 1);
-                if (newRoulette === -1) {
-                  newRoulette = i - 1;
-                }
-              } else if (isRoulette) {
-                newRoulette = -1;
-              } else {
-                if (newTraps.length < 3) {
-                  newTraps.push(i - 1);
-                } else if (newRoulette === -1) {
-                  newRoulette = i - 1;
-                } else {
-                  showToast('Limites atingidos: 3 armadilhas e 1 roleta.', 'gold');
-                  return;
-                }
-              }
-
-              block.style.pointerEvents = 'none';
-              await gameRef.update({ trapIndices: newTraps, rouletteIndex: newRoulette });
-            });
-
-            mirrorBoard.appendChild(block);
-          }
-        }
 
         const historyBox = document.getElementById('admin-history-box');
         if (historyBox) {
@@ -994,12 +907,12 @@ gameRef.onSnapshot((doc) => {
               instrucaoTexto = '🔒 CARTA PRIVADA · marcações visíveis apenas para o dominador';
               instructionClass = 'locked';
             } else if (trapsCount < 3) {
-              instrucaoTexto = `⚠️ CLIQUE NA GRADE PARA CRIAR 3 ARMADILHAS (${trapsCount}/3) E 1 ROLETA`;
+              instrucaoTexto = `⚠️ CLIQUE NAS DICAS DA CARTA PARA CRIAR 3 ARMADILHAS (${trapsCount}/3) E 1 ROLETA`;
             } else if (!hasRoulette) {
               instrucaoTexto = `🎰 FALTA 1 ROLETA! CLIQUE NUMA DICA VAZIA PARA ADICIONAR.`;
               instructionClass = 'roulette';
             } else {
-              instrucaoTexto = '✅ MESA MONTADA! LIBERE O JOGO NO BOTÃO ACIMA.';
+              instrucaoTexto = '✅ MESA MONTADA! LIBERE O JOGO NO BOTÃO AO LADO.';
               instructionClass = 'ready';
             }
 
@@ -1020,12 +933,21 @@ gameRef.onSnapshot((doc) => {
               const isTrap = traps.includes(index);
               const isRouletteClue = data.rouletteIndex === index;
               const isRevealed = revealedIds.includes(index);
-              const stateClass = isTrap ? 'trap' : isRouletteClue ? 'roulette' : isRevealed ? 'revealed' : '';
-              const extraTag = isTrap ? '<span class="profile-card-tag">ARMADILHA</span>' : isRouletteClue ? '<span class="profile-card-tag">ROLETA</span>' : '';
+              const stateClass = `${isTrap ? 'trap' : isRouletteClue ? 'roulette' : ''} ${isRevealed ? 'revealed activated' : ''} ${!data.trapsReady && !isRevealed ? 'is-configurable' : ''}`.trim();
+              const extraTag = isTrap
+                ? `<span class="profile-card-tag">${isRevealed ? '💥 ATIVADA' : 'ARMADILHA'}</span>`
+                : isRouletteClue
+                  ? `<span class="profile-card-tag">${isRevealed ? '🎰 ATIVADA' : 'ROLETA'}</span>`
+                  : isRevealed
+                    ? '<span class="profile-card-tag purchased">💎 COMPRADA</span>'
+                    : '';
               const cleanText = String(clueText).replace(/^\d+\.\s*/, '');
+              const interactionAttributes = !data.trapsReady && !isRevealed
+                ? `data-admin-clue-index="${index}" role="button" tabindex="0" aria-label="Configurar dica ${index + 1}"`
+                : '';
 
               previewHTML += `
-                <div class="profile-card-clue ${stateClass}">
+                <div class="profile-card-clue ${stateClass}" ${interactionAttributes}>
                   <span class="profile-card-number">${String(index + 1).padStart(2, '0')}</span>
                   <span class="profile-card-clue-text">${cleanText}</span>
                   ${extraTag}
@@ -1035,6 +957,69 @@ gameRef.onSnapshot((doc) => {
 
             previewHTML += `</div></section>`;
             previewContainer.innerHTML = previewHTML;
+
+            const adminRevealedSet = new Set(revealedIds);
+            const previousAdminRevealedSet = window.adminProfileCardRevealed || new Set();
+            const newlyRevealedForAdmin = [...adminRevealedSet].filter((index) => !previousAdminRevealedSet.has(index));
+            const isAdminViewActive = document.getElementById('view-controller')?.classList.contains('active');
+
+            if (window.adminProfileCardInitialized && isAdminViewActive) {
+              newlyRevealedForAdmin.forEach((index) => {
+                const isTrap = traps.includes(index);
+                const isRoulette = data.rouletteIndex === index;
+                let spokenText = String(cluesList[index] || '').replace(/^\d+\.\s*/, '');
+
+                if (isTrap) spokenText = stableDominationLine(DOMINATION_COPY.trap, data.answer, data.currentRound, index);
+                else if (isRoulette) spokenText = stableDominationLine(DOMINATION_COPY.roulette, data.answer, data.currentRound, index);
+
+                const adminVoiceTrigger = document.createElement('div');
+                typeWriterEffect(adminVoiceTrigger, `<span>${spokenText}</span>`, 0);
+              });
+            }
+
+            window.adminProfileCardInitialized = true;
+            window.adminProfileCardRevealed = adminRevealedSet;
+
+            if (!data.trapsReady) {
+              const configureClue = async (row) => {
+                const clueIndex = Number(row?.dataset.adminClueIndex);
+                if (!Number.isInteger(clueIndex) || row.dataset.processing === 'true') return;
+
+                const isTrap = traps.includes(clueIndex);
+                const isRoulette = data.rouletteIndex === clueIndex;
+                let newTraps = [...traps];
+                let newRoulette = data.rouletteIndex ?? -1;
+
+                if (isTrap) newTraps = newTraps.filter((item) => item !== clueIndex);
+                else if (isRoulette) newRoulette = -1;
+                else if (newTraps.length < 3) newTraps.push(clueIndex);
+                else if (newRoulette === -1) newRoulette = clueIndex;
+                else {
+                  showToast('A mesa já tem 3 armadilhas e 1 roleta. Remova uma marca antes de trocar.', 'gold');
+                  return;
+                }
+
+                row.dataset.processing = 'true';
+                row.classList.add('is-processing');
+                try {
+                  await gameRef.update({ trapIndices: newTraps, rouletteIndex: newRoulette });
+                } catch (error) {
+                  row.dataset.processing = 'false';
+                  row.classList.remove('is-processing');
+                  console.error('Erro ao configurar a carta:', error);
+                  showToast('Não foi possível marcar esta dica.', 'danger');
+                }
+              };
+
+              previewContainer.querySelectorAll('[data-admin-clue-index]').forEach((row) => {
+                row.addEventListener('click', () => configureClue(row));
+                row.addEventListener('keydown', (event) => {
+                  if (event.key !== 'Enter' && event.key !== ' ') return;
+                  event.preventDefault();
+                  configureClue(row);
+                });
+              });
+            }
           }
         }
 
@@ -1225,9 +1210,11 @@ gameRef.onSnapshot((doc) => {
           } else if (isTrap) {
             const trapText = stableDominationLine(DOMINATION_COPY.trap, data.answer, data.currentRound, index);
             clueText = `<span class="profile-card-penalty">${trapText}</span>`;
+            buyBadge = '<span class="profile-card-event-badge trap-event">💥 ARMADILHA</span>';
           } else if (isRoulette) {
             const rouletteText = stableDominationLine(DOMINATION_COPY.roulette, data.answer, data.currentRound, index);
             clueText = `<span class="profile-card-roulette-text">${rouletteText}</span>`;
+            buyBadge = '<span class="profile-card-event-badge roulette-event">🎰 ROLETA</span>';
           }
 
           playerCardHTML += `

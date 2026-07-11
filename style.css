@@ -1575,6 +1575,18 @@ button:disabled {
   letter-spacing: 0.6px;
 }
 
+.admin-profile-card .profile-card-clue.is-configurable {
+  cursor: pointer;
+  outline: none;
+}
+
+.admin-profile-card .profile-card-clue.is-configurable:hover,
+.admin-profile-card .profile-card-clue.is-configurable:focus-visible {
+  z-index: 1;
+  background: linear-gradient(90deg, rgba(var(--profile-accent-rgb), 0.2), rgba(7, 7, 10, 0.98));
+  box-shadow: inset 3px 0 0 var(--profile-accent), 0 0 0 1px rgba(var(--profile-accent-rgb), 0.38);
+}
+
 .admin-profile-card .profile-card-clue.trap {
   background: rgba(82, 10, 20, 0.94);
 }
@@ -1599,6 +1611,27 @@ button:disabled {
 
 .admin-profile-card .profile-card-clue.revealed:not(.trap):not(.roulette) {
   background: linear-gradient(90deg, rgba(var(--profile-accent-rgb), 0.22), rgba(var(--profile-accent-rgb), 0.055));
+  box-shadow: inset 4px 0 0 var(--profile-accent);
+}
+
+.admin-profile-card .profile-card-clue.activated {
+  box-shadow: inset 4px 0 0 currentColor, 0 0 16px rgba(255, 255, 255, 0.06);
+  animation: adminClueActivated 0.55s ease-out;
+}
+
+.admin-profile-card .profile-card-tag.purchased {
+  color: var(--profile-accent);
+}
+
+@keyframes adminClueActivated {
+  0% {
+    filter: brightness(2);
+    transform: scale(0.985);
+  }
+  100% {
+    filter: brightness(1);
+    transform: scale(1);
+  }
 }
 
 .player-profile-card .profile-card-clue.sealed {
@@ -1644,11 +1677,65 @@ button:disabled {
 }
 
 .player-profile-card .profile-card-clue.trap {
-  background: linear-gradient(145deg, rgba(104, 11, 25, 0.96), rgba(24, 6, 10, 0.98));
+  background: linear-gradient(145deg, rgba(150, 10, 32, 0.98), rgba(35, 4, 10, 0.99));
+  box-shadow: inset 5px 0 0 var(--red), 0 0 24px rgba(230, 34, 54, 0.22);
+  animation: trapCardImpact 0.65s ease-out;
 }
 
 .player-profile-card .profile-card-clue.roulette {
-  background: linear-gradient(145deg, rgba(75, 18, 109, 0.96), rgba(18, 6, 25, 0.98));
+  background: linear-gradient(145deg, rgba(105, 25, 151, 0.98), rgba(25, 5, 37, 0.99));
+  box-shadow: inset 5px 0 0 #b538ff, 0 0 24px rgba(181, 56, 255, 0.26);
+  animation: rouletteCardImpact 0.7s ease-out;
+}
+
+.profile-card-event-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 98px;
+  padding: 6px 8px;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.58rem;
+  font-weight: 950;
+  letter-spacing: 0.55px;
+  white-space: nowrap;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.65);
+}
+
+.profile-card-event-badge.trap-event {
+  color: #ff8795;
+  background: rgba(230, 34, 54, 0.2);
+}
+
+.profile-card-event-badge.roulette-event {
+  color: #dda1ff;
+  background: rgba(181, 56, 255, 0.2);
+}
+
+@keyframes trapCardImpact {
+  0%, 35% {
+    filter: brightness(1.75);
+    transform: translateX(-4px);
+  }
+  18%, 52% {
+    transform: translateX(4px);
+  }
+  100% {
+    filter: brightness(1);
+    transform: translateX(0);
+  }
+}
+
+@keyframes rouletteCardImpact {
+  from {
+    filter: brightness(1.8) saturate(1.5);
+    transform: scale(0.98);
+  }
+  to {
+    filter: brightness(1) saturate(1);
+    transform: scale(1);
+  }
 }
 
 .profile-card-penalty {
